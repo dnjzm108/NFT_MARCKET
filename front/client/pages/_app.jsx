@@ -1,4 +1,4 @@
-import "../index.css";
+import '../index.css'
 
 
 const App = ({ Component }) => {
@@ -6,7 +6,7 @@ const App = ({ Component }) => {
     return (
         <>
                 <Component />
-                
+
         </>
     )
 }
