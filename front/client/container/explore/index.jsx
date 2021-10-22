@@ -1,6 +1,7 @@
 import { StyledExplore } from "./Explore.css";
 import Filter from "../../component/Filter";
 import Gallery from "../../component/Gallery";
+import Link from "next/link"
 const Explore = () => {
   return (
     <div>
