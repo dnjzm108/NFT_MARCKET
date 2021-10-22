@@ -16,10 +16,9 @@ const Filter = () => {
    )   
   }
 
-  const handleClick=()=>{
-    console.log('Button Click')
+  const handleClick= () =>{
+    alert('함수실행')
   }
-
   return (
 
     <StyledFilter>
@@ -36,16 +35,16 @@ const Filter = () => {
         </div>
       </div>
       <Panal value='안녕' >
-        <Button value='버튼' url='/kkk' size='big'/>
+        <Button value='버튼' url='/kkk'  />
       </Panal>
       <Panal value='안녕'>
-        <Button value='아이콘 적용' icon={renderIcon}/>
+        <Button value='아이콘 적용' icon={renderIcon} />
       </Panal>
       <Panal value='안녕' >
-        <Button value='버튼' func={handleClick}/>
+        <Button value='함수실행' func={handleClick} color='blue'/>
       </Panal>
       <Panal value='안녕'>
-        <Button value='button' color="blue"/>
+        <Button value='button'/>
       </Panal>
       </div>
         :

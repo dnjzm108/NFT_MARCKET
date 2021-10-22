@@ -11,6 +11,7 @@ export const StyledPanal = styled.div`
     border-bottom:1px solid rgb(229,232,235);
     font-size: 16px;
     font-weight: 600;
+    
   }
 
   .panal_body{
