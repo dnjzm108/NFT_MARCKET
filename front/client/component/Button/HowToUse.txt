@@ -1,0 +1,82 @@
+
+
+<Button/> 사용법
+
+안에 들어가는 props 값은 다음과 같습니다.
+
+*** value는 필수적으로 들어가야 하는 값입니다. 
+*** url 이나 func 둘 중에 하나는 꼭 들어가야합니다. 
+
+=========
+*value : 버튼에 들어가는 내용 
+
+
+========================
+*url
+: 링크이동에 관련된 버튼은 url에 url경로를 넣어주면 됩니다.
+
+ 
+예) 홈디렉토리로 이동하고 싶다면 그냥 url='/' 이렇게 작성하면 됩니다. 
+<Button url='/' value='메인으로'/>
+
+
+====================
+*func 
+: 버튼을 눌렀을 떄 실행하고자 하는 함수
+예) 버튼을 눌렀을 때 alert('hello button') 을 실행시키고 싶으면
+
+먼저 함수를 작성하고
+
+const handleClick = ()=>{
+  alert('hello button');
+  return;
+}
+
+func 안에 함수명을 넣어주면 됩니다. 
+<Button func={handleClick} value='안녕 버튼'/>
+
+=============
+color:
+
+color='sky' 는 하늘색 버튼
+<Button value='버튼' func={handleClick} color='sky' />
+
+color='blue'는 파란색 버튼
+<Button value='버튼' func={handleClick} color='blue' />
+
+지정하지 않으면 흰색버튼
+<Button value='버튼' func={handleClick} />
+
+
+=========
+size
+
+size='small' 은 작은 버튼  margin 10px 24px;
+size='medium'은 중간버튼   margin 18px 24px;
+지정하지 않으면 중간버튼
+
+
+===================
+버튼에 margin 값을 넣어야할 경우
+
+mt={100}    <- margin-top:100px;
+mr={100}    <- margin-right:100px;
+mb={100}    <- margin-bottom:100px;
+ml={100}    <- margin-left:100px;
+
+예)
+  <Button value='함수실행' func={handleClick}  size='medium' mt={100} ml={100}/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        

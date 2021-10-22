@@ -1,11 +1,10 @@
 import { StyledFilter } from "./Filter.css";
 import {RiFilter3Line, RiArrowLeftLine, RiArrowRightLine} from 'react-icons/Ri'
-import Button from "../FilterItem/Button";
+import Button from "../Button";
 import Panal from "../FilterItem/Panal";
 import { useState } from "react";
 
 const Filter = () => {
-  const [hover,setHover]=useState(false)
   const [open,setOpen] = useState(false)
 
   const renderIcon=()=>{
@@ -25,33 +24,31 @@ const Filter = () => {
       {open
         ?
         <div className='filter_open'>
-        <div className='filter_header' onMouseEnter={()=>setHover(true)} onMouseLeave={()=>{setHover(false)}}>
+        <div className='filter_header'  onClick={()=>{setOpen(false)}}>
         <div>
           <i><RiFilter3Line size={24} /></i>
           <span>필터</span>
         </div>
-        <div>
-          <i  onClick={()=>{setOpen(false)}}><RiArrowLeftLine size={24} color={hover?'black':'#999'}/></i>
+        <div >
+          <i className='arrow'><RiArrowLeftLine size={24}/></i>
         </div>
       </div>
       <Panal value='안녕' >
-        <Button value='버튼' url='/kkk'  />
+        <Button value='버튼' url='/kkk'  size='small' />
+        <Button value='버튼' func={handleClick} color='blue' size='small'/>
       </Panal>
       <Panal value='안녕'>
-        <Button value='아이콘 적용' icon={renderIcon} />
       </Panal>
       <Panal value='안녕' >
-        <Button value='함수실행' func={handleClick} color='blue'/>
       </Panal>
       <Panal value='안녕'>
-        <Button value='button'/>
       </Panal>
       </div>
         :
-        <div className="filter_close">
-          <div className='filter_header' onMouseEnter={()=>setHover(true)} onMouseLeave={()=>{setHover(false)}}>
+        <div className="filter_close" >
+          <div className='filter_header'  onClick={()=>{setOpen(true)}}>
            <div>
-             <i onClick={()=>{setOpen(true)}}><RiArrowRightLine size={24} color={hover?'black':'#999'}/></i>
+             <i className='arrow'><RiArrowRightLine size={24} /></i>
           </div>
         </div>
         </div>
