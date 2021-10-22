@@ -12,8 +12,6 @@ const Panal = ({children, value}) => {
     <StyledPanal>
       <div className='panal_header' 
         onClick={()=>setIsOpen(!isOpen)} 
-        onMouseEnter={()=>{setHover(true)}}
-        onMouseLeave={()=>{setHover(false)}}
         >
         <span>
           {value}
@@ -21,8 +19,8 @@ const Panal = ({children, value}) => {
         <span>
           {
             isOpen 
-            ? <i><RiArrowDownSLine size={24}  color={hover?'black':'#999'}/></i>
-            : <i><RiArrowUpSLine size={24}  color={hover?'black':'#999'}/></i>
+            ? <i className='arrow'><RiArrowDownSLine size={24}  /></i>
+            : <i className='arrow'><RiArrowUpSLine size={24}  /></i>
           }
         </span>
       </div>
