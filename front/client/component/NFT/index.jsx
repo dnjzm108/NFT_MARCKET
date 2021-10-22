@@ -1,5 +1,5 @@
 import { StyledNFT } from "./NFT.css";
-import {tempData} from "../../tempData/temp"
+// import {tempData} from "../../tempData/temp"
 import { useState } from "react";
 import {BsSuitHeartFill} from "react-icons/bs"
 

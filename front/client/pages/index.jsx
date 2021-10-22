@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Explore from '../container/explore'
+import Release from '../container/release'
 
 const Home = () => {
     return (
@@ -7,7 +8,7 @@ const Home = () => {
             <Head>
                 <title>NET_MARCKET | Home</title>
             </Head>
-            <Explore/>
+            <Release/>
         </>
     )
 }
