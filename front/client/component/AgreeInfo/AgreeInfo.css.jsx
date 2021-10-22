@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledAgreeInfo = styled.div`
-width: 1200px;
+width: 100%;
 height: 600px;
 border-top: 1px solid #d5d5d5;
 margin-top: 10%;
