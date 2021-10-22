@@ -2,11 +2,12 @@
 import Link from 'next/link'
 import CloseIcon from '@mui/icons-material/Close';
 import {Content,Logo,Copyed,Icon_Close,LoginWrap} from './login.css.jsx'
+import { Wrap } from '../../component/wrap/popup_back.jsx';
 
 const Login = () => {
     return (
         <>
-            <LoginWrap>
+            <Wrap>
                 <Logo>로고 들어갈 자리</Logo>
                 <div>
                     <Icon_Close>
@@ -29,7 +30,7 @@ const Login = () => {
                 <Copyed>Copyright © 2021 GroundX.All rights reserved.</Copyed>
 
 
-            </LoginWrap>
+            </Wrap>
 
         </>
     )

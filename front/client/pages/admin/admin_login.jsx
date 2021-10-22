@@ -4,11 +4,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import {Content,Logo,Copyed,Icon_Close,LoginWrap} from './admin_login.css.jsx'
 import {Small_Contain} from '../user/join.css.jsx'
 import { Middle_btn} from '../../component/btn.jsx';
+import { Wrap } from '../../component/wrap/popup_back.jsx';
 
 const Admin_Login = () => {
     return (
         <>
-            <LoginWrap>
+            <Wrap>
                 <Logo>로고 들어갈 자리</Logo>
                 <div>
                     <Icon_Close>
@@ -35,7 +36,7 @@ const Admin_Login = () => {
                 <Copyed>Copyright © 2021 GroundX.All rights reserved.</Copyed>
 
 
-            </LoginWrap>
+            </Wrap>
 
         </>
     )

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { Middle_btn, Small_btn } from '../../component/btn.jsx';
 import { Logo,Circle,Copyed,Joinwrap ,Small_Contain,Check_Content,Line} from './join.css.jsx'
+import { Wrap } from '../../component/wrap/popup_back.jsx';
 
 const Join = () => {
     return (

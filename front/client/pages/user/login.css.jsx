@@ -46,47 +46,5 @@ const Icon_Close = styled.div`
      }
 `
 
-const LoginWrap = styled.div`
-&{
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  text-align:center;
-  background-color: black;
-  background: url(https://www.krafter.space/images/explore_banner.svg);
-  background-repeat: repeat;
-  background-size: cover;
-  padding: 10vh;
-  box-sizing: border-box;
-}
-&::before{
-    content: "";
-    background-color: black;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    opacity: .9;
-}
 
-& > div {
-    width: 720px;
-    height: 540px;
-    padding: 120px;
-    box-sizing:border-box;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 8%);
-    border-radius: 16px;
-    position: relative;
-    margin: 5vh auto;
-}
-
-`
-module.exports={Content,Logo,Copyed,Icon_Close,LoginWrap}
+module.exports={Content,Logo,Copyed,Icon_Close}
