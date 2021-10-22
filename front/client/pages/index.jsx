@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Explore from '../container/explore'
 
 const Home = () => {
     return (
@@ -6,8 +7,7 @@ const Home = () => {
             <Head>
                 <title>NET_MARCKET | Home</title>
             </Head>
-            
-            <div>메인페이지 입니다.</div>
+            <Explore/>
         </>
     )
 }
