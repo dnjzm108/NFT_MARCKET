@@ -1,53 +1,52 @@
 import styled from "styled-components";
 
 export const StyledButton = styled.button`
-cursor: pointer;
+  cursor: pointer;
 
-  padding: ${props=> props.size};
-  background-color: ${props => props.bgColor};
-  color:${props => props.ftColor};
+  padding: ${(props) => props.size};
+  background-color: ${(props) => props.bgColor};
+  color: ${(props) => props.ftColor};
   text-align: center;
-  display:flex;
-  align-items:center;
-  border-radius: .25rem;
-  border: ${props=>props.border};
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  border: ${(props) => props.border};
   outline: 0;
   font-size: 1rem;
   font-weight: 400;
 
-  &>i{
-    margin-right:3px;
+  & > i {
+    margin-right: 3px;
   }
 
-  &:hover{
-    background:${props=>props.hover.bg};
-    color:${props=>props.hover.ft};
-    border: ${props=>props.hover.border};
+  &:hover {
+    background: ${(props) => props.hoverBg};
+    color: ${(props) => props.hoverFontColor};
+    border: ${(props) => props.hoverBorder};
   }
-`
+`;
 
-
-export const StyledAnchor = styled.a` 
-cursor: pointer;
-width:fit-content;
-  padding: ${props=> props.size};
-  background-color: ${props => props.bgColor};
-  color:${props => props.ftColor};
+export const StyledAnchor = styled.a`
+  cursor: pointer;
+  width: fit-content;
+  padding: ${(props) => props.size};
+  background-color: ${(props) => props.bgColor};
+  color: ${(props) => props.ftColor};
   text-align: center;
-  display:flex;
-  align-items:center;
-  border-radius: .25rem;
-  border: ${props=>props.border};
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  border: ${(props) => props.border};
   outline: 0;
   font-size: 1rem;
-  font-weight: 400;  
-  &>i{
-    margin-right:3px;
+  font-weight: 400;
+  & > i {
+    margin-right: 3px;
   }
 
-  &:hover{
-    background:${props=>props.hover.bg};
-    color:${props=>props.hover.ft};
-    border: ${props=>props.hover.border};
+  &:hover {
+    background: ${(props) => props.hoverBg};
+    color: ${(props) => props.hoverFontColor};
+    border: ${(props) => props.hoverBorder};
   }
-`
+`;
