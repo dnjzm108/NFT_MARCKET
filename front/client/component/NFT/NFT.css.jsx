@@ -14,6 +14,8 @@ export const StyledNFT = styled.div`
   &:hover {
     -webkit-box-shadow: 0px 7px 12px 2px rgba(119, 119, 119, 0.3);
     box-shadow: 0px 7px 12px 2px rgba(119, 119, 119, 0.3);
+    /* box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px; */
+    transition: all 0.1s ease 0s;
     transform: translateY(-1px);
 
     .buynow {
