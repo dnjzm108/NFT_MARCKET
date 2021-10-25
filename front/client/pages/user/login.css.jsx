@@ -36,7 +36,8 @@ const Copyed = styled.span`
  color:#6c757d;
 `
 const Icon_Close = styled.div`
-     &{ position: absolute;
+     &{ 
+      position: absolute;
       right: 20px;
       top:20px;
      }

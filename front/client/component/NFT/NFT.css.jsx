@@ -1,45 +1,43 @@
 import styled from "styled-components";
 
 export const StyledNFT = styled.div`
-  margin-bottom: 5px;
+  margin-bottom: 1vw;
   box-sizing: content-box;
   position: relative;
   z-index: 1;
   width: 286px;
   height: 407px;
-  border:1px solid rgb(229,232,235);
+  border: 1px solid rgb(229, 232, 235);
   border-radius: 8px;
   overflow: hidden;
 
-  &:hover{
-    -webkit-box-shadow: 0px 7px 12px 2px rgba(119,119,119,0.3); 
-    box-shadow: 0px 7px 12px 2px rgba(119,119,119,0.3);
+  &:hover {
+    -webkit-box-shadow: 0px 7px 12px 2px rgba(119, 119, 119, 0.3);
+    box-shadow: 0px 7px 12px 2px rgba(119, 119, 119, 0.3);
     transform: translateY(-1px);
 
-    .buynow{
-    color:#186887;
-
+    .buynow {
+      color: #186887;
+    }
   }
-  }
 
-  .img_container>img{
+  .img_container > img {
     display: block;
     width: 286px;
     height: 286px;
     overflow: hidden;
   }
 
-  
-  .content_top{
+  .content_top {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(229,232,235);
+    border-bottom: 1px solid rgb(229, 232, 235);
     height: 79px;
     padding: 12px;
   }
 
-  .content_top_left{
+  .content_top_left {
     width: 170px;
     height: 55px;
     margin-right: 12px;
@@ -48,20 +46,20 @@ export const StyledNFT = styled.div`
     justify-content: flex-start;
   }
 
-  .content_name{
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+  .content_name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 16px;
     font-weight: 500;
   }
 
-  .content_creater{
+  .content_creater {
     display: block;
     font-size: 12px;
   }
 
-  .content_top_right{
+  .content_top_right {
     position: relative;
     height: 55px;
     font-size: 12;
@@ -70,12 +68,12 @@ export const StyledNFT = styled.div`
     justify-content: flex-start;
     align-items: flex-end;
 
-    &>div:nth-child(1){
+    & > div:nth-child(1) {
       font-size: 12px;
     }
   }
 
-  .content_price{
+  .content_price {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -83,17 +81,18 @@ export const StyledNFT = styled.div`
     font-size: 14px;
     font-weight: 600;
 
-    img{
+    img {
       width: 14px;
       height: 14px;
     }
 
-    &>span,img{
+    & > span,
+    img {
       margin-left: 4px;
     }
   }
 
-  .content_offer{
+  .content_offer {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -105,47 +104,43 @@ export const StyledNFT = styled.div`
     font-size: 11px;
     font-weight: 400;
 
-    img{
+    img {
       width: 11px;
       height: 11px;
     }
 
-    &>span,img{
-      margin-left:3px;
+    & > span,
+    img {
+      margin-left: 3px;
     }
   }
 
-  .content_bottom{
-    position:relative;
+  .content_bottom {
+    position: relative;
     z-index: 1;
     height: 42px;
     padding: 12px;
     line-height: 14px;
   }
 
-  .buynow{
+  .buynow {
     position: absolute;
     left: 12px;
-    color:transparent;
+    color: transparent;
     font-size: 14px;
     font-weight: 600;
   }
 
-
-
-  .like_box{
+  .like_box {
     position: relative;
     float: right;
     display: flex;
     align-items: center;
 
-   
-
-    &>span{
+    & > span {
       margin-left: 5px;
       font-size: 12px;
       font-weight: 600;
     }
   }
-`
-
+`;
