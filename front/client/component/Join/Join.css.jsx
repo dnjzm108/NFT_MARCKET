@@ -1,13 +1,24 @@
 import styled from "styled-components"
 
-const Logo = styled.span`
-width: 20vw;
-background-color: #fff;
+export const Logo = styled.span`
+&{
+width: 330px;
+height: 100px;
 position: relative;
 display:block;
-margin: 5vh auto 5vh;
+margin: 0 auto 0;
+overflow: hidden;
+}
+&>img{
+    width: 330px;
+    height: 150px;
+    position: absolute;
+    left: 0;
+    top:-35px;
+}
 `
-const Circle = styled.div`
+
+export const Circle = styled.div`
 &{
     width: 120px;
     height: 120px;
@@ -25,7 +36,7 @@ const Circle = styled.div`
 
 `
 
-const Copyed = styled.span`
+export const Copyed = styled.span`
 position: relative;
 display:block;
 margin: 10vh auto 0;
@@ -34,7 +45,7 @@ margin: 10vh auto 0;
 
 
 
-const Small_Contain = styled.div`
+export const Small_Contain = styled.div`
 & {
     margin: 40px auto;
 }
@@ -72,7 +83,7 @@ const Small_Contain = styled.div`
 }
 
 `
-const Check_Content = styled.div`
+export const Check_Content = styled.div`
    &{
    text-align:left;
    margin: 25px 0;
@@ -84,7 +95,7 @@ const Check_Content = styled.div`
 }
 `
 
-const Line = styled.div`
+export const Line = styled.div`
 &{
     width: 80%;
     height: 1px;
@@ -94,4 +105,3 @@ const Line = styled.div`
 }
 `
 
-module.exports = { Logo,Circle,Copyed,Small_Contain,Check_Content,Line}
