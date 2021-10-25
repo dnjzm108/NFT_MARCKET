@@ -21,7 +21,7 @@ const Navigation = () => {
       <NavigationContainer>
         <Logo>
           <Link href="/">
-            <a>NFT</a>
+            <a><img src="/logo.png" alt="" /></a>
           </Link>
         </Logo>
         <NavItemContainer>

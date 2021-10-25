@@ -1,15 +1,15 @@
-import {Delivery_address} from '../../component/delivery_address'
+import { Delivery_Address_Component } from '../../component/Delivery_Address'
 import { Invoice } from '../../component/Invoice'
-import {Footter} from '../../component/Footter/footter'
+import { Footter } from '../../component/Footter/Footter'
 
-const Test = () =>{
+const Test = () => {
 
-    return(
+    return (
         <>
 
-<Delivery_address></Delivery_address>
-{/* <Invoice></Invoice> */}
-<Footter></Footter>
+            <Delivery_Address_Component></Delivery_Address_Component>
+            <Invoice></Invoice>
+            <Footter></Footter>
 
         </>
     )
