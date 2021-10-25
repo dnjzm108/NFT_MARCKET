@@ -32,47 +32,7 @@ margin: 10vh auto 0;
  color:#6c757d;
 `
 
-const Joinwrap = styled.div`
-&{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  text-align:center;
-  background-color: black;
-  background: url(https://www.krafter.space/images/explore_banner.svg);
-  background-repeat: repeat;
-  background-size: cover;
-  padding: 10vh;
-  box-sizing: border-box;
-}
-&::before{
-    content: "";
-    background-color: black;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    opacity: .9;
-}
-& > form{
-    width: 720px;
-    padding: 80px;
-    box-sizing:border-box;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 8%);
-    border-radius: 16px;
-    position: relative;
-    margin: auto;
-}
-& > form > h1{
-    text-align:left;
-}
 
-`
 
 const Small_Contain = styled.div`
 & {
@@ -134,4 +94,4 @@ const Line = styled.div`
 }
 `
 
-module.exports = { Logo,Circle,Copyed,Joinwrap ,Small_Contain,Check_Content,Line}
+module.exports = { Logo,Circle,Copyed,Small_Contain,Check_Content,Line}
