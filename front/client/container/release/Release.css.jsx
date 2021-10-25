@@ -2,10 +2,12 @@ import styled from 'styled-components'
 
 export const StyledRelease = styled.div`
 
-  width: 70%;
+  width: 80vw;
   /* height: auto; */
   /* overflow: hidden; */
-  margin: 0 auto;
+
+  margin:  0 auto;
+  margin-top: 80px;
   color: #4c4c4c;
   padding: 4%;
 

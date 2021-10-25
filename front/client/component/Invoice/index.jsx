@@ -3,9 +3,15 @@ import { Popup_background } from "../Wrap/Popup_Background";
 import { Container } from "../Form/Container";
 import { Icon_Close } from "../Login/Login.css"
 import CloseIcon from '@mui/icons-material/Close';
+<<<<<<< HEAD:front/client/component/Invoice.jsx
+import styled from 'styled-components'
+import { Big_Input, Middle_Input } from "./input2";
+import { Middle_btn, Big_btn } from "./btn"
+=======
 import {Info_Container,Input_Invoice} from './Invoice.css'
 import { Big_Input, Middle_Input } from "../input";
 import { Middle_btn, Big_btn } from "../btn"
+>>>>>>> 2c7a5859ef9df7a9a0889a11f57fca1081d5cb55:front/client/component/Invoice/index.jsx
 
 export const Invoice = () => {
     return (
