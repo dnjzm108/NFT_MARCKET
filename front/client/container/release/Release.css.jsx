@@ -9,6 +9,9 @@ export const StyledRelease = styled.div`
   color: #4c4c4c;
   padding: 4%;
 
-
-  
+.flex_contain{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 `
