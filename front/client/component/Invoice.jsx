@@ -4,7 +4,7 @@ import { Container } from "./form/Container";
 import { Icon_Close } from "../pages/user/login.css"
 import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components'
-import { Big_Input, Middle_Input } from "./input";
+import { Big_Input, Middle_Input } from "./input2";
 import { Middle_btn, Big_btn } from "./btn"
 
 export const Invoice = () => {

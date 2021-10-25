@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const StyledRelease = styled.div`
 
-  width: 75vw;
+  width: 80vw;
   /* height: auto; */
   /* overflow: hidden; */
 

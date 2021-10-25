@@ -3,22 +3,17 @@ import Filter from "../../component/Filter";
 import Gallery from "../../component/Gallery";
 import Navigation from "../../component/NavBigation";
 import { Footter } from "../../component/Footter/footter";
-import CustomInput from "../../component/CustomInput";
+import Input from "../../component/Input";
 import useInput from "../../hook/useInput"
-import { useEffect } from "react";
 const Explore = () => {
 
   const temp = useInput();
-
-  const hello = () =>{
-    alert('hello')
-  }
   return (
     <>
       
-      <CustomInput {...temp} placeholder='임시 텍스트' width='400px' />
-      <CustomInput {...temp} placeholder='임시 텍스트' width='300px' />
-      <CustomInput {...temp} placeholder='임시 텍스트' width='500px' />
+      <Input {...temp} placeholder='임시 텍스트' width='400px' msg="이름을 적어주세요." />
+      <Input {...temp} placeholder='임시 텍스트' width='300px'  search={true} height='long' />
+      <Input {...temp} placeholder='임시 텍스트' width='500px'  height='short'/>
 
       
       {/* <Navigation />
