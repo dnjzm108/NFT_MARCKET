@@ -7,6 +7,9 @@ import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const Product_detail = () => {
+
+    
+
     return (
         <>
 
