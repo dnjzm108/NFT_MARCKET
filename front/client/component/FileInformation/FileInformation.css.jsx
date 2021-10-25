@@ -7,11 +7,12 @@ export const StyledFileInformation = styled.div`
     height: 260px;
     border: 1px dashed #bdbdbd;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .img_box>p{
     font-weight: lighter;
-    margin-top: 10%;
+    /* margin-top: 10%; */
     font-size: 20px;
 }
 

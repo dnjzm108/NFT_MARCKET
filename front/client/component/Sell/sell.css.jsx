@@ -6,28 +6,60 @@ width: 100%;
 border-top: 1px solid #d5d5d5;
 
 .sell_section{
-    /* display: flex; */
+    width: 100%;
+}
+
+.select_sell{
+    width: 80%;
+    height: auto;
+    display: inline-block;
+    height: auto;
+    margin-top: 10%;
+    background: #f0f9ff;
     padding: 4%;
 }
 
-.sell_section{
-    display: inline-block;
-    height: 400px;
-    width: 100%;
-    margin-top: 10%;
-    background: #f0f9ff;
+.select_sell>div>button{
+    padding: 10px;
+    font-size: 16px;
+    background: white;
+    border: solid 1px #222;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
+.buynow, .auction{
+    margin-top: 8%;
+    margin-bottom: 8%;
+    height: auto;
+    position: relative;
+    left: 12%;
+
+}
+
+.buynow>input,.auction >input{
+    width: 300px;
+    height: 40px;
+    margin-top: 2%;
+}
 
 .release_btn{
-    margin-top: 10%;
+    position: relative;
+    left: 50%;
+    margin-top: -200px;
 }
+
+.release_btn > button:nth-child(1){
+    
+
+}
+
 
 .release_btn>button{
     border-radius: 4px;
     height: 70px;
     font-size: 20px;
-    border: 1px solid #222;
+    border: 1px solid #ededed;
     cursor: pointer;
 }
 
@@ -36,24 +68,17 @@ border-top: 1px solid #d5d5d5;
     width: 100px;
     border: 1px solid #222;
     cursor: pointer;
+    display: block;
+    margin-bottom: 60px;
 }
 
 .go{
     background: #1E73FA;
     width: 260px;
     color: white;
-    margin-left: 10%;
 }
 
-.buynow{
-    margin-top: 4%;
-}
 
-.buynow>input{
-    width: 300px;
-    height: 40px;
-    margin-top: 2%;
-}
 
 
 

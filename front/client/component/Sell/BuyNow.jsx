@@ -14,7 +14,9 @@ const BuyNow = () => {
             <div className="release_btn">
                 <button className="cancel">취소</button>
                 <button className="go">NFT 발행하기</button>
-                <span>(오늘 10개 발행 가능)</span>
+                {/* <Button value="취소" color="white" className="cancel" mb={100}/>
+                <Button value="NFT 발행하기" color="blue" className="go" mb={100}/> */}
+                
             </div>
         </div>
     )
