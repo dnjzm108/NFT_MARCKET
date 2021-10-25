@@ -1,11 +1,11 @@
-import '../css/index.css'
+import '../index.css'
 
 
 const App = ({ Component }) => {
-    
+
     return (
         <>
-                <Component />
+            <Component />
 
         </>
     )
