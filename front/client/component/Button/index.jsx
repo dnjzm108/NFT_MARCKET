@@ -2,8 +2,10 @@ import { StyledButton, StyledAnchor } from "./Button.css";
 import { useState } from "react";
 import Link from "next/link";
 
+
+
 const Button = (props) => {
-  const { color, url, func, icon, value, size } = props;
+  const { url, func, icon, value, } = props;
 
   const bgColor = () => {
     switch (props.color) {

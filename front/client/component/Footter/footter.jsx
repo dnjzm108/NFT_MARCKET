@@ -6,7 +6,7 @@ export const Footter = () => {
         <>
             <Footter_Wrap>
                 <div>
-                    <img src="../../public/logo.png" />
+                    <img src="/logo.png" />
                     <div>
                         <button>의견 남기기</button>
                         <button>문의하기</button>

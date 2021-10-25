@@ -2,15 +2,17 @@ import styled from "styled-components";
 
 export const StyledButton = styled.button`
   cursor: pointer;
+  ${p=>p.btn_color}
+
 
   padding: ${(props) => props.size};
-  background-color: ${(props) => props.bgColor};
-  color: ${(props) => props.ftColor};
+  /* background-color: ${(props) => props.bgColor};
+  color: ${(props) => props.ftColor}; */
   text-align: center;
   display: flex;
   align-items: center;
   border-radius: 0.25rem;
-  border: ${(props) => props.border};
+  /* border: ${(props) => props.border}; */
   outline: 0;
   font-size: 1rem;
   font-weight: 400;
@@ -20,14 +22,15 @@ export const StyledButton = styled.button`
   }
 
   &:hover {
-    background: ${(props) => props.hoverBg};
+    ${p=>p.btn_hover}
+    /* background: ${(props) => props.hoverBg};
     color: ${(props) => props.hoverFontColor};
-    border: ${(props) => props.hoverBorder};
+    border: ${(props) => props.hoverBorder}; */
   }
 `;
 
 export const StyledAnchor = styled.a`
-  cursor: pointer;
+  /* cursor: pointer;
   width: fit-content;
   padding: ${(props) => props.size};
   background-color: ${(props) => props.bgColor};
@@ -48,5 +51,5 @@ export const StyledAnchor = styled.a`
     background: ${(props) => props.hoverBg};
     color: ${(props) => props.hoverFontColor};
     border: ${(props) => props.hoverBorder};
-  }
+  } */
 `;
