@@ -8,7 +8,7 @@ import { StyledSelectBox,SelectHeader,SelectBody,SelectItem} from "./SelectBox c
 
 
 
-const SelectBox = ({list,value,onChangeValue}) => {
+const SelectBox = ({list,value,onChangeValue,useImg}) => {
 
   const [open,setOpen] = useState(false);
 
@@ -20,8 +20,19 @@ const SelectBox = ({list,value,onChangeValue}) => {
   const renderList = () =>{
     return list.map((v,i)=>{
       return <SelectItem onClick={()=>{handleClick(i)}} key={i}>
-                {v}
+              <span>{v}</span>  
             </SelectItem>
+    })
+  }
+
+  const renderListWithImage = () =>{
+    return list.map((v,i)=>{
+      return(
+        <SelectItem onClick={()=>{handleClick(i)}} key={i}>
+          <img src={v.img} alt="" />
+          <span>{v.value}</span>
+        </SelectItem>
+      )
     })
   }
 
@@ -33,7 +44,7 @@ const SelectBox = ({list,value,onChangeValue}) => {
       </SelectHeader>
       {open &&
       <SelectBody>
-        {renderList()}
+        {useImg ? renderListWithImage(): renderList()}
       </SelectBody>
       }
 
