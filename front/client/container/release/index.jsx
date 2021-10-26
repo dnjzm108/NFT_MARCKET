@@ -4,8 +4,8 @@ import AgreeInfo from '../../component/AgreeInfo/index'
 import Sell from '../../component/Sell/index'
 import NewRelease from '../../component/NewRelease/index'
 import Preshow from '../../component/Preshow/index'
-import Navigation from "../../component/NavBigation";
-import {Footter} from '../../component/Footter/footter'
+import Navigation from "../../component/Navigation";
+import Footter from '../../component/Footter'
 
 const Release = () => {
     return (
