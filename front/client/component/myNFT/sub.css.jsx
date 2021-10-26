@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const Liststyle = styled.div`
+    &{
+        background-color: #f9fbfd
+    }
     .Container{
-    background-color: rgb(251, 253, 255);
     height: 100vh;
     width: 70vw;
     display: flex;
@@ -12,7 +14,7 @@ export const Liststyle = styled.div`
   }
 
   .title{
-    height: 100px;
+    height: 80px;
   }
 
   .sellist{
@@ -53,8 +55,9 @@ export const Liststyle = styled.div`
   
   .content{
     border: 1px dotted grey;
-    width: 700px;
-    height: 360px;
+    width: 900px;
+    height: 400px;
     border-radius: 8px;
   }
 `
+

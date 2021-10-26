@@ -3,6 +3,7 @@ import { Middle_btn, Small_btn } from "../btn";
 import CameraAlt from "@mui/icons-material/CameraAlt";
 import {Circle} from "../../component/Join/Join.css";
 import { StyleTd } from "../mypage/Profile.css";
+import Button from "../Button"
 
 const myNFT = () => {
     return ( 
@@ -16,7 +17,7 @@ const myNFT = () => {
                 <StyleTd/>
                 <h4>0xbf39ac77b62577d4c8e9c16f278b1c05e87d17e5</h4>
                 <StyleTd/>
-                <Middle_btn type="submit">프로필편집</Middle_btn>
+                <Button value='프로필 편집' url='/user/Profile_edit'  size='small' />
                     </div>
                     </Test_style>
                 

@@ -3,6 +3,8 @@ import { ProfileStyled, StyleTd } from "./Profile.css";
 import CameraAlt from "@mui/icons-material/CameraAlt";
 import {Circle} from "../Join/Join.css"
 import Link from "next/link";
+import Button from "../Button"
+
 
 
 const Profile = () => {
@@ -26,11 +28,8 @@ const Profile = () => {
                     <StyleTd/>
                     <td>godtttever@naver.com</td>
                     <StyleTd/>
-                    <Middle_btn type="submit">
-                        <Link href="./Profile_edit">
-                        프로필 편집
-                        </Link>
-                    </Middle_btn>&nbsp;
+                    <Button value='프로필 편집' url='/user/Profile_edit'  size='small' />
+
                    
                 </styledBox>
             </div>
