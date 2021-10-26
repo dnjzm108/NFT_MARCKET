@@ -1,4 +1,4 @@
-import Profile from "../../component/mypage/profile";
+// import Profile from "../../component/mypage/profile";
 import Sub from "../../component/MyNFT/Sub";
 import MyNFT from "../../component/MyNFT";
 
