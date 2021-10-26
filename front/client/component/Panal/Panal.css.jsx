@@ -30,7 +30,15 @@ export const StyledPanal = styled.div`
   }
 
   .panal_body{
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+
+    max-height: 30vh;
+    overflow-y: ${p=>p.scroll? 'scroll' : 'hidden'};
+    padding: ${p=>p.scroll ? '20px 0 20px 20px' : '20px 20px 20px 20px'};
     background-color: rgb(251, 253, 255);
     border-bottom:1px solid rgb(229,232,235);
   }

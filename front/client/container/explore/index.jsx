@@ -15,7 +15,7 @@ const Explore = () => {
             <Gallery />
           </div>
         </StyledExplore>
-        <Footter/>
+        {/* <Footter/> */}
       </div>
     </>
   );

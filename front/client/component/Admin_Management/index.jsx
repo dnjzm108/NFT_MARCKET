@@ -1,8 +1,8 @@
 
-import { NavigationWrap, Logo, NavItemContainer } from '../../component/NavBigation/Navigation.css'
+import { NavigationWrap, Logo, NavItemContainer } from '../../component/Navigation/Navigation.css'
 import Link from 'next/link'
 import Button from '../Button'
-import { Management_Wrap, Right, Side_bar, Line, Container, Content_Box, Table ,Btn_Box} from './Admin_Management.css'
+import { Management_Wrap, Right, Side_bar, Line, Container, Content_Box, Table, Btn_Box } from './Admin_Management.css'
 
 const Management = () => {
     return (
@@ -26,7 +26,7 @@ const Management = () => {
 
                 <Container>
                     <Content_Box>
-                
+
                         <Table>
                             <tr>
                                 <th>회원 닉네임</th>
@@ -40,9 +40,9 @@ const Management = () => {
                                 <th>jin@naver.com</th>
                                 <th>92791409892479709</th>
                             </tr>
-<Btn_Box>
-                            <Button value="판매자 승인" url="/" />
-</Btn_Box>
+                            <Btn_Box>
+                                <Button value="판매자 승인" url="/" />
+                            </Btn_Box>
                         </Table>
                     </Content_Box>
 
