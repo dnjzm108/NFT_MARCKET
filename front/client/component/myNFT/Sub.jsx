@@ -8,42 +8,43 @@ import { useState } from "react";
 const sub = () => {
     const [isSelect,setSelect] = useState(true)
 
-    const SelAuc =()=>{
-        setSelect(true)
-    }
-
     const SelBuy =()=>{
         setSelect(false)
     }
-
-    const SelSell =()=>{
+    
+    const SelAuc =()=>{
         setSelect(false)
+    }
+    
+    const SelSell =()=>{
+        setSelect(true)
     }
     
     return (
       <>
-        <Liststyle isSelect={isSelect}>
-        <div className="Container">
-            <div className="main_contain">
-                <div className="title">
-                    <tr>
-                        <td className="sellist">
-                            <h3 onClick={ () => SelSell() }>판매 목록</h3>
-                        </td>
-                        <td className="buylist">
-                            <h3 onClick={ () => SelBuy() }>구매 목록</h3>
-                        </td>
-                        <td className="auclist">
-                             <h3 onClick={ () => SelAuc() }>경매 목록</h3>
-                        </td>
-                    </tr>
-                </div>
-                <div className="content">
-                   {isSelect ? <Sellist/> : <Buylist/>  <Auclist/>}
+            <Liststyle isSelect={isSelect}>
+            <div className="Container">
+                <div className="main_contain">
+                    <div className="title">
+                            <h1 onClick={ () => SelSell()} className="sellist">
+                                판매 목록
+                            </h1>
+                            <h1 onClick={ () => SelBuy()} className="buylist">
+                                구매 목록
+                            </h1>
+                            <h1 onClick={ () => SelAuc()} className="auclist">
+                                경매 목록
+                            </h1>
+                        
+                    </div>
+                    <div className="content">
+                    {
+                    isSelect ? <Sellist/> : <Buylist/> || <Auclist/>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-        </Liststyle>
+            </Liststyle>
         </>
     );
 }

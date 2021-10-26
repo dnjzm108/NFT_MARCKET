@@ -17,7 +17,7 @@ const myNFT = () => {
                 <StyleTd/>
                 <h4>0xbf39ac77b62577d4c8e9c16f278b1c05e87d17e5</h4>
                 <StyleTd/>
-                <Button value='프로필 편집' url='/user/Profile_edit'  size='small' />
+                <Button value='프로필 편집' url='/user/Profile_edit' ml={120} mb={50} color="sky" size='small' />
                     </div>
                     </Test_style>
                 

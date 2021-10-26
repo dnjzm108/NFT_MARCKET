@@ -56,8 +56,10 @@ const Profile_edit = () => {
         <input type="text"{...Email} onMouseOut={Check_Mail}id="email_address" placeholder="이메일을 입력해주세요" />
         {Check_email ? '':<div>이메일 주소를 입력해주세요.</div>}
         </Contain>
-        <Button value='변경사항 저장' url='/user/Profile_edit'  size='small' />
-        <Button value='취소' url='/user/Profile'  size='small' />
+            <div className="btn">
+                <Button value='변경사항 저장' url='/user/Profile_edit' color="sky" size='small' />
+                <Button value='취소' url='/user/Profile' ml={20} size='small' />
+            </div>
         </div>
         </ProfileStyled>
         </>

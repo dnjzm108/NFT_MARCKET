@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Liststyle = styled.div`
     &{
-        background-color: #f9fbfd
+        background-color: #f9fbfd;
+        border: 1px solid #eeeff0;
     }
     .Container{
     height: 100vh;
@@ -14,44 +15,23 @@ export const Liststyle = styled.div`
   }
 
   .title{
-    height: 80px;
-  }
-
-  .sellist{
+    display: flex;
+    flex-direction: row;
     padding: 20px;
-    font-size: 24px;
+    font-size: 12px;
     font-weight: bold;
     cursor: pointer;
-    color: grey;
-    &:hover{
-      color:black;
-      text-decoration: underline;
+    color: black;
+  }
+
+  .title > h1{
+      padding: 20px;
+    & :hover{
+        color: grey;
     }
   }
 
-  .buylist{
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    color: grey;
-    &:hover{
-      color:black;
-      text-decoration: underline;
-    }
-  }
   
-  .auclist{
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    color: grey;
-    &:hover{
-      color:black;
-      text-decoration: underline;
-    }
-  }
   
   .content{
     border: 1px dotted grey;
@@ -59,5 +39,15 @@ export const Liststyle = styled.div`
     height: 400px;
     border-radius: 8px;
   }
+
+  .sellist{
+    border-bottom: 1px solid ${p=>p.isSelect ? 'black' : "none"};
+  }
+  .buylist{
+    border-bottom: 1px solid ${p=>!p.isSelect ? 'black' : "none"};
+  }
+  /* .auclist{
+    border-bottom: 1px solid ${p=>p.isSelect ? 'black' : "none"};
+  } */
 `
 

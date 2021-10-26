@@ -14,6 +14,10 @@ export const ProfileStyled = styled.div`
     font-size: 8px;
     font-weight: lighter;
 }
+
+.btn{
+    display: flex;
+}
 `
 
 export const StyleTd = styled.div`
