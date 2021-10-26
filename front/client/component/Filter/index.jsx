@@ -67,10 +67,6 @@ const Filter = () => {
           <i className='arrow'><RiArrowLeftLine size={24}/></i>
         </div>
       </div>
-
-      <Input {...test} placeholder='테스트입니다.' width='100pw' msg='' />
-
-
       <Panal value='상태' >
         <CheckBoxes list={['판매 중','경매 중','판매 완료']}/>
       </Panal>
