@@ -21,7 +21,7 @@ const Navigation = () => {
       <NavigationContainer>
         <Logo>
           <Link href="/">
-            <a>NFT</a>
+            <a><img src="/logo.png" alt="" /></a>
           </Link>
         </Logo>
         <NavItemContainer>
@@ -37,7 +37,7 @@ const Navigation = () => {
             onClick={() => setNowItem(2)}
             isClicked={nowItem == 2 ? true : false}
           >
-            <Link href="/">
+            <Link href="/mint">
               <a>발행하기</a>
             </Link>
           </NavItem>

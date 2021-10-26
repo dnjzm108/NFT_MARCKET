@@ -8,7 +8,7 @@ const Home = () => {
             <Head>
                 <title>NET_MARCKET | Home</title>
             </Head>
-            <Release/>
+            <Explore/>
         </>
     )
 }

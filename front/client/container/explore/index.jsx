@@ -2,8 +2,9 @@ import { StyledExplore } from "./Explore.css";
 import Filter from "../../component/Filter";
 import Gallery from "../../component/Gallery";
 import Navigation from "../../component/NavBigation";
-import Link from "next/link";
+import { Footter } from "../../component/Footter/footter";
 const Explore = () => {
+
   return (
     <>
       <Navigation />
@@ -14,6 +15,7 @@ const Explore = () => {
             <Gallery />
           </div>
         </StyledExplore>
+        <Footter/>
       </div>
     </>
   );

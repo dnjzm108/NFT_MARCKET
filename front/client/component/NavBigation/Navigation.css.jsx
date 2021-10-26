@@ -34,6 +34,17 @@ export const Logo = styled.div`
   font-size: 24px;
   font-family: "Poppins";
   padding: 1.625rem 1rem 1.375rem;
+
+  &>a{
+    width: 300px;
+    height: 100px;
+    overflow: hidden;
+  }
+  & > a > img{
+    position: absolute;
+    top: -30px;
+    left: 0;
+  }
 `;
 
 export const NavItemContainer = styled.div`
