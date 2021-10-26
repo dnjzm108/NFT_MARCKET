@@ -10,7 +10,7 @@ export const ProfileStyled = styled.div`
     padding-top: 120px;    
 }
 
-& > td > .text-right {
+& > td {
     font-size: 8px;
     font-weight: lighter;
 }
@@ -35,7 +35,7 @@ export const CameraAlt = styled.div`
 
 export const Contain = styled.div`
 & {
-    margin: 40px auto;
+    margin: 70px auto;
 }
 & > label{
     font-weight: 700;
@@ -52,6 +52,7 @@ export const Contain = styled.div`
     color: rgba(45,55,65,.7);
     float: right;
     display: inline-block;
+    margin-left: 20px;
 }
 
 & > input{
