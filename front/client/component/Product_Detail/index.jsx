@@ -3,7 +3,7 @@ import Footter from '../../component/Footter'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import Navigation from '../NavBigation';
+import Navigation from '../Navigation';
 import Button from '../Button'
 
 const Product_detail = () => {
