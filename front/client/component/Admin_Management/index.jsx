@@ -1,5 +1,5 @@
 
-import { NavigationWrap, Logo, NavItemContainer } from '../../component/NavBigation/Navigation.css'
+import { NavigationWrap, Logo, NavItemContainer } from '../../component/Navigation/Navigation.css'
 import Link from 'next/link'
 import Button from '../Button'
 import {Management_Wrap,Right,Side_bar,Line,Container,Content_Box} from './Admin_Management.css'

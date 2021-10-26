@@ -19,10 +19,19 @@ border-top: 1px solid #d5d5d5;
     padding: 4%;
 }
 
+.buynow_btn{
+    background: ${props=>props.isNow ? 'blue': 'white' };
+}
+
+.auction_btn{
+    background-color: ${props=>!props.isNow ? 'blue':'white' };
+}
+
+
 .select_sell>div>button{
     padding: 10px;
     font-size: 16px;
-    background: white;
+    /* background: white; */
     border: solid 1px #222;
     border-radius: 4px;
     cursor: pointer;

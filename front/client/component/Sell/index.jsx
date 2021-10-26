@@ -7,19 +7,17 @@ import Button from '../Button/index'
 
 const Sell = ()=>{
     const [isNow,setIsNow] = useState(true);
-    const [isAuc,setIsAuc] = useState(true);
 
     const handleNow =()=>{
         setIsNow(true);
-        setIsAuc(false);
     }
     const handleAuc = ()=>{
         setIsNow(false);
-        setIsAuc(true);
     }
 
+
     return (
-        <StyledSell>
+        <StyledSell isNow={isNow} >
             <div className="sell_section">
                 <div className="select_sell">
                     <div>
