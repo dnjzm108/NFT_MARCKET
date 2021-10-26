@@ -12,7 +12,7 @@ export const StyledFileInformation = styled.div`
 
 .img_box>p{
     font-weight: lighter;
-    /* margin-top: 10%; */
+    margin-top: 10%;
     font-size: 20px;
 }
 

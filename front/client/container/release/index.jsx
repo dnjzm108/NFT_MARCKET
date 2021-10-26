@@ -3,7 +3,7 @@ import FileInformation from '../../component/FileInformation/index'
 import AgreeInfo from '../../component/AgreeInfo/index'
 import Sell from '../../component/Sell/index'
 import NewRelease from '../../component/NewRelease/index'
-import Preshow from '../../component/Preshow/index'
+import Thumbnail from '../../component/Thumbnail/index'
 import Navigation from "../../component/NavBigation";
 import {Footter} from '../../component/Footter/footter'
 
@@ -18,7 +18,7 @@ const Release = () => {
             <NewRelease/>
             <FileInformation/>
             </div>
-            <Preshow/>
+            <Thumbnail/>
             </div>
             <AgreeInfo/>
             <Sell/>
