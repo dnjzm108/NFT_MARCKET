@@ -1,9 +1,10 @@
-import {Product_Wrap,Middle_container,Seller_contain,Explain,Slide_container} from './Product_Detail.css'
-import { Footter } from '../../component/Footter/Footter'
+import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container } from './Product_Detail.css'
+import Footter from '../../component/Footter'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import Navigation from '../../component/Navigation/index';
+import Navigation from '../NavBigation';
+import Button from '../Button'
 
 const Product_detail = () => {
     return (
@@ -12,13 +13,7 @@ const Product_detail = () => {
             <Product_Wrap>
                 <div>
                     <div>
-                        <Link href="/">
-                            <a><ArrowBackIcon />돌아가기</a>
-                        </Link>
-                        {/* <div>
-                            <button><ShareIcon /></button>
-                            <button><NewReleasesIcon /></button>
-                        </div> */}
+                        <Button value="돌아가기" url="/"/>
                     </div>
 
                     <div>
@@ -30,6 +25,7 @@ const Product_detail = () => {
                         <div>
                             <h1>오늘도 이렇게 코딩을</h1>
                             <h3>#123719y847190309</h3>
+                            <h4>가격 100 클레이튼</h4>
                         </div>
                         <div>
                             <button><FavoriteBorderIcon /></button>
@@ -54,14 +50,18 @@ const Product_detail = () => {
                     <Slide_container>
                         <div>
                             <h1>다른 NFT</h1>
-                            <button>프로필 보기</button>
+                         
+                                <Button value="프로필 보기" url="/" />
+                         
                         </div>
                         <div>
                             <ul>
-                                <li>사진</li>
-                                <li>사진</li>
-                                <li>사진</li>
-                                <li>사진</li>
+                                <Link href="/"><a><li><img src="/logo.png" /></li></a></Link>
+                                <Link href="/"><a><li><img src="/logo.png" /></li></a></Link>
+                                <Link href="/"><a><li><img src="/logo.png" /></li></a></Link>
+                                <Link href="/"><a><li><img src="/logo.png" /></li></a></Link>
+
+
                             </ul>
 
                         </div>
