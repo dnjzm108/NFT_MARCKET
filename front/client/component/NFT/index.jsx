@@ -2,6 +2,7 @@ import { StyledNFT } from "./NFT.css";
 import { useState } from "react";
 import { BsSuitHeartFill } from "react-icons/bs";
 import Link from "next/link";
+import  Router  from "next/router";
 
 const NFT = () => {
   const [isHover, setIsHover] = useState(false);
@@ -14,7 +15,7 @@ const NFT = () => {
     ) {
       console.log("조아요 클릭");
     } else {
-      console.log("링크이동");
+      Router.push('/nft/1')
     }
   };
 

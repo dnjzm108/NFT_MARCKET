@@ -4,7 +4,6 @@ export const StyledFilter = styled.div`
   position: relative;
   border-right: 1px solid rgb(229,232,235);
 
-
   .filter_open{
     position: sticky;
     top: 80px;
@@ -15,6 +14,28 @@ export const StyledFilter = styled.div`
     position: sticky;
     top: 80px;
     width: 64px;
+  }
+
+  .price_input{
+    width: 100%;
+    padding-top: 16px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+  }
+
+  .price_button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 16px;
+  }
+
+  .price_warning{
+    width: 100%;
+    color:#dc3545;
+    font-size: 12px;
+    text-align: left;
   }
 
   .filter_header{

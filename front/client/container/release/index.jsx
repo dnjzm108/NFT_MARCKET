@@ -3,11 +3,13 @@ import FileInformation from '../../component/FileInformation/index'
 import AgreeInfo from '../../component/AgreeInfo/index'
 import Sell from '../../component/Sell/index'
 import NewRelease from '../../component/NewRelease/index'
-import Preshow from '../../component/Preshow/index'
-import Navigation from "../../component/NavBigation";
+import Thumbnail from '../../component/Thumbnail/index'
+import Navigation from "../../component/Navigation/index";
+// import Footter from '../../component/Footter/footter'
 
 const Release = () => {
     return (
+        <>
         <StyledRelease>
             <Navigation/>
             {/* 새로운 */}
@@ -16,11 +18,13 @@ const Release = () => {
             <NewRelease/>
             <FileInformation/>
             </div>
-            <Preshow/>
+            <Thumbnail/>
             </div>
             <AgreeInfo/>
             <Sell/>
         </StyledRelease>
+        {/* <Footter/> */}
+        </>
     )
 }
 

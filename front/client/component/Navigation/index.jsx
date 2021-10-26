@@ -10,6 +10,8 @@ import NavToggle from "../NavToggle";
 import Button from "../Button";
 import { useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
+import { Router } from 'next/router'
+import cn from "classnames";
 
 const Navigation = () => {
   //임사상태
@@ -37,16 +39,23 @@ const Navigation = () => {
             onClick={() => setNowItem(2)}
             isClicked={nowItem == 2 ? true : false}
           >
-            <Link href="/">
+            <Link href="/mint">
               <a>발행하기</a>
             </Link>
           </NavItem>
+          <NavItem>
+            <Link href='/user/info'><a><i><BiUserCircle size={32}/></i></a></Link>
+          </NavItem>
+          <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
           {isLogin ? (
-            <i>
-              <BiUserCircle size={32} onClick={()=>setIsLogin(false)}/>
-            </i>
+            <>
+            <NavItem>
+              <Link href='/user/info'><a><i><BiUserCircle size={32}/></i></a></Link>
+            </NavItem>
+              <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
+            </>
           ) : (
-            <Button value="로그인" color="blue" func={()=>setIsLogin(true)} size="small" />
+            <Button value="로그인" color="blue" url='/user/login' size="small" />
           )}
         </NavItemContainer>
         <NavToggle />
