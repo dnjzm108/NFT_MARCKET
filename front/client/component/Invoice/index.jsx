@@ -3,9 +3,15 @@ import { Popup_background } from "../Wrap/Popup_Background";
 import { Container } from "../Form/Container";
 import { Icon_Close } from "../Login/Login.css"
 import CloseIcon from '@mui/icons-material/Close';
+<<<<<<< HEAD
+import {Info_Container,Input_Invoice} from './Invoice.css'
+import { Big_Input, Middle_Input } from "../input";
+import { Middle_btn, Big_btn } from "../btn"
+=======
 import {Info_Container,Input_Invoice,Table} from './Invoice.css'
  import Input from "../input";
 import Button from '../Button';
+>>>>>>> ffbb04157976f49f68763062219cfac787120375
 
 export const Invoice = () => {
     return (
