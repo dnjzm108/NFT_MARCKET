@@ -6,10 +6,11 @@ const FileInformation = () => {
             <div className="img_box">
                 <p> 이미지 / 영상 파일을 드래그하여 업로드하거나 </p>
                 <button> 파일선택 </button>
-                <input
+                <input // 얘 display none 해놓음 
                     accept=".png, .jpg, .jpeg, .gif, .webp, .mp4"
                     type="file"
-                    className="file_select_input" />
+                    className="file_select_input" /> 
+                    
             </div>
             <div className="information_input">
                 <p>이름</p>

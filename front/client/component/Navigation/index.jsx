@@ -11,6 +11,7 @@ import Button from "../Button";
 import { useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { Router } from 'next/router'
+import cn from "classnames";
 
 const Navigation = () => {
   //임사상태
@@ -42,6 +43,10 @@ const Navigation = () => {
               <a>발행하기</a>
             </Link>
           </NavItem>
+          <NavItem>
+            <Link href='/user/info'><a><i><BiUserCircle size={32}/></i></a></Link>
+          </NavItem>
+          <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
           {isLogin ? (
             <>
             <NavItem>
