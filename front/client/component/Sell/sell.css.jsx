@@ -49,14 +49,25 @@ color: #222;
     box-sizing: border-box;
 }
 
-.buynow{
-    width: 100%;
-    height: auto;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-} 
-.auction{
+.buynow_btn{
+    background: ${props=>props.isNow ? 'blue': 'white' };
+}
+
+.auction_btn{
+    background-color: ${props=>!props.isNow ? 'blue':'white' };
+}
+
+
+.select_sell>div>button{
+    padding: 10px;
+    font-size: 16px;
+    /* background: white; */
+    border: solid 1px #222;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.buynow, .auction{
     margin-top: 8%;
     margin-bottom: 8%;
     height: auto;

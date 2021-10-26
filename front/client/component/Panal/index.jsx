@@ -3,13 +3,22 @@ import { useState } from "react";
 
 import {RiArrowUpSLine, RiArrowDownSLine} from "react-icons/Ri"
 
-const Panal = ({children, value}) => {
+const Panal = ({children, value,scroll}) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [hover,setHover] = useState(false);
+  
+  const Scroll = () =>{
+    switch(scroll){
+      case true:
+        return true;
+      default:
+        return false
+    }
+  }
 
   return (
-    <StyledPanal>
+    <StyledPanal scroll={Scroll()}>
       <div className='panal_header' 
         onClick={()=>setIsOpen(!isOpen)} 
         >
