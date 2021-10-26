@@ -53,3 +53,22 @@ border: 1px solid #000000;
 box-sizing: border-box;
 
 `
+
+export const Table = styled.table`
+  &{
+      display: flex;
+      justify-content: space-between;
+      padding: 5px ;
+  }
+  &>tr>th{
+      display: inline-block;
+      width: 250px;
+      /* text-align:center; */
+  }
+`
+
+export const  Btn_Box = styled.div`
+     position: relative;
+     top: -35px;
+
+`

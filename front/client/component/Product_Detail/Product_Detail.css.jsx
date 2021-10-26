@@ -4,7 +4,7 @@ import styled from "styled-components"
 &{
    width: 100%;
    background: #fff;
-   margin-top: 100px;
+   padding-top: 90px;
 }
 
 & > div {
@@ -15,6 +15,9 @@ import styled from "styled-components"
 
 }
 
+& > div > div:nth-child(1){
+    padding-bottom: 10px ;
+}
     & > div > div:nth-child(2){
         width: 800px;
         height: 800px;
@@ -45,6 +48,11 @@ export const Middle_container = styled.div`
    color: #2D374166;
    margin: 10px 0;
 }
+& > div:nth-child(1) > h4{
+   font-size: 22px;
+   color: #2D374166;
+   margin: 10px 0;
+}
 & > div:nth-child(2){
     display: inline-block;
     width: 250px;
@@ -61,6 +69,11 @@ export const Middle_container = styled.div`
     border-radius: 10px;
     margin: 5px 0;
 }
+& > div:nth-child(2) > button:hover{
+    background: #1E73FA;
+}
+& > div:nth-child(2) > button:nth-child(1){
+}
 `
 
 export const Seller_contain = styled.div`
@@ -68,8 +81,9 @@ export const Seller_contain = styled.div`
     width: 100%;
     border-top: 1px solid rgba(20, 30, 40, 0.1);
     border-bottom: 1px solid rgba(20, 30, 40, 0.1);
-    padding: 10px;
+    padding-bottom: 20px;
     box-sizing: border-box;
+    margin-top: 10px;
 
 }
 
@@ -95,22 +109,13 @@ export const Slide_container = styled.div`
     padding: 10px 0;
     box-sizing: border-box;
 }
+& > div:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+}
+
 & > div:nth-child(1) > h1{
     display: inline-block;
-}
-& > div:nth-child(1) > button{
-    display: inline-block;
-    width: 110px;
-    height: 40px;
-    padding: 8px 16px;
-    box-sizing: border-box;
-    float: right;
-    background: #ffffff;
-    border-radius: 5px;
-    color: #2D3741B3;
-    font-weight: bold;
-    font-size: 15px;
-
 }
 & > div:nth-child(2){
     margin-top: 30px;
@@ -121,12 +126,30 @@ export const Slide_container = styled.div`
     overflow: hidden;
 
 }
-& > div:nth-child(2)>ul>li{
+& > div:nth-child(2)>ul>a>li:hover{
+    -webkit-box-shadow: 0px 7px 12px 2px rgba(119, 119, 119, 0.3);
+    box-shadow: 0px 7px 12px 2px rgba(119, 119, 119, 0.3);
+    /* box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px; */
+    transition: all 0.1s ease 0s;
+    transform: translateY(-1px);
+}
+& > div:nth-child(2)>ul>a>li{
     display: inline-block;
+    box-sizing: content-box;
+    position: relative;
+    z-index: 1;
     width: 185px;
     height: 185px;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 8px;
+    position: relative
     border: 1px solid #000000;
     border-radius: 10px;
     margin: 0 5px;
     }
+    & > div:nth-child(2)>ul>a>li>img{
+    width: 185px;
+    height: 185px;
+    }
 `
+

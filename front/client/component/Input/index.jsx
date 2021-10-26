@@ -27,8 +27,12 @@ import { useEffect } from "react";
 // msg (string): required 항목일 때. 
 // '닉네임을 입력해주세요'
 
+//type (string)  text number
 
-const CustomInput = ({onChange,placeholder,search,width,height,msg}) => {
+
+
+
+const CustomInput = ({onChange,placeholder,search,width,height,msg,type}) => {
 
   const [require,setRequire] = useState(false); 
 
@@ -45,6 +49,16 @@ const CustomInput = ({onChange,placeholder,search,width,height,msg}) => {
   const handleBlur = (e) =>{
     if(e.target.value=='' && msg){
       setRequire(true)
+    }
+  }
+  
+
+  const handleType = () => {
+    switch(type){
+      case 'number':
+        return 'number';
+      default:
+        return 'text';
     }
   }
 
@@ -70,7 +84,7 @@ const CustomInput = ({onChange,placeholder,search,width,height,msg}) => {
         </i>
         </label>
       }
-      <input type="text" id="inpput" onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder}/>
+      <input type={handleType()} id="inpput" onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder}/>
       {require &&  
         (<i>
           <BsFillExclamationCircleFill size={24} color={'#dc3545'}/>

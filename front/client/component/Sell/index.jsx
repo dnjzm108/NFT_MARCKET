@@ -19,6 +19,7 @@ const Sell = ()=>{
     }
     
 
+
     return (
         <StyledSell isNow={isNow}>
             <div className="sell_section">

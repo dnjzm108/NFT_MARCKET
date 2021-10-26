@@ -8,9 +8,19 @@ import { StyledSelectBox,SelectHeader,SelectBody,SelectItem} from "./SelectBox c
 
 
 
-const SelectBox = ({list,value,onChangeValue,useImg}) => {
+const SelectBox = ({list,value,onChangeValue,useImg,width}) => {
 
   const [open,setOpen] = useState(false);
+
+  const box_width = () =>{
+    if(width){
+      return `${width}`
+    }else{
+      return `240px`
+    }
+  }
+
+
 
   const handleClick = (i) =>{
     onChangeValue(i);
@@ -30,16 +40,24 @@ const SelectBox = ({list,value,onChangeValue,useImg}) => {
       return(
         <SelectItem onClick={()=>{handleClick(i)}} key={i}>
           <img src={v.img} alt="" />
-          <span>{v.value}</span>
+          <span>{v.name}</span>
         </SelectItem>
       )
     })
   }
 
   return(
-    <StyledSelectBox>
+    <StyledSelectBox width={box_width()}>
       <SelectHeader onClick={()=>setOpen(!open)}>
-        <div>{list[value]}</div>
+        {useImg 
+        ?<div>
+          <img src={list[value].img} alt="" />
+          <span>{list[value].name}</span>
+        </div>
+        :<span>{list[value]}</span>
+      }
+
+        
         <i><RiArrowDownSLine size={24}/></i>
       </SelectHeader>
       {open &&

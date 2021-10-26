@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledSelectBox = styled.div`
-  width: 240px;
+  width: ${p=>p.width}; 
   border-radius: 10px;
   
 `;
@@ -21,6 +21,23 @@ export const SelectHeader = styled.button`
   cursor: pointer;
   border-radius: 10px;
 
+  &>div{
+    display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  }
+
+  &>div>img{
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 50%;
+    padding: 4px;
+    margin-right: 12px;
+  }
+
   &:hover{
     transition: all 0.2s ease 0s;
     background-color: rgb(251, 253, 255);
@@ -28,7 +45,6 @@ export const SelectHeader = styled.button`
 `
 
 export const SelectBody = styled.div`
-
 border-radius: 10px;
 border: 1px solid rgb(229, 232, 235);
 overflow: hidden;
@@ -48,6 +64,16 @@ export const SelectItem = styled.div`
   font-weight: 600;
   border-bottom: 1px solid rgb(229, 232, 235);
   cursor: pointer;
+
+  &>img{
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 50%;
+    padding: 4px;
+    margin-right: 12px;
+  }
 
   &:hover{
     transition: all 0.2s ease 0s;
