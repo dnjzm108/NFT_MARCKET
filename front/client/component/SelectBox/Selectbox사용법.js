@@ -3,8 +3,8 @@
 // import useChangeValue from "../../hooks/useChangeValue";
 
 
-select박스 안에 들어갈 내용을 배열 형태로  
-useChangeValue 에 전달
+// select박스 안에 들어갈 내용을 배열 형태로  
+// useChangeValue 에 전달
 
 
 import Selectbox from "../../component/SelectBox";
