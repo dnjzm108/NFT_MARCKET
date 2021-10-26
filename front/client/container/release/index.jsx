@@ -9,11 +9,10 @@ const Release = () => {
     return (
         <StyledRelease>
             {/* 헤더 */}
-            
-            
-            <NewRelease/><div className="flex_contain">
-            
-            <FileInformation/><Preshow/></div>
+            <NewRelease/>
+            <div className="flex_contain">
+            <FileInformation/><Preshow/>
+            </div>
             <AgreeInfo/>
             <Sell/>
         </StyledRelease>
