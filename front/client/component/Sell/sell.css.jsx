@@ -4,19 +4,12 @@ export const StyledSell = styled.div`
 margin-top: 10%;
 width: 100%;
 border-top: 1px solid #d5d5d5;
-
+color: #222;
 .sell_section{
     width: 100%;
 }
 
-.select_sell{
-    width: 80%;
-    height: auto;
-    display: inline-block;
-    height: auto;
-    background: #f0f9ff;
-    padding: 4%;
-}
+
 
 .sell_section>h3{
     display: inline-block;
@@ -46,8 +39,24 @@ border-top: 1px solid #d5d5d5;
     border-bottom: 2px solid ${p=>!p.isNow ? '#1E73FA' : "none"};
 }
 
+.select_sell{
+    width: 50%;
+    height: auto;
+    display: inline-block;
+    height: auto;
+    background: #f0f9ff;
+    padding: 4%;
+    box-sizing: border-box;
+}
 
-.buynow, .auction{
+.buynow{
+    width: 100%;
+    height: auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+} 
+.auction{
     margin-top: 8%;
     margin-bottom: 8%;
     height: auto;
@@ -62,38 +71,47 @@ border-top: 1px solid #d5d5d5;
     margin-top: 2%;
 }
 
+.flex_contain{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
 .release_btn{
-    position: relative;
-    left: 50%;
-    margin-top: -200px;
+    display: flex;
+}
+
+.select_terms{
+    padding: 10%;
+}
+
+.select_terms>p{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 2%;
 }
 
 
-.release_btn>button{
-    border-radius: 4px;
-    height: 70px;
-    font-size: 20px;
-    border: 1px solid #ededed;
-    cursor: pointer;
+/* .extension_box{
+    display: inline-block;
+    padding: 4%;
+} */
+
+/* .extension_box > input {
+    display: inline-block;
+} */
+
+.extension_box{
+    /* padding: 10px; */
+    width: 700px;
 }
 
-.cancel{
-    background: white;
-    width: 100px;
-    border: 1px solid #222;
-    cursor: pointer;
-    display: block;
-    margin-bottom: 60px;
+.extension_box > p{
+    margin-left: 10px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 2%;
 }
-
-.go{
-    background: #1E73FA;
-    width: 260px;
-    color: white;
-}
-
-
-
 
 
 `
