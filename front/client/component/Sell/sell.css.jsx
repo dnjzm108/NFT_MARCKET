@@ -9,8 +9,6 @@ color: #222;
     width: 100%;
 }
 
-
-
 .sell_section>h3{
     display: inline-block;
     margin-top: 6%;
@@ -33,10 +31,12 @@ color: #222;
 
 .select_buynow{
     border-bottom: 2px solid ${p=>p.isNow ? '#1E73FA' : "none"};
+    color: ${p=>p.isNow ? '#1E73FA' : '#222'};
 }
 
 .select_auc{
     border-bottom: 2px solid ${p=>!p.isNow ? '#1E73FA' : "none"};
+    color: ${p=>!p.isNow ? '#1E73FA' : '#222'};
 }
 
 .select_sell{
@@ -49,37 +49,50 @@ color: #222;
     box-sizing: border-box;
 }
 
-.buynow_btn{
-    background: ${props=>props.isNow ? 'blue': 'white' };
+.buynow{
+    width: 100%;
+    height: auto;
+} 
+
+.buynow_input,.auction_input{
+    display: flex;
+    align-items: end;
+    margin-top: 6%;
 }
 
-.auction_btn{
-    background-color: ${props=>!props.isNow ? 'blue':'white' };
+.buynow_input>p, .auction_input>p{
+    padding: 4px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-
-.select_sell>div>button{
-    padding: 10px;
-    font-size: 16px;
-    /* background: white; */
-    border: solid 1px #222;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.buynow, .auction{
+.auction{
     margin-top: 8%;
     margin-bottom: 8%;
     height: auto;
-    position: relative;
-    left: 12%;
-
 }
 
-.buynow>input,.auction >input{
-    width: 300px;
-    height: 40px;
-    margin-top: 2%;
+.auction>h2{
+    margin-bottom: 10%;
+}
+.select_terms>p{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 2%;
+}
+
+.extension_box{
+    margin-top: 10%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+}
+
+.extension_box > p{
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
 }
 
 .flex_contain{
@@ -91,38 +104,8 @@ color: #222;
     display: flex;
 }
 
-.select_terms{
-    padding: 10%;
-}
-
-.select_terms>p{
-    font-size: 18px;
-    font-weight: bold;
-    padding: 2%;
-}
 
 
-/* .extension_box{
-    display: inline-block;
-    padding: 4%;
-} */
-
-/* .extension_box > input {
-    display: inline-block;
-} */
-
-.extension_box{
-    /* padding: 10px; */
-    width: 700px;
-}
-
-.extension_box > p{
-    margin-left: 10px;
-    display: inline-block;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 2%;
-}
 
 
 `
