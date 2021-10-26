@@ -1,17 +1,45 @@
-import { useState } from "react";
 import { Small_btn, Middle_btn } from "../btn";
 import CameraAlt from "@mui/icons-material/CameraAlt";
-import {Circle} from "../../pages/user/join.css"
+import {Circle} from "../Join/Join.css"
 import { ProfileStyled,StyleTd,Contain } from "./Profile.css";
-import Navigation from "../NavBigation";
+import useInput from '../../hooks/useInput.jsx';
+import { useState } from "react";
 import Link from "next/link";
 
 
 
 const Profile_edit = () => {
+    const[Check_id,setCheck_id] = useState(true)
+    const[Check_email,setCheck_email] = useState(true)
+
+    const Nickname = useInput('')
+    const Email = useInput('')
+
+    const Check_Name = e => {
+        let {value} = Nickname;
+        if(value == ''){
+            console.log(value);
+            setCheck_id(false);
+        } else {
+            console.log(value);
+            setCheck_id(true);
+        }
+    }
+
+    const Check_Mail = e =>{
+        let{value} = Email;
+        if(value == ''){
+            console.log(value);
+            setCheck_email(false);
+        } else {
+            console.log(value);
+            setCheck_email(true);
+        }
+    }
+
     return (
         <>
-        <Navigation/>
+
         <ProfileStyled>
         <div>
         <h1>프로필 편집</h1>
@@ -20,11 +48,13 @@ const Profile_edit = () => {
         <Contain>
         <label htmlFor="nickname">닉네임</label>
         <td className="text-right">* 5~20자의 한글, 영문 대소문자, 숫자, 특수기호(_),(-),(.)만 사용 가능합니다.</td>
-        <input type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
+        <input {...Nickname} onMouseOut={Check_Name}type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
+        {Check_id ? '':<div>필수 입력값 입니다.</div>}
         </Contain>
         <Contain>
         <label htmlFor="email_address">이메일 주소</label>&nbsp;
-        <input type="text" id="email_address" placeholder="이메일을 입력해주세요" />
+        <input type="text"{...Email} onMouseOut={Check_Mail}id="email_address" placeholder="이메일을 입력해주세요" />
+        {Check_email ? '':<div>필수 입력값 입니다.</div>}
         </Contain>
         <Middle_btn type="submit">
                         <Link href="/">
@@ -32,7 +62,7 @@ const Profile_edit = () => {
                         </Link>
                     </Middle_btn>&nbsp;
         <Small_btn type="submit">
-                        <Link href="/">
+                        <Link href="./Profile">
                         취소
                         </Link>
                     </Small_btn>;

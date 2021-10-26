@@ -1,16 +1,13 @@
 import { Middle_btn, Small_btn } from "../../component/btn";
 import { ProfileStyled, StyleTd } from "./Profile.css";
 import CameraAlt from "@mui/icons-material/CameraAlt";
-import {Circle} from "../../pages/user/join.css"
-import Navigation from "../NavBigation";
-import Footter from "../Footter/footter"
+import {Circle} from "../Join/Join.css"
 import Link from "next/link";
 
 
 const Profile = () => {
     return (
         <>
-        <Navigation/>
         <ProfileStyled>
             <div>
                 <h1>나의 프로필</h1>
@@ -30,11 +27,11 @@ const Profile = () => {
                     <td>godtttever@naver.com</td>
                     <StyleTd/>
                     <Middle_btn type="submit">
-                        <Link href="/">
+                        <Link href="./Profile_edit">
                         프로필 편집
                         </Link>
                     </Middle_btn>&nbsp;
-                    <span>회원 탈퇴</span>
+                   
                 </styledBox>
             </div>
         </ProfileStyled>

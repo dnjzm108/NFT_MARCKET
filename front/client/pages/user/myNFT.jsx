@@ -1,10 +1,13 @@
-import Mynft from "../../component/myNFT";
+import Profile from "../../component/mypage/profile";
+import Sub from "../../component/MyNFT/Sub";
+import MyNFT from "../../component/MyNFT";
 
 const MyNft = () => {
     return (
-
-            <Mynft></Mynft>
-        
+            <>
+            <MyNFT/>
+            <Sub/>
+            </>
     );
 }
 
