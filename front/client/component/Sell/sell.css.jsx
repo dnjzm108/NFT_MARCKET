@@ -14,19 +14,38 @@ border-top: 1px solid #d5d5d5;
     height: auto;
     display: inline-block;
     height: auto;
-    margin-top: 10%;
     background: #f0f9ff;
     padding: 4%;
 }
 
-.select_sell>div>button{
-    padding: 10px;
-    font-size: 16px;
-    background: white;
-    border: solid 1px #222;
-    border-radius: 4px;
-    cursor: pointer;
+.sell_section>h3{
+    display: inline-block;
+    margin-top: 6%;
+    font-size: 22px;
 }
+
+.select_btn> h1{
+    display: inline-block;
+    width: auto;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 4%;
+}
+
+.select_btn> h1:hover{
+    color: #22222290;
+    transition: ease-in-out .2s;
+}
+
+.select_buynow{
+    border-bottom: 2px solid ${p=>p.isNow ? '#1E73FA' : "none"};
+}
+
+.select_auc{
+    border-bottom: 2px solid ${p=>!p.isNow ? '#1E73FA' : "none"};
+}
+
 
 .buynow, .auction{
     margin-top: 8%;
@@ -47,11 +66,6 @@ border-top: 1px solid #d5d5d5;
     position: relative;
     left: 50%;
     margin-top: -200px;
-}
-
-.release_btn > button:nth-child(1){
-    
-
 }
 
 
