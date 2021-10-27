@@ -28,7 +28,7 @@ const Profile = () => {
                     <StyleTd/>
                     <td>godtttever@naver.com</td>
                     <StyleTd/>
-                    <Button value='프로필 편집' url='/user/Profile_edit' ml={120} color="sky" size='small' />
+                    <Button value='프로필 편집' url='/user/edit' ml={120} color="sky" size='small' />
 
                    
                 </styledBox>
