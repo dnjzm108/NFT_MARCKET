@@ -66,7 +66,9 @@ const Filter = () => {
         <CheckBoxes {..._category} useImage={true}/>
       </Panal>
       </div>
+
         :
+        
         <div className="filter_close" >
           <div className='filter_header'  onClick={()=>{setOpen(true)}}>
            <div>

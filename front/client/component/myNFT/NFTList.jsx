@@ -1,4 +1,4 @@
-const auction = () => {
+const NFTList = () => {
   return (
     <div>
       Enter
@@ -6,4 +6,4 @@ const auction = () => {
   );
 }
 
-export default auction;
+export default NFTList;

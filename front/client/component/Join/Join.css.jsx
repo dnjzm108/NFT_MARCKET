@@ -44,7 +44,6 @@ margin: 10vh auto 0;
 `
 
 
-
 export const Small_Contain = styled.div`
 & {
     margin: 70px auto;

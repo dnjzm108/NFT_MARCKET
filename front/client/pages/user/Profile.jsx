@@ -1,14 +1,14 @@
-import Profile from "../../component/mypage/profile";
+// import Profile from "../../component/Profile";
 
 
-const profile = () => {
-    return (
-        <>
+// const profile = () => {
+//     return (
+//         <>
         
-        <Profile></Profile> 
+//         <Profile></Profile> 
         
-        </>
-    );
-}
+//         </>
+//     );
+// }
 
-export default profile;
+// export default profile;

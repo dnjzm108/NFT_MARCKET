@@ -11,7 +11,7 @@ import Button from "../Button";
 import { useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { Router } from 'next/router'
-import cn from "classnames";
+// import cn from "classnames";
 
 const Navigation = () => {
   //임사상태

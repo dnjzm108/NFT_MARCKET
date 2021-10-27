@@ -8,16 +8,38 @@ export const ProfileStyled = styled.div`
     justify-content: center;
     align-items: center;
     padding-top: 10px;    
+    text-align :center ;
 }
 
 .btn{
     display: flex;
     margin-left: 130px;
 }
+.URL{
+        color: grey;
+        cursor: pointer;
+    }
+    .URL:hover{
+        color: black;
+    }
+
+.seller_title{
+    display: flex;
+    margin-left: 100px;
+}
+
+.verified{
+    display: none;
+    color: #3a84fb;
+}
+
+.need_verified{
+    color:red;
+}
 `
 
 export const StyleTd = styled.div`
-    margin-top: 24px;
+    margin-top: 20px;
 `
 
 export const StyledBox = styled.div`

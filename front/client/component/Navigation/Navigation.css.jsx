@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const NavigationWrap = styled.div`
-  position: fixed;
-  z-index: 20;
+  position: sticky;
+  z-index: 10;
   top:0;
   left:0;
   width: 100vw;
@@ -17,6 +17,7 @@ export const NavigationContainer = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 20px;
   letter-spacing: 1px;
   font-family: "ROKABold";
@@ -31,16 +32,12 @@ export const NavigationContainer = styled.div`
 `;
 
 export const Logo = styled.div`
-  font-size: 24px;
-  font-family: "Poppins";
-  padding: 1.625rem 1rem 1.375rem;
-
-  &>a{
-    width: 300px;
-    height: 100px;
+  a{
+    width: 210px;
+    height: 70px;
     overflow: hidden;
   }
-  & > a > img{
+  a > img{
     position: absolute;
     top: -30px;
     left: 0;

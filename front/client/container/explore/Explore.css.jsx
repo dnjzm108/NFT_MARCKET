@@ -5,7 +5,6 @@ export const StyledExplore = styled.div`
   width: 100vw;
   max-width: 100vw;
   height: auto;
-  top:80px;
   & > div {
     position: relative;
     display: flex;

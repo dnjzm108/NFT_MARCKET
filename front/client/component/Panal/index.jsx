@@ -28,8 +28,8 @@ const Panal = ({children, value,scroll}) => {
         <span>
           {
             isOpen 
-            ? <i className='arrow'><RiArrowDownSLine size={24}  /></i>
-            : <i className='arrow'><RiArrowUpSLine size={24}  /></i>
+            ? <i className='arrow'><RiArrowUpSLine size={24}  /></i>
+            : <i className='arrow'><RiArrowDownSLine size={24}  /></i>
           }
         </span>
       </div>
