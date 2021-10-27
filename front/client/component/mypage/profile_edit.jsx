@@ -56,7 +56,7 @@ const Profile_edit = () => {
     
         </Contain>
             <div className="btn">
-                <Button value='변경사항 저장' url='/user/Profile_edit' color="sky" size='small' />
+                <Button value='변경사항 저장' url='/user/edit' color="sky" size='small' />
                 <Button value='취소' url='/user/Profile' ml={20} size='small' />
             </div>
         </div>
