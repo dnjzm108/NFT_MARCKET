@@ -1,4 +1,4 @@
-import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container } from './Product_Detail.css'
+import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container,Styled_Slide ,Price_contain} from './Product_Detail.css'
 import Footter from '../../component/Footter'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
@@ -6,18 +6,51 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 const Product_detail = () => {
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    }
+
     return (
         <>
             <Navigation />
             <Product_Wrap>
+
                 <div>
                     <div>
-                        <Button value="돌아가기" url="/"/>
+                        <Button value="돌아가기" url="/" />
                     </div>
 
                     <div>
-                        <div>사진들어갈곳</div>
+                        <Styled_Slide {...settings}>
+                            <div>
+                                <h3>1</h3>
+                            </div>
+                            <div>
+                                <h3>2</h3>
+                            </div>
+                            <div>
+                                <h3>3</h3>
+                            </div>
+                            <div>
+                                <h3>4</h3>
+                            </div>
+                            <div>
+                                <h3>5</h3>
+                            </div>
+                            <div>
+                                <h3>6</h3>
+                            </div>
+                        </Styled_Slide>
                     </div>
 
 
@@ -25,11 +58,11 @@ const Product_detail = () => {
                         <div>
                             <h1>오늘도 이렇게 코딩을</h1>
                             <h3>#123719y847190309</h3>
-                            <h4>가격 100 클레이튼</h4>
+
                         </div>
                         <div>
                             <button><FavoriteBorderIcon /></button>
-                            <button>BUY</button>
+
                         </div>
                     </Middle_container>
 
@@ -42,6 +75,20 @@ const Product_detail = () => {
                         </div>
                     </Seller_contain>
 
+                    <Price_contain>
+                        <h4>가격 100 클레이튼</h4>
+                        <Button value="Buy" />
+                    </Price_contain>
+
+                    <Seller_contain>
+                        경매
+                        <ul>
+                            <li>경매하기</li>
+                            <li>경매히스토리</li>
+                            <li></li>
+                        </ul>
+                    </Seller_contain>
+
                     <Explain>
                         <h2>삼품 상세</h2>
                         <h4>이것은 NFT 입니다. </h4>
@@ -50,9 +97,9 @@ const Product_detail = () => {
                     <Slide_container>
                         <div>
                             <h1>다른 NFT</h1>
-                         
-                                <Button value="프로필 보기" url="/" />
-                         
+
+                            <Button value="프로필 보기" url="/" />
+
                         </div>
                         <div>
                             <ul>
