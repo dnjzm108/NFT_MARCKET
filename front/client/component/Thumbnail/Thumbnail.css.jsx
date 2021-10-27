@@ -19,4 +19,12 @@ export const StyledThumbnail = styled.div`
     align-items: center;
     cursor: pointer;
 }
+
+.pass{
+    margin: 0 auto;
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
 `
