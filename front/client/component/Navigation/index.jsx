@@ -44,13 +44,13 @@ const Navigation = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link href='/user/info'><a><i><BiUserCircle size={32}/></i></a></Link>
+            <Link href='/user/info?type=profile'><a><i><BiUserCircle size={32}/></i></a></Link>
           </NavItem>
           <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
           {isLogin ? (
             <>
             <NavItem>
-              <Link href='/user/info'><a><i><BiUserCircle size={32}/></i></a></Link>
+              <Link href='/user/info?type=profile'><a><i><BiUserCircle size={32}/></i></a></Link>
             </NavItem>
               <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
             </>
