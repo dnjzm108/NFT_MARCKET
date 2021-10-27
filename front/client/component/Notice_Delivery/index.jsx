@@ -1,5 +1,5 @@
 import { Notice_Wrap, Under_line, Table, Btn_Box } from "./Notice_Delivery.css"
-import Navigation from '../NavBigation';
+import Navigation from '../Navigation';
 import Button from '../Button'
 
 const Notice_Delivery = () => {

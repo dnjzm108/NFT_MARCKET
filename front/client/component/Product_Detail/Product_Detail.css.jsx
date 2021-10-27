@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Slider from "react-slick";
  
  export const Product_Wrap = styled.div`
 &{
@@ -19,17 +20,36 @@ import styled from "styled-components"
     padding-bottom: 10px ;
 }
     & > div > div:nth-child(2){
-        width: 800px;
-        height: 800px;
-        padding: 80px;
+        width: 900px;
+        height: 700px;
+        padding: 0 80px;
+     
         box-sizing: border-box;
-        background: #DCE6F0;
     }
     & > div > div:nth-child(2) > div{
         width: 640px;
         height: 640px;
         background: #ffffff;
+        border: 1px solid #000000;
+        margin: 0 auto;
     }
+`
+
+export const Styled_Slide = styled(Slider)`
+
+.slick-prev:before, .slick-next:before{
+    font-family: 'slick';
+    font-size: 40px;
+    line-height: 1;
+    opacity: .75;
+    color: #000000;
+    -webkit-font-smoothing: antialiased;
+}
+
+.slick-prev:before{
+    position: relative;
+    left: -20px;
+}
 `
 
 export const Middle_container = styled.div`
@@ -142,7 +162,7 @@ export const Slide_container = styled.div`
     height: 185px;
     border: 1px solid rgb(229, 232, 235);
     border-radius: 8px;
-    position: relative
+    position: relative;
     border: 1px solid #000000;
     border-radius: 10px;
     margin: 0 5px;
@@ -153,3 +173,21 @@ export const Slide_container = styled.div`
     }
 `
 
+
+export const Price_contain = styled.div`
+&{
+    width: 100%;
+    border-top: 1px solid rgba(20, 30, 40, 0.1);
+    border-bottom: 1px solid rgba(20, 30, 40, 0.1);
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    margin-top: 10px;
+
+}
+
+& > div {
+    /* margin: 0 auto; */
+    text-align:center;
+
+}
+`
