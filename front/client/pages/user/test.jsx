@@ -10,12 +10,16 @@ const Test = () => {
     return (
         <>
 
+
             <Delivery_Address_Component></Delivery_Address_Component>
+
              {/* <Invoice></Invoice> */}
             {/* <Footter></Footter> */}
              {/* <Release /> */}
             {/* <Notice_Delivery/> */}
+
             {/* <Seller_Apply></Seller_Apply> */}
+
 
         </>
     )

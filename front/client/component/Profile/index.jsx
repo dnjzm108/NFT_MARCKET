@@ -1,4 +1,4 @@
-import { Middle_btn, Small_btn } from "../../component/btn";
+import { Middle_btn, Small_btn } from "../btn";
 import { ProfileStyled, StyleTd } from "./Profile.css";
 import CameraAlt from "@mui/icons-material/CameraAlt";
 import {Circle} from "../Join/Join.css"

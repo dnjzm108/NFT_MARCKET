@@ -1,11 +1,9 @@
-import { Test_style,styledTd, styledRow, styledWrap } from "./test.css";
-import { Middle_btn, Small_btn } from "../btn";
+import { Test_style,styledTd, styledRow, styledWrap,StyleTd } from "./MyInfo.css";
 import CameraAlt from "@mui/icons-material/CameraAlt";
 import {Circle} from "../../component/Join/Join.css";
-import { StyleTd } from "../mypage/Profile.css";
 import Button from "../Button"
 
-const myNFT = () => {
+const MyInfo = () => {
     return ( 
         <>
             <styledWrap>
@@ -39,4 +37,4 @@ const myNFT = () => {
 }
 
 
-export default myNFT;
+export default MyInfo;

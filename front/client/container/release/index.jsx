@@ -10,8 +10,8 @@ import Footter from '../../component/Footter'
 const Release = () => {
     return (
         <>
-        <StyledRelease>
             <Navigation/>
+        <StyledRelease>
             {/* 새로운 */}
             <div className="flex_contain">
             <div>
