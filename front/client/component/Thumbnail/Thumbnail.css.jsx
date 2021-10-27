@@ -31,7 +31,7 @@ export const Styled_Slide = styled(Slider)`
     width: 300px;
     height: 400px;
     margin: 0 auto;
-    background-color: #fcd8fc;
+    background-color: #f0f9ff;
   }
 
 .slick-prev:before, .slick-next:before{
