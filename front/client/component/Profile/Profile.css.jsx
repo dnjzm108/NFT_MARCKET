@@ -3,18 +3,19 @@ import styled from "styled-components";
 export const ProfileStyled = styled.div`
   &{
     width: 100vw;
-    margin: 0 auto;
+    margin: 50px auto;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 10px;    
     text-align :center ;
+    margin-right: 100px;
 }
 
 
 &>div>img{
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     overflow: hidden;
     border: 1px solid rgb(229, 232, 235);
     border-radius: 50%;
