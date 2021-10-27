@@ -4,6 +4,7 @@ export const Management_Wrap = styled.div`
 &{
     padding: 90px 0 0 0;
     box-sizing: border-box;
+    display: flex;
 }
 `
 export const Right = styled.div`
@@ -89,6 +90,6 @@ export const  Btn_Box = styled.div`
     flex-direction: column; 
     justify-content: space-between;
      position: relative;
-     top: -45px;
+     top: -55px;
 
 `
