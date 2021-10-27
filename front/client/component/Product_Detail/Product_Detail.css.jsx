@@ -179,15 +179,45 @@ export const Price_contain = styled.div`
     width: 100%;
     border-top: 1px solid rgba(20, 30, 40, 0.1);
     border-bottom: 1px solid rgba(20, 30, 40, 0.1);
-    padding-bottom: 20px;
+    padding: 20px;
     box-sizing: border-box;
     margin-top: 10px;
-
+    display: flex;
+    justify-content: space-evenly;
 }
 
-& > div {
-    /* margin: 0 auto; */
-    text-align:center;
-
+& > h4 {
+    font-size: 50px;
+}
+& > h4 >img{
+    width: 50px;
+    height: 50px;
+    position: relative;
+    top:5px
 }
 `
+export const Auction_contain = styled.div`
+&{
+    width: 100%;
+    border-top: 1px solid rgba(20, 30, 40, 0.1);
+    border-bottom: 1px solid rgba(20, 30, 40, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    
+}
+
+& > ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+& > ul > li{
+    padding-bottom: 10px;
+}
+& > div{
+    width: 100%;
+    height: 200px;
+    border: 1px solid #000000;
+}
+`
+
