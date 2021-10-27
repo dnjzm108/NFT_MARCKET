@@ -24,7 +24,7 @@ export const Liststyle = styled.div`
     color: black;
   }
 
-  .title > h1{
+  .title > h3{
       padding: 20px;
     & :hover{
         color: grey;
@@ -40,14 +40,14 @@ export const Liststyle = styled.div`
     border-radius: 8px;
   }
 
-  .sellist{
-    border-bottom: 1px solid ${p=>p.isSelect ? 'black' : "none"};
-  }
   .buylist{
-    border-bottom: 1px solid ${p=>!p.isSelect ? 'black' : "none"};
+    border-bottom: 1px solid ${p=>p.isSelect==1 ? 'black' : "none"};
   }
-  /* .auclist{
-    border-bottom: 1px solid ${p=>p.isSelect ? 'black' : "none"};
-  } */
+  .sellist{
+    border-bottom: 1px solid ${p=>p.isSelect==2 ? 'black' : "none"};
+  }
+  .auclist{
+    border-bottom: 1px solid ${p=>p.isSelect==3 ? 'black' : "none"};
+  }
 `
 

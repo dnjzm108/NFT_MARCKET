@@ -1,18 +1,20 @@
 import styled from "styled-components";
 
 export const StyledFilter = styled.div`
-  position: relative;
   border-right: 1px solid rgb(229,232,235);
+  max-height: 80vh;
+  position: sticky;
+  top: 94px;
 
   .filter_open{
-    position: sticky;
-    top: 80px;
+    height: auto;
+    max-height: 80vh;
     width: 340px;
+    overflow-y:auto;
+ 
   }
 
   .filter_close{
-    position: sticky;
-    top: 80px;
     width: 64px;
   }
 

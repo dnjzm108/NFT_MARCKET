@@ -1,24 +1,10 @@
 import React from "react";
-import { Liststyle } from "./sub.css";
-import Auclist from "./Auclist";
-import Buylist from "./Buylist";
-import Sellist from "./Sellist";
+import { Liststyle } from "./Sub.css";
+import NFTList from "./NFTList";
 import { useState } from "react";
 
 const sub = () => {
-    const [isSelect,setSelect] = useState(true)
-
-    const SelBuy =()=>{
-        setSelect(false)
-    }
-    
-    const SelAuc =()=>{
-        setSelect(false)
-    }
-    
-    const SelSell =()=>{
-        setSelect(true)
-    }
+    const [isSelect,setSelect] = useState(0)
     
     return (
       <>
@@ -26,21 +12,18 @@ const sub = () => {
             <div className="Container">
                 <div className="main_contain">
                     <div className="title">
-                            <h1 onClick={ () => SelSell()} className="sellist">
-                                판매 목록
-                            </h1>
-                            <h1 onClick={ () => SelBuy()} className="buylist">
-                                구매 목록
-                            </h1>
-                            <h1 onClick={ () => SelAuc()} className="auclist">
-                                경매 목록
-                            </h1>
-                        
+                        <h3 onClick={ () => setSelect(1)} className="buylist">
+                            구매 목록
+                        </h3>
+                        <h3 onClick={ () => setSelect(2)} className="auclist">
+                            경매 목록
+                        </h3>
+                        <h3 onClick={ () => setSelect(3)} className="sellist">
+                            판매 목록
+                        </h3>
                     </div>
                     <div className="content">
-                    {
-                    isSelect ? <Sellist/> : <Buylist/> || <Auclist/>
-                        }
+                        <NFTList isSelect={isSelect}/>
                     </div>
                 </div>
             </div>
