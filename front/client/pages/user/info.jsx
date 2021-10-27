@@ -22,7 +22,7 @@ const InfoPage = () => {
         <Navigation/> 
         <Info>
             <SideMenu/>
-            {type==='profile'&& <MyInfo/>}
+            {type==='profile'&& <Profile/>}
             {type==='buy'&& <NFTList type={type}/>}
             {type==='auction'&& <NFTList type={type}/>}
             {type=='sell'&& <NFTList type={type}/>}

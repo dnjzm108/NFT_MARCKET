@@ -2,20 +2,28 @@ import { Test_style,styledTd, styledRow, styledWrap,StyleTd } from "./MyInfo.css
 import CameraAlt from "@mui/icons-material/CameraAlt";
 import {Circle} from "../../component/Join/Join.css";
 import Button from "../Button"
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
 
 const MyInfo = () => {
+
+    const WalletUrl = "0xbf39ac77b62577d4c8e9c16f278b1c05e87d17e5"
+
     return ( 
         <>
-            <styledWrap>
-                
                     <Test_style>
                     <div>
                     <Circle><CameraAlt/></Circle>
                 <h1>네이선드레이크</h1>
+                <i class="fas fa-exclamation-triangle"></i>
                 <StyleTd/>
-                <h4>0xbf39ac77b62577d4c8e9c16f278b1c05e87d17e5</h4>
+                <CopyToClipboard text={WalletUrl}>
+                <td className="URL">0xbf39ac77b62577d4c8e9c16f278b1c05e87d17e5</td>
+                </CopyToClipboard>
                 <StyleTd/>
-                <Button value='프로필 편집' url='/user/edit' ml={120} mb={50} color="sky" size='small' />
+                <div className="btn">
+                    <Button value='판매자 등록신청' url='/user/info' ml={100} mb={50} color="sky" size='small' />
+                </div>
                     </div>
                     </Test_style>
                 
@@ -30,7 +38,6 @@ const MyInfo = () => {
                         </td>
                     </tr>
                 </styledRow> */}
-            </styledWrap>
         </>
     );
     

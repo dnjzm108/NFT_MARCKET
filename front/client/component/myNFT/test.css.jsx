@@ -10,16 +10,20 @@ export const Test_style = styled.div`
     text-align :center ;
     height: 50%;
     }
-    .URL{
-        color: grey;
-        cursor: pointer;
-    }
-    .URL:hover{
-        color: black;
-    }
+    
+.btn{
+    display: flex;
+}
+.URL{
+    color: grey;
+}
+.URL:hover{
+    color: black;
+    cursor: pointer;
+}
 `
 export const styledTd = styled.div`
-    margin-top:12px;
+    margin-top:22px;
 `
 
 export const styledWrap = styled.div`
@@ -36,7 +40,6 @@ export const styledRow = styled.div`
     float: right;
 }
 `
-export const StyleTd = styled.div`
-    margin-top: 24px;
-`
+
     
+
