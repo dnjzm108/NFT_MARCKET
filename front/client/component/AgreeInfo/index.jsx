@@ -1,12 +1,13 @@
 import { StyledAgreeInfo } from "./AgreeInfo.css"
+import Button from "../Button"
 
 const AgreeInfo = () => {
     return(
         <StyledAgreeInfo>
             <div className="agree_section">
                 <div>
-                    <input type="checkbox"/>
-                    <h3>본인은 NFT 발행을 위해 아래 정보를 수집 및 이용하는 것에 동의합니다.</h3>
+                    <input type="checkbox" id="agreeInfo"/>
+                    <label htmlFor ="agreeInfo"><h3>본인은 NFT 발행을 위해 아래 정보를 수집 및 이용하는 것에 동의합니다.</h3></label>
                     <span>
                     - 수집항목: NFT 이름, 설명, 파일 (이미지 등)
                     - 수집목적: NFT 발행 및 관리<br/>
@@ -15,8 +16,8 @@ const AgreeInfo = () => {
                     </span>
                 </div>
                 <div>
-                    <input type="checkbox"/>
-                    <h3>본인은 아래 유의사항을 꼼꼼히 확인하였으며, 이를 준수하는데 동의합니다.</h3>
+                    <input type="checkbox" id="agreeCaution"/>
+                    <label htmlFor ="agreeCaution"><h3>본인은 아래 유의사항을 꼼꼼히 확인하였으며, 이를 준수하는데 동의합니다.</h3></label>
                     <span>
                     1. 본인은 제3자의 지적재산권, 인권, 개인정보 등 타인의 권리를 침해하지 않습니다.<br/>
                     2. 본인은 본인의 개인정보를 활용하는 경우 본인의 개인정보가 제3자에게 공개, 활용, 제공 등이 될 수 있음을 인지하며 이에 동의합니다.<br/>
@@ -25,6 +26,13 @@ const AgreeInfo = () => {
                     </span>
                 </div> 
             </div>
+            <div className="release_btn">
+                {/* <button className="cancel">취소</button>
+                    <button className="go">NFT 발행하기</button> */}
+                <Button value="취소 하기" color="white" className="cancel" />
+                <Button value="NFT 발행하기" color="blue" className="go" ml="50" />
+            </div>
+            <div className="bottom_contain"></div>
         </StyledAgreeInfo>
     )
 }

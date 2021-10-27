@@ -20,8 +20,8 @@ const Release = () => {
             </div>
             <Thumbnail/>
             </div>
-            <AgreeInfo/>
             <Sell/>
+            <AgreeInfo/>
         </StyledRelease>
         {/* <Footter/> */}
         </>
