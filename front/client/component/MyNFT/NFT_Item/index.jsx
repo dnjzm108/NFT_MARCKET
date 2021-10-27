@@ -24,7 +24,7 @@ const MyNFT = () => {
         <span>홍준표</span>
       </div>
       <div className='MyNFT_action'>
-        <Button func={sample} value={}/>
+        <Button func={sample} value={버튼}/>
       </div>
     </li>
   );

@@ -79,7 +79,7 @@ export const Table = styled.table`
   }
   &>tr>th{
       display: inline-block;
-      width: 250px;
+      width: 220px;
       /* text-align:center; */
   }
 `

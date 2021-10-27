@@ -28,18 +28,10 @@ const Sell = ()=>{
                     <h1 onClick={() => handleNow()} className="select_buynow"> 즉시구매 </h1>
                     <h1 onClick={() => handleAuc()} className="select_auc"> 경매 </h1>
                 </div>
-                <div className="flex_contain">
-                    <div className="select_sell">
-                        {
-                            isNow ? <BuyNow /> : <Auction />
-                        }
-                    </div>
-                    <div className="release_btn">
-                        {/* <button className="cancel">취소</button>
-                    <button className="go">NFT 발행하기</button> */}
-                        <Button value="취소 하기" color="white" className="cancel" />
-                        <Button value="NFT 발행하기" color="blue" className="go" ml="50" />
-                    </div>
+                <div className="select_sell">
+                    {
+                        isNow ? <BuyNow /> : <Auction />
+                    }
                 </div>
             </div>
         </StyledSell>

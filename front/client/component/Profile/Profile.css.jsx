@@ -11,6 +11,16 @@ export const ProfileStyled = styled.div`
     text-align :center ;
 }
 
+
+&>div>img{
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 50%;
+    padding: 4px;
+}
+
 .btn{
     display: flex;
     margin-left: 130px;

@@ -1,35 +1,61 @@
 import { StyledThumbnail } from './Thumbnail.css'
 import NTF from '../NFT/index'
-import { FiChevronLeft,FiChevronRight } from "react-icons/fi";
-import { GrRadial , GrStatusGoodSmall } from "react-icons/gr";
+// import { FiChevronLeft,FiChevronRight } from "react-icons/fi";
+// import { GrRadial , GrStatusGoodSmall } from "react-icons/gr";
 import { useState } from 'react';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import React, { Component } from "react";
+import {Styled_Slide} from "./Thumbnail.css"
+
 
 const Thumbnail = ()=>{
-    const [isPicture, setIsPicture] = useState(true)
-    const [prevPicture, setPrevPicture] = useState(true)
-    const [nxtPicture, setNxtPicture] = useState(true)
-    
-    const handlePass = ()=>{
-        setIsPicture(!isPicture)
+    const [ isSelect , setIsSelect ] = useState(true);
+
+    const handleSelect = ()=>{
+        setIsSelect(!isSelect)
     }
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    }
+
 
     return(
         <StyledThumbnail>
             <div className="thumbnail">
-                <h3>대표 사진을 선택해주세요</h3>
+                <h3>대표 이미지를 선택해주세요</h3>
                 <div className="flex_contain">
-                    <FiChevronLeft size="30" />
-                    <NTF />
-                    <FiChevronRight size="30" />
+                    <Styled_Slide {...settings} isSelect={isSelect}>
+                        {
+                            
+                        }
+                        <div>
+                            <button onClick={()=>handleSelect()}>선택</button>
+                            <h3>1</h3>
+                        </div>
+                        <div>
+                            <NTF/>
+                        </div>
+                        <div>
+                            <h3>3</h3>
+                        </div>
+                        <div>
+                            <h3>4</h3>
+                        </div>
+                        <div>
+                            <h3>5</h3>
+                        </div>
+                        <div>
+                            <h3>6</h3>
+                        </div>
+                    </Styled_Slide>
                 </div>
-            </div>
-            <div className="pass">
-                {/* {
-                    isPicture ? <GrRadial size="10"/> : <GrStatusGoodSmall size="14"/>
-                } */}
-            <GrRadial size="10"/><GrRadial size="10"/><GrRadial size="10"/>
-            <GrStatusGoodSmall size="14"/><GrRadial size="10"/><GrRadial size="10"/>
-            <GrRadial size="10"/><GrRadial size="10"/><GrRadial size="10"/>
+                <p>* 선택하지 않으면 가장 앞의 사진이 대표사진으로 올라갑니다</p>
             </div>
         </StyledThumbnail>
     )
@@ -37,42 +63,7 @@ const Thumbnail = ()=>{
 
 export default Thumbnail
 
-// import React, { Component } from "react";
-// import Slider from "react-slick";
 
-// export default class SimpleSlider extends Component {
-//   render() {
-//     const settings = {
-//       dots: true,
-//       infinite: true,
-//       speed: 500,
-//       slidesToShow: 1,
-//       slidesToScroll: 1
-//     };
-//     return (
-//       <div>
-//         <h2> 대표사진 고르기 </h2>
-//         <Slider {...settings}>
-//           <div>
-//             <h3>1</h3>
-//           </div>
-//           <div>
-//             <h3>2</h3>
-//           </div>
-//           <div>
-//             <h3>3</h3>
-//           </div>
-//           <div>
-//             <h3>4</h3>
-//           </div>
-//           <div>
-//             <h3>5</h3>
-//           </div>
-//           <div>
-//             <h3>6</h3>
-//           </div>
-//         </Slider>
-//       </div>
-//     );
-//   }
-// }
+
+
+

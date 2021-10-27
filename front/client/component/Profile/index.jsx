@@ -9,7 +9,7 @@ import { VscSmiley, VscCheck, VscWarning } from "react-icons/vsc";
 
 const Profile = () => {
 
-    
+
     const WalletUrl = "0xbf39ac77b62577d4c8e9c16f278b1c05e87d17e5"
 
     return (
@@ -17,7 +17,7 @@ const Profile = () => {
         <ProfileStyled>
             <div>
                 <h1>나의 프로필</h1>
-                <img src="/3.jpg"/>
+                    <img src="/홍준표.png" alt="" />
                     <StyleTd/>
                     <div className="seller_title">
                     <h2>네이선드레이크</h2>

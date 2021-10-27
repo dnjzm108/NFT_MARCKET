@@ -95,14 +95,7 @@ color: #222;
     margin-left: 10px;
 }
 
-.flex_contain{
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-}
-.release_btn{
-    display: flex;
-}
+
 
 
 

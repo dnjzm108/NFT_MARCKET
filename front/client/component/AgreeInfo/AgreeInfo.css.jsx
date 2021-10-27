@@ -10,7 +10,7 @@ margin-top: 10%;
     margin-top: 10%;
 }
 
-.agree_section>div>h3{
+.agree_section>div>label>h3{
     display: inline-block;
     padding: 1%;
 }
@@ -23,7 +23,21 @@ margin-top: 10%;
     margin-top: 18px;
 }
 
+
 .agree_section>div:nth-child(2){
-    margin-top: 6%;
+    margin-top: 10%;
+}
+.agree_section>div:nth-child(3){
+    margin-top: 8%;
+}
+
+.release_btn{
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom_contain{
+    height: 200px;
 }
 `
