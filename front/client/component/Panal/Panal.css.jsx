@@ -5,7 +5,7 @@ export const StyledPanal = styled.div`
 
   
   .panal_header{
-    width: 340px;
+    width: 100%;
     height: 64px;
     padding: 20px;
     display: flex;
