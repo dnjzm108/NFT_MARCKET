@@ -24,6 +24,7 @@ const Auction = () =>{
                     placeholder='경매가'
                     width="400px"
                     msg="가격을 입력해주세요"
+                    type="number"
                 />
                 <p>원</p>
             </div>
