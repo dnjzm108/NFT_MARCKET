@@ -3,6 +3,8 @@ import styled from "styled-components"
 
 export const Auction_Wrap = styled.div`
 &{
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: space-around;
 }
@@ -18,8 +20,8 @@ export const Auction_Wrap = styled.div`
 }
 & > div >h4{
     border-top: 1px solid #000000;
-    margin-top: 15px;
-    padding: 12px;
+    margin-top: 10px;
+    padding: 10px;
     box-sizing: border-box;
 }
 & > div >h5{
@@ -35,7 +37,7 @@ export const Auction_History_Wrap = styled.div`
       height: 190px;
       padding: 30px;
       box-sizing: border-box;
-      overflow-y: scroll;
+      overflow-y: auto;
   }
   & > table{
       width: 100%;
