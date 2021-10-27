@@ -6,6 +6,7 @@ export const StyledButton = styled.button`
   padding: ${(props) => props.size};
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.ftColor};
+  font-family: 'ROKAMedium';
   text-align: center;
   display: flex;
   align-items: center;
@@ -29,6 +30,7 @@ export const StyledButton = styled.button`
 export const StyledAnchor = styled.a`
   cursor: pointer;
   width: fit-content;
+  font-family: 'ROKAMedium';
   padding: ${(props) => props.size};
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.ftColor};
