@@ -1,17 +1,26 @@
-import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container,Styled_Slide ,Price_contain} from './Product_Detail.css'
+import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container,Styled_Slide ,Price_contain,Auction_contain} from './Product_Detail.css'
 import Footter from '../../component/Footter'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
+import { useState } from 'react';
+import { Auction,Auction_History } from './Auction_Box';
 
-import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
 
 
 const Product_detail = () => {
+const [auction,setAuction] = useState(true)
 
+const changeAuction = ()=>{
+    setAuction(true)
+}
+const changeAuctionHist = () =>{
+    setAuction(false)
+}
     const settings = {
         dots: true,
         infinite: true,
@@ -76,18 +85,22 @@ const Product_detail = () => {
                     </Seller_contain>
 
                     <Price_contain>
-                        <h4>가격 100 클레이튼</h4>
-                        <Button value="Buy" />
+                        <h4> <img src="/klay.png" alt="" /> 100</h4>
+                        <Button value="즉시 구매" color="sky"/>
                     </Price_contain>
 
-                    <Seller_contain>
-                        경매
+                    <Auction_contain>
                         <ul>
-                            <li>경매하기</li>
-                            <li>경매히스토리</li>
-                            <li></li>
+                            {auction ? <li onClick={changeAuction} style={{color:"blue"}}>경매 하기</li> :   <li onClick={changeAuction}>경매 하기</li>}
+                          {!auction ?   <li onClick={changeAuctionHist} style={{color:"blue"}}>경매 히스토리</li>: <li onClick={changeAuctionHist}>경매 히스토리</li>}
+                           
                         </ul>
-                    </Seller_contain>
+
+                        <div>
+                        {auction ?   <Auction/>: <Auction_History/>}
+
+                        </div>
+                    </Auction_contain>
 
                     <Explain>
                         <h2>삼품 상세</h2>
