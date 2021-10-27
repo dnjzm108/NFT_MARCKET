@@ -1,15 +1,35 @@
 import Link from 'next/link'
 import CloseIcon from '@mui/icons-material/Close';
 import { Icon_Close } from '../Login/Login.css'
-import { Small_Contain } from '../Join/Join.css'
-import { Middle_btn, Small_btn } from '../Btn';
-// import {StyledButton} from './Button/Button.css';
 import { Popup_background } from "../Wrap/Popup_Background";
-import { Container } from "../form/Container";
-import { Middle_Input, Small_Input } from "../input";
-import {Table} from './Delivery_Address.css'
+import { Container } from "../Form/Container";
+import Input from "../input";
+import Button from "../Button"
+import { Table, AddressFind, Center,Subject } from './Delivery_Address.css'
+
+import PopupDom from './PopupDom';
+import PopupPostCode from './PopupPostCode';
+import { useState } from 'react';
+import useInput from '../../hooks/useInput';
 
 export const Delivery_Address_Component = () => {
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
+    const [address, setaddress] = useState('')
+    const [postNumber, setpostNumber] = useState('')
+
+    const Ponenumber = useInput()
+    const address_detail = useInput()
+    const Recipient = useInput()
+    const requirement = useInput()
+
+    const openPostCode = () => {
+        setIsPopupOpen(true)
+    }
+    // 팝업창 닫기
+    const closePostCode = () => {
+        setIsPopupOpen(false)
+    }
+
     return (
         <>
             <Popup_background>
@@ -19,7 +39,7 @@ export const Delivery_Address_Component = () => {
                             <CloseIcon color="disabled" sx={{ fontSize: 55 }} />
                         </Link>
                     </Icon_Close>
-                    <h1>배송 주문</h1>
+                    <Subject>배송 주문</Subject>
 
                     <form action="">
                         <Table>
@@ -34,13 +54,13 @@ export const Delivery_Address_Component = () => {
                             <tr>
                                 <td>수령인</td>
                                 <td>
-                                    <Small_Input />
+                                    <Input {...Recipient} placeholder="수령인을 적어주세요" msg="수령인을 적어주세요" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>요청 사항</td>
                                 <td>
-                                    <Small_Input />
+                                    <Input {...requirement} placeholder="요청 사항을 적어주세요" />
                                 </td>
                             </tr>
                             <tr>
@@ -49,26 +69,47 @@ export const Delivery_Address_Component = () => {
                                     <input type="radio" name="receive" /> 문앞
                                     <input type="radio" name="receive" /> 경비실
                                     <input type="radio" name="receive" /> 택배함
-                                    <input type="radio" name="receive" /> 기타 <input type="text" />
+                                    <input type="radio" name="receive" /> 기타   <Input />
                                 </td>
                             </tr>
                             <tr>
+
                                 <td>주소</td>
+                                {/* <Button value="주소찾기" func={()=> setIsPopupOpen(true)}/> */}
                                 <td>
-                                    <input type="text" name="" id="" />
-                                    <button>주소 검색</button>
-                                    <input type="text" name="" id="" />
-                                    <input type="text" name="" id="" />
+                                    {address !== '' ? <h3>우편번호</h3> : ''}
+                                    <div>{postNumber}</div>
+                                    {address}
+                                    {address !== '' ? <Input {...address_detail} placeholder="상세주소를 입력해 주세요" /> : ''}
+                                    <AddressFind type='button' onClick={openPostCode}>주소 찾기</AddressFind>
+                                    <div id='popupDom'>
+                                        {isPopupOpen && (
+                                            <PopupDom>
+                                                <PopupPostCode onClose={closePostCode} address={address} setaddress={setaddress} setpostNumber={setpostNumber} />
+                                            </PopupDom>
+                                        )}
+                                    </div>
                                 </td>
+
+                            </tr>
+                            <tr>
+                                <td>전화번호</td>
+                                <td><Input {...Ponenumber} placeholder=" - 빼고 입력해 주세요" /></td>
                             </tr>
                         </Table>
 
-                        <Middle_btn type="submit">배송주문</Middle_btn>
-
+                        <Center>
+                            <Button value="주문 하기" color="sky" url="/" />
+                        </Center>
                     </form>
+
 
                 </Container>
             </Popup_background>
         </>
     )
 }
+
+
+
+

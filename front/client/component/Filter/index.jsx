@@ -10,50 +10,24 @@ import useInput from '../../hook/useInput';
 import CheckBoxes from '../CheckBoxes'
 import useCheckBox from "../../hook/useCheckbox";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-
-
-const tempdesigner = [{'name':'이재명','img':'/이재명.png'},{'name':'윤석열','img':'/윤석열.png'},{'name':'홍준표','img':'/홍준표.png'},{'name':'심상정','img':'/심상정.png'},{'name':'안철수','img':'/안철수.png'}];
 const tempCurrency = [ {"name":'KLAY','img':'/klay.png'},{'name':'KRW','img':'/krw.png'}]
-const tempCategory = [
-  {name:'Top', img:'/top.png'},
-  {name:'Outer', img:'outer.png'},
-  {name:'Pants', img:'/pants.png'},
-  {name:'Onpiece', img:'/onepiece.png'},
-  {name:'Skirt', img:'/skirt.png'},
-  {name:'Sneakers', img:'/sneakers.png'},
-  {name:'Shoes', img:'/shoes.png'},
-  {name:'Bag', img:'/bag.jpg'},
-  {name:'Women`s bag', img:'/womenbag.png'},
-  {name:'Sports/Goods', img:'/sports.png'},
-  {name:'Headwear', img:'/headwear.png'},
-  {name:'Socks/Legwear', img:'/socks.png'},
-  {name:'Underwear', img:'/underwear.png'},
-  {name:'Eyewear', img:'/eyewear.png'},
-  {name:'Accessory', img:'/accessory.png'},
-]
 
 const Filter = () => {
-  const [open,setOpen] = useState(false)
-  const designer = useCheckBox(tempdesigner); 
-  const currency = useChangeValue(tempCurrency)
-  const category = useCheckBox(tempCategory);
+  const {category,designer} = useSelector(state=>state.filter);
+  const currency = useChangeValue(tempCurrency);
+  const _category = useCheckBox(category);
+  const _designer = useCheckBox(designer);
+  const [open,setOpen] = useState(false);
   const Min = useInput(); 
   const Max = useInput(); 
-  const test = useInput();
 
   const handlePrice = ()=>{
     alert('가격적용')
   }
 
-
-
-
   return (
-
-
-
-
     <StyledFilter>
       {open
         ?
@@ -85,11 +59,11 @@ const Filter = () => {
       </Panal>
 
       <Panal value='디자이너' scroll={true}>
-        <CheckBoxes {...designer} useImage={true}/>
+        <CheckBoxes {..._designer} useImage={true}/>
       </Panal>
 
       <Panal value='카테고리' scroll={true}>
-        <CheckBoxes {...category} useImage={true}/>
+        <CheckBoxes {..._category} useImage={true}/>
       </Panal>
       </div>
         :

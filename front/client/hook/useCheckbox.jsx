@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 const useCheckBox = (defaultValue) => {
-  const list = [...defaultValue];
+  const list =[...defaultValue.list]
 
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(defaultValue.value);
 
   const onCheck = (index) => {
     if(value&(1<<index)){
@@ -14,7 +14,7 @@ const useCheckBox = (defaultValue) => {
   };
 
   const onInit=()=>{
-    setValue(0)
+    setValue(0);
   }
 
   let result = list.filter((_,i)=>(1<<i&value)).map(v=>v.name);

@@ -32,15 +32,23 @@ export const CheckBoxImageItem = styled.div`
   }
 
   &>label{
-    margin-left: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
   }
 
-  &>i>img{
+  &>label>span{
+    margin-left: 12px;
+  }
+  
+  &>label>i>img{
     width: 32px;
     height: 32px;
     overflow: hidden;
     border: 1px solid rgb(229, 232, 235);
     border-radius: 50%;
     padding: 4px;
+    cursor: pointer;
   }
 `

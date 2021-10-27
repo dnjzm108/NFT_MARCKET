@@ -11,7 +11,11 @@ export const Table = styled.table`
     width: 300px;
     height: 100%;
     border: 1px solid black;
-    /* box-sizing: border-box; */
+}
+& > tr > td{
+    padding: 10px;
+    box-sizing: border-box;
+
 }
 & > tr > td:nth-child(1){
     width: 30%;
@@ -42,34 +46,18 @@ export const Table = styled.table`
     margin: 0 auto;
 }
 `
+export const AddressFind = styled.button`
+padding: 12px 20px;
+background: #ffff;
+border: 1px solid #000000;
+`
 
-// const Middle_Input = styled.div`
-// & {
-//     margin: 40px auto 0;
-//     height: 100px;
-// }
-// & > label{
-//     font-weight: 700;
-//     font-size: 20px;
-//     color: #2d3741;
-//     display: block;
-//     float: left;
-//     /* margin: 0 0 20px 0; */
-// }
+export const Center = styled.div`
+margin-top: 30px ;
+display: flex;
+justify-content: center;
+`
 
-// & > input{
-//     display: inline-block;
-//     width: 300px;
-//     /* height: calc(1.75em + 1.25rem + 2px); */
-//     padding: .625rem .75rem;
-//     box-sizing: border-box;
-//     font-size: 1rem;
-//     font-weight: 400;
-//     line-height: 1.75;
-//     color: #495057;
-//     background-color: #fff;
-//     background-clip: padding-box;
-//     border: 1px solid #ced4da;
-//     border-radius: .25rem;
-// }
-//`
+export const Subject = styled.h1`
+margin-bottom: 20px;
+`
