@@ -47,7 +47,7 @@ const Management = () => {
 
                 <Container>
 
-                    
+
                     {menu == 1 ? <Content_Box>
 
                         <Table>
@@ -55,6 +55,7 @@ const Management = () => {
                                 <th>회원 닉네임</th>
                                 <th>이메일</th>
                                 <th>사업자 번호</th>
+                                <th> <Button value="판매자 승인" url="/" size="small" color="sky" /> </th>
                             </tr>
                         </Table>
                         <Table>
@@ -62,55 +63,54 @@ const Management = () => {
                                 <th>정성진</th>
                                 <th>jin@naver.com</th>
                                 <th>92791409892479709</th>
+                                <th>   <Button value="판매자 반려" url="/" size="small" mt={5} /></th>
                             </tr>
                             <Btn_Box>
-                                <Button value="판매자 승인" url="/" size="small" color="sky" />
-                                <Button value="판매자 반려" url="/" size="small" mt={5} />
                             </Btn_Box>
                         </Table>
                     </Content_Box> : ''}
 
-       {menu == 2 ?
-       <Content_Box>
+                    {menu == 2 ?
+                        <Content_Box>
 
-       <Table>
-           <tr>
-               <th>회원 닉네임</th>
-               <th>이메일</th>
-               <th>사업자 번호</th>
-           </tr>
-       </Table>
-       <Table>
-           <tr>
-               <th>정성진</th>
-               <th>jin@naver.com</th>
-               <th>92791409892479709</th>
-           </tr>
-       </Table>
-   </Content_Box> : ''
-       }
+                            <Table>
+                                <tr>
+                                    <th>회원 닉네임</th>
+                                    <th>이메일</th>
+                                    <th>사업자 번호</th>
+                                </tr>
+                            </Table>
+                            <Table>
+                                <tr>
+                                    <th>정성진</th>
+                                    <th>jin@naver.com</th>
+                                    <th>92791409892479709</th>
+                                </tr>
+                            </Table>
+                        </Content_Box> : ''
+                    }
 
-       {menu == 3 ?
-       <Content_Box>
-       <Table>
-           <tr>
-               <th>회원 닉네임</th>
-               <th>이메일</th>
-               <th>사업자 번호</th>
-           </tr>
-       </Table>
-       <Table>
-           <tr>
-               <th>정성진</th>
-               <th>jin@naver.com</th>
-               <th>92791409892479709</th>
-           </tr>
-           <Btn_Box>
-               <Button value="판매자 승인" url="/" size="small" color="sky" />
-           </Btn_Box>
-       </Table>
-   </Content_Box>
-    : ''}
+                    {menu == 3 ?
+                        <Content_Box>
+                            <Table>
+                                <tr>
+                                    <th>회원 닉네임</th>
+                                    <th>이메일</th>
+                                    <th>사업자 번호</th>
+                                   <th> <Button value="판매자 승인" url="/" size="small" color="sky" /></th> 
+                                     </tr>
+                            </Table>
+                            <Table>
+                                <tr>
+                                    <th>정성진</th>
+                                    <th>jin@naver.com</th>
+                                    <th>92791409892479709</th>
+                                </tr>
+                                <Btn_Box>
+                                </Btn_Box>
+                            </Table>
+                        </Content_Box>
+                        : ''}
 
                 </Container>
 
