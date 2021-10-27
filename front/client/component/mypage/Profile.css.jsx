@@ -7,11 +7,12 @@ export const ProfileStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 120px;    
+    padding-top: 10px;    
 }
 
 .btn{
     display: flex;
+    margin-left: 130px;
 }
 `
 
@@ -19,7 +20,7 @@ export const StyleTd = styled.div`
     margin-top: 24px;
 `
 
-export const styledBox = styled.div`
+export const StyledBox = styled.div`
     margin-left: 56px;;
 `
 
@@ -27,6 +28,7 @@ export const CameraAlt = styled.div`
     width: 120px;
     height: 120px;
 `
+
 
 export const Contain = styled.div`
 & {
@@ -65,6 +67,5 @@ export const Contain = styled.div`
     border: 1px solid #ced4da;
     border-radius: .25rem;
 }
-
 `
 

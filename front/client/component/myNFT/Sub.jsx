@@ -4,21 +4,27 @@ import Auclist from "./Auclist";
 import Buylist from "./Buylist";
 import Sellist from "./Sellist";
 import { useState } from "react";
+import Profile from "../mypage/profile";
 
 const sub = () => {
-    const [isSelect,setSelect] = useState(true)
+    const [isSelect,setSelect] = useState(1)
 
+    const ProfileMenu =()=>{
+        setSelect(1)
+    }
+
+    const SelSell =()=>{
+        setSelect(0)
+    }
     const SelBuy =()=>{
-        setSelect(false)
+        setSelect(2)
     }
     
     const SelAuc =()=>{
-        setSelect(false)
+        setSelect(3)
     }
     
-    const SelSell =()=>{
-        setSelect(true)
-    }
+    
     
     return (
       <>
@@ -26,6 +32,9 @@ const sub = () => {
             <div className="Container">
                 <div className="main_contain">
                     <div className="title">
+                            <h1 onClick={()=> ProfileMenu()} className="ProMenu">
+                                내 프로필
+                            </h1>
                             <h1 onClick={ () => SelSell()} className="sellist">
                                 판매 목록
                             </h1>
@@ -39,7 +48,7 @@ const sub = () => {
                     </div>
                     <div className="content">
                     {
-                    isSelect ? <Sellist/> : <Buylist/> || <Auclist/>
+                    isSelect ? <Profile/> : <Sellist/> 
                         }
                     </div>
                 </div>
