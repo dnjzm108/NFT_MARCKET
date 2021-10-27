@@ -10,11 +10,6 @@ export const ProfileStyled = styled.div`
     padding-top: 120px;    
 }
 
-& > td {
-    font-size: 8px;
-    font-weight: lighter;
-}
-
 .btn{
     display: flex;
 }
