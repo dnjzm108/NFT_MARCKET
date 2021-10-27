@@ -1,9 +1,8 @@
 import React from "react";
-import { Liststyle } from "./Sub.css";
-import NFTList from "./NFTList";
+import { Liststyle } from "./SubNav.css";
 import { useState } from "react";
 
-const sub = () => {
+const SubNav = () => {
     const [isSelect,setSelect] = useState(0)
     
     return (
@@ -22,9 +21,6 @@ const sub = () => {
                             판매 목록
                         </h3>
                     </div>
-                    <div className="content">
-                        <NFTList isSelect={isSelect}/>
-                    </div>
                 </div>
             </div>
             </Liststyle>
@@ -32,4 +28,4 @@ const sub = () => {
     );
 }
 
-export default sub;
+export default SubNav;

@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
 export const Liststyle = styled.div`
-    &{
-        background-color: #f9fbfd;
-        border: 1px solid #eeeff0;
-    }
+
     .Container{
     height: 100vh;
     width: 70vw;
