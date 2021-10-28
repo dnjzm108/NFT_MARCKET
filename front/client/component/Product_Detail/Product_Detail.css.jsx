@@ -5,7 +5,6 @@ import Slider from "react-slick";
 &{
    width: 100%;
    background: #fff;
-   padding-top: 90px;
 }
 
 & > div {
@@ -165,7 +164,7 @@ export const Slide_container = styled.div`
     position: relative;
     border: 1px solid #000000;
     border-radius: 10px;
-    margin: 0 5px;
+    margin: 2px 5px;
     }
     & > div:nth-child(2)>ul>a>li>img{
     width: 185px;

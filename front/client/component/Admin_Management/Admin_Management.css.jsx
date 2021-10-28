@@ -2,14 +2,12 @@ import styled from "styled-components"
 
 export const Management_Wrap = styled.div`
 &{
-    padding: 90px 0 0 0;
     box-sizing: border-box;
+    display: flex;
 }
 `
 export const Right = styled.div`
 position: relative;
-right: -1300px;
-top: -20px;
 
 `
 
@@ -55,8 +53,10 @@ box-sizing: border-box;
 
 export const Content_Box = styled.div`
 &{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 width: 95%;
-height: 100px;
 margin: 5px;
 padding: 20px;
 border: 1px solid #000000;
@@ -74,14 +74,15 @@ box-sizing: border-box;
 export const Table = styled.table`
   &{
       display: flex;
+       flex-direction: column;
       justify-content: space-between;
       padding: 5px ;
   }
   &>tr>th{
       display: inline-block;
-      width: 220px;
-      /* text-align:center; */
+      width: 25%;
   }
+
 `
 
 export const  Btn_Box = styled.div`
@@ -89,6 +90,6 @@ export const  Btn_Box = styled.div`
     flex-direction: column; 
     justify-content: space-between;
      position: relative;
-     top: -45px;
+     /* top: -5vh; */
 
 `

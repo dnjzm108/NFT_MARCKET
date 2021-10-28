@@ -3,23 +3,57 @@ import styled from "styled-components";
 export const ProfileStyled = styled.div`
   &{
     width: 100vw;
-    margin: 0 auto;
+    margin: 50px auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 120px;    
+    padding-top: 10px;    
+    text-align :center ;
+    margin-right: 100px;
+}
+
+
+&>div>img{
+    width: 130px;
+    height: 130px;
+    overflow: hidden;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 50%;
+    padding: 4px;
 }
 
 .btn{
     display: flex;
+    margin-left: 130px;
+}
+.URL{
+        color: grey;
+        cursor: pointer;
+    }
+    .URL:hover{
+        color: black;
+    }
+
+.seller_title{
+    display: flex;
+    margin-left: 100px;
+}
+
+.verified{
+    display: none;
+    color: #3a84fb;
+}
+
+.need_verified{
+    color:red;
 }
 `
 
 export const StyleTd = styled.div`
-    margin-top: 24px;
+    margin-top: 20px;
 `
 
-export const styledBox = styled.div`
+export const StyledBox = styled.div`
     margin-left: 56px;;
 `
 
@@ -27,6 +61,7 @@ export const CameraAlt = styled.div`
     width: 120px;
     height: 120px;
 `
+
 
 export const Contain = styled.div`
 & {
@@ -65,6 +100,5 @@ export const Contain = styled.div`
     border: 1px solid #ced4da;
     border-radius: .25rem;
 }
-
 `
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Test_style = styled.div`
-    width: 100vw;
+    &{width: 100vw;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -9,6 +9,18 @@ export const Test_style = styled.div`
     padding-top: 120px;   
     text-align :center ;
     height: 50%;
+    }
+    
+.btn{
+    display: flex;
+}
+.URL{
+    color: grey;
+}
+.URL:hover{
+    color: black;
+    cursor: pointer;
+}
 `
 export const styledTd = styled.div`
     margin-top:22px;

@@ -11,7 +11,7 @@ const Test = () => {
         <>
 
 
-            <Delivery_Address_Component></Delivery_Address_Component>
+            {/* <Delivery_Address_Component></Delivery_Address_Component> */}
 
              {/* <Invoice></Invoice> */}
             {/* <Footter></Footter> */}

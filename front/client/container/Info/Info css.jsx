@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
  export const StyledInfo = styled.div`
- 
- .bg_grey{
-   background-color: #f9fbfd;
-   border-top: 1px solid #eeeff0;
- }
+ display: flex;
+ justify-content: flex-start;
+ align-items: flex-start;
+ padding-right: 20px;
 `

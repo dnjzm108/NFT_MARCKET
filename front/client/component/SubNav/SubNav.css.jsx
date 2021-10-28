@@ -4,7 +4,7 @@ export const Liststyle = styled.div`
 
     .Container{
     height: 100vh;
-    width: 70vw;
+    width: 80vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -28,15 +28,33 @@ export const Liststyle = styled.div`
     }
   }
 
+  .btn{
+    display: flex;
+  }
   
   
   .content{
     border: 1px dotted grey;
-    width: 900px;
-    height: 400px;
+    width: 1380px;
+    height: 700px;
     border-radius: 8px;
   }
 
+<<<<<<< HEAD:front/client/component/myNFT/sub.css.jsx
+  .ProMenu{
+    border-bottom: 1px solid ${p=>p.isSelect ? 'black' : "none"};
+  }
+
+  .sellist{
+    border-bottom: 1px solid ${p=>!p.isSelect ? 'black' : "none"};
+  }
+  /* .buylist{
+    border-bottom: 1px solid ${p=>!p.isSelect ? 'black' : "none"};
+  } */
+  /* .auclist{
+    border-bottom: 1px solid ${p=>p.isSelect ? 'black' : "none"};
+  } */
+=======
   .buylist{
     border-bottom: 1px solid ${p=>p.isSelect==1 ? 'black' : "none"};
   }
@@ -46,5 +64,6 @@ export const Liststyle = styled.div`
   .auclist{
     border-bottom: 1px solid ${p=>p.isSelect==3 ? 'black' : "none"};
   }
+>>>>>>> 83b7f2c84514beb88ddb607a4ad6afb0828cc0ac:front/client/component/SubNav/SubNav.css.jsx
 `
 
