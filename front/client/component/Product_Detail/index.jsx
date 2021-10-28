@@ -111,8 +111,6 @@ const changeAuctionHist = () =>{
                         <div>
                             <h1>다른 NFT</h1>
 
-                            <Button value="프로필 보기" url="/" />
-
                         </div>
                         <div>
                             <ul>
