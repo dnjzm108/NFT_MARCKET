@@ -219,4 +219,48 @@ export const Auction_contain = styled.div`
     border: 1px solid #000000;
 }
 `
+//---- 팝업 css 부분 ----
+
+export const StyledNowPopup = styled.div`
+    .purchase_box{
+        position: relative;
+        left:50%;
+        transform: translateX(-50%);
+        width: 30vw;
+        height: 60vh;
+        margin-top: 10%;
+        background-color: white;
+        border-radius: 15px;
+        padding: 4%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+        z-index: 1;
+    }
+    .purchase_box>p{
+        width: auto;
+        display: inline-block;
+    }
+
+    .purchase_box>ul>li{
+        padding: 10px;
+    }
+    .purchase_box>ul>li>span{
+        width: auto;
+        height: auto;
+        padding: 10px;
+    }
+    .flex_contain{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .x{
+        width: 100%;
+        text-align: right;
+        cursor: pointer;
+    }
+`
 
