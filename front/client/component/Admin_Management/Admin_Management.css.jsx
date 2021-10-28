@@ -2,15 +2,12 @@ import styled from "styled-components"
 
 export const Management_Wrap = styled.div`
 &{
-    padding: 90px 0 0 0;
     box-sizing: border-box;
     display: flex;
 }
 `
 export const Right = styled.div`
 position: relative;
-right: -1300px;
-top: -20px;
 
 `
 
