@@ -1,7 +1,7 @@
 import Button from '../Button'
 import { Auction_Wrap ,Auction_History_Wrap} from './Auction.css'
 
-export const Auction = () => {
+export const Auction = ({handlePopup}) => {
     return (
         <>
             <Auction_Wrap>
@@ -13,7 +13,7 @@ export const Auction = () => {
                     <h5> 정성진 </h5>
                 </div>
                 <div>
-                    <Button value="경매 참여하기" color="sky" />
+                    <Button value="경매 참여하기" color="sky" func={handlePopup}/>
                 </div>
             </Auction_Wrap>
         </>

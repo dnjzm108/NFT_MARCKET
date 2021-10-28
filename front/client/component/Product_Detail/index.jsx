@@ -1,4 +1,4 @@
-import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container,Styled_Slide ,Price_contain,Auction_contain} from './Product_Detail.css'
+import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container, Styled_Slide, Price_contain, Auction_contain } from './Product_Detail.css'
 import Footter from '../../component/Footter'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
@@ -6,21 +6,33 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
 import { useState } from 'react';
-import { Auction,Auction_History } from './Auction_Box';
+import { Auction, Auction_History } from './Auction_Box';
+import NowPopup from "./NowPopup"
+import AucPopup from "./AucPopup"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
+import { useEffect } from 'react';
 
 
 const Product_detail = () => {
-const [auction,setAuction] = useState(true)
+    const [auction, setAuction] = useState(true)
+    const [ispopup, setIsPopup] = useState(false)
+    const [isAuc, setIsAuc] = useState(false)
 
-const changeAuction = ()=>{
-    setAuction(true)
-}
-const changeAuctionHist = () =>{
-    setAuction(false)
-}
+    const handlePopup = () => {
+        return (
+            setIsPopup(!ispopup),
+            setIsAuc(!isAuc)
+        )
+    }
+
+    const changeAuction = () => {
+        setAuction(true)
+    }
+    const changeAuctionHist = () => {
+        setAuction(false)
+    }
     const settings = {
         dots: true,
         infinite: true,
@@ -33,7 +45,6 @@ const changeAuctionHist = () =>{
         <>
             <Navigation />
             <Product_Wrap>
-
                 <div>
                     <div>
                         <Button value="돌아가기" url="/" />
@@ -61,21 +72,15 @@ const changeAuctionHist = () =>{
                             </div>
                         </Styled_Slide>
                     </div>
-
-
                     <Middle_container>
                         <div>
                             <h1>오늘도 이렇게 코딩을</h1>
                             <h3>#123719y847190309</h3>
-
                         </div>
                         <div>
                             <button><FavoriteBorderIcon /></button>
-
                         </div>
                     </Middle_container>
-
-
                     <Seller_contain>
                         <div>
                             <img src="" alt="" />
@@ -83,21 +88,23 @@ const changeAuctionHist = () =>{
                             <h3>jin</h3>
                         </div>
                     </Seller_contain>
-
                     <Price_contain>
                         <h4> <img src="/klay.png" alt="" /> 100</h4>
-                        <Button value="즉시 구매" color="sky"/>
+                        <Button value="즉시 구매" color="sky" func={handlePopup} />
                     </Price_contain>
 
+                    {/* 팝업부분 */}
+                    {ispopup ? <NowPopup handlePopup={handlePopup} /> : "" }
+                    {isAuc ? <AucPopup handlePopup={handlePopup} /> : "" }
+                    
                     <Auction_contain>
                         <ul>
-                            {auction ? <li onClick={changeAuction} style={{color:"blue"}}>경매 하기</li> :   <li onClick={changeAuction}>경매 하기</li>}
-                          {!auction ?   <li onClick={changeAuctionHist} style={{color:"blue"}}>경매 히스토리</li>: <li onClick={changeAuctionHist}>경매 히스토리</li>}
-                           
+                            {auction ? <li onClick={changeAuction} style={{ color: "blue" }}>경매 하기</li> : <li onClick={changeAuction}>경매 하기</li>}
+                            {!auction ? <li onClick={changeAuctionHist} style={{ color: "blue" }}>경매 히스토리</li> : <li onClick={changeAuctionHist}>경매 히스토리</li>}
                         </ul>
 
                         <div>
-                        {auction ?   <Auction/>: <Auction_History/>}
+                            {auction ? <Auction handlePopup={handlePopup} /> : <Auction_History />}
 
                         </div>
                     </Auction_contain>
@@ -110,9 +117,7 @@ const changeAuctionHist = () =>{
                     <Slide_container>
                         <div>
                             <h1>다른 NFT</h1>
-
                             <Button value="프로필 보기" url="/" />
-
                         </div>
                         <div>
                             <ul>
@@ -120,13 +125,9 @@ const changeAuctionHist = () =>{
                                 <Link href="/"><a><li><img src="/logo.png" /></li></a></Link>
                                 <Link href="/"><a><li><img src="/logo.png" /></li></a></Link>
                                 <Link href="/"><a><li><img src="/logo.png" /></li></a></Link>
-
-
                             </ul>
-
                         </div>
                     </Slide_container>
-
                 </div>
             </Product_Wrap>
             <Footter />
