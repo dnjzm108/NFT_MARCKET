@@ -1,8 +1,12 @@
+const { query } = require("../../pool")
 
-let test = () =>{
-    daakdfas
+let test = (req,res) =>{
+    
+    const sql =``
+    const result = await query(sql)
 }
 
 module.exports={
     test
 }
+
