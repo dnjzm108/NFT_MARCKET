@@ -5,51 +5,15 @@ import { Middle_btn, Small_btn } from '../../component/Btn.jsx';
 import { Logo, Circle, Copyed, Small_Contain, Check_Content, Line, Btn_Box } from './Join.css.jsx'
 import { Wrap } from '../../component/Wrap/Popup_back.jsx';
 import useInput from '../../hooks/useInput.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from '../Input'
 import Button from '../Button';
 
 
-const Join = () => {
-    const [Check_Nick, setCheck_Nick] = useState(true)
-    const [Wallet_Address, setWallet_Address] = useState(true)
-    const [Email_Address, setEmail_Address] = useState(true)
+const Join = (data) => {
 
-    const nickname = useInput('')
-    const wallet_address = useInput('')
-    const email_address = useInput('')
-
-    const Check_Nickname = e => {
-        let { value } = nickname;
-        if (value == '') {
-            console.log(value);
-            setCheck_Nick(false);
-        } else {
-            console.log(value);
-            setCheck_Nick(true);
-        }
-    }
-    const Check_Wallet_Address = e => {
-        let { value } = nickname;
-        if (value == '') {
-            console.log(value);
-            setWallet_Address(false);
-        } else {
-            console.log(value);
-            setWallet_Address(true);
-        }
-    }
-    const Check_Email_Address = e => {
-        let { value } = nickname;
-        if (value == '') {
-            console.log(value);
-            setEmail_Address(false);
-        } else {
-            console.log(value);
-            setEmail_Address(true);
-        }
-    }
-
+    const nickname = useInput('');
+    const email_address = useInput('');
 
 
     return (
@@ -66,11 +30,6 @@ const Join = () => {
                             <td>* 5~20자의 한글, 영문 대소문자, 숫자, 특수기호(_),(-),(.)만 사용 가능합니다.</td>
                             <Input {...nickname} msg="닉네임을 입력해 주세요" type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
                             {/* <input {...nickname} onMouseOut={Check_Nickname} type="text" id="nickname" placeholder="닉네임을 입력해주세요" /> */}
-
-                        </Small_Contain>
-                        <Small_Contain>
-                            <label htmlFor="wallet_address">지갑주소</label>
-                            <Input {...wallet_address} msg="지갑주소를 입력해주세요" id="wallet_address" placeholder="ex) 0x65abe502ea9bcec46ed174543df1537f5378eaaa" />
 
                         </Small_Contain>
                         <Small_Contain>
