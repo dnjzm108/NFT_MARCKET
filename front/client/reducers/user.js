@@ -1,7 +1,7 @@
 const initalState = {
     loadding: false,
     IsLogin: false,
-    user_info: {},
+    user_info:{},
     Id_check: ''
 }
 
@@ -22,7 +22,6 @@ const USER_COOKIE_CHECK = "USER_COOKIE_CHECK"
 const USER_COOKIE_SUCCESS = "USER_COOKIE_SUCCESS"
 const USER_COOKIE_ERROR = "USER_COOKIE_ERROR"
 
-const test = "test"
 
 export const User_Logout = () => {
     return {
@@ -57,20 +56,17 @@ export const UserCookieCheck = data => {
     }
 }
 
-const reducer = (state = initalState, action) => {
+const reducer = (state = initalState,action) => {
     switch (action.type) {
 
-        case 'test' :
-            return{
-                ...state,
-                Id_check: ''
-            }
-
         case USER_LOGIN_REQUEST:
+            console.log(action);
             return {
                 ...state,
+                user_info:action.data,
                 loadding: true,
             }
+            
 
 
         case USER_LOGIN_SUCCESS:

@@ -2,9 +2,11 @@
 import Login_Component from '../../component/Login'
 
 const Login = () => {
+
+
     return (
-        <>  
-        <Login_Component />
+        <>
+            <Login_Component />
         </>
     )
 }

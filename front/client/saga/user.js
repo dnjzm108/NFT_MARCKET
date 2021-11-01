@@ -7,21 +7,22 @@ function loginAPI(data){
 }
 
 function* login(action){
-    let result = yield call(loginAPI,action.data)
-    let {data} = result
+    console.log('성공');
+    // let result = yield call(loginAPI,action.data)
+    // let {data} = result
 
-    if (data.login_info !== undefined) {
-        yield put({
-            type: 'USER_LOGIN_SUCCESS',
-            data: 'OK',
-            user_info:data.login_info
-        })
-    } else {
-        yield put({
-            type: 'USER_LOGIN_ERROR',
-            data: '아이디와 비밀번호를 확인해주세요'
-        })
-    }
+    // if (data.login_info !== undefined) {
+    //     yield put({
+    //         type: 'USER_LOGIN_SUCCESS',
+    //         data: 'OK',
+    //         user_info:data.login_info
+    //     })
+    // } else {
+    //     yield put({
+    //         type: 'USER_LOGIN_ERROR',
+    //         data: '아이디와 비밀번호를 확인해주세요'
+    //     })
+    // }
     
 }
 
