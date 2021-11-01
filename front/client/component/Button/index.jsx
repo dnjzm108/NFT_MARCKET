@@ -5,7 +5,11 @@ import Link from "next/link";
 
 
 const Button = (props) => {
-  const { url, func, icon, value, } = props;
+  const { url, func, icon, value, type } = props;
+
+
+ 
+
 
   const bgColor = () => {
     switch (props.color) {

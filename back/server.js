@@ -8,7 +8,9 @@ const socket = require('socket.io')
 const http = require('http')
 const server = http.createServer(app)
 const io = socket(server)
+require('dotenv').config();
 
+console.log(process.env)
 const PORT = process.env.PORT ||'4000'
 // const {sequelize, Auction} = require('./models')
 const router = require('./routers')
