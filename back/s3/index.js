@@ -16,9 +16,9 @@ const s3 = new S3({
 
 const uploadFile = (file,tokenId,num) =>{
   const fileStream = fs.createReadStream(file.path)
-  const mimetype = file.mimetype;
+  const mimetype = file.mimetype.split('/')[1];
   if(+num<10) num = '0'+num;
-  const uri = `/image${tokenId}-${num}.${mimetype}`;
+  const uri = `image${tokenId}-${num}.${mimetype}`;
 
   const uploadParams = {
     Bucket: bucketName,
@@ -31,11 +31,10 @@ const uploadFile = (file,tokenId,num) =>{
 
 
 const uploadNFT = (tokenId,title,description,creater,creater_nick,files)=>{
-
   const uploadParams = {
     Bucket: bucketName,
     Body: JSON.stringify({title,description,files,creater,creater_nick}),
-    Key: `/metadata${tokenId}.json`
+    Key: `metadata${tokenId}.json`
   }
   return s3.upload(uploadParams).promise()
 }

@@ -1,7 +1,7 @@
 import { StyledAgreeInfo } from "./AgreeInfo.css"
 import Button from "../Button"
 
-const AgreeInfo = () => {
+const AgreeInfo = ({handleSubmit}) => {
     return(
         <StyledAgreeInfo>
             <div className="agree_section">
@@ -30,7 +30,7 @@ const AgreeInfo = () => {
                 {/* <button className="cancel">취소</button>
                     <button className="go">NFT 발행하기</button> */}
                 <Button value="취소 하기" color="white" className="cancel" />
-                <Button value="NFT 발행하기" color="blue" className="go" ml="50" />
+                <Button value="NFT 발행하기" color="blue" className="go" ml="50"  func={handleSubmit}/>
             </div>
             <div className="bottom_contain"></div>
         </StyledAgreeInfo>

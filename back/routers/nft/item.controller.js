@@ -28,8 +28,8 @@ const makeFilterQuery = (query) =>{
   `
   const typeVerse = makeWhereVerse('type',type);
   const designerVerse = makeWhereVerse('',type);
-  const typeVerse = makeWhereVerse('type',type);
-  const typeVerse = makeWhereVerse('type',type);
+  // const typeVerse = makeWhereVerse('type',type);
+  // const typeVerse = makeWhereVerse('type',type);
 
 }
 
