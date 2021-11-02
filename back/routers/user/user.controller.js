@@ -3,8 +3,7 @@ const { query } = require("../../pool")
 
 let test = async (req,res) =>{
     
-    const sql =``
-    const result = await query(sql)
+
 }
 
 let join = async (req,res) =>{

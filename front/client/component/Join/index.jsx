@@ -19,7 +19,6 @@ const Join = (data) => {
     const email = useInput('');
 
 const handleSumit = () =>{
-
     // const wallet = window.klaytn.selectedAddress
     const userinfo={
         "nickname":nickname.value,
@@ -31,6 +30,7 @@ const handleSumit = () =>{
 
      dispatch(UserJoin_REQUEST(userinfo))
 }
+
 
     return (
         <>
