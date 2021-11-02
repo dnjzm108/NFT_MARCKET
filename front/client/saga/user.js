@@ -26,10 +26,16 @@ function* login(action){
     
 }
 
-function joinAPI(data){
-    return axios.post(`${url}/user/join`,data)
+ function joinAPI(data){
+    console.log("data",data);
+try{
+    return axios.post(`${url}/user/join`)
+}catch(e){
+    console.log(e);
+}
 }
 function* join(action){
+    console.log("action++++++++",action);
     let result = yield call(joinAPI,action.data)
     let {data} = result
     

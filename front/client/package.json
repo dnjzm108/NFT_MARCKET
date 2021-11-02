@@ -23,7 +23,7 @@
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "caver-js": "^1.6.4",
     "next": "^11.1.2",
     "next-redux-wrapper": "^7.0.5",
