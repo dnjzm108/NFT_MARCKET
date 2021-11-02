@@ -72,6 +72,6 @@ async function execute(sql,params){
 
 module.exports = {
     pool,
-    query,
+    // query,
     execute
 }

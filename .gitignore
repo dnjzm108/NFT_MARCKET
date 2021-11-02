@@ -2,3 +2,4 @@
 /front/client/.next
 *package-lock.json
 /back/pool.js
+*pool.js
