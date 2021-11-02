@@ -9,25 +9,26 @@ const pool = mysql.createPool({
 })
 
 
-// async function query(sql,params){
-//     let connection;
-//     try {
-//         connection = await pool.getConnection(async conn => conn);
-//         try {
-//             const [result] = await connection.execute(sql, params)
-//             return result
-//         } catch (error) {
-//             console.log('Query Error');
-//             console.log(error)
-//             return error
-//         }
-//     } catch (error) {
-//         console.log('DB Error')
-//         console.log(error)
-//         return error
-//     } finally {
-//         connection.release();
-//     }
+async function query(sql,params){
+    let connection;
+    try {
+        connection = await pool.getConnection(async conn => conn);
+        try {
+            const [result] = await connection.execute(sql, params)
+            return result
+        } catch (error) {
+            console.log('Query Error');
+            console.log(error)
+            return error
+        }
+    } catch (error) {
+        console.log('DB Error')
+        console.log(error)
+        return error
+    } finally {
+        connection.release();
+    }
+}
 
 
 // function query(sql) {

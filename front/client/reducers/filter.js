@@ -44,3 +44,11 @@ const reducer = (state = initalState, action) => {
 }
 
 export default reducer
+
+
+
+const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
