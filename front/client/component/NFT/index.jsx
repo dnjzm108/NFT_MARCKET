@@ -4,7 +4,7 @@ import { BsSuitHeartFill } from "react-icons/bs";
 import Link from "next/link";
 import  Router  from "next/router";
 
-const NFT = () => {
+const NFT = ({nft_id,title,creater,like,image}) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = (event) => {
@@ -15,7 +15,7 @@ const NFT = () => {
     ) {
       console.log("조아요 클릭");
     } else {
-      Router.push('/nft/1')
+      Router.push(`/nft/${nft_id}`)
     }
   };
 
@@ -28,15 +28,15 @@ const NFT = () => {
       }}
     >
       <div className="img_container">
-        <img src="/green.png" alt="" />
+        <img src={image} alt="" />
       </div>
       <div className="content_container">
         <div className="content_top">
           <div className="content_top_left">
             <span className="content_name">
-              Snow Man
+              {title}
             </span>
-            <span className="content_creater">스웨터</span>
+            <span className="content_creater">{creater}</span>
           </div>
           <div className="content_top_right">
             <div>Price</div>
@@ -59,7 +59,7 @@ const NFT = () => {
           <i className="like_btn">
             <BsSuitHeartFill size={16} />
           </i>
-          <span>500</span>
+          <span>{like}</span>
         </div>
       </div>
     </StyledNFT>
