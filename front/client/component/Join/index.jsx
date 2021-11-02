@@ -15,6 +15,8 @@ const Join = (data) => {
     const nickname = useInput('');
     const email_address = useInput('');
 
+    
+
 
     return (
         <>
