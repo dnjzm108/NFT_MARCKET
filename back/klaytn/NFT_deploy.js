@@ -25,10 +25,12 @@ const deployTest = async ()=>{
   );
   console.log(kip17.options.address);
 }
+const kip17 = new caver.kct.kip17('0xe7aB6CD5318F26f1610c21Fa49742451E51789B3')
 
-// deployTest();
 
-export const NFT_ADDRESS = '0xe7aB6CD5318F26f1610c21Fa49742451E51789B3'
+deployTest();
+//0xe7aB6CD5318F26f1610c21Fa49742451E51789B3
+
 
 
 

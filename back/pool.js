@@ -4,30 +4,32 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '1234',
-    database: 'nft',
+    database: 'nftmarket',
+    multipleStatements: true,
     connectionLimit: 100
 })
 
 
-// async function query(sql,params){
-//     let connection;
-//     try {
-//         connection = await pool.getConnection(async conn => conn);
-//         try {
-//             const [result] = await connection.execute(sql, params)
-//             return result
-//         } catch (error) {
-//             console.log('Query Error');
-//             console.log(error)
-//             return error
-//         }
-//     } catch (error) {
-//         console.log('DB Error')
-//         console.log(error)
-//         return error
-//     } finally {
-//         connection.release();
-//     }
+async function query(sql){
+    let connection;
+    try {
+        connection = await pool.getConnection(async conn => conn);
+        try {
+            const result = await connection.query(sql);
+            return result
+        } catch (error) {
+            console.log('Query Error');
+            console.log(error)
+            return error
+        }
+    } catch (error) {
+        console.log('DB Error')
+        console.log(error)
+        return error
+    } finally {
+        connection.release();
+    }
+}
 
 
 // function query(sql) {

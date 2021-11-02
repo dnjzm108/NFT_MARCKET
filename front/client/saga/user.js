@@ -28,8 +28,9 @@ function* login(action){
 
  function joinAPI(data){
     console.log("data",data);
+    // const options = {'Content-type':'application/json'}
 try{
-    return axios.post(`${url}/user/join`)
+    return axios.post(`${url}/user/join`,data)
 }catch(e){
     console.log(e);
 }
