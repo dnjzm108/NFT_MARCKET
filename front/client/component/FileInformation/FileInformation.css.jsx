@@ -63,4 +63,27 @@ export const StyledFileInformation = styled.div`
     height: 180px;
 }
 
+
+.imagecon>img{
+    width: 150px;
+    height: 200px;
+    background-color: #efefef;
+    box-sizing: border-box;
+}
+`
+
+export const ImageContent=styled.div`
+    
+    display: flex;
+    img{
+    width: 150px;
+    height: 200px;
+    background-color: #efefef;
+    box-sizing: border-box;
+    display: flex;
+    }
+`
+
+export const CloseButton=styled.div`
+
 `

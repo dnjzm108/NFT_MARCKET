@@ -12,7 +12,6 @@ import AucPopup from "./AucPopup"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
-import { useEffect } from 'react';
 
 
 const Product_detail = () => {

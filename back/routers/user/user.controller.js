@@ -7,6 +7,7 @@ let test = async (req,res) =>{
 }
 
 let join = async (req,res) =>{
+    console.log(req.body)
     let {nickname,wallet,email,picture} = req.body
     const sql =`insert into user (nickname,wallet,email,picture) values ("${nickname}","${wallet}","${email}","${picture}")`
     const result = await query(sql)
