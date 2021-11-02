@@ -38,7 +38,7 @@ export const StyledFileInformation = styled.div`
 }
 
 .file_select_input{
-    /* display: none; */
+    display: none;
 }
 
 .information_input{
@@ -64,9 +64,26 @@ export const StyledFileInformation = styled.div`
 }
 
 
-/* .imagecon{
-    width: 100px;
-    height: 100px;
+.imagecon>img{
+    width: 150px;
+    height: 200px;
     background-color: #efefef;
-} */
+    box-sizing: border-box;
+}
+`
+
+export const ImageContent=styled.div`
+    
+    display: flex;
+    img{
+    width: 150px;
+    height: 200px;
+    background-color: #efefef;
+    box-sizing: border-box;
+    display: flex;
+    }
+`
+
+export const CloseButton=styled.div`
+
 `

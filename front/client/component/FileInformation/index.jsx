@@ -1,96 +1,90 @@
-import { StyledFileInformation } from "./FileInformation.css.jsx";
+import { StyledFileInformation,ImageContent,CloseButton  } from "./FileInformation.css.jsx";
 import { useState } from "react"
+import axios from "axios"
 
-const FileInformation = () => {
-    const [imgBase64, setImgBase64] = useState("");
-    const [file,setFile] = useState(null)
-    const [fileBase,setFileBase] = useState(file)
-    const [imgFile, setImgFile] = useState(null);
-    
-    // const uploadImage =(e)=>{
-    //     const formData = new FormData();
-    //     formData.append("file",e.target.files[0]);
-    //     const 
-    // }
-
-    const handleChangeFile = (event) => {
-        let reader = new FileReader();
-    
-        reader.onloadend = () => {
-          // 2. 읽기가 완료되면 아래코드가 실행됩니다.
-          const base64 = reader.result;
-          if (base64) {
-            setImgBase64(base64.toString()); // 파일 base64 상태 업데이트
-          }
+const FileInformation = ({
+    titleValue,
+    titleChange ,
+    descriptionValue,
+    descriptionChange
+    }) => {
+    async function postImage({image, description,title}) {
+        const formData = new FormData();
+        for(let i = 0; i<image.length; i++){
+          formData.append("image",image[i])
         }
-        if (event.target.files[0]) {
-          reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다.
-          setImgFile(event.target.files[0]); // 파일 상태 업데이트
-        }
+        formData.append("description", description)
+        formData.append("title",title)
+        const result = await axios.post('http://localhost:4000/nft/mint', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        console.log(result)
+        return result.data
       }
+    
 
-    const handleChange=(e)=>{
-        // console.log(e)
-        // alert('hi')
-        e.preventDefault();
-        const { files } = e.target;
-        if(files.length+file.length>10){
-            alert(" 올릴수 있는 이미지는 최대 10장입니다 ")
-        }else{
-            for(let i=0; i<files.length; i++){
-                if(files[i]){
-                    setFile(newFile=>[...newFile,files[i]])
-                    let reader = new FileReader()
-                    reader.readAsDataURL(files[i])
-                    reader.onloadend = () => {
-                        const base64 = reader.result
-                        if (base64) {
-                            let base64Sub = base64.toString()
-                            setFileBase(imgBase64 => [...imgBase64, base64Sub])
-                        }
-                    }
-                }
-            }
+      const [file, setFile] = useState([])
+    const [images, setImages] = useState([])
+
+    const submit = async event => {
+        event.preventDefault()
+        const result = await postImage({ image: file, description:description,title:title })
+        // setImages([result.image, ...images])
+    }
+
+    const fileSelected = event => {
+        const newfiles = [];
+        for (let i = 0; i < event.target.files.length; i++) {
+            newfiles.push(event.target.files[i])
         }
+        setFile(newfiles)
+        console.log(newfiles)
     }
 
     return(
         <StyledFileInformation>
-            <div className="img_box">
-                <p> 이미지 / 영상 파일을 드래그하여 업로드하거나 </p>
-                <button> 파일선택 </button>
-                
+            <form onSubmit={submit}>
+                <div className="img_box">
+                    <p> 이미지 / 영상 파일을 드래그하여 업로드하거나 </p>
+                    <button type="submit"><label htmlFor="click_submit">파일선택</label></button>
                     
-                    <input // 얘 display none 해놓음 
-                        // accept=".png, .jpg, .jpeg, .gif, .webp, .mp4"
-                        accept='image/*'
-                        type="file"
-                        name="imgFile" id="imgFile"
-                        className="file_select_input"
-                        multiple
-                        onChange={handleChangeFile}
-                    />
+                    {/* image */}
+                    <input
+                    accept='image/*'
+                    type="file"
+                    className="file_select_input"
+                    multiple
+                    onChange={fileSelected}
+                    id="click_submit"
+                    >
+                    </input>
                     <div className="imagecon">
-                    {/* {fileBase.map((item,key)=>{
-                    return(
-                        <ImageContent key={key}>
-                            <img 
-                            src={item}
-                        />
-                        </ImageContent>
-                    )
-                })} */}
+                        {/* <img src={myImage}/> */}
+                        {images.map(image => (
+                            <div key={image}>
+                                <img src={image}></img>
+                            </div>
+                        ))}
                     </div>
-                
-                    
-            </div>
-            <div className="information_input">
-                <p>이름</p>
-                <input type="text" className="name_input" placeholder="이름을 입력해주세요. (최대 50자까지)" />
-                <p>설명</p>
-                <textarea rows="6" className="explain_box" placeholder="설명을 입력해주세요"></textarea>
-                {/* <input type="text" className="explain_input" placeholder="설명을 입력해주세요." /> */}
-            </div>
+                </div>
+                <div className="information_input">
+                    {/* title */}
+                    <p>이름</p>
+                    <input type="text" 
+                    value={titleValue}
+                    onChange={()=>titleChange()}
+                    className="name_input" 
+                    placeholder="이름을 입력해주세요. (최대 50자까지)" 
+                    required />
+                    {/* description */}
+                    <p>설명</p>
+                    <textarea 
+                    rows="6" 
+                    {...description}
+                    className="explain_box" 
+                    placeholder="설명을 입력해주세요" 
+                    required></textarea>
+                    {/* <input type="text" className="explain_box" placeholder="설명을 입력해주세요." /> */}
+                </div>
+            </form>
         </StyledFileInformation>
     )
 }

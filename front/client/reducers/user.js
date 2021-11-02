@@ -85,9 +85,9 @@ const reducer = (state = initalState,action) => {
             }
 
         case USER_JOIN_REQUEST:
+            console.log("reducer");
             return {
-                ...state,
-                loadding: true,
+                ...state
             }
 
         case USER_JOIN_SUCCESS:

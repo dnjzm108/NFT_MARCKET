@@ -6,8 +6,12 @@ import NewRelease from '../../component/NewRelease/index'
 import Thumbnail from '../../component/Thumbnail/index'
 import Navigation from "../../component/Navigation/index";
 import Footter from '../../component/Footter'
+import  useInput  from "../../hooks/useInput";
 
 const Release = () => {
+
+    const title = useInput('')
+    const description = useInput('')
     return (
         <>
             <Navigation/>
@@ -16,12 +20,17 @@ const Release = () => {
             <div className="flex_contain">
             <div>
             <NewRelease/>
-            <FileInformation/>
+            <FileInformation 
+                titleValue={title.value} 
+                titleChange={title.onChange} 
+                descriptionValue={description.value}
+                descriptionChange={description.onChange}
+                 />
             </div>
             <Thumbnail/>
             </div>
-            <Sell/>
-            <AgreeInfo/>
+            {/* <Sell/> */}
+            {/* <AgreeInfo/> */}
         </StyledRelease>
         {/* <Footter/> */}
         </>

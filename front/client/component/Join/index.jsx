@@ -8,12 +8,28 @@ import useInput from '../../hooks/useInput.jsx';
 import { useEffect, useState } from 'react';
 import Input from '../Input'
 import Button from '../Button';
-
+import { useDispatch } from 'react-redux';
+import { UserJoin_REQUEST } from '../../reducers/user.js';
 
 const Join = (data) => {
 
+    const dispatch = useDispatch()
+
     const nickname = useInput('');
-    const email_address = useInput('');
+    const email = useInput('');
+
+const handleSumit = () =>{
+    // const wallet = window.klaytn.selectedAddress
+    const userinfo={
+        "nickname":nickname.value,
+        "email":email.value,
+        "wallet":'11',
+        "picture":'1'
+    }
+    console.log(userinfo);
+
+     dispatch(UserJoin_REQUEST(userinfo))
+}
 
 
     return (
@@ -21,7 +37,7 @@ const Join = (data) => {
             <Wrap>
                 <Logo><img src="/logo.png" /></Logo>
                 <div>
-                    <form action="">
+                    
                         <h1>회원가입</h1>
                         <Circle> <CameraAltIcon /> </Circle>
 
@@ -34,7 +50,7 @@ const Join = (data) => {
                         </Small_Contain>
                         <Small_Contain>
                             <label htmlFor="email_address">이메일 주소</label>
-                            <Input {...email_address} msg="이메일을 입력해 주세요" id="email_address" placeholder="이메일을 입력해주세요" />
+                            <Input {...email} msg="이메일을 입력해 주세요" id="email_address" placeholder="이메일을 입력해주세요" />
 
 
                         </Small_Contain>
@@ -53,11 +69,11 @@ const Join = (data) => {
                         <Line />
                         <Btn_Box>
                             <Button value="취소" url="/" />
-                            <Button value="회원가입" color="sky" url="/" />
+                            <Button value="회원가입" color="sky" func={handleSumit} />
                         </Btn_Box>
                         &nbsp;
 
-                    </form>
+                    
                 </div>
                 <Copyed>Copyright © 2021 GroundX.All rights reserved.</Copyed>
 
