@@ -45,7 +45,7 @@ export const Styled_Slide = styled(Slider)`
 
 .slick-prev:before{
     position: relative;
-    left: -20px;
+    left: -1.2vw;
 }
 
 div>button{

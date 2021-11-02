@@ -7,28 +7,35 @@ function loginAPI(data){
 }
 
 function* login(action){
-    let result = yield call(loginAPI,action.data)
-    let {data} = result
+    console.log('성공');
+    // let result = yield call(loginAPI,action.data)
+    // let {data} = result
 
-    if (data.login_info !== undefined) {
-        yield put({
-            type: 'USER_LOGIN_SUCCESS',
-            data: 'OK',
-            user_info:data.login_info
-        })
-    } else {
-        yield put({
-            type: 'USER_LOGIN_ERROR',
-            data: '아이디와 비밀번호를 확인해주세요'
-        })
-    }
+    // if (data.login_info !== undefined) {
+    //     yield put({
+    //         type: 'USER_LOGIN_SUCCESS',
+    //         data: 'OK',
+    //         user_info:data.login_info
+    //     })
+    // } else {
+    //     yield put({
+    //         type: 'USER_LOGIN_ERROR',
+    //         data: '아이디와 비밀번호를 확인해주세요'
+    //     })
+    // }
     
 }
 
-function joinAPI(data){
-    return axios.post(`${url}/user/join`,data)
+ function joinAPI(data){
+    console.log("data",data);
+try{
+    return axios.post(`${url}/user/join`)
+}catch(e){
+    console.log(e);
+}
 }
 function* join(action){
+    console.log("action++++++++",action);
     let result = yield call(joinAPI,action.data)
     let {data} = result
     

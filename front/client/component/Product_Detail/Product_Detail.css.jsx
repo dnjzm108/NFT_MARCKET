@@ -5,7 +5,6 @@ import Slider from "react-slick";
 &{
    width: 100%;
    background: #fff;
-   padding-top: 90px;
 }
 
 & > div {
@@ -165,7 +164,7 @@ export const Slide_container = styled.div`
     position: relative;
     border: 1px solid #000000;
     border-radius: 10px;
-    margin: 0 5px;
+    margin: 2px 5px;
     }
     & > div:nth-child(2)>ul>a>li>img{
     width: 185px;
@@ -219,5 +218,49 @@ export const Auction_contain = styled.div`
     height: 200px;
     border: 1px solid #000000;
 }
+`
+//---- 팝업 css 부분 ----
+
+export const StyledNowPopup = styled.div`
+    .purchase_box{
+        position: relative;
+        left:50%;
+        transform: translateX(-50%);
+        width: 30vw;
+        height: 60vh;
+        margin-top: 10%;
+        background-color: white;
+        border-radius: 15px;
+        padding: 4%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+        z-index: 1;
+    }
+    .purchase_box>p{
+        width: auto;
+        display: inline-block;
+    }
+
+    .purchase_box>ul>li{
+        padding: 10px;
+    }
+    .purchase_box>ul>li>span{
+        width: auto;
+        height: auto;
+        padding: 10px;
+    }
+    .flex_contain{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .x{
+        width: 100%;
+        text-align: right;
+        cursor: pointer;
+    }
 `
 
