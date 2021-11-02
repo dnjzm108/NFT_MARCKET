@@ -38,7 +38,7 @@ export const StyledFileInformation = styled.div`
 }
 
 .file_select_input{
-    display: none;
+    /* display: none; */
 }
 
 .information_input{
@@ -63,4 +63,10 @@ export const StyledFileInformation = styled.div`
     height: 180px;
 }
 
+
+/* .imagecon{
+    width: 100px;
+    height: 100px;
+    background-color: #efefef;
+} */
 `
