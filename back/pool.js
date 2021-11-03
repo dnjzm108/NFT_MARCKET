@@ -10,18 +10,25 @@ const pool = mysql.createPool({
 })
 
 
-function query(sql) {
-    return new Promise((resolve, reject) => {
-        pool.getConnection((error, connection) => {
-            if (error) reject(error);
-            connection.query(sql, (error, results, fields) => {
-                if (error) reject(error)
-                if (results === undefined) reject('error');
-                resolve(results);
-                connection.release();
-            })
-        })
-    })
+async function query(sql){
+    let connection;
+    try {
+        connection = await pool.getConnection(async conn => conn);
+        try {
+            const result = await connection.query(sql);
+            return result
+        } catch (error) {
+            console.log('Query Error');
+            console.log(error)
+            return false;
+        }
+    } catch (error) {
+        console.log('DB Error')
+        console.log(error)
+        return false;
+    } finally {
+        connection.release();
+    }
 }
 
 
@@ -35,12 +42,12 @@ async function execute(sql, params) {
         } catch (error) {
             console.log('Query Error');
             console.log(error)
-            return error
+            return false;
         }
     } catch (error) {
         console.log('DB Error')
         console.log(error)
-        return error
+        return false;
     } finally {
         connection.release();
     }

@@ -9,13 +9,13 @@ import { ExploreRequest } from '../../reducers/explore'
 
 const Explore = () => {
   const dispatch = useDispatch();
-  const {isError,skip} = useSelector(state=>state.explore)
+  const {isError,skip,end} = useSelector(state=>state.explore)
   const [fetch,setFetch] = useState(false);
 
   const fetchMoreNFT = async () => {
     setFetch(true);
     const data = {
-      skip: explore.skip,
+      skip: skip,
     };
     setFetch(false);
     // dispatch(ExploreRequest(data));
@@ -28,7 +28,7 @@ const Explore = () => {
     if (
       scrollTop + clientHeight >= scrollHeight &&
       fetch === false) {
-      fetchMoreComment();
+        fetchMoreNFT();
     }
   };
 

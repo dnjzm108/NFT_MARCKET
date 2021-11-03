@@ -8,6 +8,7 @@ const itemController = require('./item.controller')
 
 
 router.get('/',itemController.testGetNFT)
+router.get('/designer',itemController.getDesigner)
 
 router.post('/mint',upload.array('image'),mintController.mint_nft);
 

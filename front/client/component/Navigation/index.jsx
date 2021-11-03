@@ -43,6 +43,14 @@ const Navigation = () => {
               <a>발행하기</a>
             </Link>
           </NavItem>
+          <NavItem
+            onClick={() => setNowItem(3)}
+            isClicked={nowItem == 3 ? true : false}
+          >
+            <Link href="/swap">
+              <a>토큰 교환</a>
+            </Link>
+          </NavItem>
           <NavItem>
             <Link href='/user/info?type=profile'><a><i><BiUserCircle size={32}/></i></a></Link>
           </NavItem>
