@@ -8,12 +8,13 @@ const socket = require('socket.io')
 const http = require('http')
 const server = http.createServer(app)
 const io = socket(server)
+const cors = require('cors')
 require('dotenv').config();
 
 const PORT = process.env.PORT ||'4000'
 // const {sequelize, Auction} = require('./models')
 const router = require('./routers')
-
+app.use(cors())
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())

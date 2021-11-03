@@ -32,7 +32,7 @@ import { useEffect } from "react";
 
 
 
-const CustomInput = ({onChange,placeholder,search,width,height,msg,type}) => {
+const CustomInput = ({onChange,placeholder,search,width,height,msg,type,func}) => {
 
   const [require,setRequire] = useState(false); 
 
@@ -57,6 +57,10 @@ const CustomInput = ({onChange,placeholder,search,width,height,msg,type}) => {
     switch(type){
       case 'number':
         return 'number';
+
+        case 'password':
+        return 'password';
+        
       default:
         return 'text';
     }
@@ -84,7 +88,9 @@ const CustomInput = ({onChange,placeholder,search,width,height,msg,type}) => {
         </i>
         </label>
       }
-      <input type={handleType()} id="inpput" onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder}/>
+      {func == undefined ? 
+       <input type={handleType()} id="inpput" onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder}/> : <input type={handleType()} id="inpput" onMouseOut={()=>{func()}} onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder}/> }
+ 
       {require &&  
         (<i>
           <BsFillExclamationCircleFill size={24} color={'#dc3545'}/>

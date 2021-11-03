@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 export const Content = styled.div`
+
 & > span {
     display: block;
     margin: 15px;
@@ -8,15 +9,28 @@ export const Content = styled.div`
 }
 
 & > button {
+    display: flex;
+    justify-content: space-between;
     width: 400px;
     height: 80px;
     background-color: #ffffff;
     color: #2D3741B3;
-    padding: 26px 24px;
+    padding: 33px 24px;
     box-sizing: border-box;
     border: 1px solid #aab4be;
     border-radius: 4px;
-    margin: 20px 0 ;
+    margin: 20px auto ;
+    font-weight: bold;
+    font-size: 1rem;
+}
+& > button:hover{
+    background: #F9FBFD;
+}
+& > button>img{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: -10px;
 }
 & > span > a {
     text-decoration: underline;
