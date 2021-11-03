@@ -18,7 +18,7 @@ const Explore = () => {
       skip: skip,
     };
     setFetch(false);
-    dispatch(ExploreRequest(data));
+    // dispatch(ExploreRequest(data));
   };
 
   const handleScroll = () => {
@@ -43,7 +43,7 @@ const Explore = () => {
       const data={
         skip:0,
       }
-      dispatch(ExploreRequest(data));
+      // dispatch(ExploreRequest(data));
 
       return () => {
         setFetch(false);

@@ -89,6 +89,7 @@ const reducer = (state = initalState,action) => {
                 ...state,
                 loadding: false,
             }
+            
         case USER_LOGOUT:
             return {
                 ...state,
