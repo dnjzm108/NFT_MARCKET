@@ -5,7 +5,8 @@ import {url} from './url'
 
 function joinAPI(data){
     // const options = {'Content-type':'application/json'}
-    return axios.post(`${url}/user/join`,data)
+    console.log('data@@@@@@@@@@@@',data);
+    return axios.post(`${url}/user/join`,data,{ headers: {'Content-Type': 'multipart/form-data'}})
 }
 
 function* join(action){
