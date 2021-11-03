@@ -28,7 +28,7 @@ const deployTest = async ()=>{
 const kip17 = new caver.kct.kip17('0xe7aB6CD5318F26f1610c21Fa49742451E51789B3')
 
 
-deployTest();
+// deployTest();
 //0xe7aB6CD5318F26f1610c21Fa49742451E51789B3
 
 
