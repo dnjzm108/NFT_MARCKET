@@ -7,10 +7,17 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { UserLogin_REQUEST, User_Join_Check } from '../../reducers/user'
 import Router from "next/router"
+import { User_Logout } from '../../reducers/user';
+
+export const logout = () =>{
+    dispatch(User_Logout())
+}
 
 const Login = () => {
     const dispatch = useDispatch();
     const state_data = useSelector(state => state.user)
+
+
 
     const kaikasLogin = async () => {
         let version = await window.klaytn.networkVersion;
