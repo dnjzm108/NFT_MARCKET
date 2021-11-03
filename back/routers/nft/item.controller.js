@@ -8,11 +8,25 @@ const getNfts= async(req,res)=>{
   const {type,price,designer,category,sort,searchtype,searchvalue,skip} = req.query.search;
   makeFilterQuery(req.query)
   const sql = `SELECT * FROM `
+}
+
+const testGetNFT = async(req,res)=>{
+  const sql = ` SELECT * FROM nft
+                NATURAL JOIN nft_images
+                GROUP BY nft_images.nft_id;`
+  const result = await execute(sql,[]);
+  console.log(result);
+  const data ={
+    success:true,
+    nft:result 
+  }
+  res.json(data);
 
 }
 
 module.exports={
-  getNfts
+  getNfts,
+  testGetNFT
 }
 
 const makeFilterQuery = (query) =>{

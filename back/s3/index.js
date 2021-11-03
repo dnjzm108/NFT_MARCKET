@@ -30,6 +30,22 @@ const uploadFile = (file,tokenId,num) =>{
 }
 
 
+const uploadProfile = (file,nick) =>{
+  const fileStream = fs.createReadStream(file.path)
+  const mimetype = file.mimetype.split('/')[1];
+  const uri = `profile/image/${nick}.${mimetype}`;
+
+  const uploadParams = {
+    Bucket: bucketName,
+    Body: fileStream,
+    Key: uri
+  }
+
+  return  s3.upload(uploadParams).promise();
+}
+
+
+
 const uploadNFT = (tokenId,title,description,creater,creater_nick,files)=>{
   const uploadParams = {
     Bucket: bucketName,
@@ -42,7 +58,8 @@ const uploadNFT = (tokenId,title,description,creater,creater_nick,files)=>{
 
 module.exports={
   uploadFile,
-  uploadNFT
+  uploadNFT,
+  uploadProfile
 }
 
 
