@@ -78,7 +78,8 @@ const FileInformation = ({
                     <p>설명</p>
                     <textarea 
                     rows="6" 
-                    {...description}
+                    value={descriptionValue}
+                    onChange={()=>descriptionChange()}
                     className="explain_box" 
                     placeholder="설명을 입력해주세요" 
                     required></textarea>
