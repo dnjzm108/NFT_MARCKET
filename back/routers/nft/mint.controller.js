@@ -46,7 +46,7 @@ const mint_nft = async(req,res)=>{
 
         let imageSql =''
         files.forEach(v=>{
-          imageSql+=`INSERT INTO nft_image (nft_id,nft_image) VALUES('${tokenId}','${v}');\n`
+          imageSql+=`INSERT INTO nft_images (nft_id,nft_image) VALUES('${tokenId}','${v}');\n`
         })
 
         await query(imageSql);

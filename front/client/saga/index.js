@@ -1,10 +1,12 @@
 import {all, fork} from 'redux-saga/effects'
 import userSaga from './user'
 import mintSaga from './mint'
+import exploreSaga from './explore'
 
 export default function* rootSaga(){
     yield all([
        fork(userSaga),
-       fork(mintSaga)
+       fork(mintSaga),
+       fork(exploreSaga),
     ])
 }
