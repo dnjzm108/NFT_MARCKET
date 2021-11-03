@@ -32,22 +32,7 @@ async function query(sql){
 }
 
 
-// function query(sql) {
-//     return new Promise((resolve, reject) => {
-//         pool.getConnection((error, connection) => {
-//             if (error) reject(error);
-//             connection.query(sql, (error, results, fields) => {
-//                 if (error) reject(error)
-//                 if (results === undefined) reject('error');
-//                 resolve(results);
-//                 connection.release();
-//             })
-//         })
-//     })
-// }
-
-
-async function execute(sql,params){
+async function execute(sql, params) {
     let connection;
     try {
         connection = await pool.getConnection(async conn => conn);
