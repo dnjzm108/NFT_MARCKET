@@ -1,7 +1,7 @@
 import { CheckBoxContainer,CheckBoxItem,CheckBoxImageItem } from "./CheckBoxex.css";
 import {BsCheckCircle} from 'react-icons/bs'
 
-const CheckBoxes = ({list,value,onCheck,useImage}) => {
+const CheckBoxes = ({list,result,onCheck,useImage}) => {
   
 
   const renderItem = () => { 
@@ -21,7 +21,7 @@ const CheckBoxes = ({list,value,onCheck,useImage}) => {
         <CheckBoxImageItem key={i}>
             <input id={`${v}${i}`} className='checkbox' type="checkbox" onChange={()=>{onCheck(i)}}/>
             <label htmlFor={`${v}${i}`}>
-              {value & (1<<i) ? <i><BsCheckCircle size={32} color={'#1E73FA'}/></i> : <i><img src={v.img} alt="" /></i>}
+              {result.includes(v.name) ? <i><BsCheckCircle size={32} color={'#1E73FA'}/></i> : <i><img src={v.img} alt="" /></i>}
               <span>
               {v.name}
               </span>

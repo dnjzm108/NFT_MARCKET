@@ -2,28 +2,20 @@ import { useState } from "react";
 
 const useCheckBox = (defaultValue) => {
   const list =[...defaultValue.list]
-
-  const [value, setValue] = useState(defaultValue.value);
-
+  const [result, setResult] = useState([...defaultValue.result]);
   const onCheck = (index) => {
-    if(value&(1<<index)){
-      setValue(value ^(1<<index));
+    if(result.includes(list[index].name)){
+      let newResult = result.filter(v=>v!=list[index].name)
+      setResult(newResult)
     }else{
-      setValue(value | (1 << index));
+      let newResult=[...result].push(list[index].name)
+      setResult(newResult)
     }
   };
 
-  const onInit=()=>{
-    setValue(0);
-  }
-
-  let result = list.filter((_,i)=>(1<<i&value)).map(v=>v.name);
-
   return {
     list,
-    value,
     onCheck,
-    onInit,
     result
   };
 };

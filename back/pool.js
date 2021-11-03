@@ -20,12 +20,12 @@ async function query(sql){
         } catch (error) {
             console.log('Query Error');
             console.log(error)
-            return error
+            return false;
         }
     } catch (error) {
         console.log('DB Error')
         console.log(error)
-        return error
+        return false;
     } finally {
         connection.release();
     }
@@ -57,12 +57,12 @@ async function execute(sql,params){
         } catch (error) {
             console.log('Query Error');
             console.log(error)
-            return error
+            return false;
         }
     } catch (error) {
         console.log('DB Error')
         console.log(error)
-        return error
+        return false;
     } finally {
         connection.release();
     }
@@ -72,6 +72,6 @@ async function execute(sql,params){
 
 module.exports = {
     pool,
-    // query,
+    query,
     execute
 }

@@ -7,6 +7,7 @@ const Gallery = () => {
   const renderNFTItem = ()=>{
     return nft.map((v,i)=>{
       return <NFT 
+        key={v.nft_id}
         nft_id={v.nft_id}
         title={v.title}
         creater = {v.creater}
