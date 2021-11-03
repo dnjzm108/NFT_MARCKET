@@ -12,12 +12,24 @@ export const StyledSwap = styled.div`
     flex-direction: column;
     }
 
-    & > div{
+    & > .name{
         font-size: 40px;
         font-weight: bold;
     }
     
     .Wbox{
+        margin-top: 50px;
+        width:500px;
+        height:400px;
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        border-radius: 50px;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .Wbox2{
         margin-top: 50px;
         width:500px;
         height:400px;
@@ -66,6 +78,7 @@ export const StyledSwap = styled.div`
         outline: none;
         float: right;
         margin-right: 5px;
+        z-index: 2;
     }
 
     input::-webkit-outer-spin-button,
@@ -86,33 +99,40 @@ export const StyledSwap = styled.div`
     .klaytn{
         float: right;
         font-size: 20px;
+        font-weight:bold;
+        
     }
 
     .perro{
         float: right;
         font-size: 20px;
+        font-weight:bold;
     }
 
     .icon{
         color: white;
         position: absolute;
+        font-size: 35px;
     }
 
     .swap_btn{
         color: black;
         font-size:15px;
-        width: 30%;
+        width: 44%;
         text-align: center;
         height: 30px;
         cursor: pointer;
         background-color: white;
-        position: absolute;
-        bottom: 160px;
+        position:sticky;
+        height: 32px;
         border-radius: 30px;
-        padding: 5px;
+        margin-top: 15px;
+        margin-bottom: -47px;
+        padding: 5.1px;
+        font-weight: bold;
     } 
 
-    .swap_btn:hover{
+    .swap_btn2:hover{
         color: white;
         background-color: black;
     }
@@ -126,6 +146,45 @@ export const StyledSwap = styled.div`
         border-radius: 140px;
     }
 
+    
+
+    .rate{
+        font-weight: bold;
+        font-size: px;
+    }
+    
+    .swap_btn2{
+        color: black;
+        font-size:15px;
+        width: 100%;
+        text-align: center;
+        height: 30px;
+        cursor: pointer;
+        background-color: white;
+        position:sticky;
+        height: 32px;
+        border-radius: 30px;
+        margin-top: 45px;
+        padding: 5px;
+        font-weight: bold;
+    } 
+
+    .swap_btn2:hover{
+        color: white;
+        background-color: black;
+    }
+
+    .klayspan{
+        width: 100px;
+        height: 30px;
+        font-size: 18px;
+        text-align: right;
+        border: none;
+        outline: none;
+        float: right;
+        margin-right: 5px;
+        overflow: hidden;
+    }
 `
 
 
