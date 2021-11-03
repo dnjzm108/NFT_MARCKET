@@ -14,6 +14,7 @@ import axios from 'axios'
 import { url } from '../../saga/url.js';
 
 
+
 const Join = (data) => {
 
     const [check,setCheck] = useState('')

@@ -3,7 +3,6 @@ const { query,execute } = require("../../pool")
 
 
 let join = async (req,res) =>{
-
     let {nickname,wallet,email,picture} = req.body
     try{
         const sql =`insert into user (nickname,wallet,email,picture) values ("${nickname}","${wallet}","${email}","${picture}")`

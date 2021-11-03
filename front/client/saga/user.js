@@ -6,8 +6,8 @@ import {url} from './url'
 function joinAPI(data){
     // const options = {'Content-type':'application/json'}
     return axios.post(`${url}/user/join`,data)
-    
 }
+
 function* join(action){
     
     console.log("action++++++++",action);
