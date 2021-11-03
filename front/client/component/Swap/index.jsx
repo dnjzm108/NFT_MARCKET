@@ -37,7 +37,7 @@ const SwapToken = () => {
     return (
         <>
         <StyledSwap>
-        <div>
+        <div className="name">
             Perro Swap
         </div>
 
@@ -52,25 +52,25 @@ const SwapToken = () => {
         <div className="To" onClick={()=>setTest(false)}>
             <img className="Perr_icon" src="/쉽독.jpg" alt="" />
             <p className="perro">Perro</p>
-            {/* <input type="number"  defaultValue={klay*1300} min="1" className="perr" placeholder="0.0"/> */}
-            <span>{klay*1300}</span>
+            {/* <input type="number"  defaultValue={klay} min="1" className="perr" placeholder="0.0"/> */}
+            <span className="klayspan" >{klay*1300}</span>
         </div>
         <div className="swap_btn" onClick={()=>confirm("정말 토큰을 구매하시겠습니까?")}>Click</div>
         </div>)
         :(
-        <div className="Wbox">
+        <div className="Wbox2">
         <div className="From" onClick={()=>setTest(true)}>
             <img className="klay_icon" src="/klay.png" alt="" />
           <p className="klaytn">Klaytn</p>
-            <span className="klay">{perr/1300}</span>
+            <span className="klayspan">{perr/1300}</span>
         </div>
         <BiDownArrowAlt className="icon"/>
         <div className="To">
             <img className="Perr_icon" src="/쉽독.jpg" alt="" />
             <p className="perro">Perro</p>
         <input type="number"  defaultValue={perr}  onChange={(e)=>{handlePerr(e)}} min="1" className="perr" placeholder="0.0"/>
+        <div className="swap_btn2" onClick={()=>confirm("정말 토큰을 구매하시겠습니까?")}>Click</div>
         </div>
-        <div className="swap_btn" onClick={()=>confirm("정말 토큰을 구매하시겠습니까?")}>Click</div>
     </div>)    
         }
 
