@@ -132,7 +132,7 @@ export const StyledSwap = styled.div`
         font-weight: bold;
     } 
 
-    .swap_btn2:hover{
+    .swap_btn:hover{
         color: white;
         background-color: black;
     }

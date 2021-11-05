@@ -19,6 +19,9 @@ function* mint(action){
     }else{
 
     }
+
+  
+
     // let {data} = result
 
     // if (data.login_info !== undefined) {
@@ -39,7 +42,6 @@ function* mint(action){
 
 function* watchMint(){
     yield takeLatest('MINT_REQUEST',mint)
-
 }
 
 export default function* mintSaga(){

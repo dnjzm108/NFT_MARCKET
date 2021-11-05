@@ -63,3 +63,6 @@ const kip7Instance = new caver.kct.kip7('0x9700a87945766F28B461ddB4f4097Cb69270f
 // Token decimals: 18
 // Token totalSupply: 100000000000000000000
 
+module.exports = {
+    KIP7token
+}
