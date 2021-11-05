@@ -1,11 +1,23 @@
 import axios from "axios"
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 
+async function tokenSwapAPI(data){
+    return  await axios.post('http://localhost:4000/nft/swap', data)
+  }
 
 
+function* swapSaga(action){
+    let result = yield call(tokenSwapAPI,action.data)
+    const {data} = result; 
+    console.log(data)
+    if(data.success){
+      alert(`${data.amount}perro 발행되었습니다.`)
+      yield put({
+                type: 'TOKEN_SWAP_SUCCESS',
+            })
+    }else{
 
-function* swapSaga(){
-    const result = yield call(axios.post,'http://localhost:4000/nft/swap')
+    }
 
 }
 
