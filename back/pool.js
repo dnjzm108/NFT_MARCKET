@@ -4,7 +4,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '0000',
-    database: 'nft',
+    database: 'nft_market',
     multipleStatements: true,
     connectionLimit: 100
 })
