@@ -3,18 +3,20 @@ const util = require('util')
 const unlinkFile = util.promisify(fs.unlink)
 const { query,execute } = require("../../pool")
 const {uploadProfile} = require("../../s3")
+const {join_sql,login_sql,name_check_sql} =require("../../sql/user")
 
 let join = async (req,res) =>{
     
     let {nickname,wallet,email,picture} = req.body
-    let {file} = req;
-    const image = await uploadProfile(file,nickname)
-    console.log("imglocation",image.Location);
-    await unlinkFile(file.path)  
+    // let {file} = req;
+    // const image = await uploadProfile(file,nickname)
+    // console.log("imglocation",image.Location);
+    // await unlinkFile(file.path)  
+    let img = 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'
 
     try{
-        const sql =`insert into user (nickname,wallet,email,picture) values ("${nickname}","${wallet}","${email}","${image.Location}")`
-        const result = await execute(sql)
+        let params = [nickname,wallet,email,img]
+        const result = await execute(join_sql(),params)
         let user_info = {
             nickname,wallet,email,picture
         }
@@ -29,8 +31,8 @@ let join = async (req,res) =>{
 
 let login = async (req,res) =>{
     let {wallet} = req.body
-    const sql =`select * from user where wallet = "${wallet}"`
-    const [result] = await execute(sql)
+    let params = [wallet]
+    const [result] = await execute(login_sql(),params)
 
     if(result !== null){
        res.json(result)
@@ -42,8 +44,8 @@ let login = async (req,res) =>{
 
 let name_check = async (req,res) =>{
     let {name} = req.body
-    const sql =`select nickname from user where nickname = "${name}"`
-    const [result] = await execute(sql)
+    let params = [name]
+    const [result] = await execute(name_check_sql(),params)
     if( result !== undefined){
         res.json(false)
     }else{

@@ -73,13 +73,24 @@ DELETE FROM `auction_history`;
 
 -- 테이블 nft_market.bigcategory 구조 내보내기
 CREATE TABLE IF NOT EXISTS `bigcategory` (
-  `code` varchar(20) DEFAULT NULL,
-  `value` varchar(20) DEFAULT NULL
+  `code` varchar(20) NOT NULL,
+  `value` varchar(20) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.bigcategory:~0 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.bigcategory:~9 rows (대략적) 내보내기
 DELETE FROM `bigcategory`;
 /*!40000 ALTER TABLE `bigcategory` DISABLE KEYS */;
+INSERT INTO `bigcategory` (`code`, `value`) VALUES
+	('A1', '남여공용'),
+	('B1', '남자 의류'),
+	('B2', '남자 속옷/잠옷'),
+	('B3', '남자 신발'),
+	('B4', '남자 가방/잡화'),
+	('C1', '여성 의류'),
+	('C2', '여성 솟옷/잠옷'),
+	('C3', '여성 신발'),
+	('C4', '여성 가방/잡화');
 /*!40000 ALTER TABLE `bigcategory` ENABLE KEYS */;
 
 -- 테이블 nft_market.delievery 구조 내보내기
@@ -118,33 +129,121 @@ CREATE TABLE IF NOT EXISTS `img` (
   CONSTRAINT `FK__product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.img:~0 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.img:~7 rows (대략적) 내보내기
 DELETE FROM `img`;
 /*!40000 ALTER TABLE `img` DISABLE KEYS */;
+INSERT INTO `img` (`product_no`, `img`) VALUES
+	('A103aS0000', '021120'),
+	('B111bS0000', '120'),
+	('A101bW0000', '120120'),
+	('B223cW0000', '12321'),
+	('A103aS0000', '1212'),
+	('B111bS0000', '9999999999'),
+	('B111bS0000', '9999');
 /*!40000 ALTER TABLE `img` ENABLE KEYS */;
-
--- 테이블 nft_market.like 구조 내보내기
-CREATE TABLE IF NOT EXISTS `like` (
-  `product_no` varchar(10) NOT NULL,
-  `nickname` varchar(20) NOT NULL,
-  KEY `FK_like_product` (`product_no`),
-  CONSTRAINT `FK_like_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- 테이블 데이터 nft_market.like:~0 rows (대략적) 내보내기
-DELETE FROM `like`;
-/*!40000 ALTER TABLE `like` DISABLE KEYS */;
-/*!40000 ALTER TABLE `like` ENABLE KEYS */;
 
 -- 테이블 nft_market.middlecategory 구조 내보내기
 CREATE TABLE IF NOT EXISTS `middlecategory` (
-  `code` varchar(20) DEFAULT NULL,
-  `value` varchar(20) DEFAULT NULL
+  `code` varchar(5) NOT NULL,
+  `value` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `big_code` varchar(20) NOT NULL,
+  PRIMARY KEY (`code`),
+  KEY `FK_middlecategory_bigcategory` (`big_code`),
+  CONSTRAINT `FK_middlecategory_bigcategory` FOREIGN KEY (`big_code`) REFERENCES `bigcategory` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.middlecategory:~0 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.middlecategory:~88 rows (대략적) 내보내기
 DELETE FROM `middlecategory`;
 /*!40000 ALTER TABLE `middlecategory` DISABLE KEYS */;
+INSERT INTO `middlecategory` (`code`, `value`, `big_code`) VALUES
+	('01', '티셔츠', 'A1'),
+	('02', '맨투맨/후드티', 'A1'),
+	('03', '셔츠', 'A1'),
+	('04', '바지', 'A1'),
+	('05', '트레이닝복', 'A1'),
+	('06', '후드집업/집업류', 'A1'),
+	('07', '니트류/조끼', 'A1'),
+	('08', '아우터', 'A1'),
+	('09', '테마의류', 'A1'),
+	('10', '커플룩/패밀리룩', 'A1'),
+	('11', '니트/스웨터', 'B1'),
+	('12', '가디건', 'B1'),
+	('13', '티셔츠', 'B1'),
+	('14', '셔츠/남방', 'B1'),
+	('15', '정장세트', 'B1'),
+	('16', '바지/청바지', 'B1'),
+	('17', '트레이닝복', 'B1'),
+	('18', '후드집업/집업류', 'B1'),
+	('19', '아우터', 'B1'),
+	('20', '스포츠의류', 'B1'),
+	('21', '코트', 'B1'),
+	('22', '점퍼', 'B1'),
+	('23', '팬티', 'B2'),
+	('24', '러닝', 'B2'),
+	('25', '러니펜티세트', 'B2'),
+	('26', '잠옷/홈웨어', 'B2'),
+	('27', '보정속옷', 'B2'),
+	('28', '운동화', 'B3'),
+	('29', '부츠', 'B3'),
+	('30', '워커', 'B3'),
+	('31', '모카신/털신', 'B3'),
+	('32', '스니커즈', 'B3'),
+	('33', '구두', 'B3'),
+	('34', '실내화', 'B3'),
+	('35', '슬리퍼', 'B3'),
+	('36', '웰트화', 'B3'),
+	('37', '슬립온', 'B3'),
+	('38', '보트슈즈', 'B3'),
+	('39', '샌들', 'B3'),
+	('40', '기능화', 'B3'),
+	('41', '백팩', 'B4'),
+	('42', '크로스백', 'B4'),
+	('43', '숄더백', 'B4'),
+	('44', '토트백', 'B4'),
+	('45', '브리프케이스', 'B4'),
+	('46', '클러치백', 'B4'),
+	('47', '힙색', 'B4'),
+	('48', '니트/스웨터', 'C1'),
+	('49', '가디건', 'C1'),
+	('50', '원피스', 'C1'),
+	('51', '티셔츠', 'C1'),
+	('52', '브라우스/셔츠', 'C1'),
+	('53', '점퍼', 'C1'),
+	('54', '재킷', 'C1'),
+	('55', '코트', 'C1'),
+	('56', '바지', 'C1'),
+	('57', '청바지', 'C1'),
+	('58', '스커트', 'C1'),
+	('59', '레깅스', 'C1'),
+	('60', '트레닝복', 'C1'),
+	('61', '브라', 'C2'),
+	('62', '팬티', 'C2'),
+	('63', '브라팬티세트', 'C2'),
+	('64', '잠옷/홈웨이', 'C2'),
+	('65', '보정속옷', 'C2'),
+	('66', '슬립', 'C2'),
+	('67', '러닝/캐미솔', 'C2'),
+	('68', '속치마/속바지', 'C2'),
+	('69', '언더웨어소품', 'C2'),
+	('70', '부츠', 'C3'),
+	('71', '부티', 'C3'),
+	('72', '워커', 'C3'),
+	('73', '단화', 'C3'),
+	('74', '힐/펌프스', 'C3'),
+	('75', '운동화', 'C3'),
+	('76', '실내화', 'C3'),
+	('77', '슬리퍼', 'C3'),
+	('78', '샌들', 'C3'),
+	('79', '기능화', 'C3'),
+	('80', '노트북가방', 'C4'),
+	('81', '서류', 'C4'),
+	('82', '백팩', 'C4'),
+	('83', '크로스백', 'C4'),
+	('84', '클러치백', 'C4'),
+	('85', '토트백', 'C4'),
+	('86', '파우치', 'C4'),
+	('87', '히프색', 'C4'),
+	('88', '가방소품', 'C4');
 /*!40000 ALTER TABLE `middlecategory` ENABLE KEYS */;
 
 -- 테이블 nft_market.order 구조 내보내기
@@ -166,16 +265,21 @@ DELETE FROM `order`;
 -- 테이블 nft_market.product 구조 내보내기
 CREATE TABLE IF NOT EXISTS `product` (
   `product_no` varchar(10) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `explain` varchar(200) NOT NULL,
-  `creater` varchar(20) NOT NULL,
-  `date` datetime NOT NULL,
+  `name` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `explain` varchar(200) CHARACTER SET utf8 NOT NULL,
+  `creater` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`product_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.product:~0 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.product:~4 rows (대략적) 내보내기
 DELETE FROM `product`;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` (`product_no`, `name`, `explain`, `creater`, `date`) VALUES
+	('A101bW0000', '반팔티셔츠', '이것은 반팔티셔츠입니다.', '성진', '2021-11-05 15:05:28'),
+	('A103aS0000', '긴팔셔츠', '이것은 셔츠입니다.', '성진', '2021-11-05 15:04:30'),
+	('B111bS0000', '니트라네', '이것은 니트입니다.', '동철님', '2021-11-05 15:06:37'),
+	('B223cW0000', '팬티', '이것은 팬티입니다.', '성진', '2021-11-05 15:07:24');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- 테이블 nft_market.product_detail 구조 내보내기
@@ -183,20 +287,48 @@ CREATE TABLE IF NOT EXISTS `product_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_no` varchar(10) DEFAULT NULL,
   `qty` int(11) DEFAULT NULL,
-  `color` varchar(50) DEFAULT NULL,
-  `size` varchar(10) DEFAULT NULL,
+  `color` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `size` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `rest` int(11) DEFAULT NULL,
   `auction_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_no` (`product_no`),
   CONSTRAINT `product_no` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.product_detail:~0 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.product_detail:~5 rows (대략적) 내보내기
 DELETE FROM `product_detail`;
 /*!40000 ALTER TABLE `product_detail` DISABLE KEYS */;
+INSERT INTO `product_detail` (`id`, `product_no`, `qty`, `color`, `size`, `price`, `rest`, `auction_id`) VALUES
+	(1, 'A103aS0000', 10, 'blue', 's', 10, 10, NULL),
+	(2, 'B111bS0000', 10, 'yellow', 'l', 51, 5, NULL),
+	(3, 'A101bW0000', 10, 'red', 'ss', 15, 10, NULL),
+	(4, 'B223cW0000', 12, 'black', 'l', 32, 10, NULL),
+	(5, 'B111bS0000', 99, '99', '99', 99, 99, NULL);
 /*!40000 ALTER TABLE `product_detail` ENABLE KEYS */;
+
+-- 테이블 nft_market.p_like 구조 내보내기
+CREATE TABLE IF NOT EXISTS `p_like` (
+  `product_no` varchar(10) NOT NULL,
+  `nickname` varchar(20) NOT NULL,
+  KEY `FK_like_product` (`product_no`),
+  CONSTRAINT `FK_like_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- 테이블 데이터 nft_market.p_like:~8 rows (대략적) 내보내기
+DELETE FROM `p_like`;
+/*!40000 ALTER TABLE `p_like` DISABLE KEYS */;
+INSERT INTO `p_like` (`product_no`, `nickname`) VALUES
+	('A103aS0000', 'aa'),
+	('A103aS0000', 'sa'),
+	('A103aS0000', 'ass'),
+	('B111bS0000', 'as'),
+	('A101bW0000', 'asas'),
+	('B223cW0000', 'asas'),
+	('A101bW0000', 'asas'),
+	('A103aS0000', 'as');
+/*!40000 ALTER TABLE `p_like` ENABLE KEYS */;
 
 -- 테이블 nft_market.seller 구조 내보내기
 CREATE TABLE IF NOT EXISTS `seller` (
@@ -229,13 +361,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `nickname` varchar(20) DEFAULT NULL,
   `wallet` varchar(50) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
-  `picture` varchar(50) DEFAULT NULL,
+  `picture` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.user:~0 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.user:~4 rows (대략적) 내보내기
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`, `nickname`, `wallet`, `email`, `picture`) VALUES
+	(1, 'asdf', '0x9b2e353a554f474d7e3690f54bfbd6f84ac8957d', 'adsfsdf', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'),
+	(2, 'asdf', '0x9b2e353a554f474d7e3690f54bfbd6f84ac8957d', 'adsfsdf', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'),
+	(3, 'adf', '0x9b2e353a554f474d7e3690f54bfbd6f84ac8957d', 'asdf', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'),
+	(4, 'aasss', '0x9b2e353a554f474d7e3690f54bfbd6f84ac8957d', 'aasss', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
