@@ -3,12 +3,17 @@ import { Container } from "../Form/Container";
 import { Icon_Close } from "../Login/Login.css";
 import CloseIcon from '@mui/icons-material/Close';
 import { Underline, Table, Btn_Box } from './seller_apply.css'
+import { useSelector } from 'react-redux'
 import Link from "next/link";
 import Input from "../input";
 import Button from '../Button';
+import useInput from "../../hooks/useInput";
 
 const Seller_Apply = () => {
+    const data = useSelector(state => state.user)
+    const info = data.user_info
 
+    const sell_number = useInput()
     return (
         <>
             <Popup_background>
@@ -26,17 +31,17 @@ const Seller_Apply = () => {
                             <tr>
                                 <td>신청자</td>
                                 <td>|</td>
-                                <td>정성진</td>
+                                <td>{info.nickname}</td>
                             </tr>
                             <tr>
                                 <td>이메일</td>
                                 <td>|</td>
-                                <td>jin@naver.com</td>
+                                <td>{info.email}</td>
                             </tr>
                             <tr>
                                 <td>지갑주소</td>
                                 <td>|</td>
-                                <td>0x129423601f8023409f</td>
+                                <td>{info.wallet}</td>
                             </tr>
 
                         </Table>
@@ -44,9 +49,9 @@ const Seller_Apply = () => {
                     <from>
                         <h1>사업자 등록 번호</h1>
                         <Underline />
-                        <Input />
+                        <Input {...sell_number} />
                         <Btn_Box>
-                            <Button value="신청하기" />
+                            <Button value="신청하기" url="/" />
                         </Btn_Box>
 
                     </from>

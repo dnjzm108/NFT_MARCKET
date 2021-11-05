@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `nickname` varchar(20) DEFAULT NULL,
   `wallet` varchar(50) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
-  `picture` varchar(50) DEFAULT NULL,
+  `picture` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
