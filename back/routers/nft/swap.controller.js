@@ -48,7 +48,7 @@ let KIP7token_swap = async () => {
 
   const kip7Instance = new caver.kct.kip7('0xAdA4834Ca37A6a3f23a9A992809c30A21CB4FFc6')
   kip7Instance.name().then(console.log)
-  const opts = { from: keyring.address }
+  const opts = { from: deployer.address }
   //보낼 account 주소를 입력 시키기
   const recipientAddress = '0x544C995914d37f4300b375073A9EFCABb8e6d881'
   const value = 100000000000000000000

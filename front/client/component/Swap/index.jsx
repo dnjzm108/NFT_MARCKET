@@ -38,7 +38,7 @@ const SwapToken = () => {
         .sendTransaction({
             type: 'VALUE_TRANSFER',
             from: window.klaytn.selectedAddress,
-            to: '0xbf39AC77B62577D4c8e9c16F278B1C05E87D17E5',
+            to: '0x544C995914d37f4300b375073A9EFCABb8e6d881',
             value: caver.utils.toPeb('1', 'KLAY'),
             gas: 8000000
         })
