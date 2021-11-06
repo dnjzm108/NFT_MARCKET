@@ -51,3 +51,22 @@ const  middle_item_sql = (e) =>{
     )
 }
 
+// 상품 등록 
+// 필요값 상품번호,상품이름,설명,판매자
+const create_product_sql = () =>{
+    return(` inselt into INSERT INTO product ("product_no", "name", "explain", "creater") VALUES(?,?,?,?)`)
+}
+
+//상품 디테일 등록
+//필요한값 상품번호,수량,색,사이즈,가격,수량,경매아이디(경매일때만)
+const create_product_detail_sql = () =>{
+    return(`INSERT INTO product_detail ("product_no", "qty", "color", "size", "price", "rest", "auction_id") VALUES(?,?,?,?,?,?,?)`)
+}
+//상품 이미지 등록
+const create_img = () =>{
+    return(`INSERT INTO img ("product_no", "img") VALUES(?,?)`)
+}
+
+const create_order = () =>{
+    return(``)
+}
