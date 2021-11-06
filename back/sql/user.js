@@ -1,4 +1,14 @@
 
+<<<<<<< HEAD
+const join = () => {
+
+    return `select * from user`;
+}
+
+module.exports={
+    join,
+    
+=======
 const join_sql = () =>{
     return 'insert into user (nickname,wallet,email,picture) values (?,?,?,?)'
 }
@@ -14,4 +24,5 @@ module.exports={
     login_sql,
     name_check_sql
 
+>>>>>>> 556c7f56dc8c91598f39bb2e50ab99ac54565409
 }

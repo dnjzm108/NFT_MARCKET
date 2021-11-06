@@ -11,10 +11,10 @@ export const Underline = styled.div`
 export const Table = styled.table`
 &{
     display: inline-block;
-    width: 70%;
+    width: 100%;
     /* height: 120px; */
     /* border: 1px solid #000000; */
-    padding: 10px 50px ;
+    padding: 10px 10% ;
     box-sizing: border-box;
 }
 

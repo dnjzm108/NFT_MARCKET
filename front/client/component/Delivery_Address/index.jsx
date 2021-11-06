@@ -6,13 +6,15 @@ import { Container } from "../Form/Container";
 import Input from "../input";
 import Button from "../Button"
 import { Table, AddressFind, Center,Subject } from './Delivery_Address.css'
-
+import { useSelector } from 'react-redux'
 import PopupDom from './PopupDom';
 import PopupPostCode from './PopupPostCode';
 import { useState } from 'react';
 import useInput from '../../hooks/useInput';
 
 export const Delivery_Address_Component = () => {
+    const data = useSelector(state => state.user)
+
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [address, setaddress] = useState('')
     const [postNumber, setpostNumber] = useState('')
@@ -21,6 +23,7 @@ export const Delivery_Address_Component = () => {
     const address_detail = useInput()
     const Recipient = useInput()
     const requirement = useInput()
+    const other = useInput()
 
     const openPostCode = () => {
         setIsPopupOpen(true)
@@ -49,7 +52,7 @@ export const Delivery_Address_Component = () => {
                             </tr>
                             <tr>
                                 <td>주문자</td>
-                                <td>정성진</td>
+                                <td>{data.user_info.nickname}</td>
                             </tr>
                             <tr>
                                 <td>수령인</td>
@@ -69,7 +72,7 @@ export const Delivery_Address_Component = () => {
                                     <input type="radio" name="receive" /> 문앞
                                     <input type="radio" name="receive" /> 경비실
                                     <input type="radio" name="receive" /> 택배함
-                                    <input type="radio" name="receive" /> 기타   <Input />
+                                    <input type="radio" name="receive" /> 기타   <Input {...other} />
                                 </td>
                             </tr>
                             <tr>
