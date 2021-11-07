@@ -54,12 +54,22 @@ function* login(action){
     
 }
 function adminAPI(data){
+    console.log("Api");
     return axios.post(`${url}/uesr/admin`,data)
 }
 function* admin(action){
     console.log('관리자 로그인');
     let result = yield call(adminAPI,action.data)
     let {data} = result
+    if (data == true) {
+        yield put({
+            type: 'ADMIN_SUCCESS'
+        })
+    } else {
+        yield put({
+            type: 'ADMIN_ERROR'
+        })
+    }
 }
 
 function* watchUser(){

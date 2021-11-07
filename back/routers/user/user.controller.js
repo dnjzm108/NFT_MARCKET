@@ -54,6 +54,7 @@ let name_check = async (req,res) =>{
 }
 
 let admin = async(req,res) =>{
+    console.log("admin");
     let {id,pw} = req.body;
     let params = [id,pw]
     const [result] = await execute(admin_login,params)
