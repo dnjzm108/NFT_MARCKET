@@ -8,5 +8,8 @@ const Product_Detail = () => {
     )
 }
 
+
+
+
 export default Product_Detail
 

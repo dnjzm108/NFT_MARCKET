@@ -6,18 +6,6 @@ const Content = styled.div`
     margin: 15px;
     color:#2D3741B3;
 }
-
-& > button {
-    width: 400px;
-    height: 80px;
-    background-color: #ffffff;
-    color: #2D3741B3;
-    padding: 26px 24px;
-    box-sizing: border-box;
-    border: 1px solid #aab4be;
-    border-radius: 4px;
-    margin: 20px 0 ;
-}
 & > span > a {
     text-decoration: underline;
     color:#2D3741B3;

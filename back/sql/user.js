@@ -1,28 +1,35 @@
 
-<<<<<<< HEAD
-const join = () => {
+const join_sql =`insert into user (nickname,wallet,email,picture) values (?,?,?,?)`
 
-    return `select * from user`;
+const login_sql =`select * from user where wallet = ?`
+
+const name_check_sql =`select nickname from user where nickname = ?`
+
+
+const update_profile = (email,picture) =>{
+      let info = ''
+      if(email != undefined){
+          info += `email = ${email}`
+      }
+      if(picture != undefined){
+          if(email != undefined){
+              info += `, picture = ${picture}` 
+          }else{
+              info += `picture = ${picture}` 
+          }
+      }
+    return(`UPDATE user set ${info} WHERE nickname = ?
+    `)
 }
 
-module.exports={
-    join,
-    
-=======
-const join_sql = () =>{
-    return 'insert into user (nickname,wallet,email,picture) values (?,?,?,?)'
-}
+const admin_login = `SELECT * from admin WHERE id = ? AND pw = ?`
 
-const login_sql = () =>{
-    return `select * from user where wallet = ?`
-}
-const name_check_sql = () =>{
-    return `select nickname from user where nickname = ?`
-}
+
+
 module.exports={
     join_sql,
     login_sql,
-    name_check_sql
-
->>>>>>> 556c7f56dc8c91598f39bb2e50ab99ac54565409
+    name_check_sql,
+    update_profile,
+    admin_login
 }
