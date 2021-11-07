@@ -7,12 +7,21 @@ import { Middle_btn} from '../../component/Btn.jsx';
 import { Wrap } from "../Wrap/Popup_back"
 import Input from "../Input"
 import useInput from '../../hooks/useInput';
+import Button from '../Button';
 
 
 const Admin_Login = () => {
 
     const admin_id = useInput()
     const admin_pw = useInput()
+
+    const login = () =>{
+        let info = {
+            id : admin_id.value,
+            pw : admin_pw.value
+        }
+        console.log(info);
+    }
 
     return (
         <>
@@ -31,7 +40,7 @@ const Admin_Login = () => {
                     </Icon_Close>
                     <Content>
                         <h1>관리자 로그인</h1>
-                        <form action="">
+                        
                         <Small_Contain>
                             <label htmlFor="id">아이디</label>
                             <Input {...admin_id} type="text" id="id" />
@@ -40,8 +49,9 @@ const Admin_Login = () => {
                                 <label htmlFor="password">비밀번호</label>
                             <Input {...admin_pw} type="password" id="password"/>
                             </Small_Contain>
-                            <Middle_btn type="submit">로그인</Middle_btn>
-                        </form>
+
+                            <Button func={login} color="sky" value="로그인" />
+                    
                     </Content>
 
                 </div>

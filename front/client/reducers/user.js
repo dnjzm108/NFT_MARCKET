@@ -14,6 +14,14 @@ const USER_JOIN_REQUEST = "USER_JOIN_REQUEST"
 const USER_JOIN_SUCCESS = "USER_JOIN_SUCCESS"
 const USER_JOIN_ERROR = "USER_JOIN_ERROR"
 
+const ADMIN_LOGIN = "ADMIN_LOGIN"
+
+export const Admin_Login = (data) =>{
+    return{
+        type:ADMIN_LOGIN,
+        data
+    }
+}
 export const User_Join_Check = (data) =>{
     return{
         type: USER_JOIN_CHECK,
@@ -97,6 +105,10 @@ const reducer = (state = initalState,action) => {
                 user_info: {},
                 data: 'logout'
 
+            }
+        case ADMIN_LOGIN:
+            return{
+                ...state
             }
 
         default:
