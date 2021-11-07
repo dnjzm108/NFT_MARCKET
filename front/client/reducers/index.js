@@ -1,6 +1,7 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { combineReducers } from "redux";
 import user from './user'
+import mint from './mint'
 import filter from './filter'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage';
@@ -25,7 +26,7 @@ const rootReducer = combineReducers({
                 return state
         }
     },
-    user,filter,
+    user,filter,mint
 })
 
 export default persistReducer(persistConfig,rootReducer)

@@ -11,6 +11,7 @@ import Button from '../Button';
 import { useDispatch } from 'react-redux';
 import { UserJoin_REQUEST } from '../../reducers/user.js';
 
+
 const Join = (data) => {
 
     const dispatch = useDispatch()

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledFileInformation = styled.div`
+margin-top: 20%;
 .img_box{
     margin-top: 2%;
     width: 840px;
@@ -73,7 +74,6 @@ export const StyledFileInformation = styled.div`
 `
 
 export const ImageContent=styled.div`
-    
     display: flex;
     img{
     width: 150px;
@@ -83,7 +83,21 @@ export const ImageContent=styled.div`
     display: flex;
     }
 `
+export const StyledNewRelease = styled.div`
+.subject{
+    font-weight: bold;
+    font-size: 24px;
+  }
 
-export const CloseButton=styled.div`
+.subject > p{
+      margin-top: 5%;
+  }
 
+.intro{
+      margin-top: 2%;
+      display: inline-block;
+      font-size: 14px;
+      line-height: 26px;
+      color: #8C8C8C;
+  }
 `

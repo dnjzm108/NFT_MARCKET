@@ -1,50 +1,28 @@
-import { StyledFileInformation,ImageContent,CloseButton  } from "./FileInformation.css.jsx";
-import { useState } from "react"
-import axios from "axios"
+import { StyledFileInformation, StyledNewRelease } from "./FileInformation.css.jsx";
 
-const FileInformation = ({
-    titleValue,
-    titleChange ,
-    descriptionValue,
-    descriptionChange
-    }) => {
-    async function postImage({image, description,title}) {
-        const formData = new FormData();
-        for(let i = 0; i<image.length; i++){
-          formData.append("image",image[i])
-        }
-        formData.append("description", description)
-        formData.append("title",title)
-        const result = await axios.post('http://localhost:4000/nft/mint', formData, { headers: {'Content-Type': 'multipart/form-data'}})
-        console.log(result)
-        return result.data
-      }
-    
 
-      const [file, setFile] = useState([])
-    const [images, setImages] = useState([])
+const FileInformation = (props) => {
 
-    const submit = async event => {
-        event.preventDefault()
-        const result = await postImage({ image: file, description:description,title:title })
-        // setImages([result.image, ...images])
+    const handleForm =(e)=>{
+        e.preventDefault();
     }
-
-    const fileSelected = event => {
-        const newfiles = [];
-        for (let i = 0; i < event.target.files.length; i++) {
-            newfiles.push(event.target.files[i])
-        }
-        setFile(newfiles)
-        console.log(newfiles)
-    }
-
     return(
         <StyledFileInformation>
-            <form onSubmit={submit}>
+            <StyledNewRelease>
+                <div className="subject">
+                    <p>파일 업로드</p>
+                    <span className="intro">
+                        NFT에 넣을 이미지 파일을 업로드해주세요.
+                        최대 10MB까지 업로드할 수 있으며, 지원하는 파일 포맷은 아래와 같습니다. <br />
+                        -  PNG , JPG , JPEG , GIF , WEBP<br />
+                        {/* - 영상: MP4 (가로 세로 사이즈 600px 이상) */}
+                    </span>
+                </div>
+            </StyledNewRelease>
+            <form onSubmit={handleForm}>
                 <div className="img_box">
                     <p> 이미지 / 영상 파일을 드래그하여 업로드하거나 </p>
-                    <button type="submit"><label htmlFor="click_submit">파일선택</label></button>
+                    <button><label htmlFor="click_submit">파일선택</label></button>
                     
                     {/* image */}
                     <input
@@ -52,37 +30,37 @@ const FileInformation = ({
                     type="file"
                     className="file_select_input"
                     multiple
-                    onChange={fileSelected}
+                    onChange={(e)=>{props.handleImg(e)}}
                     id="click_submit"
                     >
                     </input>
-                    <div className="imagecon">
-                        {/* <img src={myImage}/> */}
+                    {/* <div className="imagecon">
+                        <img src={myImage}/>
                         {images.map(image => (
                             <div key={image}>
                                 <img src={image}></img>
                             </div>
                         ))}
-                    </div>
+                    </div> */}
                 </div>
                 <div className="information_input">
+
                     {/* title */}
                     <p>이름</p>
                     <input type="text" 
-                    value={titleValue}
-                    onChange={()=>titleChange()}
+                    defaultValue={props.title}
+                    onChange={(e)=>{props.setTitle(e)}}
                     className="name_input" 
-                    placeholder="이름을 입력해주세요. (최대 50자까지)" 
-                    required />
+                    placeholder="이름을 입력해주세요. (최대 50자까지)" />
+
                     {/* description */}
                     <p>설명</p>
                     <textarea 
                     rows="6" 
-                    value={descriptionValue}
-                    onChange={()=>descriptionChange()}
+                    defaultValue ={props.description}
+                    onChange={(e)=>{props.setDescription(e)}}
                     className="explain_box" 
-                    placeholder="설명을 입력해주세요" 
-                    required></textarea>
+                    placeholder="설명을 입력해주세요"></textarea>
                     {/* <input type="text" className="explain_box" placeholder="설명을 입력해주세요." /> */}
                 </div>
             </form>
