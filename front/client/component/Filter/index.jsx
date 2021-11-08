@@ -22,50 +22,59 @@ import {UpdateFilter} from "../../reducers/filter"
 
 const Filter = () => {
   const dispatch = useDispatch() 
-  const filter = useSelector(state=>state.filter);
+  const {filter} = useSelector(state=>state.filter);
   const {category,designer,skip} = useSelector(state=>state.explore)
   const currency = useChangeValue(tempCurrency);
   const [open,setOpen] = useState(true);
   const Min = useInput(); 
   const Max = useInput(); 
 
-  
-
   useEffect(()=>{
       dispatch(GetFilterData())
+      return (
+        dispatch(UpdateFilter(filter))
+      )
   },[])
+  
 
   const handlePrice = ()=>{
+
     if(Min.value==null || Max.value==null){
       alert('값을 입력해주세요')
       return;
     }
-    let data = JSON.parse(JSON.stringify(filter))
-    data.price_min = Min.value;
-    data.price_max = Max.value;
-    delete data.isLoading;
-    dispatch(UpdateFilter(data));
+    const data = {
+      ...filter,
+      price_min:Min.value,
+      price_max:Max.value,
+    }
     dispatch(ExploreRequest(data));
+    dispatch(UpdateFilter(data));
   }
 
   const handleCategory =(code)=>{
-    let data = JSON.parse(JSON.stringify(filter))
-    data.category=code;
-    delete data.isLoading;
-    dispatch(UpdateFilter(data));
+
+    const data = {
+      ...filter,
+      category:code,
+    }
     dispatch(ExploreRequest(data));
+    dispatch(UpdateFilter(data));
   }
 
   const handleDesigner = (name)=>{
-    let data = JSON.parse(JSON.stringify(filter))
-    if(data.designer.includes(name)){
-      data.designer = result.designer.filter(v=>v!=name)
+    let designer;
+    if(filter.designer.includes(name)){
+      designer =filter.designer.filter(v=>v!=name);
     }else{
-      data.designer.push(name)
+      designer = [...filter.designer,name]; 
     }
-    delete data.isLoading;
-    dispatch(UpdateFilter(data));
+    const data = {
+      ...filter,
+      designer,
+    }
     dispatch(ExploreRequest(data));
+    dispatch(UpdateFilter(data));
   }
 
 

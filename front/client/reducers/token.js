@@ -24,7 +24,6 @@ export const Swap_REQUEST = (data) =>{
 
 
 const reducer = (state = initialState,action) => {
-    console.log(reducer)
     switch (action.type) {
 
         case TOKEN_TRANSFER_SUCCESS:

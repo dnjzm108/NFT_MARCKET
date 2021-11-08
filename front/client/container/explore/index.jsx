@@ -10,15 +10,12 @@ import { ExploreRequest,GetFilterData } from '../../reducers/explore'
 const Explore = () => {
   const dispatch = useDispatch();
   const {isError,skip,end} = useSelector(state=>state.explore)
-  const filter = useSelector(state=>state.filter);
+  const {filter} = useSelector(state=>state.filter);
   const [fetch,setFetch] = useState(false);
 
   const fetchMoreNFT = async () => {
     setFetch(true);
-    let data = {...filter};
-    delete data.isLoading;
-
-    dispatch(ExploreRequest({...data,skip}));
+    dispatch(ExploreRequest({...filter,skip}));
     setFetch(false);
   };
 
@@ -41,13 +38,7 @@ const Explore = () => {
   });
 
   useEffect(()=>{
-    let data = JSON.parse(JSON.stringify(filter))
-    delete data.isLoading;
-    console.log(data);
-      dispatch(ExploreRequest(data));
-      return () => {
-        setFetch(false);
-      };
+      dispatch(ExploreRequest(filter));
   },[])
 
 
@@ -56,12 +47,19 @@ const Explore = () => {
       <div>{filter.category}</div>
     )
   }
+  const renderTest2 = () =>{
+    return filter.designer.map((v,i)=>{
+      <div>{v}</div>
+    })
+    
+  }
 
   return (
     <>
       <Navigation />
       <div>
         {renderTest()}
+        {renderTest2()}
       </div>
       <div>
         <StyledExplore>

@@ -45,9 +45,9 @@ const configureStore = ()=>{
         const storage = require('redux-persist/lib/storage').default
         
         const persistConfig = {
-            key: "root",
+            key: "nextjs",
             storage, // localStorage에 저장합니다.
-            whitelist: ["user","filter"] 
+            whitelist: ["filter","user",] 
             // blacklist -> 그것만 제외합니다
           };
 

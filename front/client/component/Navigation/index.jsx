@@ -24,7 +24,7 @@ const Navigation = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [nowItem, setNowItem] = useState(null);
   const [search,setSearch] = useState()
-  const {result} = useSelector(state=>state.filter);
+  const {filter} = useSelector(state=>state.filter);
   const {skip} = useSelector(state=>state.explore)
   const test = useSelector(state=>state.user);
   const handleSearch = (e)=>{
@@ -36,9 +36,10 @@ const Navigation = () => {
 
   const handleSubmit =(e)=>{
     e.preventDefault();
-    let data = {...result};
-    data.search = search;
-    data.skip=skip; 
+    const data = {
+      ...filter,
+      search,
+    }
     dispatch(ExploreRequest(data));
   }
 

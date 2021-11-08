@@ -1,12 +1,14 @@
 const initalState = {
   isLoading:true,
-  category:null,
-  designer:[],
-  price_min:null,
-  price_max:null,
-  type:"immy",
-  search:null,
-  skip:0,
+  filter:{
+    category:null,
+    designer:[],
+    price_min:null,
+    price_max:null,
+    type:"immy",
+    search:null,
+    skip:0,
+  }
 }
 
 
@@ -25,13 +27,13 @@ const reducer = (state = initalState, action) => {
       case UPDATE_FILTER :
         return{
           ...state,
-          ...action.data        
+          filter: {
+            ...action.data        
+          }
         }
 
         default:
-            return {
-              ...state
-            }
+            return state
     }
 }
 
