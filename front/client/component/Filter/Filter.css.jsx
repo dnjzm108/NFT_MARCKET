@@ -8,10 +8,7 @@ export const StyledFilter = styled.div`
 
   .filter_open{
     height: auto;
-    max-height: 80vh;
     width: 340px;
-    overflow-y:auto;
- 
   }
 
   .filter_close{

@@ -31,7 +31,7 @@ on B.product_no =  D.product_no
 GROUP BY C.product_no ORDER BY A.id DESC
 ;
      `
-     )
+     
 
 
 

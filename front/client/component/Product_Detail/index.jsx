@@ -15,6 +15,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 const Product_detail = () => {
+    
+
     const [auction, setAuction] = useState(true)
     const [ispopup, setIsPopup] = useState(false)
     const [isAuc, setIsAuc] = useState(false)

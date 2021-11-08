@@ -14,7 +14,7 @@ const Button = (props) => {
   const bgColor = () => {
     switch (props.color) {
       case "sky":
-        return "#E1F0FF";
+        return "#E1FFF0";
       case "blue":
         return "#1E73FA";
       default:

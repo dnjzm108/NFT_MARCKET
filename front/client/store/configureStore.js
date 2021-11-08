@@ -37,7 +37,7 @@ const configureStore = ()=>{
 
     const persistConfig = {
         key: "nextjs",
-        whitelist: ["user"], // only counter will be persisted, add other reducers if needed
+        whitelist: ["user","filter"], // only counter will be persisted, add other reducers if needed
         storage, // if needed, use a safer storage
     };
 
