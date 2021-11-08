@@ -4,7 +4,7 @@ import {url} from './url'
 
 
 function joinAPI(data){
-    // const options = {'Content-type':'application/json'}
+     
     console.log('data@@@@@@@@@@@@',data);
     return axios.post(`${url}/user/join`,data,{ headers: {'Content-Type': 'multipart/form-data'}})
 }
@@ -54,13 +54,13 @@ function* login(action){
     
 }
 function adminAPI(data){
-    console.log("Api");
-    return axios.post(`${url}/uesr/admin`,data)
+    const options = {'Content-type':'application/json'}
+    return axios.post(`${url}/user/admin`,data)
 }
 function* admin(action){
-    console.log('관리자 로그인');
     let result = yield call(adminAPI,action.data)
     let {data} = result
+    console.log(data);
     if (data == true) {
         yield put({
             type: 'ADMIN_SUCCESS'

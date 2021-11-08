@@ -19,6 +19,13 @@ const ADMIN_LOGIN = "ADMIN_LOGIN"
 const ADMIN_SUCCESS = "ADMIN_SUCCESS"
 const ADMIN_ERROR = "ADMIN_ERROR"
 
+
+export const Admin_Logout = () =>{
+    return{
+        type:ADMIN_ERROR
+    }
+ }
+ 
 export const Admin_Login_REQUEST = (data) =>{
     return{
         type:ADMIN_LOGIN,

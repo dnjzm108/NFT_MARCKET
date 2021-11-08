@@ -7,9 +7,9 @@ const Admin_Login = () => {
     const state_data = useSelector(state => state.user)
     useEffect(()=>{
         if(state_data.admin == true){
-            Router('/admin/management')
+            Router.push('/admin/management')
         }
-    },[])
+    },[state_data.admin])
     return (
 
         <>
