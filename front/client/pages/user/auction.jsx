@@ -1,21 +1,21 @@
-import Profile from "../../component/Profile";
-import Navigation from "../../component/Navigation"
 import Info from "../../container/Info";
+import Navigation from "../../component/Navigation"
 import SideMenu from "../../component/SideMenu";
+import NFTList from "../../component/MyNFT/NFTList";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const profil = () => {
+const auction = () => {
   return (
     <>
         <Navigation/> 
         <Info>
             <SideMenu/>
-            <Profile/>
+            <NFTList type="auction"/>
         </Info>
         </>
   );
 }
 
-export default profil;
+export default auction;

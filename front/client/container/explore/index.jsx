@@ -5,20 +5,21 @@ import Navigation from "../../component/Navigation";
 import  Footter from "../../component/Footter";
 import { useEffect,useState } from 'react'
 import { useDispatch, useSelector,} from 'react-redux'
-import { ExploreRequest } from '../../reducers/explore'
+import { ExploreRequest,GetFilterData } from '../../reducers/explore'
 
 const Explore = () => {
   const dispatch = useDispatch();
   const {isError,skip,end} = useSelector(state=>state.explore)
+  const filter = useSelector(state=>state.filter);
   const [fetch,setFetch] = useState(false);
 
   const fetchMoreNFT = async () => {
     setFetch(true);
-    const data = {
-      skip: skip,
-    };
+    let data = {...filter};
+    delete data.isLoading;
+
+    dispatch(ExploreRequest({...data,skip}));
     setFetch(false);
-    // dispatch(ExploreRequest(data));
   };
 
   const handleScroll = () => {
@@ -40,20 +41,28 @@ const Explore = () => {
   });
 
   useEffect(()=>{
-      const data={
-        skip:0,
-      }
-      // dispatch(ExploreRequest(data));
-
+    let data = JSON.parse(JSON.stringify(filter))
+    delete data.isLoading;
+    console.log(data);
+      dispatch(ExploreRequest(data));
       return () => {
         setFetch(false);
       };
   },[])
 
 
+  const renderTest = () =>{
+    return (
+      <div>{filter.category}</div>
+    )
+  }
+
   return (
     <>
       <Navigation />
+      <div>
+        {renderTest()}
+      </div>
       <div>
         <StyledExplore>
           <div>

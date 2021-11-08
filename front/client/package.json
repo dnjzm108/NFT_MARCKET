@@ -2,7 +2,7 @@
   "name": "client",
   "version": "1.0.0",
   "description": "This is the frontend client for our dapp. It is built with Next.js and uses a render-prop pattern (via `lib/Web3Container.js`) so we can easily inject blockchain functionality (i.e. web3, accounts, and the contract instance) into each page.",
-  "main": "next.config.js",
+  "main": "index.js",
   "directories": {
     "lib": "lib"
   },
@@ -25,7 +25,9 @@
     "@mui/material": "^5.0.4",
     "axios": "^0.24.0",
     "caver-js": "^1.6.4",
+    "fs": "^0.0.1-security",
     "next": "^11.1.2",
+    "next-images": "^1.8.2",
     "next-redux-wrapper": "^7.0.5",
     "react": "^17.0.2",
     "react-copy-to-clipboard": "^5.0.4",

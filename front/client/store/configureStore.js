@@ -1,10 +1,11 @@
 import {createWrapper} from 'next-redux-wrapper'
 import { applyMiddleware, compose, createStore,combineReducers } from 'redux'
-import reducer from '../reducers'       
+import rootReducer from '../reducers'       
 import {composeWithDevTools} from 'redux-devtools-extension'
 import createSaga from 'redux-saga'
 import rootSaga from '../saga/index'
 import userSaga from '../saga/user'
+import { persistStore } from 'redux-persist';
 
 /*
     reudx-saga
@@ -20,40 +21,43 @@ import userSaga from '../saga/user'
     redux saga 를 사용가능함 -> redux의 미들웨어 
 */
 
-const loggerMiddleware = ({dispatch,getState}) => (next) => (action) => {
-    return next(action)
-}
-
-const combinedReducer = combineReducers({
-    userSaga,
-    // OTHER REDUCERS WILL BE ADDED HERE
-  });
+const getEnhancer = () => {
+    const sagaMiddlewares = createSaga()
+    const Middlewares = [sagaMiddlewares]
+    const enhencer= (
+      process.env.NODE_ENV === 'production'
+      ? compose(applyMiddleware(...Middlewares))
+      : composeWithDevTools(applyMiddleware(...Middlewares))
+    )
+    return {enhencer,sagaMiddlewares}
+  }
 
 const configureStore = ()=>{
-    const sagaMiddleware = createSaga()
+    const isServer = typeof window == 'undefined'
+    let {enhencer,sagaMiddlewares} = getEnhancer()
+    
+    if(isServer) {
+        const Store = createStore(rootReducer,enhencer)
+        Store.sagaTask = sagaMiddlewares.run(rootSaga)
+        return Store
+    }else {
+        const {persistStore, persistReducer} = require('redux-persist')
+        const storage = require('redux-persist/lib/storage').default
+        
+        const persistConfig = {
+            key: "root",
+            storage, // localStorage에 저장합니다.
+            whitelist: ["user","filter"] 
+            // blacklist -> 그것만 제외합니다
+          };
 
-    const { persistStore, persistReducer } = require("redux-persist");
-    const storage = require("redux-persist/lib/storage").default;
+        const persistedReducer  = persistReducer(persistConfig,rootReducer)
+        const Store = createStore(persistedReducer,enhencer)
+        Store.__persistor = persistStore(Store)
+        Store.sagaTask = sagaMiddlewares.run(rootSaga)
 
-    const persistConfig = {
-        key: "nextjs",
-        whitelist: ["user"], // only counter will be persisted, add other reducers if needed
-        storage, // if needed, use a safer storage
-    };
-
-    const middlewares = [sagaMiddleware]
-   
-    const enhancer = process.env.NODE_ENV === 'production'
-    ? compose(applyMiddleware(...middlewares))
-    : composeWithDevTools(applyMiddleware(...middlewares))
- 
-    const Store = createStore(reducer,enhancer)
-    Store.sagaTask = sagaMiddleware.run(rootSaga)
-
-
-    const persistedReducer = persistReducer(persistConfig, combinedReducer); 
-    Store.__persistor = persistStore(Store);
-    return Store
+        return Store
+    }
 }
 
 

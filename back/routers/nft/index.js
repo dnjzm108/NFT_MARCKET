@@ -10,7 +10,7 @@ const transferController = require('./transfer.controller')
 
 
 router.get('/',itemController.testGetNFT)
-router.get('/designer',itemController.getDesigner)
+router.get('/filter',itemController.getFilterData)
 
 router.post('/mint',upload.array('image'),mintController.mint_nft);
 
