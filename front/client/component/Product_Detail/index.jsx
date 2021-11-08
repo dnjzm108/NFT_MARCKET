@@ -21,28 +21,27 @@ import "slick-carousel/slick/slick-theme.css";
 const Product_detail = () => {
     const router = useRouter()
     const { id } = router.query
-    
+
     const [auction, setAuction] = useState(true)
     const [ispopup, setIsPopup] = useState(false)
     const [isAuc, setIsAuc] = useState(false)
-    const [ProductImg,setProductImg] = useState([])
-
+    const [ProductImg, setProductImg] = useState('')
+    let product_img = []
     useEffect(async () => {
-        if(id != undefined){
-            console.log(id);
-        let data = {
-            product_no : id
-        }
-        let result = await axios.post(`${url}/product/product_detail`,data)
-         console.log("+++++++++++++++",result);
-         let {img} = result.data
-         img.map((v)=>{
-             let test = v.img;
-             console.log(test);
-             setProductImg(test);
+        if (id != undefined) {
+            let data = {
+                product_no: id
+            }
+            let result = await axios.post(`${url}/product/product_detail`, data)
+            let { img } = result.data
+            img.map((v) => {
+                let test = v.img;
+                product_img.push(test)
             })
         }
-        console.log(ProductImg);
+        setProductImg(product_img)
+        product_img.map(v => { console.log(v); })
+        console.log("--------------------------------------------", ProductImg);
     }, [id])
 
     const handlePopup = () => {
@@ -77,15 +76,16 @@ const Product_detail = () => {
 
                     <div>
                         <Styled_Slide {...settings}>
-                            {/* {img.map((v)=>{
-                                return(
+
+                            {product_img.map((v) => {
+                                return (
                                     <div>
-                                    <h3>{}</h3>
-                                </div>
+                                        <h3><img src={v}/></h3>
+                                    </div>
                                 )
-                            })} */}
-                           
-                            
+                            })}
+
+
                         </Styled_Slide>
                     </div>
                     <Middle_container>
@@ -101,7 +101,7 @@ const Product_detail = () => {
                         <div>
                             <img src="" alt="" />
                             <h3>Created By</h3>
-                            <h3>jin</h3>
+                            <h3>product_img</h3>
                         </div>
                     </Seller_contain>
                     <Price_contain>
