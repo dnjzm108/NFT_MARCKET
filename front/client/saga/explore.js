@@ -27,13 +27,7 @@ async function exploreAPI(data){
 function* explore(action){
     let result = yield call(exploreAPI,action.data)
     let {data} = result
-    console.log(action.data)
     if (data.success) {
-        yield put({
-            type:'UPDATE_SEARCH',
-            data:{ ...action.data}
-        })
-        
         yield put({
             type: 'EXPLORE_SUCCESS',
             data:{

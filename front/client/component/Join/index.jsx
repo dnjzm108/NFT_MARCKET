@@ -37,7 +37,7 @@ const Join = (data) => {
 
 
         dispatch(UserJoin_REQUEST(formData))
-        // Router.push('/')
+        Router.push('/')
     }
 
     const checking = async () => {

@@ -15,6 +15,8 @@ const SwapToken = () => {
     const [currency,setCurrency] = useState(true)  // true면 klay, false면 perro 
     const [swap,setSwap] = useState(0)
 
+
+
     const handleKlay = (e) =>{
             const klayInput = e.target.value;
             setKlay(klayInput);

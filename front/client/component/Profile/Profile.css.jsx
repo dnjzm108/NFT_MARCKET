@@ -24,7 +24,12 @@ export const ProfileStyled = styled.div`
 
 .btn{
     display: flex;
-    margin-left: 130px;
+    margin-left: 40px;
+}
+
+.btn_edit{
+    display: flex;
+    margin-left: 120px;
 }
 .URL{
         color: grey;
@@ -47,6 +52,12 @@ export const ProfileStyled = styled.div`
 .need_verified{
     color:red;
 }
+
+.input-file-button{
+  padding: 6px 25px;
+  cursor: pointer;
+}
+
 `
 
 export const StyleTd = styled.div`

@@ -26,6 +26,7 @@ const Navigation = () => {
   const [search,setSearch] = useState()
   const {result} = useSelector(state=>state.filter);
   const {skip} = useSelector(state=>state.explore)
+  const test = useSelector(state=>state.user);
   const handleSearch = (e)=>{
     const temp = e.target.value;
     setSearch(temp)
@@ -35,9 +36,9 @@ const Navigation = () => {
 
   const handleSubmit =(e)=>{
     e.preventDefault();
-    result.search = search;
     let data = {...result};
-    data.skip=skip
+    data.search = search;
+    data.skip=skip; 
     dispatch(ExploreRequest(data));
   }
 
@@ -78,13 +79,13 @@ const Navigation = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link href='/user/info?type=profile'><a><i><BiUserCircle size={32}/></i></a></Link>
+            <Link href='/user/profile'><a><i><BiUserCircle size={32}/></i></a></Link>
           </NavItem>
           <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
           {isLogin ? (
             <>
             <NavItem>
-              <Link href='/user/info?type=profile'><a><i><BiUserCircle size={32}/></i></a></Link>
+              <Link href='/user/profile'><a><i><BiUserCircle size={32}/></i></a></Link>
             </NavItem>
               <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
             </>

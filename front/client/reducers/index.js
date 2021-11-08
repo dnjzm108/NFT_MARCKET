@@ -4,15 +4,6 @@ import user from './user'
 import mint from './mint'
 import filter from './filter'
 import explore from './explore'
-import {persistReducer} from 'redux-persist'
-import storage from 'redux-persist/lib/storage';
-
-
-const persistConfig ={
-    key:'root',
-    storage,
-    whitelist:["user","filter"]
-}
 
 
 const rootReducer = combineReducers({
@@ -30,4 +21,4 @@ const rootReducer = combineReducers({
     user,filter,mint,explore
 })
 
-export default persistReducer(persistConfig,rootReducer)
+export default rootReducer

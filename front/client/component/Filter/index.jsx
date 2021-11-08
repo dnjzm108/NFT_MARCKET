@@ -15,61 +15,64 @@ import SelectBtnBox from '../SelectBtnBox';
 import router from "next/router";
 const tempCurrency = [ {"name":'KLAY','img':'/klay.png'},{'name':'KRW','img':'/krw.png'}]
 import { GetFilterData,ExploreRequest } from '../../reducers/explore';
-
+import {UpdateFilter} from "../../reducers/filter"
 
 
 
 
 const Filter = () => {
   const dispatch = useDispatch() 
-  const {result} = useSelector(state=>state.filter);
+  const filter = useSelector(state=>state.filter);
   const {category,designer,skip} = useSelector(state=>state.explore)
   const currency = useChangeValue(tempCurrency);
   const [open,setOpen] = useState(true);
   const Min = useInput(); 
   const Max = useInput(); 
 
+  
 
   useEffect(()=>{
-    if(open){
       dispatch(GetFilterData())
-    }
-  },[open])
+  },[])
 
   const handlePrice = ()=>{
     if(Min.value==null || Max.value==null){
       alert('값을 입력해주세요')
       return;
     }
-    result.price_min = Min.value;
-    result.price_max = Max.value;
-    let data = {...result};
+    let data = JSON.parse(JSON.stringify(filter))
+    data.price_min = Min.value;
+    data.price_max = Max.value;
+    delete data.isLoading;
+    dispatch(UpdateFilter(data));
     dispatch(ExploreRequest(data));
   }
 
   const handleCategory =(code)=>{
-    result.category=code;
-    let data = {...result};
+    let data = JSON.parse(JSON.stringify(filter))
+    data.category=code;
+    delete data.isLoading;
+    dispatch(UpdateFilter(data));
     dispatch(ExploreRequest(data));
   }
 
   const handleDesigner = (name)=>{
-    if(result.designer.includes(name)){
-      result.designer = result.designer.filter(v=>v!=name)
+    let data = JSON.parse(JSON.stringify(filter))
+    if(data.designer.includes(name)){
+      data.designer = result.designer.filter(v=>v!=name)
     }else{
-      result.designer.push(name)
+      data.designer.push(name)
     }
-    let data = {...result};
+    delete data.isLoading;
+    dispatch(UpdateFilter(data));
     dispatch(ExploreRequest(data));
   }
 
-  useEffect(()=>{
-    console.log(result);
-  },[result])
+
 
   const renderBtnBox = () =>{
     return category.map((v,i)=>{
-      return <SelectBtnBox list={v.list} title={v.name} key={v.name+i} onClick={handleCategory} now={result.category}/>
+      return <SelectBtnBox list={v.list} title={v.name} key={v.name+i} onClick={handleCategory} now={filter.category}/>
     })
   }
 
@@ -95,7 +98,7 @@ const Filter = () => {
          {renderBtnBox()}
       </Panal>
       <Panal value='디자이너' scroll={true} >
-        <CheckBoxes list={designer} result={result.designer} onCheck={handleDesigner} useImage={true}/>
+        <CheckBoxes list={designer} result={filter.designer} onCheck={handleDesigner} useImage={true}/>
       </Panal>  
       <Panal value='가격'>
         <SelectBox {...currency} useImg={true} width='100%'/>

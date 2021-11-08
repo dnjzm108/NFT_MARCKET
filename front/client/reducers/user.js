@@ -19,6 +19,13 @@ const ADMIN_LOGIN = "ADMIN_LOGIN"
 const ADMIN_SUCCESS = "ADMIN_SUCCESS"
 const ADMIN_ERROR = "ADMIN_ERROR"
 
+
+export const Admin_Logout = () =>{
+    return{
+        type:ADMIN_ERROR
+    }
+ }
+ 
 export const Admin_Login_REQUEST = (data) =>{
     return{
         type:ADMIN_LOGIN,
@@ -56,7 +63,6 @@ const reducer = (state = initalState,action) => {
     switch (action.type) {
 
         case USER_LOGIN_REQUEST:
-            console.log(action);
             return {
                 ...state,
                 user_info:action.data,
@@ -66,7 +72,6 @@ const reducer = (state = initalState,action) => {
 
 
         case USER_LOGIN_SUCCESS:
-            console.log(action);
             return {
                 ...state,
                 IsLogin: true,

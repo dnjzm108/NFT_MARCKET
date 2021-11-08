@@ -5,22 +5,22 @@ import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Auction, Auction_History } from './Auction_Box';
 import NowPopup from "./NowPopup"
 import AucPopup from "./AucPopup"
+
+
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
 
 
-const Product_detail = () => {
-    
-
+const Product_detail = (props) => {
     const [auction, setAuction] = useState(true)
     const [ispopup, setIsPopup] = useState(false)
     const [isAuc, setIsAuc] = useState(false)
-
+    
     const handlePopup = () => {
         return (
             setIsPopup(!ispopup),
@@ -95,9 +95,9 @@ const Product_detail = () => {
                     </Price_contain>
 
                     {/* 팝업부분 */}
-                    {ispopup ? <NowPopup handlePopup={handlePopup} /> : "" }
-                    {isAuc ? <AucPopup handlePopup={handlePopup} /> : "" }
-                    
+                    {ispopup ? <NowPopup handlePopup={handlePopup} /> : ""}
+                    {isAuc ? <AucPopup handlePopup={handlePopup} /> : ""}
+
                     <Auction_contain>
                         <ul>
                             {auction ? <li onClick={changeAuction} style={{ color: "blue" }}>경매 하기</li> : <li onClick={changeAuction}>경매 하기</li>}

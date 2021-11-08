@@ -17,7 +17,7 @@ const testGetNFT = async(req,res)=>{
   console.log(req.query);
   const data = {
     success:true,
-    result:req.query,
+    filter:req.query,
     nft:[],
     skip
   }
