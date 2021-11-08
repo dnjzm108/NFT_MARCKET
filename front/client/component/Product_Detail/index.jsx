@@ -9,18 +9,42 @@ import { useEffect, useState } from 'react';
 import { Auction, Auction_History } from './Auction_Box';
 import NowPopup from "./NowPopup"
 import AucPopup from "./AucPopup"
-
+import { useRouter } from 'next/router'
+import axios from 'axios'
+import { url } from "../../saga/url"
 
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
 
 
-const Product_detail = (props) => {
+const Product_detail = () => {
+    const router = useRouter()
+    const { id } = router.query
+    
     const [auction, setAuction] = useState(true)
     const [ispopup, setIsPopup] = useState(false)
     const [isAuc, setIsAuc] = useState(false)
-    
+    const [ProductImg,setProductImg] = useState([])
+
+    useEffect(async () => {
+        if(id != undefined){
+            console.log(id);
+        let data = {
+            product_no : id
+        }
+        let result = await axios.post(`${url}/product/product_detail`,data)
+         console.log("+++++++++++++++",result);
+         let {img} = result.data
+         img.map((v)=>{
+             let test = v.img;
+             console.log(test);
+             setProductImg(test);
+            })
+        }
+        console.log(ProductImg);
+    }, [id])
+
     const handlePopup = () => {
         return (
             setIsPopup(!ispopup),
@@ -53,24 +77,15 @@ const Product_detail = (props) => {
 
                     <div>
                         <Styled_Slide {...settings}>
-                            <div>
-                                <h3>1</h3>
-                            </div>
-                            <div>
-                                <h3>2</h3>
-                            </div>
-                            <div>
-                                <h3>3</h3>
-                            </div>
-                            <div>
-                                <h3>4</h3>
-                            </div>
-                            <div>
-                                <h3>5</h3>
-                            </div>
-                            <div>
-                                <h3>6</h3>
-                            </div>
+                            {/* {img.map((v)=>{
+                                return(
+                                    <div>
+                                    <h3>{}</h3>
+                                </div>
+                                )
+                            })} */}
+                           
+                            
                         </Styled_Slide>
                     </div>
                     <Middle_container>

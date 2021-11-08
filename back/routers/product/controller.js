@@ -7,9 +7,9 @@ console.log("++++++++++",req.body);
 let params=[product_no]
  
 let img = await execute(product_img(),params)
-// let product = await execute(show_product_detail(),params)
-console.log(img);
-let data={img}
+let product = await execute(show_product_detail(),params)
+let data={img,product}
+console.log(data);
 res.json(data)
 
 }
