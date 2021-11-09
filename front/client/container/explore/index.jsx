@@ -46,24 +46,12 @@ const Explore = () => {
   },[])
 
 
-  const renderTest = () =>{
-    return (
-      <div>{filter.category}</div>
-    )
-  }
-  const renderTest2 = () =>{
-    return filter.designer.map((v,i)=>{
-      <div>{v}</div>
-    })
-    
-  }
 
   return (
     <>
       <Navigation />
       <div>
-        {renderTest()}
-        {renderTest2()}
+
       </div>
       <div>
         <StyledExplore>
