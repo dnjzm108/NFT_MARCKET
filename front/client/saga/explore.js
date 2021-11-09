@@ -8,7 +8,6 @@ const url = process.env.NEXT_PUBLIC_URL;
 
 
 async function exploreAPI(data){
-    console.log(data)
     let params = {...data}
     if(params.category==null){
         delete params.category;
@@ -30,11 +29,16 @@ async function exploreAPI(data){
 function* explore(action){
     let result = yield call(exploreAPI,action.data)
     let {data} = result
-    if (data) {
+    if (data.success) {
         yield put({
             type: 'EXPLORE_SUCCESS',
-            data,
-          })
+            data:{
+                nft:data.nft,
+                skip:data.skip
+            }
+
+        })
+        
 
         } else {
         yield put({

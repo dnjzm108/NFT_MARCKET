@@ -29,11 +29,11 @@ const SideMenu = () => {
               <i><RiMenu2Line size={24} /></i>
               <span>내 정보</span>
           </div>
-          <MenuItem value='나의 프로필' url='/user/info?type=profile'/>
-          <MenuItem value='판매 목록' url='/user/info?type=sell'/>
-          <MenuItem value='구매 목록' url='/user/info?type=buy'/>
-          <MenuItem value='경매 목록' url='/user/info?type=auction'/>
-          <MenuItem value='관심 목록' url='/user/info?type=favorite'/>
+          <MenuItem value='나의 프로필' url='/user/profile'/>
+          <MenuItem value='판매 목록' url='/user/sell'/>
+          <MenuItem value='구매 목록' url='/user/buy'/>
+          <MenuItem value='경매 목록' url='/user/auction'/>
+          <MenuItem value='관심 목록' url='/user/favorite'/>
       </div>
 
        

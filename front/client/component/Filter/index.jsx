@@ -61,9 +61,7 @@ const Filter = () => {
 
   const handleDesigner = (name) => {
     
-    console.log(name)
-    console.log(name)
-    console.log(name)
+x
     let designer;
     if (result.designer.includes(name)) {
       designer = result.designer.filter(v => v!= name);

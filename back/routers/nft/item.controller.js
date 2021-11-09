@@ -1,6 +1,8 @@
 const { type } = require("caver-js/packages/caver-transaction");
 const { execute,query } = require("../../pool")
-
+const errorData={
+  success:false,
+}
 
 
 const getNfts= async(req,res)=>{
@@ -125,19 +127,19 @@ const makeFilterQuery = (query) =>{
   // const typeVerse = makeWhereVerse('type',type);
 }
 
-const makeWhereVerse = (key,value)=>{
-  if(value){
-    if(value.length==1){
-      return `${key}=${value}`
-    }else{
-      const tempArr = [];
-      value.forEach(v=>{
-        tempArr.push(`${key}=${v}`)
-      })
-      return '('+tempArr.join(' OR ')+')'
-    }
-  }else{
-    return ''
-  }
-}
+// const makeWhereVerse = (key,value)=>{
+//   if(value){
+//     if(value.length==1){
+//       return `${key}=${value}`
+//     }else{
+//       const tempArr = [];
+//       value.forEach(v=>{
+//         tempArr.push(`${key}=${v}`)
+//       })
+//       return '('+tempArr.join(' OR ')+')'
+//     }
+//   }else{
+//     return ''
+//   }
+// }
 

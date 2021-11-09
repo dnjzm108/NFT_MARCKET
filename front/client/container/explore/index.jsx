@@ -5,7 +5,7 @@ import Navigation from "../../component/Navigation";
 import  Footter from "../../component/Footter";
 import { useEffect,useState } from 'react'
 import { useDispatch, useSelector,} from 'react-redux'
-import { ExploreRequest } from '../../reducers/explore'
+import { ExploreRequest,GetFilterData } from '../../reducers/explore'
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -46,9 +46,25 @@ const Explore = () => {
   },[])
 
 
+  const renderTest = () =>{
+    return (
+      <div>{filter.category}</div>
+    )
+  }
+  const renderTest2 = () =>{
+    return filter.designer.map((v,i)=>{
+      <div>{v}</div>
+    })
+    
+  }
+
   return (
     <>
       <Navigation />
+      <div>
+        {renderTest()}
+        {renderTest2()}
+      </div>
       <div>
         <StyledExplore>
           <div>

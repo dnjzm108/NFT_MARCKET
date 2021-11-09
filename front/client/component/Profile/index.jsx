@@ -6,7 +6,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { VscSmiley, VscCheck, VscWarning } from "react-icons/vsc";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import {persistReducer} from "redux-persist/es/persistReducer";
 
 
 
@@ -35,16 +34,16 @@ const Profile = () => {
                 <h1>나의 프로필</h1>
                     <img src="/윤석열.png" alt="" />
                     <StyleTd/>
-                    <div className="seller_title">
-                    <h2>네이선드레이크</h2>
-                    <h5 className="verified"><VscCheck/>인증 완료👍</h5>
-                    <h5 className="need_verified"><VscWarning/>판매자 인증 필요</h5>
-                    </div>
+                        <div className="seller_title">
+                            <h2>네이선드레이크</h2>
+                            <h5 className="verified"><VscCheck/>인증 완료👍</h5>
+                            <h5 className="need_verified"><VscWarning/>판매자 인증 필요</h5>
+                        </div>
                     <StyleTd/>
                     <h4>지갑 주소</h4>
                     <StyleTd/>
                     <CopyToClipboard text={WalletUrl}>
-                    <td className="URL"onClick={() => alert('주소가 복사되었습니다.')}>0xbf39ac77b62577d4c8e9c16f278b1c05e87d17e5</td>
+                    <div className="URL"onClick={() => alert('주소가 복사되었습니다.')}>0xbf39ac77b62577d4c8e9c16f278b1c05e87d17e5</div>
                     </CopyToClipboard>
                     <StyleTd/>
                     <h4>이메일 주소</h4>
