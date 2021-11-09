@@ -8,10 +8,12 @@ import { Wrap } from "../Wrap/Popup_back"
 import Input from "../Input"
 import useInput from '../../hooks/useInput';
 import Button from '../Button';
-
+import {Admin_Login_REQUEST} from '../../reducers/user'
+import { useDispatch } from 'react-redux'
 
 const Admin_Login = () => {
 
+    const dispatch = useDispatch();
     const admin_id = useInput()
     const admin_pw = useInput()
 
@@ -20,7 +22,8 @@ const Admin_Login = () => {
             id : admin_id.value,
             pw : admin_pw.value
         }
-        console.log(info);
+
+        dispatch(Admin_Login_REQUEST(info))
     }
 
     return (
