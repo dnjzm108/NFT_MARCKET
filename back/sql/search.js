@@ -109,30 +109,7 @@ const add_invoice = () => {
 }
 
 
-// 좋아요 추가
-// 상품번호,닉네임
-const add_like = () => {
-    return (
-        `INSERT INTO likes ("product_no", "nickname") VALUES(?,?)`
-    )
-}
 
-// 상품에 좋아요 수정
-const change_like = () => {
-    return (
-        `UPDATE product SET likes = "?" WHERE product_no = ?`
-    )
-}
-
-
-
-//좋아요 삭제
-// 상품번호, 닉네임
-const delete_like = () => {
-    return (
-        `DELETE FROM likes WHERE product_no =  ? AND nickname =  ?`
-    )
-}
 
 
 //좋아요 검색 (찜 목록?)
