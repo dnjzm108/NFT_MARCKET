@@ -10,15 +10,13 @@ import { ExploreRequest } from '../../reducers/explore'
 const Explore = () => {
   const dispatch = useDispatch();
   const {isError,skip,end} = useSelector(state=>state.explore)
+  const {result} = useSelector(state=>state.filter);
   const [fetch,setFetch] = useState(false);
 
   const fetchMoreNFT = async () => {
     setFetch(true);
-    const data = {
-      skip: skip,
-    };
+    // dispatch(ExploreRequest({...filter,skip}));
     setFetch(false);
-    // dispatch(ExploreRequest(data));
   };
 
   const handleScroll = () => {
@@ -40,11 +38,8 @@ const Explore = () => {
   });
 
   useEffect(()=>{
-      const data={
-        skip:0,
-      }
-      // dispatch(ExploreRequest(data));
-
+    // dispatch(ExploreRequest({...result}));
+    
       return () => {
         setFetch(false);
       };
@@ -57,8 +52,8 @@ const Explore = () => {
       <div>
         <StyledExplore>
           <div>
-            <Filter />
-            <Gallery />
+            {/* <Filter /> */}
+            {/* <Gallery /> */}
           </div>
         </StyledExplore>
       </div>

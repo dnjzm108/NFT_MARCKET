@@ -43,7 +43,7 @@ const mint_nft = async(req,res)=>{
           files.push(image.Location)
           await unlinkFile(v.path)       //upload에 있는 img파일 지우기
         }
-
+      
         let imageSql =''
         files.forEach(v=>{
           imageSql+=`INSERT INTO nft_images (nft_id,nft_image) VALUES('${tokenId}','${v}');\n`

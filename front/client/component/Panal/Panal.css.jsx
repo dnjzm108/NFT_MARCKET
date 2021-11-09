@@ -36,7 +36,6 @@ export const StyledPanal = styled.div`
     align-items: center;
     text-align: center;
 
-    max-height: 30vh;
     overflow-y: ${p=>p.scroll? 'scroll' : 'hidden'};
     padding: ${p=>p.scroll ? '20px 0 20px 20px' : '20px 20px 20px 20px'};
     background-color: rgb(251, 253, 255);

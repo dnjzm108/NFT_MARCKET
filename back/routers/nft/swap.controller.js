@@ -25,7 +25,7 @@ const deployer = caver.wallet.add(
   caver.wallet.keyring.createFromPrivateKey('0x7fd74d3f75fee42dc2a3f96096a86c2c7e021b292c4c6719c318691422c8da41')
 )
 
-console.log(deployer)
+// console.log(deployer)
 
 let KIP7token_swap = async () => {
 
@@ -38,12 +38,12 @@ let KIP7token_swap = async () => {
     },
     deployer.address
   );
-  console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
+  // console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
 
-  console.log(`Token name: ${await kip7.name()}`);
-  console.log(`Token symbol: ${await kip7.symbol()}`);
-  console.log(`Token decimals: ${await kip7.decimals()}`);
-  console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
+  // console.log(`Token name: ${await kip7.name()}`);
+  // console.log(`Token symbol: ${await kip7.symbol()}`);
+  // console.log(`Token decimals: ${await kip7.decimals()}`);
+  // console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
 
 
   const kip7Instance = new caver.kct.kip7('0xAdA4834Ca37A6a3f23a9A992809c30A21CB4FFc6')

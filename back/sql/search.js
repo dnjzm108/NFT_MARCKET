@@ -281,6 +281,113 @@ GROUP BY A.id`
     )
 }
 
+
+function makeFilterQuery(query){
+    const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
+  
+    let mainVerse;
+     const where = makeWhereVerse(query);
+     const order = sortVerse(sort); 
+    //// 구매일 때, 
+      mainVerse = `
+                  SELECT 
+                          * 
+                  FROM 
+                        product  AS A
+                  NATURAL JOIN
+                              (SELECT
+                                      price, product_no 
+                                FROM 
+                                      product_detail
+                                GROUP BY 
+                                      product_no
+                              ) AS B
+                  NATURAL JOIN
+                              (SELECT
+                                    product_img, product_no
+                              FROM
+                                    img
+                              GROUP BY
+                                    product_no
+                              ) AS C 
+                  ${where}
+                  ${order}
+                  LIMIT ${skip},10; 
+  
+                  `
+    return mainVerse;
+  }
+  
+  
+  
+  
+  
+  
+  
+  function makeWhereVerse(query){
+    const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
+    let where = `WHERE rest>0`
+    if(designer.length>0){
+      where += ' AND '+makeSignVerse('creater','=',designer);
+    }
+    if(price_min!=undefined && price_max!=undefined){
+      where += ' AND (' + makeSignVerse('price','>=',price_min) +' AND '+ makeSignVerse('price','<=',price_max) +')';
+    }
+    if(category!=undefined){
+      where +=' AND ' + `(product_no like '${category}%')`;
+    }
+    if(search!=undefined){
+      where +=' AND ' + `(creater like '%${search}%' OR name like '%${search}%')`;
+    }
+  
+    where += sortVerse(sort); 
+  
+    return where; 
+  }
+  
+  
+  
+  function makeSignVerse(key,sign,value){
+    if(value){
+      if(typeof value=='string'){
+        return `${key}${sign}"${value}"`
+      }else{
+        const tempArr = [];
+        value.forEach(v=>{
+          tempArr.push(`${key}${sign}"${v}"`)
+        })
+        return '('+tempArr.join(' OR ')+')'
+      }
+    }else{
+      return ''
+    }
+  }
+  
+  function sortVerse(sort){
+    let tmp = ` ORDER BY `
+    switch(sort){
+      case 'like':
+        return tmp+'liked DESC';
+      case 'old':
+        return tmp+'date ASC';
+      case 'new':
+        return tmp+'date DESC';
+      case 'low':
+        return tmp+'price ASC';
+      case 'high':
+        return tmp+'price DESC';
+      default:
+        return tmp+'date DESC';
+    }
+  }
+  
+  
+  
+
+
+
+
+
 module.exports = {
-    
+    makeFilterQuery
 }

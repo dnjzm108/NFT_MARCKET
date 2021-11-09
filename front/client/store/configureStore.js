@@ -1,63 +1,49 @@
 import {createWrapper} from 'next-redux-wrapper'
 import { applyMiddleware, compose, createStore,combineReducers } from 'redux'
-import reducer from '../reducers'       
+import rootReducer from '../reducers'       
 import {composeWithDevTools} from 'redux-devtools-extension'
 import createSaga from 'redux-saga'
 import rootSaga from '../saga/index'
 import userSaga from '../saga/user'
+import { persistStore } from 'redux-persist';
 
-/*
-    reudx-saga
-    context == redux
-    context 비동기통신 
-    redux why? middleware 
-    middleware 비동기통신 
-    congtext useEffect 컴포넌트에서 api통신하는 코드르 작성해야됫는데
-    따로 코드를 작성해서 실행할수있겠금 처리해줄수있음.
-                middleware
-    disaptch  reducer  state 
-    redux 설정할줄알아야
-    redux saga 를 사용가능함 -> redux의 미들웨어 
-*/
 
-const loggerMiddleware = ({dispatch,getState}) => (next) => (action) => {
-    return next(action)
-}
-
-const combinedReducer = combineReducers({
-    userSaga,
-    // OTHER REDUCERS WILL BE ADDED HERE
-  });
 
 const configureStore = ()=>{
-    const sagaMiddleware = createSaga()
+    const isServer = typeof window == 'undefined'
+    const sagaMiddlewares = createSaga()   // 사가 선언 
+    const Middlewares = [sagaMiddlewares]  // 사가 쓴다 
+    const enhencer= (
+      process.env.NODE_ENV === 'production'       // 개발 모드일때는 데브툴도 쓴다. 
+      ? compose(applyMiddleware(...Middlewares))   
+      : composeWithDevTools(applyMiddleware(...Middlewares))
+    )
+    
+    if(isServer) {                                        
+        const Store = createStore(rootReducer,enhencer)  // 
+        Store.sagaTask = sagaMiddlewares.run(rootSaga)
+        return Store
+    }else {
+        const {persistStore, persistReducer} = require('redux-persist')  // 퍼시스트 쓴다
+        const storage = require('redux-persist/lib/storage').default    // 로컬스트로지로 쓴다. 
+        
+        const persistConfig = {  // 로컬스토리지 설정 // 개발자 도구- 애플리케이션- 로컬스토리지 확인. 
+            key: "root",
+            storage, 
+            whitelist: ["user","filter"] 
+          };
 
-    const { persistStore, persistReducer } = require("redux-persist");
-    const storage = require("redux-persist/lib/storage").default;
+        const persistedReducer  = persistReducer(persistConfig,rootReducer)  
+        const Store = createStore(persistedReducer,enhencer)
+        Store.__persistor = persistStore(Store)
+        Store.sagaTask = sagaMiddlewares.run(rootSaga)
 
-    const persistConfig = {
-        key: "nextjs",
-        whitelist: ["user"], // only counter will be persisted, add other reducers if needed
-        storage, // if needed, use a safer storage
-    };
-
-    const middlewares = [sagaMiddleware]
-   
-    const enhancer = process.env.NODE_ENV === 'production'
-    ? compose(applyMiddleware(...middlewares))
-    : composeWithDevTools(applyMiddleware(...middlewares))
- 
-    const Store = createStore(reducer,enhancer)
-    Store.sagaTask = sagaMiddleware.run(rootSaga)
-
-
-    const persistedReducer = persistReducer(persistConfig, combinedReducer); 
-    Store.__persistor = persistStore(Store);
-    return Store
+        return Store
+    }
 }
 
 
 const wrapper = createWrapper(configureStore,{
-    debug : process.env.NODE_ENV === 'development'
+    debug : process.env.NODE_ENV === 'development'    //개발모드일 떄는 디버그한다. 
 })     
 export default wrapper
