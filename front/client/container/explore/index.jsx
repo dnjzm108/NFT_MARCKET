@@ -15,7 +15,7 @@ const Explore = () => {
 
   const fetchMoreNFT = async () => {
     setFetch(true);
-    // dispatch(ExploreRequest({...filter,skip}));
+    dispatch(ExploreRequest({...result,skip}));
     setFetch(false);
   };
 
@@ -38,7 +38,7 @@ const Explore = () => {
   });
 
   useEffect(()=>{
-    // dispatch(ExploreRequest({...result}));
+    dispatch(ExploreRequest({...result}));
     
       return () => {
         setFetch(false);
@@ -56,8 +56,8 @@ const Explore = () => {
       <div>
         <StyledExplore>
           <div>
-            {/* <Filter /> */}
-            {/* <Gallery /> */}
+            <Filter />
+            <Gallery />
           </div>
         </StyledExplore>
       </div>
