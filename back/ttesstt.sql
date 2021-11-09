@@ -13,9 +13,9 @@
 
 
 -- nft_market 데이터베이스 구조 내보내기
-DROP DATABASE IF EXISTS `nftmarket`;
-CREATE DATABASE IF NOT EXISTS `nftmarket` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `nftmarket`;
+DROP DATABASE IF EXISTS `nft_market`;
+CREATE DATABASE IF NOT EXISTS `nft_market` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `nft_market`;
 
 -- 테이블 nft_market.address 구조 내보내기
 DROP TABLE IF EXISTS `address`;
