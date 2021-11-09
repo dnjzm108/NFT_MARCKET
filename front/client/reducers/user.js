@@ -2,7 +2,7 @@ const initalState = {
     loadding: false,
     IsLogin: false,
     user_info:{},
-    Id_check: ''
+    name_check:''
 }
 
 const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST"
@@ -14,25 +14,24 @@ const USER_JOIN_REQUEST = "USER_JOIN_REQUEST"
 const USER_JOIN_SUCCESS = "USER_JOIN_SUCCESS"
 const USER_JOIN_ERROR = "USER_JOIN_ERROR"
 
-const USER_ID_CHECKE = "USER_ID_CHECKE"
-const USER_ID_SUCCESS = "USER_ID_SUCCESS"
-const USER_ID_ERROR = "USER_ID_ERROR"
+const ADMIN_LOGIN = "ADMIN_LOGIN"
 
-const USER_COOKIE_CHECK = "USER_COOKIE_CHECK"
-const USER_COOKIE_SUCCESS = "USER_COOKIE_SUCCESS"
-const USER_COOKIE_ERROR = "USER_COOKIE_ERROR"
-
+export const Admin_Login = (data) =>{
+    return{
+        type:ADMIN_LOGIN,
+        data
+    }
+}
+export const User_Join_Check = (data) =>{
+    return{
+        type: USER_JOIN_CHECK,
+        data
+    }
+}
 
 export const User_Logout = () => {
     return {
         type: USER_LOGOUT
-    }
-}
-
-export const User_Id_Checke = data => {
-    return {
-        type: USER_ID_CHECKE,
-        data
     }
 }
 
@@ -50,12 +49,6 @@ export const UserJoin_REQUEST = data => {
     }
 }
 
-export const UserCookieCheck = data => {
-    return {
-        type: USER_COOKIE_CHECK
-    }
-}
-
 const reducer = (state = initalState,action) => {
     switch (action.type) {
 
@@ -70,6 +63,7 @@ const reducer = (state = initalState,action) => {
 
 
         case USER_LOGIN_SUCCESS:
+            console.log(action);
             return {
                 ...state,
                 IsLogin: true,
@@ -87,7 +81,8 @@ const reducer = (state = initalState,action) => {
         case USER_JOIN_REQUEST:
             console.log("reducer");
             return {
-                ...state
+                ...state,
+                user_info:action.user_info
             }
 
         case USER_JOIN_SUCCESS:
@@ -102,6 +97,7 @@ const reducer = (state = initalState,action) => {
                 ...state,
                 loadding: false,
             }
+            
         case USER_LOGOUT:
             return {
                 ...state,
@@ -110,46 +106,9 @@ const reducer = (state = initalState,action) => {
                 data: 'logout'
 
             }
-
-        case USER_ID_CHECKE:
-            return {
-                ...state,
-                lodding: true,
-                Id_check: action
-            }
-
-        case USER_ID_SUCCESS:
-            return {
-                ...state,
-                lodding: false,
-                Id_check: action.data
-            }
-
-        case USER_ID_ERROR:
-            return {
-                ...state,
-                lodding: false,
-                Id_check: action.data
-            }
-
-        case USER_COOKIE_CHECK:
-            return {
-                ...state,
-                lodding: true,
-            }
-
-        case USER_COOKIE_SUCCESS:
-            return {
-                ...state,
-                loadding: false,
-                user_info: action.user_info
-            }
-
-        case USER_COOKIE_ERROR:
-            return {
-                ...state,
-                lodding: false,
-
+        case ADMIN_LOGIN:
+            return{
+                ...state
             }
 
         default:

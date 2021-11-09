@@ -20,18 +20,17 @@ const Release = () => {
     const [images, setImages] = useState();
     const [agree,setAgree]=useState([false,false]);
     const [isNow,setIsNow] = useState(true);
+    const [isClick,setIsClick]=useState([false,false])
 
 
     // 즉시구매를 선택한 경우
     const handleNow = () => {
         setIsNow(true);
-        
     }
 
     // 경매를 선택한 경우
     const handleAuc = () => {
         setIsNow(false);
-        // console.log(isNow)
     }
     
     const fileSelected = event => {
@@ -47,6 +46,7 @@ const Release = () => {
         }
     }
 
+    // 정보들 formData에 담는 코드
     const handleData = async ()=> {
             const formData = new FormData();
             for (let i = 0; i < images.length; i++) {
@@ -68,12 +68,17 @@ const Release = () => {
             alert("개인정보제공 및 유의사항 확인에 동의해주세요")
             return ;
         }
-        if(title.value==null || description.value==null || images==null ){ 
+        else if(title.value==null || description.value==null || images==null){ 
             alert("이미지, 텍스트를 모두 입력해주세요.")
             return;
+        }else if(isClick==false ){
+            alert("옵션 선택 완료 버튼을 눌러주세요")
+            return;
+        }else{
+            alert("상품등록이 완료되었습니다.")
+            handleData();
         }
-        alert("상품등록이 완료되었습니다.")
-        handleData();
+        
     }
     
 
@@ -103,7 +108,7 @@ const Release = () => {
                     </div>
                     {/* <Thumbnail /> */}
                 </div>
-                <ProductOption isNow={isNow}/>
+                <ProductOption isNow={isNow} isClick={isClick} setIsClick={setIsClick}/>
                 
                 <AgreeInfo 
                 handleSubmit={handleSubmit}

@@ -11,22 +11,46 @@ import CheckBoxes from '../CheckBoxes'
 import useCheckBox from "../../hook/useCheckbox";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import {getDesignerRequest} from '../../reducers/filter'
+import router from "next/router";
 const tempCurrency = [ {"name":'KLAY','img':'/klay.png'},{'name':'KRW','img':'/krw.png'}]
 
 const Filter = () => {
-  const {category,designer} = useSelector(state=>state.filter);
+  const {category,designer,status,price} = useSelector(state=>state.filter);
+  const dispatch = useDispatch()
   const currency = useChangeValue(tempCurrency);
   const _category = useCheckBox(category);
   const _designer = useCheckBox(designer);
-  const [open,setOpen] = useState(false);
+  const _status = useCheckBox(status);
+  const [open,setOpen] = useState(true);
   const Min = useInput(); 
   const Max = useInput(); 
 
-  const handlePrice = ()=>{
-    alert('가격적용')
-  }
+  useEffect(()=>{
+    if(open){
+      dispatch(getDesignerRequest())
+    }
+  },[open])
 
+  
+  
+  useEffect(()=>{
+    const data ={
+      category:category.result,
+      status:status.result,
+      price,
+      designer:_designer.result
+    }
+
+
+  },[_designer.value])
+  
+  const handlePrice = ()=>{
+    router.push({
+      pathname:'/explore',
+      query:{...data}
+    })
+  }
   return (
     <StyledFilter>
       {open
@@ -42,7 +66,7 @@ const Filter = () => {
         </div>
       </div>
       <Panal value='상태' >
-        <CheckBoxes list={['판매 중','경매 중','판매 완료']}/>
+        <CheckBoxes {..._status}/>
       </Panal>
 
       <Panal value='가격'>
@@ -52,13 +76,13 @@ const Filter = () => {
           <span>to</span>
           <Input {...Max} type='number' width='124px' placeholder='Max'/>
         </div>
-          {(Min.value>Max.value && Max.value>0 )&& <span className='price_warning'>Minimum must be less than maximum</span>}
+          {(Min.value>Max.value && Max.value>0 )&& <span className='price_warning'>Minimum must be less than Maximum</span>}
         <div className='price_button'>
           <Button value='Apply' func={handlePrice} color='sky' size='small'/>
         </div>
       </Panal>
 
-      <Panal value='디자이너' scroll={true}>
+      <Panal value='디자이너' scroll={true} >
         <CheckBoxes {..._designer} useImage={true}/>
       </Panal>
 

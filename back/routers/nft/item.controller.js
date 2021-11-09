@@ -1,5 +1,5 @@
 const { type } = require("caver-js/packages/caver-transaction");
-const { execute } = require("../../pool")
+const { execute,query } = require("../../pool")
 
 
 
@@ -8,11 +8,43 @@ const getNfts= async(req,res)=>{
   const {type,price,designer,category,sort,searchtype,searchvalue,skip} = req.query.search;
   makeFilterQuery(req.query)
   const sql = `SELECT * FROM `
-
 }
 
+const testGetNFT = async(req,res)=>{
+  const {skip} = req.query;
+  const sql = ` SELECT * FROM nft
+                NATURAL JOIN nft_images
+                GROUP BY nft_images.nft_id
+                LIMIT ?,10;`
+  const result = await execute(sql,[skip]);
+  const data ={
+    success:true,
+    nft:result,
+    skip:skip
+  }
+  res.json(data);
+}
+
+const getDesigner = async(req,res)=>{
+
+  const sql = `SELECT user_nick AS name,user_image AS img
+                FROM user
+                WHERE user_type=4;`
+  const result = await query(sql);
+  if(!result) res.json({success:false})
+  else{
+    res.json({
+      success:true,
+      designer:result[0]
+    })
+  }
+}
+
+
 module.exports={
-  getNfts
+  getNfts,
+  testGetNFT,
+  getDesigner
 }
 
 const makeFilterQuery = (query) =>{

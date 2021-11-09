@@ -4,34 +4,11 @@ import { useState } from "react";
 
 
 const AgreeInfo = ({handleSubmit,handleAgree}) => {
-    // const [check, setCheck] = useState([false, false])
-    // input check 상태 컨트롤
-    // const handleAgree=(e,v)=>{
-    //     e.preventDefault
-    //     if(v === 1){
-    //         setCheck([!check[0],check[1]])
-    //     }else if(v === 2){
-    //         setCheck([check[0],!check[1]])
-    //     }else{
-    //         return ;
-    //     }
-    // }
-
-
-    // const agreeCheck =()=>{
-    //     console.log(check[0],check[1])
-    //     if(check[0]===false || check[1]==false){
-    //         alert("개인정보제공 및 유의사항 확인에 동의해주세요")
-    //     }else{
-    //         alert("상품 등록이 완료되었습니다.")
-    //     }
-    // }
-
     return(
         <StyledAgreeInfo>
             <div className="agree_section">
                 <div>
-                    <input type="checkbox" id="agreeInfo" onChange={()=>handleAgree(0)}/>
+                    <input type="checkbox" id="agreeInfo" onChange={()=>{handleAgree(0)}}/>
                     <label htmlFor ="agreeInfo" ><h3>본인은 NFT 발행을 위해 아래 정보를 수집 및 이용하는 것에 동의합니다.</h3></label>
                     <span>
                     - 수집항목: NFT 이름, 설명, 파일 (이미지 등)

@@ -1,4 +1,4 @@
-import { Options, OptionCheck } from "./product_detail.css"
+import { Options, OptionCheck } from "./product_option.css"
 import Selectbox from "../../component/SelectBox";
 import useChangeValue from "../../hook/useChangeValue";
 

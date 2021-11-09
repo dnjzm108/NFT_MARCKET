@@ -6,17 +6,6 @@ import Button from '../Button/index'
 
 
 const Sell = ({handleNow,handleAuc,isNow})=>{
-    // // 즉시구매를 선택한 경우
-    // const handleNow =()=>{
-    //     setIsNow(true);
-    // }
-
-    // // 경매를 선택한 경우
-    // const handleAuc = ()=>{
-    //     setIsNow(false);
-    // }
-    console.log(isNow)
-    
     return (
         <StyledSell isNow={isNow}>
             <div className="sell_section">

@@ -5,12 +5,33 @@ import {Content,Logo,Copyed,Icon_Close} from './Admin_Login.css'
 import {Small_Contain} from '../Join/Join.css'
 import { Middle_btn} from '../../component/Btn.jsx';
 import { Wrap } from "../Wrap/Popup_back"
+import Input from "../Input"
+import useInput from '../../hooks/useInput';
+import Button from '../Button';
+
 
 const Admin_Login = () => {
+
+    const admin_id = useInput()
+    const admin_pw = useInput()
+
+    const login = () =>{
+        let info = {
+            id : admin_id.value,
+            pw : admin_pw.value
+        }
+        console.log(info);
+    }
+
     return (
         <>
             <Wrap>
-                <Logo><img src="/logo.png" alt="" /></Logo>
+            <Link href='/'>
+                    <a>
+                        <Logo>
+                            <img src="/logo.png" alt="" /></Logo>
+                    </a>
+                </Link>
                 <div>
                     <Icon_Close>
                         <Link href="/">
@@ -19,17 +40,18 @@ const Admin_Login = () => {
                     </Icon_Close>
                     <Content>
                         <h1>관리자 로그인</h1>
-                        <form action="">
+                        
                         <Small_Contain>
                             <label htmlFor="id">아이디</label>
-                            <input type="text" id="id" />
+                            <Input {...admin_id} type="text" id="id" />
                             </Small_Contain>
                             <Small_Contain>
                                 <label htmlFor="password">비밀번호</label>
-                            <input type="password" id="password"/>
+                            <Input {...admin_pw} type="password" id="password"/>
                             </Small_Contain>
-                            <Middle_btn type="submit">로그인</Middle_btn>
-                        </form>
+
+                            <Button func={login} color="sky" value="로그인" />
+                    
                     </Content>
 
                 </div>

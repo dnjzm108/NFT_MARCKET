@@ -20,34 +20,19 @@ async function query(sql){
         } catch (error) {
             console.log('Query Error');
             console.log(error)
-            return error
+            return false;
         }
     } catch (error) {
         console.log('DB Error')
         console.log(error)
-        return error
+        return false;
     } finally {
         connection.release();
     }
 }
 
 
-// function query(sql) {
-//     return new Promise((resolve, reject) => {
-//         pool.getConnection((error, connection) => {
-//             if (error) reject(error);
-//             connection.query(sql, (error, results, fields) => {
-//                 if (error) reject(error)
-//                 if (results === undefined) reject('error');
-//                 resolve(results);
-//                 connection.release();
-//             })
-//         })
-//     })
-// }
-
-
-async function execute(sql,params){
+async function execute(sql, params) {
     let connection;
     try {
         connection = await pool.getConnection(async conn => conn);
@@ -57,12 +42,12 @@ async function execute(sql,params){
         } catch (error) {
             console.log('Query Error');
             console.log(error)
-            return error
+            return false;
         }
     } catch (error) {
         console.log('DB Error')
         console.log(error)
-        return error
+        return false;
     } finally {
         connection.release();
     }
@@ -72,6 +57,6 @@ async function execute(sql,params){
 
 module.exports = {
     pool,
-    // query,
+    query,
     execute
 }
