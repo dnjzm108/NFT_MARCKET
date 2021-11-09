@@ -48,8 +48,8 @@ let check_like = async (req,res) =>{
 }
 
 let auction_info = async (req,res) =>{
-    let {auction_id} = req.body;
-    let params = [auction_id]
+    let {product_id} = req.body;
+    let params = [product_id]
  
     let result = await execute(auction_detail_sql(),params)
  

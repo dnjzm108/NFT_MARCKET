@@ -10,9 +10,11 @@ WHERE B.product_no = ?`
     )
 }
 
+//상품 이미지 가져오기
+//필요값 상품 번호
 const product_img = () =>{
     return(
-        `SELECT img from img WHERE product_no = ?`
+        `SELECT img from product_image WHERE product_no = ?`
     )
 }
 
@@ -25,6 +27,7 @@ const add_like_sql = () => {
 }
 
 // 상품에 좋아요 수정
+//필요값 좋아요 수 , 상품번호
 const change_like = () => {
     return (
         `UPDATE product SET likes = ? WHERE product_no = ?`
@@ -34,7 +37,7 @@ const change_like = () => {
 
 
 //좋아요 삭제
-// 상품번호, 닉네임
+//필요값 상품번호, 닉네임
 const delete_like_sql = () => {
     return (
         `DELETE FROM likes WHERE product_no =  ? AND nickname =  ?`
@@ -42,7 +45,7 @@ const delete_like_sql = () => {
 }
 
 //상품에 내가 좋아요 했는지 체크
-
+//필요값 상품번호 , 닉네임
 const check_like_sql = () =>{
     return(
         `SELECT * FROM likes WHERE product_no = ? AND nickname = ?;`
@@ -50,13 +53,13 @@ const check_like_sql = () =>{
 }
 
 //경매 정보
-//옥션아이디
+//상품 디테일 아이디
 const auction_detail_sql = () =>{
     return(
         `SELECT * FROM auction as A 
         LEFT JOIN auction_history as B
-        ON B.auction_id = A.id
-        WHERE A.id = ?`
+        ON B.auction_id = A.auction_id
+        WHERE A.product_id = ?`
     )
 }
 

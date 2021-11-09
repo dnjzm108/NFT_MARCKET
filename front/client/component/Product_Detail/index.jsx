@@ -50,21 +50,22 @@ const Product_detail = () => {
             setProductImg(result.data.img)
             setProduct_de(result.data.product)
             setIsLoading(false)
-            let { auction_id } = result.data.product[0]
-            if (auction_id !== null) {
+            let { type } = result.data.product[0]
+            let { product_id } = result.data.product[0]
 
-
+            if (type == "auction") {
+               
                 let autcion_info = {
-                    auction_id
+                    product_id
                 }
-                let result = await axios.post(`${url}/product/austion_info`, autcion_info)
+                let result = await axios.post(`${url}/product/auction_info`, autcion_info)
+                console.log(result.data);
                 setAuction_info(result.data)
                
             }
-            console.log(auction_data);
             if (state_data.user_info.nickname !== undefined) {
 
-                let checking_like = await axios.post(`${url}/product/austion_info`, info)
+                let checking_like = await axios.post(`${url}/product/auction_info`, info)
                 if (checking_like.data == false) {
                     setLikes(false)
                 } else {
@@ -113,7 +114,6 @@ const Product_detail = () => {
         if (state_data.user_info.nickname == undefined) {
             alert('로그인을 진행해 주세요')
         } else {
-            console.log(state_data.user_info.nickname);
             if (likes == true) {
                 let result = await axios.post(`${url}/product/delete_like`, info)
                 setLikes(false)
@@ -199,7 +199,7 @@ const Product_detail = () => {
                             </ul>
 
                             <div>
-                                {auction ? <Auction handlePopup={handlePopup} a={auction_data} /> : <Auction_History />}
+                                {auction ? <Auction handlePopup={handlePopup} auction_data={auction_data} /> : <Auction_History />}
 
                             </div>
                         </Auction_contain>
