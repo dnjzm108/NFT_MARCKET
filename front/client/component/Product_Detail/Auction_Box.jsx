@@ -2,6 +2,7 @@ import Button from '../Button'
 import { Auction_Wrap ,Auction_History_Wrap} from './Auction.css'
 
 export const Auction = ({handlePopup}) => {
+
     return (
         <>
             <Auction_Wrap>

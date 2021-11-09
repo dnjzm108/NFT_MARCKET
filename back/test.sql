@@ -46,22 +46,19 @@ INSERT INTO `admin` (`id`, `pw`) VALUES
 -- 테이블 nft_market.auction 구조 내보내기
 CREATE TABLE IF NOT EXISTS `auction` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_no` int(11) NOT NULL,
   `deadline` datetime NOT NULL DEFAULT current_timestamp(),
   `option` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_auction_product_detail` (`product_no`),
-  CONSTRAINT `FK_auction_product_detail` FOREIGN KEY (`product_no`) REFERENCES `product_detail` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- 테이블 데이터 nft_market.auction:~4 rows (대략적) 내보내기
 DELETE FROM `auction`;
 /*!40000 ALTER TABLE `auction` DISABLE KEYS */;
-INSERT INTO `auction` (`id`, `product_no`, `deadline`, `option`) VALUES
-	(6, 8, '2021-11-07 21:01:08', NULL),
-	(7, 10, '2021-11-07 21:03:02', NULL),
-	(8, 11, '2021-11-07 21:03:16', NULL),
-	(9, 12, '2021-11-07 21:03:36', NULL);
+INSERT INTO `auction` (`id`, `deadline`, `option`) VALUES
+	(6, '2021-11-07 21:01:08', NULL),
+	(7, '2021-11-07 21:03:02', NULL),
+	(8, '2021-11-07 21:03:16', NULL),
+	(9, '2021-11-07 21:03:36', NULL);
 /*!40000 ALTER TABLE `auction` ENABLE KEYS */;
 
 -- 테이블 nft_market.auction_history 구조 내보내기
@@ -115,7 +112,6 @@ INSERT INTO `bigcategory` (`code`, `value`) VALUES
 -- 테이블 nft_market.delievery 구조 내보내기
 CREATE TABLE IF NOT EXISTS `delievery` (
   `order_id` int(11) DEFAULT NULL,
-  `auction` int(11) DEFAULT NULL,
   `reciever` varchar(20) CHARACTER SET utf8 NOT NULL,
   `status` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `invoice` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
@@ -124,50 +120,42 @@ CREATE TABLE IF NOT EXISTS `delievery` (
   `phone_number` varchar(20) DEFAULT NULL,
   `delievery_company` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `address` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `date` datetime DEFAULT current_timestamp(),
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
   KEY `FK_delievery_orders` (`order_id`),
-  KEY `FK_delievery_auction_history` (`auction`),
-  CONSTRAINT `FK_delievery_auction_history` FOREIGN KEY (`auction`) REFERENCES `auction_history` (`id`),
   CONSTRAINT `FK_delievery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.delievery:~2 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.delievery:~4 rows (대략적) 내보내기
 DELETE FROM `delievery`;
 /*!40000 ALTER TABLE `delievery` DISABLE KEYS */;
-INSERT INTO `delievery` (`order_id`, `auction`, `reciever`, `status`, `invoice`, `request`, `recieve_type`, `phone_number`, `delievery_company`, `address`, `date`) VALUES
-	(NULL, 3, '성진', '대기', NULL, '빨리', '문앞', '01088888888', '한진', '서울시', '2021-11-07 22:47:22'),
-	(NULL, 5, '정성진', '발송', '1115555', '부탁', '집앞', '0108979846', 'cj', '대구', '2021-11-07 22:48:05');
+INSERT INTO `delievery` (`order_id`, `reciever`, `status`, `invoice`, `request`, `recieve_type`, `phone_number`, `delievery_company`, `address`, `date`) VALUES
+	(NULL, '성진', '대기', NULL, '빨리', '문앞', '01088888888', '한진', '서울시', '2021-11-07 22:47:22'),
+	(NULL, '정성진', '발송', '1115555', '부탁', '집앞', '0108979846', 'cj', '대구', '2021-11-07 22:48:05'),
+	(3, 'jin', '대기', NULL, '제발', '문앞', '123546', 'cj', '부산', '2021-11-08 10:08:47'),
+	(3, '성진', '발송', '10546821', '와', '집앞', '0110684', '롯데', '목포', '2021-11-08 10:09:27');
 /*!40000 ALTER TABLE `delievery` ENABLE KEYS */;
-
--- 테이블 nft_market.finish_deal 구조 내보내기
-CREATE TABLE IF NOT EXISTS `finish_deal` (
-  `id` int(11) NOT NULL,
-  `product_detail` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- 테이블 데이터 nft_market.finish_deal:~0 rows (대략적) 내보내기
-DELETE FROM `finish_deal`;
-/*!40000 ALTER TABLE `finish_deal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `finish_deal` ENABLE KEYS */;
 
 -- 테이블 nft_market.img 구조 내보내기
 CREATE TABLE IF NOT EXISTS `img` (
   `product_no` varchar(10) DEFAULT NULL,
-  `img` varchar(50) DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
   KEY `FK__product` (`product_no`),
   CONSTRAINT `FK__product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.img:~6 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.img:~9 rows (대략적) 내보내기
 DELETE FROM `img`;
 /*!40000 ALTER TABLE `img` DISABLE KEYS */;
 INSERT INTO `img` (`product_no`, `img`) VALUES
-	('A104As0000', 'sdfsdf'),
-	('A104As0000', 'sadf'),
-	('A103As0000', 'safd'),
-	('A103As0000', 'sdfsf'),
-	('B108Aw0000', 'sdf'),
-	('B108Aw0000', 'sdfsf');
+	('A104As0000', 'https://search.pstatic.net/common/?src=https%3A%2F%2Fphinf.pstatic.net%2Fshop%2F20210406_12%2F1617674829591FG3Xr_JPEG%2F18810674943525071_1054183505.jpg&type=a340'),
+	('A104As0000', 'https://search.pstatic.net/common/?src=https%3A%2F%2Fphinf.pstatic.net%2Fshop%2F20210406_12%2F1617674829591FG3Xr_JPEG%2F18810674943525071_1054183505.jpg&type=a340'),
+	('A103As0000', 'https://search.pstatic.net/common/?src=https%3A%2F%2Fphinf.pstatic.net%2Fshop%2F20210406_12%2F1617674829591FG3Xr_JPEG%2F18810674943525071_1054183505.jpg&type=a340'),
+	('A103As0000', 'https://search.pstatic.net/common/?src=https%3A%2F%2Fphinf.pstatic.net%2Fshop%2F20210406_12%2F1617674829591FG3Xr_JPEG%2F18810674943525071_1054183505.jpg&type=a340'),
+	('B108Aw0000', 'https://s3-practice-third.s3.ap-northeast-2.amazon'),
+	('B108Aw0000', 'https://s3-practice-third.s3.ap-northeast-2.amazon'),
+	('B108Aw0001', 'https://search.pstatic.net/common/?src=https%3A%2F%2Fphinf.pstatic.net%2Fshop%2F20210406_12%2F1617674829591FG3Xr_JPEG%2F18810674943525071_1054183505.jpg&type=a340'),
+	('B108Aw0001', 'https://search.pstatic.net/common/?src=https%3A%2F%2Fphinf.pstatic.net%2Fshop%2F20210406_12%2F1617674829591FG3Xr_JPEG%2F18810674943525071_1054183505.jpg&type=a340'),
+	('B108Aw0001', 'https://search.pstatic.net/common/?src=https%3A%2F%2Fphinf.pstatic.net%2Fshop%2F20210406_12%2F1617674829591FG3Xr_JPEG%2F18810674943525071_1054183505.jpg&type=a340');
 /*!40000 ALTER TABLE `img` ENABLE KEYS */;
 
 -- 테이블 nft_market.likes 구조 내보내기
@@ -180,11 +168,10 @@ CREATE TABLE IF NOT EXISTS `likes` (
   CONSTRAINT `FK_likes_user` FOREIGN KEY (`nickname`) REFERENCES `user` (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.likes:~9 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.likes:~8 rows (대략적) 내보내기
 DELETE FROM `likes`;
 /*!40000 ALTER TABLE `likes` DISABLE KEYS */;
 INSERT INTO `likes` (`product_no`, `nickname`) VALUES
-	('A104As0000', 'jin'),
 	('A104As0000', 'seong'),
 	('A104As0000', 'jeong'),
 	('A103As0000', 'jin'),
@@ -334,13 +321,14 @@ CREATE TABLE IF NOT EXISTS `product` (
   CONSTRAINT `FK_product_user` FOREIGN KEY (`creater`) REFERENCES `user` (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.product:~3 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.product:~4 rows (대략적) 내보내기
 DELETE FROM `product`;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`product_no`, `name`, `explain`, `creater`, `date`, `likes`) VALUES
-	('A103As0000', '셔츠입니다.', '셔츠에요', 'jin', '2021-11-07 20:38:14', 0),
+	('A103As0000', '셔츠입니다.', '셔츠에요', 'jin', '2021-11-07 20:38:14', 1),
 	('A104As0000', '바지', '그냥 바지입니다', 'jin', '2021-11-07 20:44:36', 0),
-	('B108Aw0000', '아우터', '아우터입니다.', 'seong', '2021-11-07 20:39:20', 0);
+	('B108Aw0000', '아우터', '아우터입니다.', 'seong', '2021-11-07 20:39:20', 0),
+	('B108Aw0001', '아우터', '경매에 나온 아우터', '정성진', '2021-11-09 15:38:35', 0);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- 테이블 nft_market.product_detail 구조 내보내기
@@ -355,10 +343,12 @@ CREATE TABLE IF NOT EXISTS `product_detail` (
   `auction_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_no` (`product_no`),
+  KEY `FK_product_detail_auction` (`auction_id`),
+  CONSTRAINT `FK_product_detail_auction` FOREIGN KEY (`auction_id`) REFERENCES `auction` (`id`),
   CONSTRAINT `product_no` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.product_detail:~5 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.product_detail:~6 rows (대략적) 내보내기
 DELETE FROM `product_detail`;
 /*!40000 ALTER TABLE `product_detail` DISABLE KEYS */;
 INSERT INTO `product_detail` (`id`, `product_no`, `qty`, `color`, `size`, `price`, `rest`, `auction_id`) VALUES
@@ -366,24 +356,30 @@ INSERT INTO `product_detail` (`id`, `product_no`, `qty`, `color`, `size`, `price
 	(9, 'A103As0000', 20, 'red', 'l', 10, 20, NULL),
 	(10, 'A103As0000', 20, 'black', 'xl', 20, 20, NULL),
 	(11, 'B108Aw0000', 20, 'blue', 'l', 30, 20, NULL),
-	(12, 'B108Aw0000', 20, 'yellow', 'lx', 20, 20, NULL);
+	(12, 'B108Aw0000', 20, 'yellow', 'lx', 20, 20, NULL),
+	(13, 'B108Aw0001', 1, 'blue', 'l', 50, 10, 6);
 /*!40000 ALTER TABLE `product_detail` ENABLE KEYS */;
 
 -- 테이블 nft_market.seller 구조 내보내기
 CREATE TABLE IF NOT EXISTS `seller` (
   `user_id` varchar(20) CHARACTER SET utf8 NOT NULL,
-  `seller_no` varchar(50) NOT NULL,
+  `seller_no` varchar(50) CHARACTER SET utf8 NOT NULL,
   `kyc_status` varchar(10) CHARACTER SET utf8 NOT NULL,
   KEY `FK_seller_user` (`user_id`),
   CONSTRAINT `FK_seller_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.seller:~2 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.seller:~7 rows (대략적) 내보내기
 DELETE FROM `seller`;
 /*!40000 ALTER TABLE `seller` DISABLE KEYS */;
 INSERT INTO `seller` (`user_id`, `seller_no`, `kyc_status`) VALUES
 	('jin', 'aa', '승인'),
-	('seong', '545321', '반려');
+	('seong', '545321', '승인'),
+	('정성진', 'asdfsadf', '승인'),
+	('seongjin', '???????', '승인'),
+	('jeong', '?????', '요청'),
+	('성진', '????', '요청'),
+	('성진', '머ㅏ머ㅠㅓㅏㅠ', '요청');
 /*!40000 ALTER TABLE `seller` ENABLE KEYS */;
 
 -- 테이블 nft_market.user 구조 내보내기
@@ -395,13 +391,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 nft_market.user:~3 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.user:~6 rows (대략적) 내보내기
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`nickname`, `wallet`, `email`, `picture`) VALUES
-	('jeong', 'x6548', '1564685', '1568'),
-	('jin', '1x6848546', 'jin.sdfkl', 'dsfa'),
-	('seong', 'x2897', '84asd984', 'as8d94');
+	('jeong', 'x6548', '1564685', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'),
+	('jin', '1x6848546', 'jin.sdfkl', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'),
+	('seong', 'x2897', '84asd984', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'),
+	('seongjin', '0x9b2e353a554f474d7e3690f54bfbd6f84ac8957d', 'jin@.com', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'),
+	('성진', 'x4546854', 'sdfadsf', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'),
+	('정성진', '0x15648645', '5645215', 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
