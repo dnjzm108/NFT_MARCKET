@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '0000',
+    password: '1234',
     database: 'nft_market',
     multipleStatements: true,
     connectionLimit: 100
@@ -15,7 +15,7 @@ async function query(sql){
     try {
         connection = await pool.getConnection(async conn => conn);
         try {
-            const result = await connection.query(sql);
+            const [result] = await connection.query(sql);
             return result
         } catch (error) {
             console.log('Query Error');

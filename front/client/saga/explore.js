@@ -8,17 +8,37 @@ const url = process.env.NEXT_PUBLIC_URL;
 
 
 async function exploreAPI(data){
-    const params = {...data}
+    let params = {...data}
+    if(params.category==null){
+        delete params.category;
+    }
+    if(params.designer==null||params.designer.length==0){
+        delete params.designer;
+    }
+    if(params.price_min==null||params.price_max==null){
+        delete params.price_min
+        delete params.price_max
+    }
+    if(params.search==null){
+        delete params.search
+    }
     return  await axios.get(`${url}/nft`,{params})
 }
+
+
 function* explore(action){
     let result = yield call(exploreAPI,action.data)
     let {data} = result
-    if (data) {
+    if (data.success) {
         yield put({
             type: 'EXPLORE_SUCCESS',
-            data,
-          })
+            data:{
+                nft:data.nft,
+                skip:data.skip
+            }
+
+        })
+        
 
         } else {
         yield put({
@@ -29,30 +49,32 @@ function* explore(action){
 
 }
 
-async function getDesignerAPI(){
-    return  await axios.get(`${url}/nft/designer`)
+async function getFilterDataAPI(){
+    return  await axios.get(`${url}/nft/filter`)
 }
 
-function* getDisigner(){
-    let result = yield call(getDesignerAPI)
+function* getFilterData(){
+    let result = yield call(getFilterDataAPI)
     let {data} = result
     if (data.success) {
         yield put({
-            type: 'GET_DESIGNER_SUCCESS',
-            data:data.designer,
+            type: 'GET_FILTER_DATA_SUCCESS',
+            data:{
+                category:data.category,
+                designer:data.designer,
+            }
             })
     } else {
         yield put({
-            type: 'GET_DESIGNER_ERROR',
+            type: 'GET_FILTER_DATA_ERROR',
             })
     }
 }
 
-
-
 function* watchExplore(){
     yield takeLatest('EXPLORE_REQUEST',explore)
-    yield takeLatest('GET_DESIGNER_REQUEST',getDisigner)
+    yield takeLatest('UPDATE_FILTER',explore)
+    yield takeLatest('GET_FILTER_DATA_REQUEST',getFilterData)
 }
 
 export default function* exploreSaga(){

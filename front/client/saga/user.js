@@ -5,13 +5,11 @@ import {url} from './url'
 
 function joinAPI(data){
      
-    console.log('data@@@@@@@@@@@@',data);
     return axios.post(`${url}/user/join`,data,{ headers: {'Content-Type': 'multipart/form-data'}})
 }
 
 function* join(action){
     
-    console.log("action++++++++",action);
     let result = yield call(joinAPI,action.data)
     let {data} = result
     

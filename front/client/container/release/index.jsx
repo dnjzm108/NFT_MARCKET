@@ -17,6 +17,15 @@ const Release = () => {
     const title = useInput();
     const description = useInput();
     const [images, setImages] = useState();
+    const [agree,setAgree] = useState([false,false])
+
+    const handleAgree =(num)=> {
+        let newAgree = [...agree]; 
+        newAgree[num] = !newAgree[num]
+        console.log(newAgree);
+        setAgree(newAgree);
+    }
+
 
     const fileSelected = event => {
         if (event.target.files.length > 10) {
@@ -32,6 +41,7 @@ const Release = () => {
     }
 
     const handleSubmit = async ()=> {
+  
         const formData = new FormData();
         for(let i = 0; i<images.length; i++){
           formData.append("image",images[i])
@@ -63,7 +73,10 @@ const Release = () => {
                     <Thumbnail />
                 </div>
                 {/* <Sell/> */}
-                <AgreeInfo handleSubmit={handleSubmit}/>
+                <AgreeInfo 
+                    handleAgree={handleAgree}
+                    handleSubmit={handleSubmit}
+                />
             </StyledRelease>
             {/* <Footter/> */}
         </>
