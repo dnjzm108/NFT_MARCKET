@@ -4,8 +4,7 @@ const unlinkFile = util.promisify(fs.unlink)
 const { uploadFile, uploadNFT } = require('../../s3')
 const { query,execute } = require("../../pool");
 
-// const INSERT = `INSERT INTO nft (${x}) VALUES(${x});`
-// const UPDATE = `UPDATE table SET ?=${x}} WHERE ?=${x};` 
+// const INSERT = `INSERT INTO nft (${x}) VALUES(${x});`  
 // const SELECT = `SELECT * FROM table WHERE ?=${x}`
 
 const CONTRACT_ADDRESS = '0xe7aB6CD5318F26f1610c21Fa49742451E51789B3'
@@ -16,15 +15,23 @@ const developerKey = config.developerKey;
 const kip17 = new caver.kct.kip17(CONTRACT_ADDRESS);
 
 
+const mint_option = async(req,res)=>{
+  console.log("mint_option",req.body);
+  // const sql = `SELECT * FROM bigcategory`
+  // const result = 
+}
+
+
+
+
+
 const keyring = caver.wallet.keyring.createFromPrivateKey(developerKey);
 if (!caver.wallet.getKeyring(keyring.address)) {
   const singleKeyRing = caver.wallet.keyring.createFromPrivateKey(developerKey);
   caver.wallet.add(singleKeyRing);
 }
 
-
 const mint_nft = async(req,res)=>{
-
   const {title,description} = req.body;
   const creater=1234
   const category='pig'
@@ -72,5 +79,6 @@ const mint_nft = async(req,res)=>{
 }
 
 module.exports={
-  mint_nft
+  mint_nft,
+  mint_option
 }

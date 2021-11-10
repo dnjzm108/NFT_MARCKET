@@ -4,7 +4,6 @@ const { execute,query } = require("../../pool")
 
 
 const getNfts= async(req,res)=>{
-  console.log(req.query)
   const {type,price,designer,category,sort,searchtype,searchvalue,skip} = req.query.search;
   makeFilterQuery(req.query)
   const sql = `SELECT * FROM `

@@ -25,7 +25,7 @@ const deployer = caver.wallet.add(
   caver.wallet.keyring.createFromPrivateKey('0x7fd74d3f75fee42dc2a3f96096a86c2c7e021b292c4c6719c318691422c8da41')
 )
 
-console.log(deployer)
+// console.log(deployer)
 
 let KIP7token_swap = async () => {
 

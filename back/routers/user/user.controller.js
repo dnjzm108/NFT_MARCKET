@@ -7,6 +7,7 @@ const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_sel
 
 let join = async (req,res) =>{
     
+    
     let {nickname,wallet,email,picture} = req.body
     // let {file} = req;
     // const image = await uploadProfile(file,nickname)
@@ -15,8 +16,10 @@ let join = async (req,res) =>{
     let img = 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'
 
     try{
+        
         let params = [nickname,wallet,email,img]
         const result = await execute(join_sql(),params)
+        console.log("hihi",result)
         let user_info = {
             nickname,wallet,email,picture
         }

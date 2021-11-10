@@ -13,6 +13,7 @@ router.get('/',itemController.testGetNFT)
 router.get('/designer',itemController.getDesigner)
 
 router.post('/mint',upload.array('image'),mintController.mint_nft);
+router.post('/option',mintController.mint_option)
 
 router.post('/sell',sellController.immediatelySell);
 

@@ -10,6 +10,7 @@ import useInput from "../../hooks/useInput";
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Mint_REQUEST } from '../../reducers/mint';
+import Router from "next/router";
 
 
 const Release = () => {
@@ -78,7 +79,7 @@ const Release = () => {
             alert("상품등록이 완료되었습니다.")
             handleData();
         }
-        
+        Router.push('/')
     }
     
 
