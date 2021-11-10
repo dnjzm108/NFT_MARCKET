@@ -95,6 +95,22 @@ const create_delievery_sql = () =>{
     )
 }
 
+//상품 수정
+
+const update_product_sql = () =>{
+    return(
+        `UPDATE product set leftover = ? WHERE product_no = ?`
+    )
+}
+
+//디테일 수정 
+
+const update_detail_sql = () =>{
+    return(
+        `UPDATE product_detail set rest = ? WHERE product_id = ?`
+    )
+}
+
 module.exports = {
     show_product_detail,
     product_img,
@@ -105,5 +121,7 @@ module.exports = {
     auction_detail_sql,
     other_product_sql,
     create_order_sql,
-    create_delievery_sql
+    create_delievery_sql,
+    update_product_sql,
+    update_detail_sql
 }
