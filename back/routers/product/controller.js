@@ -71,16 +71,15 @@ let other_product = async(req,res) =>{
 }
 
 let order = async (req,res) =>{
-   let {product_id,buyer,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover} = req.body
-
+   let {product_id,buyer,price,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover} = req.body
+console.log(product_id,buyer,price,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover);
    //오더 테이블 추가
    let order_parms=[product_id,price,buyer,qty]
-   let create_order = await execute(create_order_sql(),params)
+   let create_order = await execute(create_order_sql(),order_parms)
     
-   let {insultid} = create_order
-    console.log(insultid);
+   let {insertId} = create_order
     //배송정보 추가
-    let delievery_parms=[insultid,reciever,request,recieve_type,phone_number,address]
+    let delievery_parms=[insertId,reciever,request,recieve_type,phone_number,address]
    let create_delievery = await execute(create_delievery_sql(),delievery_parms)
     console.log(create_delievery);
 

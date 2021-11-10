@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `price` int(11) NOT NULL,
   `buyer` varchar(20) CHARACTER SET utf8 NOT NULL,
   `date` datetime DEFAULT current_timestamp(),
-  `qry` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
   PRIMARY KEY (`order_id`) USING BTREE,
   KEY `FK_orders_user` (`buyer`),
   KEY `FK_orders_product_detail` (`product_id`),
@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- 테이블 데이터 nft_market.orders:~0 rows (대략적) 내보내기
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`order_id`, `product_id`, `price`, `buyer`, `date`, `qry`) VALUES
+INSERT INTO `orders` (`order_id`, `product_id`, `price`, `buyer`, `date`, `qty`) VALUES
 	(3, 8, 10, 'jin', '2021-11-07 21:18:23', 1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 

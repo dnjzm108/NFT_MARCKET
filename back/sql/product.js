@@ -83,7 +83,7 @@ const other_product_sql = (sql) =>{
 //필요한값 상품상세번호 ,가격,산사람,수량
 const create_order_sql = () => {
     return (
-        `INSERT INTO order ("product_id","price","buyer","qty") VALUES(?,?,?,?)`
+        `INSERT INTO orders (product_id,price,buyer,qty) VALUES(?,?,?,?)`
     )
 }
 
