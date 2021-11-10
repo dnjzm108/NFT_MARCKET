@@ -56,10 +56,34 @@ const check_like_sql = () =>{
 //상품 디테일 아이디
 const auction_detail_sql = () =>{
     return(
-        `SELECT * FROM auction as A 
+        `SELECT A.auction_id,A.product_id,date_format(A.deadline,'%y-%m-%d %h:%i')as deadline,A.option,B.auction_history_id,B.bider,B.bid,B.status,date_format(B.date,'%y-%m-%d %h:%i')as date FROM auction as A 
         LEFT JOIN auction_history as B
         ON B.auction_id = A.auction_id
-        WHERE A.product_id = ?`
+        WHERE A.product_id = ?
+        ORDER BY B.date DESC`
+    )
+}
+
+//추천 상품
+// 상품 번호 4자리 
+const other_product_sql = (sql) =>{
+    return(
+        `SELECT A.product_no,B.img FROM product as A
+        LEFT JOIN product_image as B
+        ON B.product_no = A.product_no
+        WHERE A.product_no LIKE "${sql}%" AND A.product_no NOT IN (?)
+        GROUP BY A.product_no
+        ORDER BY A.likes DESC
+        LIMIT 4`
+    )
+}
+
+
+//주문 등록(order)
+//필요한값 상품상세번호 ,가격,산사람,수량
+const create_order = () => {
+    return (
+        `INSERT INTO order ("product_id","price","buyer","qty") VALUES(?,?,?,?)`
     )
 }
 
@@ -70,5 +94,7 @@ module.exports = {
     delete_like_sql,
     change_like,
     check_like_sql,
-    auction_detail_sql
+    auction_detail_sql,
+    other_product_sql,
+    create_order
 }

@@ -12,13 +12,14 @@ const AucPopup = (props)=>{
                     <div className="x" onClick={()=>props.handlePopup()}>
                     <CloseIcon />
                     </div>
-                    <h1>주문서</h1>
+                    <h1>경매 주문서</h1>
                     {/* <p>제품명</p> <span></span>
                     <p>가격</p> <span></span> */}
                     <ul>
                         <li>제품명 <span>sgss</span></li>
-                        <li>현재 가격 <span>5325</span></li>
-                        <li>주문 가격 <span>5333</span></li>
+                        <li>컬러 <span>5325</span></li>
+                        <li>사이즈 <span>5333</span></li>
+                        <li> 입찰금액 <span>5333</span></li>
                     </ul>
                     <div className="flex_contain">
                         <Button value="주문 취소" />

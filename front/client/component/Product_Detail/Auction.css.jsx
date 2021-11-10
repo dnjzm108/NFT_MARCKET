@@ -18,6 +18,13 @@ export const Auction_Wrap = styled.div`
 & > div >h2{
      text-align: center;
 }
+& > div >h2 > img{
+    width: 25px;
+    height: 25px;
+    position: relative;
+    top: 5px;
+    left: -10px;
+}
 & > div >h4{
     border-top: 1px solid #000000;
     margin-top: 10px;
@@ -46,7 +53,12 @@ export const Auction_History_Wrap = styled.div`
     display: flex;
     justify-content: space-between
   }
+  & > table > tr > th{
+    width: 150px;
+     text-align: center;
+  }
   & > table > tr > td{
+      width: 150px;
      text-align: center;
   }
 

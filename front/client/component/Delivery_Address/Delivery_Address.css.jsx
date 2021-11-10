@@ -17,6 +17,10 @@ export const Table = styled.table`
     box-sizing: border-box;
 
 }
+& > tr > td > img{
+    width: 20px;
+    height: 20px;
+}
 & > tr > td:nth-child(1){
     width: 30%;
     height: 50px;

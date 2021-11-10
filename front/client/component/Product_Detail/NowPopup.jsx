@@ -4,7 +4,11 @@ import {StyledNowPopup} from "./Product_Detail.css"
 import Button from "../Button"
 
 const NowPopup = (props) => {
-    
+    console.log('00000000000000',props);
+    const {product,select_qty,option} = props;
+
+  
+
     return (
         <Popup_background>
             <StyledNowPopup>
@@ -12,15 +16,18 @@ const NowPopup = (props) => {
                     <div className="x" onClick={()=>props.handlePopup()}>
                     <CloseIcon />
                     </div>
-                    <h1>주문서</h1>
+                    <h1>즉시구매 주문서</h1>
                     {/* <p>제품명</p> <span></span>
                     <p>가격</p> <span></span> */}
                     <ul>
-                        <li>제품명 <span>sgss</span></li>
-                        <li>가격 <span>5325</span></li>
+                        <li>제품명 <span>{product[option].name}</span></li>
+                        <li>컬러 <span>{product[option].color}</span></li>
+                        <li>사이즈 <span>{product[option].size}</span></li>
+                        <li>수량 <span>{select_qty}</span></li>
+                        <li>결제금액  <span><img src="/klay.png" alt="" />{product[option].price*select_qty}</span></li>
                     </ul>
                     <div className="flex_contain">
-                        <Button value="주문 취소" />
+                        <Button value="주문 취소" func={()=>props.handlePopup()} />
                         <Button value="주문 하기" color="blue" />
                     </div>
                 </div>

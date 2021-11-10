@@ -35,9 +35,19 @@ import Slider from "react-slick";
 `
 
 export const Styled_Slide = styled(Slider)`
+.slick-slide > div {
+    width: 640px;
+    height: 640px;
+    overflow: hidden;
+  
+}
+.slick-slide{
+    border:0;
+    outline: 0;
+}
 .slick-slide > div > div> h3 > img{
-    width: 100%;
-    height: 100%;
+    width: 640px;
+    height: 640px;
 } 
 .slick-prev:before, .slick-next:before{
     font-family: 'slick';
@@ -176,7 +186,6 @@ export const Slide_container = styled.div`
     border: 1px solid rgb(229, 232, 235);
     border-radius: 8px;
     position: relative;
-    border: 1px solid #000000;
     border-radius: 10px;
     margin: 2px 5px;
     }
@@ -199,10 +208,10 @@ export const Price_contain = styled.div`
     justify-content: space-evenly;
 }
 
-& > h4 {
-    font-size: 50px;
+& > h2 {
+    font-size: 30px;
 }
-& > h4 >img{
+& > h2 >img{
     width: 50px;
     height: 50px;
     position: relative;
@@ -233,6 +242,14 @@ export const Auction_contain = styled.div`
     border: 1px solid #000000;
 }
 `
+export const Center_contain = styled.div`
+&{
+    padding: 10px 35%;
+    box-sizing: border-box;
+    text-align: center;
+}
+`
+
 //---- 팝업 css 부분 ----
 
 export const StyledNowPopup = styled.div`
@@ -250,7 +267,7 @@ export const StyledNowPopup = styled.div`
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-around;
-        z-index: 1;
+        z-index: 10;
     }
     .purchase_box>p{
         width: auto;
@@ -259,6 +276,10 @@ export const StyledNowPopup = styled.div`
 
     .purchase_box>ul>li{
         padding: 10px;
+    }
+    .purchase_box>ul>li>span>img{
+        width: 15px;
+        height: 15px;
     }
     .purchase_box>ul>li>span{
         width: auto;

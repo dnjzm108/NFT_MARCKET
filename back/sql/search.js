@@ -69,13 +69,6 @@ const create_img = () => {
 }
 
 
-//주문 등록(order)
-//필요한값 상품상세번호 ,가격,산사람,수량
-const create_order = () => {
-    return (
-        `INSERT INTO order ("product_detail","price","buyer","qry") VALUES(?,?,?,?)`
-    )
-}
 
 //경매 입찰
 // 경매 아이디,입찰자,입찰가격,타입

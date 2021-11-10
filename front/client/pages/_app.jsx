@@ -10,7 +10,6 @@ const App = ({ Component }) => {
     const store = useStore((state) => state);
     
   useEffect(()=>{
-    console.log('11')
       dispatch(GetFilterData())
   },[])
 
