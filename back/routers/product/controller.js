@@ -1,5 +1,5 @@
 const { query, execute } = require("../../pool")
-const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order } = require("../../sql/product")
+const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delievery_sql } = require("../../sql/product")
 
 let product_detail = async (req, res) => {
     let { product_no } = req.body
@@ -71,8 +71,23 @@ let other_product = async(req,res) =>{
 }
 
 let order = (req,res) =>{
-    console.log(req.body);
-    console.log(create_order());
+   let {product_id,buyer,qry,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover} = req.body
+
+   //오더 테이블 추가
+   let order_parms=[product_id,price,buyer,qty]
+   let create_order = await execute(create_order_sql(),params)
+    let {insultid} = create_order
+    console.log(insultid);
+  
+    let delievery_parms=[insultid,reciever,request,recieve_type,phone_number,address]
+   let create_delievery = await execute(create_delievery_sql(),delievery_parms)
+
+
+   //배송정보 추가
+
+   //상품 재고 수정
+
+   //상품 디테일 재고 수정
 }
 module.exports = {
     product_detail,

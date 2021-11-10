@@ -81,9 +81,17 @@ const other_product_sql = (sql) =>{
 
 //주문 등록(order)
 //필요한값 상품상세번호 ,가격,산사람,수량
-const create_order = () => {
+const create_order_sql = () => {
     return (
         `INSERT INTO order ("product_id","price","buyer","qty") VALUES(?,?,?,?)`
+    )
+}
+
+//배송정보 등록
+
+const create_delievery_sql = () =>{
+    return(
+`INSERT INTO delievery (order_id,reciever,request,recieve_type,phone_number,address,status) VALUES(?,?,?,?,?,?,"요청")`
     )
 }
 
@@ -96,5 +104,6 @@ module.exports = {
     check_like_sql,
     auction_detail_sql,
     other_product_sql,
-    create_order
+    create_order_sql,
+    create_delievery_sql
 }
