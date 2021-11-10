@@ -306,17 +306,17 @@ CREATE TABLE IF NOT EXISTS `product` (
   `date` datetime DEFAULT current_timestamp(),
   `likes` int(11) NOT NULL DEFAULT 0,
   `type` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `qty` int(11) DEFAULT NULL,
+  `total_qty` int(11) DEFAULT NULL,
   `leftover` int(11) DEFAULT NULL,
   PRIMARY KEY (`product_no`),
   KEY `FK_product_user` (`creater`),
   CONSTRAINT `FK_product_user` FOREIGN KEY (`creater`) REFERENCES `user` (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 테이블 데이터 nft_market.product:~7 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.product:~6 rows (대략적) 내보내기
 DELETE FROM `product`;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` (`product_no`, `name`, `explain`, `creater`, `date`, `likes`, `type`, `qty`, `leftover`) VALUES
+INSERT INTO `product` (`product_no`, `name`, `explain`, `creater`, `date`, `likes`, `type`, `total_qty`, `leftover`) VALUES
 	('A103As0000', '셔츠입니다.', '셔츠에요', 'jin', '2021-11-07 20:38:14', 0, 'auction', NULL, NULL),
 	('A103As0001', '셔츠2', '셔츠입니다', 'seong', '2021-11-10 10:40:42', 5, 'immy', NULL, NULL),
 	('A103As0002', '셔츠3', '셔츠3 라네', 'jeong', '2021-11-10 10:41:36', 3, 'auction', NULL, NULL),
