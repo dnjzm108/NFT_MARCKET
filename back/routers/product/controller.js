@@ -70,7 +70,7 @@ let other_product = async(req,res) =>{
        }
 }
 
-let order = (req,res) =>{
+let order = async (req,res) =>{
    let {product_id,buyer,qry,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover} = req.body
 
    //오더 테이블 추가
