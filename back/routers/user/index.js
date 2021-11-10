@@ -3,6 +3,7 @@ const router = express.Router()
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const controller = require('./user.controller')
+const listController = require('./list.controller')
 
 
 

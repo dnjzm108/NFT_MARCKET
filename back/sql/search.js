@@ -257,20 +257,47 @@ WHERE A.bider = ?
 GROUP BY A.id`
     )
 }
+//////////======== 구매상품 쿼리
+function myBuyListQuery(query,nickname){
+
+  let sql=`
+          SELECT 
+                  *
+          FROM
+  `
 
 
+
+
+}
+
+
+
+
+
+
+
+
+////////======메인페이지 상품리스트 쿼리=====////////
 function makeFilterQuery(query){
     const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
   
-    let mainVerse;
      const where = makeWhereVerse(query);
      const order = sortVerse(sort); 
-    //// 구매일 때, 
-      mainVerse = `
+      let sql;
+      if(type=="buy"){
+
+      sql = `
                   SELECT 
                           * 
                   FROM 
-                        product  AS A
+                            (SELECT 
+                                      * 
+                              FROM 
+                                    product  
+                              WHERE
+                                    type="buy"
+                              ) AS A  
                   NATURAL JOIN
                               (SELECT
                                       price, product_no 
@@ -281,26 +308,83 @@ function makeFilterQuery(query){
                               ) AS B
                   NATURAL JOIN
                               (SELECT
-                                    product_img, product_no
+                                      img, product_no
                               FROM
-                                    img
+                                    product_image
                               GROUP BY
                                     product_no
                               ) AS C 
                   ${where}
                   ${order}
                   LIMIT ${skip},10; 
-  
                   `
-    return mainVerse;
+                }
+    else if(type=='auction'){
+      sql = `
+              SELECT 
+                      * 
+              FROM (
+                      SELECT 
+                              * 
+                      FROM 
+                            product  
+                      WHERE
+                            type="auction"
+                    ) AS A 
+              NATURAL JOIN(
+                            SELECT 
+                                    *
+                            FROM
+                                  product_detail 
+                            NATURAL JOIN (
+                                          SELECT 
+                                                  auction.auction_id AS auction_id, auction.product_id,L.bid
+                                          FROM 
+                                                auction
+                                          left JOIN( 
+                                                    SELECT 
+                                                            * 
+                                                    FROM(
+                                                          SELECT 
+                                                                  *
+                                                          FROM
+                                                                auction_history
+                                                          WHERE
+                                                                (auction_id,bid) 
+                                                          IN (
+                                                              SELECT 
+                                                                      auction_id, max(bid) AS bid
+                                                              FROM 
+                                                                    auction_history
+                                                              GROUP BY 
+                                                                    auction_id
+                                                              )
+                                                          ORDER BY bid DESC
+                                                        ) AS H
+                                                      GROUP BY 
+                                                              auction_id
+                                                    )AS L
+                                            ON auction.auction_id=L.auction_id
+                                          )AS Q
+                            ) AS B
+              NATURAL JOIN
+                          (SELECT
+                                img, product_no
+                          FROM
+                                product_image
+                          GROUP BY
+                                product_no
+                          ) AS C
+                    ${where}
+                    ${order}
+                    LIMIT ${skip},10; 
+                    `
+
+    }
+    return sql;
   }
   
-  
-  
-  
-  
-  
-  
+
   function makeWhereVerse(query){
     const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
     let where = `WHERE rest>0`
@@ -339,6 +423,7 @@ function makeFilterQuery(query){
       return ''
     }
   }
+
   
   function sortVerse(sort){
     let tmp = ` ORDER BY `

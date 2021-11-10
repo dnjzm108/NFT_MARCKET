@@ -28,7 +28,7 @@ export const Header = styled.div`
   }
 `
 
-export const Table = styled.table`
+export const BuyTable = styled.table`
   width: 100%;
   padding: 28px;
 
@@ -60,13 +60,47 @@ export const Table = styled.table`
       }
     }
   }
+`
+export const AuctionTable = styled.table`
+  width: 100%;
+  padding: 28px;
 
+  &>thead{
+    width: 100%;
+    height: 2vh;
 
+    &>tr{
+      width: 100%;
 
+      &>th:nth-child(1){
+        width: 35%;
+      }
 
+      &>th:nth-child(2){
+        width: 10%;
+      }
+      &>th:nth-child(3){
+        width: 10%;
 
+      }
+      &>th:nth-child(4){
+        width: 10%;
 
+      }
+      &>th:nth-child(5){
+        width: 10%;
 
+      }
+      &>th:nth-child(6){
+        width: 10%;
+
+      }
+      &>th:nth-child(7){
+        width: 15%;
+
+      }
+    }
+  }
 `
 
 
