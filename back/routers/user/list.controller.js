@@ -1,15 +1,83 @@
+const {query} = require('../../pool');
+const {myBuyListQuery,myAuctionListQuery} = require('../../sql/mylist');
+const {successData,errorData} = require('../../returnData')
+
+
+const getMyBuy = async(req,res)=>{
+  const cntsql = myBuyListQuery(req.body,'cnt');
+  const [cntResult] = await query(cntsql);
+  const cnt = cntResult.cnt;
+  console.log(cntsql)
+  
+  // 요청한 값이 없을 떄. 
+  if(cnt==0){
+    const data={
+      page:1,
+      pageblock:[1],
+      totalPage:1,
+      list:[]
+    }
+    res.json(successData(data))
+    return
+  }
+
+  const {page,rows, pageblock, totalPage} =makePageBlock(cnt,req.body.page,req.body.rows)
+  const params = {...req.body,page,rows}
+  const sql = myBuyListQuery(params);
+  const result = await query(sql);
+  const data = {
+    list:result,
+    page,
+    pageblock,
+    totalPage,
+  }
+  res.json(successData(data))
+} 
 
 
 
+const getMyAuction = async(req,res)=>{
+  const cntsql = myAuctionListQuery(req.body,'cnt');
+  const [cntResult] = await query(cntsql);
+  const cnt = cntResult.cnt;
+  console.log(cntsql)
+  // 요청한 값이 없을 떄. 
+  if(cnt==0){
+    const data={
+      page:1,
+      pageblock:[1],
+      totalPage:1,
+      list:[]
+    }
+    res.json(successData(data))
+    return
+  }
+
+  const {page,rows, pageblock, totalPage} =makePageBlock(cnt,req.body.page,req.body.rows)
+  const params = {...req.body,page,rows}
+  const sql = myAuctionListQuery(params);
+  const result = await query(sql);
+  const data = {
+    list:result,
+    page,
+    pageblock,
+    totalPage,
+  }
+  res.json(successData(data))
+
+}
+
+const getMyImmySell = async(req,res)=>{
+
+}
+
+const getMyAuctionSell = async(req,res)=>{
+
+}
 
 
-
-
-
-const makePageBlock = (cnt, obj) => {
-  const { rows } = obj;
-  let { page } = obj;
-  const totalPage = Math.ceil(cnt / rows);
+const makePageBlock = (cnt,page,rows) => {
+  const totalPage = Math.ceil(cnt / rows) >0 ?Math.ceil(cnt / rows) : 1;
   if (page > totalPage) page = totalPage;
   let block = 10;
   while (page > block) {
@@ -17,8 +85,16 @@ const makePageBlock = (cnt, obj) => {
   }
   const pageblock = [];
   for (let i = block - 9; i <= block; i++) {
-      pageblock.push(i);
+      pageblock.push(+i);
       if (i === totalPage) break;
   }
-  return { page: page, rows: rows, pageblock: pageblock, totalPage: totalPage, }
+  if(page==0) page=1 
+  return { page: page, rows: +rows, pageblock: pageblock, totalPage: totalPage }
+}
+
+module.exports={
+  getMyBuy,
+  getMyAuction,
+  getMyImmySell,
+  getMyAuctionSell,
 }

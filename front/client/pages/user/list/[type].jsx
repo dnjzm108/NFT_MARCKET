@@ -6,6 +6,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from 'next/router'
+import { Pageblock } from "../../../component/Pageblock";
+
+
+
 
 const list = () => {
   const state_data = useSelector(state => state.user)
@@ -20,7 +24,10 @@ const list = () => {
     <Navigation/> 
     <Info>
         <SideMenu/>
+        <div>
         <NFTList type={type}/>
+        <Pageblock/>
+        </div>
     </Info>
     </>
   );

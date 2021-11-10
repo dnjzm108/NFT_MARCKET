@@ -257,19 +257,6 @@ WHERE A.bider = ?
 GROUP BY A.id`
     )
 }
-//////////======== 구매상품 쿼리
-function myBuyListQuery(query,nickname){
-
-  let sql=`
-          SELECT 
-                  *
-          FROM
-  `
-
-
-
-
-}
 
 
 

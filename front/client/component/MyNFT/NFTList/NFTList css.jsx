@@ -44,18 +44,22 @@ export const BuyTable = styled.table`
       }
 
       &>th:nth-child(2){
-        width: 15%;
+        width: 12%;
       }
       &>th:nth-child(3){
-        width: 15%;
+        width: 12%;
 
       }
       &>th:nth-child(4){
-        width: 15%;
+        width: 12%;
 
       }
       &>th:nth-child(5){
-        width: 15%;
+        width: 12%;
+
+      }
+      &>th:nth-child(6){
+        width: 12%;
 
       }
     }
@@ -73,29 +77,21 @@ export const AuctionTable = styled.table`
       width: 100%;
 
       &>th:nth-child(1){
-        width: 35%;
+        width: 40%;
       }
 
       &>th:nth-child(2){
-        width: 10%;
+        width: 15%;
       }
       &>th:nth-child(3){
-        width: 10%;
+        width: 15%;
 
       }
       &>th:nth-child(4){
-        width: 10%;
+        width: 15%;
 
       }
       &>th:nth-child(5){
-        width: 10%;
-
-      }
-      &>th:nth-child(6){
-        width: 10%;
-
-      }
-      &>th:nth-child(7){
         width: 15%;
 
       }

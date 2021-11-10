@@ -4,6 +4,7 @@ import user from './user'
 import mint from './mint'
 import filter from './filter'
 import explore from './explore'
+import mylist from './mylist'
 
 
 
@@ -21,7 +22,7 @@ const rootReducer = combineReducers({
                 return state
         }
     },
-    user,filter,mint,explore
+    user,filter,mint,explore,mylist
 })
 
 export default rootReducer
