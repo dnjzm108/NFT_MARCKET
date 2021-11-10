@@ -11,9 +11,12 @@ import PopupDom from './PopupDom';
 import PopupPostCode from './PopupPostCode';
 import { useState } from 'react';
 import useInput from '../../hooks/useInput';
+import axios from 'axios';
+import {url} from '../../saga/url'
 
-export const Delivery_Address_Component = () => {
+ const Delivery_Address_Component = (props) => {
     const data = useSelector(state => state.user)
+    const {product,select_qty,option} = props;
 
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [address, setaddress] = useState('')
@@ -33,23 +36,50 @@ export const Delivery_Address_Component = () => {
         setIsPopupOpen(false)
     }
 
+    const handleOrder = async (e) =>{
+        e.stopPropagation()
+        const order_info={
+            product_id: product[option].product_id,
+            price: product[option].price ,
+            buyer: data.user_info.nickname,
+            qty : select_qty,
+        }
+        let result = await axios.post(`${url}/propuct/order`,order_info)
+        console.log(order_info);
+    }
+
     return (
         <>
             <Popup_background>
                 <Container>
                     <Icon_Close>
-                        <Link href="/">
-                            <CloseIcon color="disabled" sx={{ fontSize: 55 }} />
-                        </Link>
+                            <CloseIcon color="disabled" sx={{ fontSize: 55 }} onClick={()=>props.handlePopup()} />
                     </Icon_Close>
-                    <Subject>배송 주문</Subject>
+                    <Subject> 주문서 </Subject>
 
                     <form action="">
                         <Table>
                             <tr>
                                 <td>상품명</td>
-                                <td>람보르기니</td>
+                                <td>{product[option].name}</td>
                             </tr>
+                            <tr>
+                                <td>컬러</td>
+                                <td>{product[option].color}</td>
+                            </tr>
+                            <tr>
+                                <td>사이즈</td>
+                                <td>{product[option].size}</td>
+                            </tr>
+                            <tr>
+                                <td>수량</td>
+                                <td>{select_qty}</td>
+                            </tr>
+                            <tr>
+                                <td>결제금액</td>
+                                <td><img src="/klay.png" alt="" /> {product[option].price*select_qty}</td>
+                            </tr>
+
                             <tr>
                                 <td>주문자</td>
                                 <td>{data.user_info.nickname}</td>
@@ -102,7 +132,7 @@ export const Delivery_Address_Component = () => {
                         </Table>
 
                         <Center>
-                            <Button value="주문 하기" color="sky" url="/" />
+                            <Button value="주문 하기" func={handleOrder} color="sky"/>
                         </Center>
                     </form>
 
@@ -114,5 +144,5 @@ export const Delivery_Address_Component = () => {
 }
 
 
-
+export default Delivery_Address_Component
 
