@@ -33,7 +33,6 @@ function loginAPI(data){
 }
 
 function* login(action){
-    console.log('성공');
     let result = yield call(loginAPI,action.data)
     let {data} = result
 
