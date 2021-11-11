@@ -20,7 +20,7 @@ const Notice_Delivery = () => {
     useEffect(async()=>{
         if (id != undefined) {
             let result = await axios.post(`${url}/product/notice_order`, data)
-            setInfo(result.data[0])
+            setInfo(result.data.response[0])
         }
     },[id])
 

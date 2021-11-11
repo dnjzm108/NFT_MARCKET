@@ -6,24 +6,24 @@ import { url } from './url'
 async function poductAPI(data) {
   let info = []
     let result = await axios.post(`${url}/product/product_detail`, data)
-    info.push(result.data.img)
-    info.push(result.data.product)
-    let { product_id } = result.data.product[0]
-    let { product_no } = result.data.product[0]
+    info.push(result.data.response.img)
+    info.push(result.data.response.product)
+    let { product_id } = result.data.response.product[0]
+    let { product_no } = result.data.response.product[0]
     
     let code_data = {
         product_code :product_no.substr(0,4),
         product_no
     }
     let other_product = await axios.post(`${url}/product/other_product`, code_data)
-    info.push(other_product.data)
+    info.push(other_product.data.response)
     
-    if (result.data.product[0].type == "auction") {
+    if (result.data.response.product[0].type == "auction") {
         let autcion_info = {
             product_id
         }
         let auction = await axios.post(`${url}/product/auction_info`, autcion_info)
-        info.push(auction.data)
+        info.push(auction.data.response)
     }
     
     return info
@@ -50,7 +50,7 @@ async function auctionAPI(data){
 function* apply_auction(action){
     let result = yield call(auctionAPI, action.data)
 
-    if(result){
+    if(result.response){
         yield put({
             type: 'AUCTION_SUCCEESS'
         })

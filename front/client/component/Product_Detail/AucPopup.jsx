@@ -35,8 +35,7 @@ const AucPopup = (props) => {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
                     dispatch(Apply_Auction(histoty_data))
-                    // let result = await axios.post(`${url}/product/applyauction`,histoty_data)
-                    // Router.push('/')
+            
                     props.handlePopup()
                 }
             } else {
@@ -44,8 +43,7 @@ const AucPopup = (props) => {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
                     dispatch(Apply_Auction(histoty_data))
-                    // let result = await axios.post(`${url}/product/applyauction`,histoty_data)
-                    // Router.push('/')
+
                     props.handlePopup()
                 }
             }

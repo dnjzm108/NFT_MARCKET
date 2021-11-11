@@ -1,6 +1,6 @@
 import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container, Styled_Slide, Price_contain, Auction_contain, Center_contain } from './product_detail.css'
 import Footter from '../../component/Footter'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
@@ -8,7 +8,7 @@ import Button from '../Button'
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Auction, Auction_History } from './Auction_Box';
-import NowPopup from "./NowPopup"
+// import NowPopup from "./NowPopup"
 import AucPopup from "./AucPopup"
 import { useRouter } from 'next/router'
 import axios from 'axios'
@@ -53,7 +53,7 @@ const product_detail = () => {
 
             if (user_info.nickname !== undefined) {
                 let checking_like = await axios.post(`${url}/product/check_like`, info)
-                if (checking_like.data == false) {
+                if (checking_like.data.response == false) {
                     setLikes(false)
                 } else {
                     setLikes(true)

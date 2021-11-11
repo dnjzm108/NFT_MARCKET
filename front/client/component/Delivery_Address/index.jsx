@@ -60,8 +60,7 @@ const Delivery_Address_Component = (props) => {
                 leftover: product[option].leftover
             }
             let result = await axios.post(`${url}/product/order`, order_info)
-console.log(result.data);
-            Router.push(`/notice/${result.data}`)
+            Router.push(`/notice/${result.data.response}`)
     
         } else {
             alert('빈칸을 확인해주세요')
