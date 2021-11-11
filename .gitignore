@@ -1,3 +1,4 @@
 *node_modules
 /front/client/.next
 *package-lock.json
+/back/pool.js

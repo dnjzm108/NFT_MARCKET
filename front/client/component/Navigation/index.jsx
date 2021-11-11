@@ -57,9 +57,12 @@ const Navigation = () => {
           </Link>
         </Logo>
         <NavItemContainer>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <input type="text" onChange={(e) => handleSearch(e)} />
-          </form>
+
+//           <form onSubmit={(e) => handleSubmit(e)}>
+//             <input type="text" onChange={(e) => handleSearch(e)} />
+//           </form>
+
+
           <NavItem
             onClick={() => setNowItem(1)}
             isClicked={nowItem == 1 ? true : false}
