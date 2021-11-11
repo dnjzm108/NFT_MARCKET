@@ -23,7 +23,7 @@ nunjucks.configure('views', {
     express:app,
 })
 
- app.use('/',router)
+app.use('/',router)
 
 server.listen(PORT,()=>{
     console.log(`server start port ${PORT}`)

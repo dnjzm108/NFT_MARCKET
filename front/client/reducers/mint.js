@@ -4,7 +4,7 @@ const initalState = {
 
 const MINT_REQUEST = "MINT_REQUEST"
 const MINT_SUCCESS = "MINT_SUCCESS"
-const MINT_ERROR = "MINT_ERROR"
+// const MINT_ERROR = "MINT_ERROR"
 
 
 export const Mint_REQUEST = data => {
@@ -19,8 +19,9 @@ export const Mint_REQUEST = data => {
 
 const reducer = (state = initalState,action) => {
     switch (action.type) {
-
+        
         case MINT_REQUEST:
+            console.log("mint_request",state)
             return {
                 ...state,
                 isLoading:true
