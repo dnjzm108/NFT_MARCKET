@@ -104,6 +104,8 @@ let order = async (req,res) =>{
    let detail_parms=[minus_rest,product_id]
    let update_detail = await execute(update_detail_sql(),detail_parms)
 
+   res.json(insertId)
+
 }
 
 let applyauction = async (req,res) =>{

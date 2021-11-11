@@ -33,7 +33,7 @@ let login = async (req,res) =>{
     let {wallet} = req.body
     let params = [wallet]
     const [result] = await execute(login_sql(),params)
-
+console.log(wallet);
     if(result !== null){
        res.json(result)
     }else{

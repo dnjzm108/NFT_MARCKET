@@ -140,7 +140,7 @@ const chage_product_likes = () =>{
 
 const notice_order_sql = () =>{
     return(
-        `SELECT A.price,A.buyer,A.qty,B.reciever,B.address,B.invoice,B.delievery_company,B.phone_number,B.request,C.color,C.size,D.name FROM orders as A
+        `SELECT A.price,A.buyer,A.qty,B.dlvy_id,B.reciever,B.address,B.invoice,B.delievery_company,B.phone_number,B.request,C.color,C.size,D.name FROM orders as A
         LEFT JOIN delievery as B
         ON A.order_id = B.order_id
         LEFT JOIN product_detail as C
