@@ -4,7 +4,7 @@ import { BsSuitHeartFill } from "react-icons/bs";
 import Link from "next/link";
 import  Router  from "next/router";
 
-const NFT = ({type,product_no,price,name,creater,likes,img}) => {
+const NFT = ({type,product_no,price,name,creater,likes,img,bid}) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = (event) => {
@@ -55,7 +55,7 @@ const NFT = ({type,product_no,price,name,creater,likes,img}) => {
               <div>Bid</div>
               <div className="content_price">
                 <img src="/klay.png" alt="" />
-                <span>{price}</span>
+                <span>{bid==undefined ? price : bid}</span>
               </div>
             </>
             }

@@ -46,7 +46,6 @@ export const SelectHeader = styled.button`
   font-size: 16px;
   border: 1px solid rgb(229, 232, 235);
   cursor: pointer;
-  border-radius: 10px;
 
   &>div{
     display: flex;

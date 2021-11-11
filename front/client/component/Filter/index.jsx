@@ -28,13 +28,7 @@ const Filter = () => {
     {name:'즉시구매',code:'buy'},
     {name:'경매',code:'auction'}
   ]
-  const sortList = [
-    {name:'최신 순',code:'new'},
-    {name:'오래된 순',code:'old'},
-    {name:'낮은 가격 순',code:'low'},
-    {name:'높은 가격 순',code:'high'},
-    {name:'좋아요 순',code:'like'}
-]
+
   
 
 
@@ -122,12 +116,10 @@ const Filter = () => {
               <i className='arrow'><RiArrowLeftLine size={24} /></i>
             </div>
           </div>
-          <Panal value='판매유형' >
+
             <SelectBtnBox list={typeList} title='판매유형' onClick={handleType} now={result.type} />
-          </Panal>
-          <Panal value='정렬유형' >
-          <SelectBtnBox list={sortList} title='정렬' onClick={handleSort} now={result.sort} />
-          </Panal>
+
+
           <Panal value='카테고리' >
             {renderBtnBox()}
           </Panal>
