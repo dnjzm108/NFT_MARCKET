@@ -6,6 +6,7 @@ import  Footter from "../../component/Footter";
 import { useEffect,useState } from 'react'
 import { useDispatch, useSelector,} from 'react-redux'
 import { ExploreRequest,GetFilterData } from '../../reducers/explore'
+import Rowfilter from "../../component/Rowfilter";
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,10 @@ const Explore = () => {
         <StyledExplore>
           <div>
             <Filter />
+            <div>
+            <Rowfilter/>
             <Gallery />
+            </div>
           </div>
         </StyledExplore>
       </div>

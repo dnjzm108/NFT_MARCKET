@@ -1,5 +1,8 @@
 const {query} = require('../../pool');
-const {myBuyListQuery,myAuctionListQuery} = require('../../sql/mylist');
+const {myBuyListQuery,
+      myAuctionListQuery,
+      myAuctionSellListQuery,
+      myImmySellListQuery} = require('../../sql/mylist');
 const {successData,errorData} = require('../../returnData')
 
 
@@ -7,7 +10,6 @@ const getMyBuy = async(req,res)=>{
   const cntsql = myBuyListQuery(req.body,'cnt');
   const [cntResult] = await query(cntsql);
   const cnt = cntResult.cnt;
-  console.log(cntsql)
   
   // 요청한 값이 없을 떄. 
   if(cnt==0){
@@ -40,7 +42,6 @@ const getMyAuction = async(req,res)=>{
   const cntsql = myAuctionListQuery(req.body,'cnt');
   const [cntResult] = await query(cntsql);
   const cnt = cntResult.cnt;
-  console.log(cntsql)
   // 요청한 값이 없을 떄. 
   if(cnt==0){
     const data={
@@ -68,10 +69,63 @@ const getMyAuction = async(req,res)=>{
 }
 
 const getMyImmySell = async(req,res)=>{
+  const cntsql = myImmySellListQuery(req.body,'cnt');
+  const [cntResult] = await query(cntsql);
+  const cnt = cntResult.cnt;
+  
+  // 요청한 값이 없을 떄. 
+  if(cnt==0){
+    const data={
+      page:1,
+      pageblock:[1],
+      totalPage:1,
+      list:[]
+    }
+    res.json(successData(data))
+    return
+  }
 
+  const {page,rows, pageblock, totalPage} =makePageBlock(cnt,req.body.page,req.body.rows)
+  const params = {...req.body,page,rows}
+  const sql = myImmySellListQuery(params);
+  const result = await query(sql);
+  const data = {
+    list:result,
+    page,
+    pageblock,
+    totalPage,
+  }
+  res.json(successData(data))
 }
 
 const getMyAuctionSell = async(req,res)=>{
+  const cntsql = myAuctionSellListQuery(req.body,'cnt');
+  const [cntResult] = await query(cntsql);
+  const cnt = cntResult.cnt;
+  
+  // 요청한 값이 없을 떄. 
+  if(cnt==0){
+    const data={
+      page:1,
+      pageblock:[1],
+      totalPage:1,
+      list:[]
+    }
+    res.json(successData(data))
+    return
+  }
+
+  const {page,rows, pageblock, totalPage} =makePageBlock(cnt,req.body.page,req.body.rows)
+  const params = {...req.body,page,rows}
+  const sql = myAuctionSellListQuery(params);
+  const result = await query(sql);
+  const data = {
+    list:result,
+    page,
+    pageblock,
+    totalPage,
+  }
+  res.json(successData(data))
 
 }
 

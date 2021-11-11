@@ -21,7 +21,7 @@ import { ExploreRequest } from '../../reducers/explore';
 const Navigation = () => {
   //임사상태
   const dispatch = useDispatch(); 
-  const [isLogin, setIsLogin] = useState(false);
+  const {isLogin} = useSelector(state=>state.user);
   const [nowItem, setNowItem] = useState(null);
   const [search,setSearch] = useState()
   const {filter} = useSelector(state=>state.filter);
@@ -52,9 +52,6 @@ const Navigation = () => {
           </Link>
         </Logo>
         <NavItemContainer>
-          <form onSubmit={(e)=>handleSubmit(e)}>
-           <input type="text"   onChange={(e)=>handleSearch(e)}/>
-          </form>
           <NavItem
             onClick={() => setNowItem(1)}
             isClicked={nowItem == 1 ? true : false}
@@ -79,10 +76,6 @@ const Navigation = () => {
               <a>토큰 교환</a>
             </Link>
           </NavItem>
-          <NavItem>
-            <Link href='/user/profile'><a><i><BiUserCircle size={32}/></i></a></Link>
-          </NavItem>
-          <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
           {isLogin ? (
             <>
             <NavItem>

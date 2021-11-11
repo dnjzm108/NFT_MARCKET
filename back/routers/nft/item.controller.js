@@ -1,27 +1,23 @@
 const { type } = require("caver-js/packages/caver-transaction");
-const { execute,query } = require("../../pool")
+const { execute,query } = require("../../pool");
+const { successData } = require("../../returnData");
+const {makeFilterQuery} = require('../../sql/search')
 const errorData={
   success:false,
 }
 
 
-const getNfts= async(req,res)=>{
-  const {type,price,designer,category,sort,searchtype,searchvalue,skip} = req.query.search;
-  makeFilterQuery(req.query)
-  const sql = `SELECT * FROM `
+const getNFTs= async(req,res)=>{
+  const sql = makeFilterQuery(req.query);
+  console.log(sql)
+  const result = await query(sql);
+  const data ={
+    skip:req.query.skip,
+    nft:result
+  }
+  res.json(successData(data))
 }
 
-const testGetNFT = async(req,res)=>{
-  const {skip} = req.query;
-  console.log(req.query);
-  const data = {
-    success:true,
-    filter:req.query,
-    nft:[],
-    skip
-  }
-  res.json(data)
-}
 
 const getFilterData = async(req,res)=>{
 
@@ -80,66 +76,8 @@ const getFilterData = async(req,res)=>{
 }
 
 module.exports={
-  getNfts,
-  testGetNFT,
-  getFilterData
+  getFilterData,
+  getNFTs,
 }
 
-const makeFilterQuery = (query) =>{
-  const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
-
-  let mainVerse;
-  
-  //// 구매일 때, 
-    mainVerse = `
-                SELECT 
-                        * 
-                FROM 
-                      product  AS A
-                NATURAL JOIN
-                            (SELECT
-                                    price, product_no 
-                              FROM 
-                                    product_detail
-                              GROUP BY 
-                                    product_no
-                            ) AS B
-                NATURAL JOIN
-                            (SELECT
-                                  product_img, product_no
-                            FROM
-                                  img
-                            GROUP BY
-                                  product_no
-                            ) AS C 
-                WHERE 
-                      rest>0 AND type=${type}  
-                ORDER BY 
-                      
-
-                `
-
-
-
-  const typeVerse = makeWhereVerse('type',type);
-  const designerVerse = makeWhereVerse('',type);
-  // const typeVerse = makeWhereVerse('type',type);
-  // const typeVerse = makeWhereVerse('type',type);
-}
-
-// const makeWhereVerse = (key,value)=>{
-//   if(value){
-//     if(value.length==1){
-//       return `${key}=${value}`
-//     }else{
-//       const tempArr = [];
-//       value.forEach(v=>{
-//         tempArr.push(`${key}=${v}`)
-//       })
-//       return '('+tempArr.join(' OR ')+')'
-//     }
-//   }else{
-//     return ''
-//   }
-// }
 

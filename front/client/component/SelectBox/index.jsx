@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { RiArrowDownSLine} from "react-icons/Ri"
 
@@ -8,9 +9,10 @@ import { StyledSelectBox,SelectHeader,SelectBody,SelectItem} from "./SelectBox c
 
 
 
-const SelectBox = ({list,value,onChangeValue,useImg,width}) => {
+const SelectBox = ({list,onChangeValue,width,now}) => {
 
   const [open,setOpen] = useState(false);
+  const [tempNow,setTempNow] = useState(null)
 
   const box_width = () =>{
     if(width){
@@ -22,47 +24,43 @@ const SelectBox = ({list,value,onChangeValue,useImg,width}) => {
 
 
 
-  const handleClick = (i) =>{
-    onChangeValue(i);
+  const handleClick = (code) =>{
+    onChangeValue(code);
+    setTempNow(code);
     setOpen(false);
   }
 
+  const renderNow = ()=>{
+    if(now==undefined && tempNow==null){
+      setTempNow(list[0].code)
+      return list[0].name;
+    }else if(now==undefined && tempNow!=null){
+      return list.filter(v=>v.code==tempNow).map(x=>x.name)[0];
+    }
+    else{
+      return list.filter(v=>v.code==now).map(x=>x.name)[0];
+    }
+  }
+
+
   const renderList = () =>{
     return list.map((v,i)=>{
-      return <SelectItem onClick={()=>{handleClick(i)}} key={i}>
-              <span>{v}</span>  
+      return <SelectItem onClick={()=>{handleClick(v.code)}} key={i}>
+              <span>{v.name}</span>
             </SelectItem>
     })
   }
-
-  const renderListWithImage = () =>{
-    return list.map((v,i)=>{
-      return(
-        <SelectItem onClick={()=>{handleClick(i)}} key={i}>
-          <img src={v.img} alt="" />
-          <span>{v.name}</span>
-        </SelectItem>
-      )
-    })
-  }
+  
 
   return(
     <StyledSelectBox width={box_width()}>
       <SelectHeader onClick={()=>setOpen(!open)}>
-        {useImg 
-        ?<div>
-          <img src={list[value].img} alt="" />
-          <span>{list[value].name}</span>
-        </div>
-        :<span>{list[value]}</span>
-      }
-
-        
+        <span>{renderNow()}</span>
         <i><RiArrowDownSLine size={24}/></i>
       </SelectHeader>
       {open &&
       <SelectBody>
-        {useImg ? renderListWithImage(): renderList()}
+         {renderList()}
       </SelectBody>
       }
 

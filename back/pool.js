@@ -40,7 +40,7 @@ async function execute(sql, params) {
             const [result] = await connection.execute(sql, params)
             return result
         } catch (error) {
-            console.log('Query Error');
+            console.log( 'Query Error');
             console.log(error)
             return false;
         }

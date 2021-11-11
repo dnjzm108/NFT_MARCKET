@@ -4,11 +4,14 @@ import {ListUpdateRequest} from '../../reducers/mylist'
 
 export const Pageblock = () => {
   const dispatch = useDispatch();
-  const { pageblock, endpage,page } = useSelector(state=>state.mylist)
-
+  const { pageblock, endpage,page,type,status,sort,search } = useSelector(state=>state.mylist)
+  
   const handlePage = (v) => {
       const data={
-        status:'all',
+        status,
+        type,
+        sort,
+        search,
         page:v,
         rows:10,
         nickname:'seong',

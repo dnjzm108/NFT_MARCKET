@@ -33,8 +33,8 @@ function* explore(action){
         yield put({
             type: 'EXPLORE_SUCCESS',
             data:{
-                nft:data.nft,
-                skip:data.skip
+                nft:data.response.nft,
+                skip:data.response.skip
             }
 
         })
@@ -50,6 +50,7 @@ function* explore(action){
 }
 
 async function getFilterDataAPI(){
+    console.log(url)
     return  await axios.get(`${url}/nft/filter`)
 }
 

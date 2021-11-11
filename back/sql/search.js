@@ -69,21 +69,7 @@ const create_img = () => {
 }
 
 
-//주문 등록(order)
-//필요한값 상품상세번호 ,가격,산사람,수량
-const create_order = () => {
-    return (
-        `INSERT INTO order ("product_detail","price","buyer","qry") VALUES(?,?,?,?)`
-    )
-}
 
-//경매 입찰
-// 경매 아이디,입찰자,입찰가격,타입
-const bid_oction = () => {
-    return (
-        `INSERT INTO auction_history ("auction_id","bider","bid","type") VALUES(?,?,?,?)`
-    )
-}
 
 
 
@@ -268,15 +254,14 @@ GROUP BY A.id`
 ////////======메인페이지 상품리스트 쿼리=====////////
 function makeFilterQuery(query){
     const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
-  
      const where = makeWhereVerse(query);
-     const order = sortVerse(sort); 
-      let sql;
-      if(type=="buy"){
-
+     let sql;
+     if(type=="buy"){
+       
+       const order = buySortVerse(sort); 
       sql = `
                   SELECT 
-                          * 
+                           P.type,P.product_no,D.price,P.name,P.creater,P.likes,I.img
                   FROM 
                             (SELECT 
                                       * 
@@ -284,7 +269,7 @@ function makeFilterQuery(query){
                                     product  
                               WHERE
                                     type="buy"
-                              ) AS A  
+                              ) AS P  
                   NATURAL JOIN
                               (SELECT
                                       price, product_no 
@@ -292,7 +277,7 @@ function makeFilterQuery(query){
                                       product_detail
                                 GROUP BY 
                                       product_no
-                              ) AS B
+                              ) AS D
                   NATURAL JOIN
                               (SELECT
                                       img, product_no
@@ -300,13 +285,14 @@ function makeFilterQuery(query){
                                     product_image
                               GROUP BY
                                     product_no
-                              ) AS C 
+                              ) AS I 
                   ${where}
                   ${order}
                   LIMIT ${skip},10; 
                   `
                 }
     else if(type=='auction'){
+      const order = auctionSortVerse(sort);
       sql = `
               SELECT 
                       * 
@@ -317,7 +303,7 @@ function makeFilterQuery(query){
                             product  
                       WHERE
                             type="auction"
-                    ) AS A 
+                    ) AS P
               NATURAL JOIN(
                             SELECT 
                                     *
@@ -366,7 +352,6 @@ function makeFilterQuery(query){
                     ${order}
                     LIMIT ${skip},10; 
                     `
-
     }
     return sql;
   }
@@ -374,8 +359,8 @@ function makeFilterQuery(query){
 
   function makeWhereVerse(query){
     const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
-    let where = `WHERE rest>0`
-    if(designer.length>0){
+    let where = `WHERE leftover>0`
+    if(designer!=undefined &&designer.length>0){
       where += ' AND '+makeSignVerse('creater','=',designer);
     }
     if(price_min!=undefined && price_max!=undefined){
@@ -387,9 +372,6 @@ function makeFilterQuery(query){
     if(search!=undefined){
       where +=' AND ' + `(creater like '%${search}%' OR name like '%${search}%')`;
     }
-  
-    where += sortVerse(sort); 
-  
     return where; 
   }
   
@@ -412,21 +394,39 @@ function makeFilterQuery(query){
   }
 
   
-  function sortVerse(sort){
+  function buySortVerse(sort){
     let tmp = ` ORDER BY `
     switch(sort){
       case 'like':
-        return tmp+'liked DESC';
+        return tmp+'P.likes DESC';
       case 'old':
-        return tmp+'date ASC';
+        return tmp+'P.date ASC';
       case 'new':
-        return tmp+'date DESC';
+        return tmp+'P.date DESC';
       case 'low':
-        return tmp+'price ASC';
+        return tmp+'D.price ASC';
       case 'high':
-        return tmp+'price DESC';
+        return tmp+'D.price DESC';
       default:
-        return tmp+'date DESC';
+        return tmp+'P.date DESC';
+    }
+  }
+
+  function auctionSortVerse(sort){
+    let tmp = ` ORDER BY `
+    switch(sort){
+      case 'like':
+        return tmp+'P.likes DESC';
+      case 'old':
+        return tmp+'P.date ASC';
+      case 'new':
+        return tmp+'P.date DESC';
+      case 'low':
+        return tmp+'bid ASC';
+      case 'high':
+        return tmp+'bid DESC';
+      default:
+        return tmp+'P.date DESC';
     }
   }
   

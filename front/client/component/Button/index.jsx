@@ -141,8 +141,8 @@ const Button = (props) => {
         hoverFontColor={hoverFontColor()}
         hoverBorder={hoverBorder()}
       >
-        {icon && <i>{icon()}</i>}
         <span>{value}</span>
+        {icon && <i>{icon()}</i>}
       </StyledButton>
     );
   } else {

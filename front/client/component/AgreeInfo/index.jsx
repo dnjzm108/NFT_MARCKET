@@ -1,5 +1,6 @@
 import { StyledAgreeInfo } from "./AgreeInfo.css"
 import Button from "../Button"
+import { useState } from "react";
 
 const AgreeInfo = ({handleSubmit,handleAgree}) => {
     return(
@@ -27,10 +28,9 @@ const AgreeInfo = ({handleSubmit,handleAgree}) => {
                 </div> 
             </div>
             <div className="release_btn">
-                {/* <button className="cancel">취소</button>
-                    <button className="go">NFT 발행하기</button> */}
                 <Button value="취소 하기" color="white" className="cancel" />
-                <Button value="NFT 발행하기" color="blue" className="go" ml="50"  func={handleSubmit}/>
+                <Button value="상품 등록" color="blue" className="go" ml="50"  
+                func={handleSubmit}/>
             </div>
             <div className="bottom_contain"></div>
         </StyledAgreeInfo>
