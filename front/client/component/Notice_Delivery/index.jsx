@@ -43,12 +43,14 @@ const Notice_Delivery = () => {
                             <tr>
                                 <td>상태</td>
                                 <td>| </td>
-                                <td>{info.status}</td>
+                                <td>{info.status == undefined ?  '조회중':''}</td>
                             </tr>
                             <tr>
                                 <td>운송장</td>
                                 <td>| </td>
-                                <td>{info.invocie} : {info.delievry_compony}</td>
+                                <td>
+                                    {info.invocie == undefined ? '배송준비 중입니다.' : 
+                                    info.invocie +":"+ info.delievry_compony}</td>
                             </tr>
                         </Table>
                     </div>

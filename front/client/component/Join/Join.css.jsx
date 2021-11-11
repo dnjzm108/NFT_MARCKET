@@ -61,7 +61,7 @@ export const Small_Contain = styled.div`
     margin: 0 0 20px 0;
 }
 
-& > td{
+& > span{
     font-size: 12px;
     line-height: 20px;
     color: rgba(45,55,65,.7);

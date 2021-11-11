@@ -119,8 +119,8 @@ INSERT INTO `bigcategory` (`code`, `value`) VALUES
 	('C4', '여성 가방/잡화');
 /*!40000 ALTER TABLE `bigcategory` ENABLE KEYS */;
 
--- 테이블 nft_market.delievery 구조 내보내기
-CREATE TABLE IF NOT EXISTS `delievery` (
+-- 테이블 nft_market.delivery 구조 내보내기
+CREATE TABLE IF NOT EXISTS `delivery` (
   `dlvy_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
   `auction` int(11) DEFAULT NULL,
@@ -130,21 +130,21 @@ CREATE TABLE IF NOT EXISTS `delievery` (
   `request` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `recieve_type` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
   `phone_number` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
-  `delievery_company` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `delivery_company` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `address` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`dlvy_id`),
-  KEY `FK_delievery_orders` (`order_id`),
-  CONSTRAINT `FK_delievery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK_delivery_orders` (`order_id`),
+  CONSTRAINT `FK_delivery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- 테이블 데이터 nft_market.delievery:~2 rows (대략적) 내보내기
-DELETE FROM `delievery`;
-/*!40000 ALTER TABLE `delievery` DISABLE KEYS */;
-INSERT INTO `delievery` (`dlvy_id`, `order_id`, `auction`, `reciever`, `status`, `invoice`, `request`, `recieve_type`, `phone_number`, `delievery_company`, `address`, `date`) VALUES
+-- 테이블 데이터 nft_market.delivery:~2 rows (대략적) 내보내기
+DELETE FROM `delivery`;
+/*!40000 ALTER TABLE `delivery` DISABLE KEYS */;
+INSERT INTO `delivery` (`dlvy_id`, `order_id`, `auction`, `reciever`, `status`, `invoice`, `request`, `recieve_type`, `phone_number`, `delivery_company`, `address`, `date`) VALUES
 	(1, NULL, 3, '성진', '대기', NULL, '빨리', '문앞', '01088888888', '한진', '1', '2021-11-07 22:47:22'),
 	(2, 3, 5, '정성진', '발송', '1115555', '부탁', '집앞', '0108979846', 'cj', '2', '2021-11-07 22:48:05');
-/*!40000 ALTER TABLE `delievery` ENABLE KEYS */;
+/*!40000 ALTER TABLE `delivery` ENABLE KEYS */;
 
 -- 테이블 nft_market.likes 구조 내보내기
 CREATE TABLE IF NOT EXISTS `likes` (

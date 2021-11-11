@@ -76,9 +76,9 @@ const create_img = () => {
 
 //배송정보 불러오기
 // 구매자
-const get_delievery_info = () => {
+const get_delivery_info = () => {
     return (
-        `select A.order_id,A.reciever,A.status,A.invoice,A.request,A.recieve_type,A.phone_number,A.delievery_company,A.address,A.date from delievery as A
+        `select A.order_id,A.reciever,A.status,A.invoice,A.request,A.recieve_type,A.phone_number,A.delivery_company,A.address,A.date from delivery as A
     LEFT JOIN orders as B
     ON A.order_id =   B.id
     WHERE B.buyer =  ?`
@@ -90,7 +90,7 @@ const get_delievery_info = () => {
 // orderID ,송장번호
 const add_invoice = () => {
     return (
-        `UPDATE delievery as A,(select * from orders WHERE id =  ?) as B SET A.invoice =  ? WHERE A.order_id =  b.id`
+        `UPDATE delivery as A,(select * from orders WHERE id =  ?) as B SET A.invoice =  ? WHERE A.order_id =  b.id`
     )
 }
 
@@ -185,7 +185,7 @@ const getImmySellDetail = () => {
         `SELECT A.color,A.size,A.price,B.buyer,B.qry,B.date,C.reciever,C.status,C.invoice FROM product_detail as A
 LEFT JOIN orders as B
 ON A.id = B.product_detail
-LEFT JOIN delievery as C
+LEFT JOIN delivery as C
 ON B.id = C.order_id
 WHERE A.product_no = ? AND B.buyer IS NOT NULL`
     )
@@ -215,7 +215,7 @@ LEFT JOIN auction as B
 ON B.product_no = A.id
 LEFT JOIN auction_history as C
 ON C.auction_id = B.id
-LEFT JOIN delievery as D
+LEFT JOIN delivery as D
 ON D.auction = C.id
 WHERE A.product_no = ? `
     )
@@ -237,7 +237,7 @@ LEFT JOIN product as D
 ON C.product_no = D.product_no
 LEFT JOIN img as E
 ON E.product_no = D.product_no
-LEFT JOIN delievery as F
+LEFT JOIN delivery as F
 ON F.auction = A.id
 WHERE A.bider = ?
 GROUP BY A.id`

@@ -34,11 +34,9 @@ function loginAPI(data){
 
 function* login(action){
     let result = yield call(loginAPI,action.data)
-    console.log(result);
+
     let {data} = result
-console.log(data);
     if (data !== '') {
-        console.log(data);
         yield put({
             type: 'USER_LOGIN_SUCCESS',
             data: 'OK',
@@ -59,7 +57,6 @@ function adminAPI(data){
 function* admin(action){
     let result = yield call(adminAPI,action.data)
     let {data} = result
-    console.log(data);
     if (data == true) {
         yield put({
             type: 'ADMIN_SUCCESS'
