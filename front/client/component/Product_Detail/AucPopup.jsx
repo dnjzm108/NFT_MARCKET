@@ -4,10 +4,11 @@ import { StyledNowPopup } from "./Product_Detail.css"
 import Button from "../Button"
 import Input from "../Input"
 import useInput from "../../hooks/useInput";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import { url } from "../../saga/url";
 import Router from "next/router";
+import {Apply_Auction} from '../../reducers/product'
 
 const AucPopup = (props) => {
     const state_data = useSelector(state => state.user)
@@ -15,6 +16,7 @@ const AucPopup = (props) => {
     const product_state = useSelector(state => state.product)
     const {auction_info,product_info} = product_state;
     const bid_price = useInput()
+    const dispatch = useDispatch()
 
 
     const applyAuction = async () => {
@@ -29,18 +31,22 @@ const AucPopup = (props) => {
             return alert("로그인을 진행해 주세요")
         } else {
             if (auction_info[0].bid == null) {
-                if (bid_price.value < product_info[0].price || bid_price.value == undefined) {
+                if (bid_price.value <= product_info[0].price || bid_price.value == undefined) {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
-                    let result = await axios.post(`${url}/product/applyauction`,histoty_data)
-                    Router.push('/')
+                    dispatch(Apply_Auction(histoty_data))
+                    // let result = await axios.post(`${url}/product/applyauction`,histoty_data)
+                    // Router.push('/')
+                    props.handlePopup()
                 }
             } else {
-                if (bid_price.value < auction_info[0].bid || bid_price.value == undefined) {
+                if (bid_price.value <= auction_info[0].bid || bid_price.value == undefined) {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
-                    let result = await axios.post(`${url}/product/applyauction`,histoty_data)
-                    Router.push('/')
+                    dispatch(Apply_Auction(histoty_data))
+                    // let result = await axios.post(`${url}/product/applyauction`,histoty_data)
+                    // Router.push('/')
+                    props.handlePopup()
                 }
             }
         }

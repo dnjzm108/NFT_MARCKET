@@ -31,8 +31,6 @@ async function poductAPI(data) {
 
 function* product_page(action) {
     let result = yield call(poductAPI, action.data)
-    console.log('사가 결과',result);
-    
     if(result.length !== 0){
         yield put({
             type: 'PRODUCT_PAGE_SUCCESS',
@@ -45,8 +43,27 @@ function* product_page(action) {
     }
 }
 
+async function auctionAPI(data){
+    return await axios.post(`${url}/product/applyauction`,data)
+}
+
+function* apply_auction(action){
+    let result = yield call(auctionAPI, action.data)
+
+    if(result){
+        yield put({
+            type: 'AUCTION_SUCCEESS'
+        })
+    }else{
+        yield put({
+            type: 'AUCTION_ERROR'
+        })
+    }
+} 
+
 function* watchProduct() {
     yield takeLatest('PRODUCT_PAGE_REQUEST', product_page)
+    yield takeLatest('APPLY_AUCTION', apply_auction)
 
 }
 

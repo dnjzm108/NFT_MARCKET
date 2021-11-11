@@ -19,10 +19,12 @@ let create_like = async (req, res) => {
    let {product_no,nickname,likes} = req.body;
    let params = [product_no,nickname]
    let result = await execute(add_like_sql(), params)
+   console.log("좋아요+++++",result);
 
    let plus_like = likes + 1
    let product_params = [ plus_like,product_no]
    let product_like = await execute(chage_product_likes(), product_params)
+   console.log(plus_like,product_no);
    res.json(result)
 
 }
@@ -32,7 +34,7 @@ let delete_like = async (req, res) => {
    let {product_no,nickname,likes} = req.body;
    let params = [product_no,nickname]
    let result = await execute(delete_like_sql(), params)
-
+   console.log("좋아요------",result);
    let minus_like = likes - 1
    let product_params = [minus_like,product_no]
    let product_like = await execute(chage_product_likes(), product_params)
@@ -113,13 +115,16 @@ let applyauction = async (req,res) =>{
 
     let history_parms=[auction_id,bider,bid]
     let update_detail = await execute(bid_auction_sql(),history_parms)
-  console.log(update_detail);
     //이전 기록이 있을경우 유찰로 바꿔주기
     if(auction_history_id !== null){
         let chage_parms = [auction_history_id]
         let chage_history = await execute(chage_history_sql(),chage_parms)
-    console.log(chage_history);
     } 
+    if(auction_id !== undefined && bider !== undefined && bid !== undefined && auction_history_id !== undefined ){
+        res.json(true)
+    }else{
+        res.json(false)
+    }
 }
 
 let notice_order = async (req,res) =>{

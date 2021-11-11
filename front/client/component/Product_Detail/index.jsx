@@ -25,8 +25,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 const product_detail = () => {
     const user_state = useSelector(state => state.user)
+    const {user_info,IsLogin} = user_state
     const product_state = useSelector(state => state.product)
-    const { lodding, product_img, product_info, auction_info, other_product } = product_state
+    const { loadding,auctions, product_img, product_info, auction_info, other_product } = product_state
     const dispatch = useDispatch();
     const router = useRouter()
     const { id } = router.query
@@ -43,29 +44,27 @@ const product_detail = () => {
     }
     const info = {
         product_no: id,
-        nickname: user_state.user_info.nickname,
+        nickname: user_info.nickname,
     }
 
     useEffect(async () => {
         if (id != undefined) {
             dispatch(Product_Page_Request(data))
 
-            if (user_state.user_info.nickname !== undefined) {
+            if (user_info.nickname !== undefined) {
                 let checking_like = await axios.post(`${url}/product/check_like`, info)
                 if (checking_like.data == false) {
                     setLikes(false)
                 } else {
                     setLikes(true)
                 }
+            }else{
+                setLikes(false)
             }
         }
-    }, [id])
+    }, [id,likes,IsLogin,auctions])
 
-    /*useEffect(() => {
-        if (product_info.length !== 0) {
-        }
-
-    }, [product_state]) */
+    
 
     const list = []
     product_info.map((v, i) => {
@@ -95,7 +94,7 @@ const product_detail = () => {
 
     const handlePopupImmy = () => {
         if (ispopup == false) {
-            if (user_state.user_info.nickname !== undefined) {
+            if (user_info.nickname !== undefined) {
                 setIsPopup(!ispopup)
             } else {
                 alert("로그인을 진행해주세요")
@@ -106,7 +105,7 @@ const product_detail = () => {
     }
     const handlePopupAuc = () => {
         if (isAuc == false) {
-            if (user_state.user_info.nickname !== undefined) {
+            if (user_info.nickname !== undefined) {
                 setIsAuc(!isAuc)
             } else {
                 alert("로그인을 진행해주세요")
@@ -131,8 +130,8 @@ const product_detail = () => {
     const onclickLike = async () => {
         let like_info = {
             product_no: id,
-            nickname: user_state.user_info.nickname,
-            likes: product_info.likes
+            nickname: user_info.nickname,
+            likes: product_info[0].likes
         }
         if (user_state.user_info.nickname == undefined) {
             alert('로그인을 진행해 주세요')
