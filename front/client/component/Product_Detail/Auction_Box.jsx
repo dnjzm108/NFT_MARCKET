@@ -61,9 +61,9 @@ export const Auction_History = (props) => {
         <Auction_History_Wrap>
             <table>
                 <tr>
-                    <th>낙찰된 날짜</th>
-                    <th>낙찰가</th>
-                    <th>낙찰받은 사람</th>
+                    <th>입찰한 시간</th>
+                    <th>입찰가</th>
+                    <th>입찰한 사람</th>
                 </tr>
                 {
                     auction_data.map((v,i)=>{

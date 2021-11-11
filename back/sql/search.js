@@ -70,13 +70,6 @@ const create_img = () => {
 
 
 
-//경매 입찰
-// 경매 아이디,입찰자,입찰가격,타입
-const bid_oction = () => {
-    return (
-        `INSERT INTO auction_history ("auction_id","bider","bid","type") VALUES(?,?,?,?)`
-    )
-}
 
 
 

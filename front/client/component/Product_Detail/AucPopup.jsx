@@ -5,6 +5,8 @@ import Button from "../Button"
 import Input from "../Input"
 import useInput from "../../hooks/useInput";
 import { useSelector } from 'react-redux';
+import axios from "axios";
+import { url } from "../../saga/url";
 
 const AucPopup = (props) => {
     const state_data = useSelector(state => state.user)
@@ -12,27 +14,32 @@ const AucPopup = (props) => {
     let { product, auction_data } = props
     console.log(props);
 
-    const applyAuction = () => {
+    const applyAuction = async () => {
 
         const histoty_data = {
             auction_id: auction_data[0].auction_id,
             bider: state_data.user_info.nickname,
-            bid: bid_price.value
+            bid: bid_price.value,
+            auction_history_id:auction_data[0].auction_history_id
         }
         if (state_data.user_info.nickname == undefined) {
             return alert("로그인을 진행해 주세요")
         } else {
+            console.log(state_data.user_info.nickname);
             if (auction_data[0].bid == null) {
-                if (bid_price.value < product[0].price) {
+                if (bid_price.value < product[0].price || bid_price.value == undefined) {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
-                    
+                    let result = await axios.post(`${url}/product/applyauction`,histoty_data)
+                    console.log(result);
                 }
             } else {
-                if (bid_price.value < auction_data[0].bid) {
+                if (bid_price.value < auction_data[0].bid || bid_price.value == undefined) {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
 
+                    let result = await axios.post(`${url}/product/applyauction`,histoty_data)
+                    console.log(result);
                 }
             }
         }

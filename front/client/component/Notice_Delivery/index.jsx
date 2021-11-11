@@ -1,8 +1,27 @@
 import { Notice_Wrap, Under_line, Table, Btn_Box } from "./Notice_Delivery.css"
 import Navigation from '../Navigation';
 import Button from '../Button'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react';
+import axios from 'axios'
+import { url } from "../../saga/url"
+
+
 
 const Notice_Delivery = () => {
+    const router = useRouter()
+    const { id } = router.query
+    const data = {
+        orderid : id
+    }
+
+    useEffect(()=>{
+        if (id != undefined) {
+            // let result = await axios.post(`${url}/product/notice_order`, data)
+
+        }
+    },[id])
+
     return (
         <>
             <Navigation />

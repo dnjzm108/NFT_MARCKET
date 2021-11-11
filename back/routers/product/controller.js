@@ -1,5 +1,5 @@
 const { query, execute } = require("../../pool")
-const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delievery_sql,update_product_sql,update_detail_sql } = require("../../sql/product")
+const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delievery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,chage_product_likes,notice_order_sql } = require("../../sql/product")
 
 let product_detail = async (req, res) => {
     let { product_no } = req.body
@@ -16,33 +16,44 @@ let product_detail = async (req, res) => {
 
 
 let create_like = async (req, res) => {
-   let {product_no,nickname} = req.body;
+   let {product_no,nickname,likes} = req.body;
    let params = [product_no,nickname]
-
    let result = await execute(add_like_sql(), params)
+
+   let plus_like = likes + 1
+   let product_params = [ plus_like,product_no]
+   let product_like = await execute(chage_product_likes(), product_params)
    res.json(result)
+
 }
 
 
 let delete_like = async (req, res) => {
-   let {product_no,nickname} = req.body;
+   let {product_no,nickname,likes} = req.body;
    let params = [product_no,nickname]
-
    let result = await execute(delete_like_sql(), params)
+
+   let minus_like = likes - 1
+   let product_params = [minus_like,product_no]
+   let product_like = await execute(chage_product_likes(), product_params)
    res.json(result)
 }
 
 let check_like = async (req,res) =>{
     let {product_no,nickname} = req.body;
-   let params = [product_no,nickname]
 
-   let result = await execute(check_like_sql(),params)
+    if(nickname !== undefined){
+        let params = [product_no,nickname]
 
-   if(result == ''){
-    res.json(false)
-   }else{
-    res.json(true)
-   }
+        let result = await execute(check_like_sql(),params)
+        if(result == ''){
+            res.json(false)
+           }else{
+            res.json(true)
+           }
+    }
+   
+  
 }
 
 let auction_info = async (req,res) =>{
@@ -61,7 +72,7 @@ let auction_info = async (req,res) =>{
 let other_product = async(req,res) =>{
     let {product_code,product_no} =req.body;
     let params = [product_no]
-
+console.log(product_code,product_no);
     let result = await execute(other_product_sql(product_code),params)
     if(result == ''){
         res.json(false)
@@ -93,7 +104,30 @@ let order = async (req,res) =>{
    let detail_parms=[minus_rest,product_id]
    let update_detail = await execute(update_detail_sql(),detail_parms)
 
+}
 
+let applyauction = async (req,res) =>{
+    let {auction_id,bider,bid,auction_history_id} = req.body
+
+    let history_parms=[auction_id,bider,bid]
+    let update_detail = await execute(bid_auction_sql(),history_parms)
+  console.log(update_detail);
+    //이전 기록이 있을경우 유찰로 바꿔주기
+    if(auction_history_id !== null){
+        let chage_parms = [auction_history_id]
+        let chage_history = await execute(chage_history_sql(),chage_parms)
+    console.log(chage_history);
+    } 
+}
+
+let notice_order = async (req,res) =>{
+   let {order_id} = req.body
+
+   let parms=[order_id]
+   let notice = await execute(notice_order_sql(),parms)
+   console.log(notice);
+   res.json(notice)
+    
 }
 module.exports = {
     product_detail,
@@ -102,5 +136,7 @@ module.exports = {
     check_like,
     auction_info,
     other_product,
-    order
+    order,
+    applyauction,
+    notice_order
 }

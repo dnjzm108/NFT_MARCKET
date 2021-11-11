@@ -13,7 +13,7 @@ const Test = () => {
              {/* <Invoice></Invoice> */}
             {/* <Footter></Footter> */}
              {/* <Release /> */}
-            {/* <Notice_Delivery/> */}
+            <Notice_Delivery/>
 
             {/* <Seller_Apply></Seller_Apply> */}
 
