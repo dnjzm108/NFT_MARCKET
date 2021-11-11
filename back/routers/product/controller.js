@@ -72,7 +72,7 @@ let other_product = async(req,res) =>{
 
 let order = async (req,res) =>{
    let {product_id,buyer,price,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover} = req.body
-console.log(product_id,buyer,price,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover);
+
    //오더 테이블 추가
    let order_parms=[product_id,price,buyer,qty]
    let create_order = await execute(create_order_sql(),order_parms)
@@ -81,20 +81,18 @@ console.log(product_id,buyer,price,qty,product_no,reciever,request,recieve_type,
     //배송정보 추가
     let delievery_parms=[insertId,reciever,request,recieve_type,phone_number,address]
    let create_delievery = await execute(create_delievery_sql(),delievery_parms)
-    console.log(create_delievery);
 
 
    //상품 재고 수정
    let minus_leftover= leftover - qty
    let product_parms=[minus_leftover,product_no]
    let update_product = await execute(update_product_sql(),product_parms)
-   console.log(update_product);
 
    //상품 디테일 재고 수정
    let minus_rest= rest - qty
    let detail_parms=[minus_rest,product_id]
    let update_detail = await execute(update_detail_sql(),detail_parms)
-   console.log(update_detail);
+
 
 }
 module.exports = {

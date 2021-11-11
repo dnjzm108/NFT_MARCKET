@@ -251,7 +251,7 @@ const Product_detail = () => {
 
                     {ispopup ? 
                         <Deleivery_address  handlePopup={handlePopupImmy} option={option} select_qty={select_qty} product={product_de}/> : ""}
-                    {isAuc ? <AucPopup handlePopup={handlePopupAuc} /> : ""}
+                    {isAuc ? <AucPopup handlePopup={handlePopupAuc} product={product_de} auction_data={auction_data}  /> : ""}
 
                     {product_de[0].type == "auction" ?
                         <Auction_contain>

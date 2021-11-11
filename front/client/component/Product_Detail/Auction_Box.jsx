@@ -2,10 +2,12 @@ import Button from '../Button'
 import { useEffect, useState } from 'react';
 import { Auction_Wrap ,Auction_History_Wrap} from './Auction.css'
 
+
 export const Auction = (props) => {
+    
      const {auction_data} = props;
     const [isLoading, setIsLoading] = useState(true)
-let {length} = auction_data
+
 
 useEffect(()=>{
 if(auction_data[0] !== undefined){
@@ -41,7 +43,6 @@ if(isLoading){
 export const Auction_History = (props) => {
     const {auction_data} = props;
     const [isLoading, setIsLoading] = useState(true)
-    let {length} = auction_data
 
     useEffect(()=>{
     if(auction_data[0] !== undefined){
@@ -49,6 +50,7 @@ export const Auction_History = (props) => {
     }
     },[props.auction_data])
     
+
     if(isLoading){
         return(
             <span>로딩중</span>
