@@ -4,24 +4,23 @@ const unlinkFile = util.promisify(fs.unlink)
 const { query,execute } = require("../../pool")
 const {uploadProfile} = require("../../s3")
 const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_seller,seller_info_sql} =require("../../sql/user")
+const { successData } = require("../../returnData");
 
 let join = async (req,res) =>{
     
     
     let {nickname,wallet,email,picture} = req.body
-    // let {file} = req;
-    // const image = await uploadProfile(file,nickname)
-    // console.log("imglocation",image.Location);
-    // await unlinkFile(file.path)  
-    let img = 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'
+    let {file} = req;
+    const image = await uploadProfile(file,nickname)
+    await unlinkFile(file.path)  
 
     try{
-        let params = [nickname,wallet,email,img]
+        let params = [nickname,wallet,email,image.Location]
         const result = await execute(join_sql(),params)
         let user_info = {
             nickname,wallet,email,picture
         }
-        res.json(user_info)
+        res.json(successData(user_info))
 
     }catch(e){
         console.log(e);
@@ -47,10 +46,9 @@ let login = async (req,res) =>{
                 seller_no:seller_info.seller_no,
                 status:seller_info.kyc_status
             }
-            console.log(info);
             res.json(info)
         }else{
-            res.json(result)
+            res.json(successData(result))
         }
     }else{
         res.json(false)
@@ -63,31 +61,29 @@ let name_check = async (req,res) =>{
     let params = [name]
     const [result] = await execute(name_check_sql(),params)
     if( result !== undefined){
-        res.json(false)
+        res.json(successData(false))
     }else{
-        res.json(true)
+        res.json(successData(true))
     }
 }
 
 let admin = async(req,res) =>{
-    console.log("admin");
     let {id,pw} = req.body;
     let params = [id,pw]
     const [result] = await execute(admin_login(),params)
-    console.log(result);
      if( result !== undefined){
-        res.json(true)
+        res.json(successData(true))
     }else{
-        res.json(false)
+        res.json(successData(false))
     }
 }
 
 let checkseller = async(req,res) =>{
      let {data} = req.body
-     console.log(data);
+    
      let params = [data]
     const result = await execute(check_seller_sql(),params)
-    res.json(result)
+    res.json(successData(result))
     
 }
 
@@ -95,9 +91,8 @@ let chageseller = async(req,res) =>{
     let {status,nickname}=req.body
     let params=[status,nickname]
     const result = await execute(update_seller(),params)
-    console.log(result);
 
-    res.json(result)
+    res.json(successData(result))
 }
 module.exports={
     join,

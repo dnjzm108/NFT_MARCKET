@@ -58,9 +58,9 @@ const Navigation = () => {
         </Logo>
         <NavItemContainer>
 
-//           <form onSubmit={(e) => handleSubmit(e)}>
-//             <input type="text" onChange={(e) => handleSearch(e)} />
-//           </form>
+           <form onSubmit={(e) => handleSubmit(e)}>
+             <input type="text" onChange={(e) => handleSearch(e)} />
+           </form>
 
 
           <NavItem
