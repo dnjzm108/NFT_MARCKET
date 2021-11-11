@@ -1,5 +1,5 @@
 const { query, execute } = require("../../pool")
-const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delievery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,chage_product_likes,notice_order_sql } = require("../../sql/product")
+const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,chage_product_likes,notice_order_sql } = require("../../sql/product")
 
 let product_detail = async (req, res) => {
     let { product_no } = req.body
@@ -90,8 +90,8 @@ let order = async (req,res) =>{
     
    let {insertId} = create_order
     //배송정보 추가
-    let delievery_parms=[insertId,reciever,request,recieve_type,phone_number,address]
-   let create_delievery = await execute(create_delievery_sql(),delievery_parms)
+    let delivery_parms=[insertId,reciever,request,recieve_type,phone_number,address]
+   let create_delivery = await execute(create_delivery_sql(),delivery_parms)
 
 
    //상품 재고 수정
