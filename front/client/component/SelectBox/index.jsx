@@ -30,7 +30,7 @@ const SelectBox = ({list,value,onChangeValue,useImg,width}) => {
   const renderList = () =>{
     return list.map((v,i)=>{
       return <SelectItem onClick={()=>{handleClick(i)}} key={i}>
-              <span>{v}</span>  
+              <span>{v}</span>
             </SelectItem>
     })
   }

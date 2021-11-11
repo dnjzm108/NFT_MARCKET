@@ -11,10 +11,7 @@ const initialState = {
 }
 
 
-const MINT_REQUEST = "MINT_REQUEST"
-const MINT_SUCCESS = "MINT_SUCCESS"
-const MINT_ERROR = "MINT_ERROR"
-const UPDATE_LIST ='UPDATE_LIST'; 
+
 const LIST_UPDATE_REQUEST = 'LIST_UPDATE_REQUEST'; 
 const LIST_UPDATE_SUCCESS = 'LIST_UPDATE_SUCCESS'; 
 const LIST_UPDATE_ERROR = 'LIST_UPDATE_ERROR'; 
@@ -40,7 +37,6 @@ const reducer = (state = initialState,action) => {
               status:action.data.status,
               page:action.data.page,
               rows:action.data.rows,
-              list:[]
           }
 
       case LIST_UPDATE_SUCCESS:

@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 export const StyledSell = styled.div`
-margin-top: 10%;
+/* margin-top: 10%; */
 width: 100%;
-border-top: 1px solid #d5d5d5;
 color: #222;
 .sell_section{
     width: 100%;
+    /* height: 620px; */
 }
 
 .sell_section>h3{
     display: inline-block;
-    margin-top: 6%;
+    margin-top: 10%;
     font-size: 22px;
 }
 
@@ -47,6 +47,7 @@ color: #222;
     background: #f0f9ff;
     padding: 4%;
     box-sizing: border-box;
+    margin-top: 12%;
 }
 
 .buynow{
