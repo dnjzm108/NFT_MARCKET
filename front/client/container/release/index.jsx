@@ -13,8 +13,8 @@ import { Mint_REQUEST } from '../../reducers/mint';
 import Router from "next/router";
 
 
-const Release = () => {
-    const {isLoading} = useSelector(state=>state.mint)
+const Release = ({mint}) => {
+    const {isLoading,maincate} = useSelector(state=>state.mint)
     const {user_info} = useSelector(state=>state.user)
     const dispatch = useDispatch()
     const title = useInput();
@@ -27,7 +27,6 @@ const Release = () => {
     const [isNow,setIsNow] = useState(true);
     const [isClick,setIsClick]=useState([false,false])
     
-
     // 즉시구매를 선택한 경우
     const handleNow = () => {
         setIsNow(true);
@@ -115,7 +114,7 @@ const Release = () => {
                             handleImg={fileSelected}
                         />
                     </div>
-                    {/* <Thumbnail /> */}
+                    <Thumbnail />
                 </div>
                 <ProductOption 
                 isNow={isNow} 

@@ -31,7 +31,7 @@ const mint_nft = async(req,res)=>{
   const category = 'A103As0000';
   const productOpparams = [optionColor,optionSize,optionEtc]
   const productOp = await execute(prdctDetail_sql(),productOpparams)
-  console.log("ff",productOp);
+  // console.log("ff",productOp);
   // const id_result = await query(productNum_sql())
   
   // const toAddress='0x25390A007D19Ce6014F47ce4b79FaAffbf3Df3D3'
@@ -63,7 +63,7 @@ const mint_nft = async(req,res)=>{
     // const tokenURI = metadata.Location;
         
 
-
+  
 
   const data = {
     success:true,
@@ -73,6 +73,12 @@ const mint_nft = async(req,res)=>{
   res.json(data)
 }
 
+const maincate = async(req,res)=>{
+  const result = await query(`select * from bigcategory`)
+  res.json(result)
+}
+
 module.exports={
   mint_nft,
+  maincate
 }
