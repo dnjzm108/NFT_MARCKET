@@ -7,12 +7,14 @@ const Gallery = () => {
   const renderNFTItem = ()=>{
     return nft.map((v,i)=>{
       return <NFT 
-        key={v.nft_id}
-        nft_id={v.nft_id}
-        title={v.title}
+        key={v.product_no}
+        type={v.type}
+        product_no={v.product_no}
+        name={v.name}
+        price={v.price}
         creater = {v.creater}
-        like = {v.like}
-        image = {v.nft_image}
+        likes = {v.likes}
+        img = {v.img}
       />
     })
   }

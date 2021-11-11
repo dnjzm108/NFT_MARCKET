@@ -22,6 +22,7 @@ async function exploreAPI(data){
     if(params.search==null){
         delete params.search
     }
+    console.log(params)
     return  await axios.get(`${url}/nft`,{params})
 }
 
@@ -29,12 +30,13 @@ async function exploreAPI(data){
 function* explore(action){
     let result = yield call(exploreAPI,action.data)
     let {data} = result
+    console.log(data)
     if (data.success) {
         yield put({
             type: 'EXPLORE_SUCCESS',
             data:{
-                nft:data.nft,
-                skip:data.skip
+                nft:data.response.nft,
+                skip:data.response.skip
             }
 
         })
@@ -50,6 +52,7 @@ function* explore(action){
 }
 
 async function getFilterDataAPI(){
+    console.log(url)
     return  await axios.get(`${url}/nft/filter`)
 }
 

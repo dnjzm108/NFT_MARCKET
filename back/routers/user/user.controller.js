@@ -7,6 +7,7 @@ const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_sel
 
 let join = async (req,res) =>{
     
+    
     let {nickname,wallet,email,picture} = req.body
     // let {file} = req;
     // const image = await uploadProfile(file,nickname)

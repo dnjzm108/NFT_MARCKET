@@ -10,7 +10,7 @@ const Auction = () =>{
     const price = useInput();
 
     useEffect(()=>{
-        console.log(termCategory.termList)
+        // console.log(termCategory.termList)
     })
 
     return(
