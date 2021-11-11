@@ -3,6 +3,8 @@ const router = express.Router()
 
 const controller = require('./controller')
 
+router.post('/notice_order',controller.notice_order)
+router.post('/applyauction',controller.applyauction)
 router.post('/order',controller.order)
 router.post('/other_product',controller.other_product)
 router.post('/auction_info',controller.auction_info)

@@ -39,12 +39,6 @@ export const User_Join_Check = (data) =>{
     }
 }
 
-export const User_Logout = () => {
-    return {
-        type: USER_LOGOUT
-    }
-}
-
 export const UserLogin_REQUEST = data => {
     return {
         type: USER_LOGIN_REQUEST,
@@ -82,8 +76,7 @@ const reducer = (state = initalState,action) => {
         case USER_LOGIN_ERROR:
             return {
                 ...state,
-                loadding: false,
-                data: action.data,
+                loadding: false
             }
 
         case USER_JOIN_REQUEST:

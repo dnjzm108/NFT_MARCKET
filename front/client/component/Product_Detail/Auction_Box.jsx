@@ -2,10 +2,12 @@ import Button from '../Button'
 import { useEffect, useState } from 'react';
 import { Auction_Wrap ,Auction_History_Wrap} from './Auction.css'
 
+
 export const Auction = (props) => {
+    
      const {auction_data} = props;
     const [isLoading, setIsLoading] = useState(true)
-let {length} = auction_data
+
 
 useEffect(()=>{
 if(auction_data[0] !== undefined){
@@ -41,7 +43,6 @@ if(isLoading){
 export const Auction_History = (props) => {
     const {auction_data} = props;
     const [isLoading, setIsLoading] = useState(true)
-    let {length} = auction_data
 
     useEffect(()=>{
     if(auction_data[0] !== undefined){
@@ -49,6 +50,7 @@ export const Auction_History = (props) => {
     }
     },[props.auction_data])
     
+
     if(isLoading){
         return(
             <span>로딩중</span>
@@ -59,9 +61,9 @@ export const Auction_History = (props) => {
         <Auction_History_Wrap>
             <table>
                 <tr>
-                    <th>낙찰된 날짜</th>
-                    <th>낙찰가</th>
-                    <th>낙찰받은 사람</th>
+                    <th>입찰한 시간</th>
+                    <th>입찰가</th>
+                    <th>입찰한 사람</th>
                 </tr>
                 {
                     auction_data.map((v,i)=>{

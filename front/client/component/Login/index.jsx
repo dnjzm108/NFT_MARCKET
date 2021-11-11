@@ -10,7 +10,7 @@ import Router from "next/router"
 import { User_Logout } from '../../reducers/user';
 
 export const logout = () =>{
-    dispatch(User_Logout())
+    dispatch(User_Logout)
 }
 
 const Login = () => {
@@ -28,8 +28,9 @@ const Login = () => {
                 "wallet": wallet[0]
             }
             if (wallet !== undefined) {
-                await dispatch(UserLogin_REQUEST(user_info))
-                if (state_data.user_info.nickname == undefined) {
+                 dispatch(UserLogin_REQUEST(user_info))
+
+                if (state_data.user_info.nickname == undefined){
                     Router.push('/user/join')
                 } else {
                     Router.push('/')

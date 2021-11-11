@@ -2,8 +2,10 @@ import { Popup_background } from "../wrap/popup_background"
 import CloseIcon from '@mui/icons-material/Close';
 import {StyledNowPopup} from "./Product_Detail.css"
 import Button from "../Button"
+import { useSelector } from 'react-redux';
 
 const NowPopup = (props) => {
+    const state_data = useSelector(state => state.user)
     console.log('00000000000000',props);
     const {product,select_qty,option} = props;
 

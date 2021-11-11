@@ -83,7 +83,7 @@ const other_product_sql = (sql) =>{
 //필요한값 상품상세번호 ,가격,산사람,수량
 const create_order_sql = () => {
     return (
-        `INSERT INTO order ("product_id","price","buyer","qty") VALUES(?,?,?,?)`
+        `INSERT INTO orders (product_id,price,buyer,qty) VALUES(?,?,?,?)`
     )
 }
 
@@ -111,6 +111,47 @@ const update_detail_sql = () =>{
     )
 }
 
+//경매 입찰
+// 경매 아이디,입찰자,입찰가격
+const bid_auction_sql = () => {
+    return (
+        `INSERT INTO auction_history (auction_id,bider,bid,status) VALUES(?,?,?,"입찰")`
+    )
+}
+
+//경매 히스토리 바꿔주기
+
+const chage_history_sql = () =>{
+    return(
+        `UPDATE auction_history SET status = "유찰" WHERE auction_history_id = ?`
+    )
+}
+
+//상품 좋아요 수정해주기 
+
+const chage_product_likes = () =>{
+    return(
+    `UPDATE product SET likes = ? WHERE product_no = ?`
+    )
+}
+
+
+//주문 배송 정보
+
+const notice_order_sql = () =>{
+    return(
+        `SELECT A.price,A.buyer,A.qty,B.dlvy_id,B.reciever,B.address,B.invoice,B.delievery_company,B.phone_number,B.request,C.color,C.size,D.name FROM orders as A
+        LEFT JOIN delievery as B
+        ON A.order_id = B.order_id
+        LEFT JOIN product_detail as C
+        ON A.product_id = C.product_id
+        LEFT JOIN product as D
+        ON C.product_no = D.product_no
+        WHERE A.order_id = ?
+        `
+    )
+}
+
 module.exports = {
     show_product_detail,
     product_img,
@@ -123,5 +164,9 @@ module.exports = {
     create_order_sql,
     create_delievery_sql,
     update_product_sql,
-    update_detail_sql
+    update_detail_sql,
+    bid_auction_sql,
+    chage_history_sql,
+    chage_product_likes,
+    notice_order_sql
 }

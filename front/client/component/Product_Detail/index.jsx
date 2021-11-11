@@ -44,7 +44,7 @@ const Product_detail = () => {
     }
     const info = {
         product_no: id,
-        nickname: state_data.user_info.nickname
+        nickname: state_data.user_info.nickname,
     }
 
     useEffect(async () => {
@@ -57,16 +57,15 @@ const Product_detail = () => {
             let { product_id } = result.data.product[0]
             let {product_no} = result.data.product[0]
             if (type == "auction") {
-
                 let autcion_info = {
                     product_id
                 }
+                console.log(product_id);
                 let result = await axios.post(`${url}/product/auction_info`, autcion_info)
                 setAuction_info(result.data)
-
             }
             if (state_data.user_info.nickname !== undefined) {
-                let checking_like = await axios.post(`${url}/product/auction_info`, info)
+                let checking_like = await axios.post(`${url}/product/check_like`, info)
                 if (checking_like.data == false) {
                     setLikes(false)
                 } else {
@@ -112,23 +111,28 @@ const Product_detail = () => {
     }, [qty])
 
     const handlePopupImmy = () => {
-        setIsPopup(!ispopup)
-        // if(state_data.user_info.nickname !==undefined){
-        //     setIsPopup(!ispopup)
-        // }else{
-        //     alert("로그인을 진행해주세요")
-        // }
         
+        if(ispopup == false){
+            if(state_data.user_info.nickname !==undefined){
+                setIsPopup(!ispopup)
+            }else{
+                alert("로그인을 진행해주세요")
+            }
+        }else{
+            setIsPopup(!ispopup)
+        }
     }
     const handlePopupAuc = () => {
-        setIsAuc(!isAuc)
-        // if(state_data.user_info.nickname !==undefined){
-        //     setIsAuc(!isAuc)
-        // }else{
-        //     alert("로그인을 진행해주세요")
-        // }
-            
-        
+
+        if(isAuc == false){
+            if(state_data.user_info.nickname !==undefined){
+                setIsAuc(!isAuc)
+            }else{
+                alert("로그인을 진행해주세요")
+            }
+        }else{
+            setIsAuc(!isAuc)
+        }
     }
 
     const changeAuction = () => {
@@ -145,14 +149,19 @@ const Product_detail = () => {
         slidesToScroll: 1
     }
     const onclickLike = async () => {
+        let like_info = {
+            product_no: id,
+            nickname: state_data.user_info.nickname,
+            likes :product_de[0].likes
+        }
         if (state_data.user_info.nickname == undefined) {
             alert('로그인을 진행해 주세요')
         } else {
             if (likes == true) {
-                let result = await axios.post(`${url}/product/delete_like`, info)
+                let result = await axios.post(`${url}/product/delete_like`, like_info)
                 setLikes(false)
             } else {
-                let result = await axios.post(`${url}/product/create_like`, info)
+                let result = await axios.post(`${url}/product/create_like`, like_info)
                 setLikes(true)
             }
         }
@@ -251,7 +260,7 @@ const Product_detail = () => {
 
                     {ispopup ? 
                         <Deleivery_address  handlePopup={handlePopupImmy} option={option} select_qty={select_qty} product={product_de}/> : ""}
-                    {isAuc ? <AucPopup handlePopup={handlePopupAuc} /> : ""}
+                    {isAuc ? <AucPopup handlePopup={handlePopupAuc} product={product_de} auction_data={auction_data}  /> : ""}
 
                     {product_de[0].type == "auction" ?
                         <Auction_contain>

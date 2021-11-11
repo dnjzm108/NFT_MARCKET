@@ -13,6 +13,8 @@ import { useState } from 'react';
 import useInput from '../../hooks/useInput';
 import axios from 'axios';
 import { url } from '../../saga/url'
+import Router from "next/router"
+
 
 const Delivery_Address_Component = (props) => {
     const data = useSelector(state => state.user)
@@ -57,7 +59,9 @@ const Delivery_Address_Component = (props) => {
                 rest: product[option].rest,
                 leftover: product[option].leftover
             }
-            let result = await axios.post(`${url}/product/order`, order_info, { 'Content-type': 'application/json' })
+            let result = await axios.post(`${url}/product/order`, order_info)
+console.log(result.data);
+            Router.push(`/notice/${result.data}`)
     
         } else {
             alert('빈칸을 확인해주세요')
