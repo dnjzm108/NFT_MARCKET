@@ -56,10 +56,99 @@ const check_like_sql = () =>{
 //상품 디테일 아이디
 const auction_detail_sql = () =>{
     return(
-        `SELECT * FROM auction as A 
+        `SELECT A.auction_id,A.product_id,date_format(A.deadline,'%y-%m-%d %h:%i')as deadline,A.option,B.auction_history_id,B.bider,B.bid,B.status,date_format(B.date,'%y-%m-%d %h:%i')as date FROM auction as A 
         LEFT JOIN auction_history as B
         ON B.auction_id = A.auction_id
-        WHERE A.product_id = ?`
+        WHERE A.product_id = ?
+        ORDER BY B.date DESC`
+    )
+}
+
+//추천 상품
+// 상품 번호 4자리 
+const other_product_sql = (sql) =>{
+    return(
+        `SELECT A.product_no,B.img FROM product as A
+        LEFT JOIN product_image as B
+        ON B.product_no = A.product_no
+        WHERE A.product_no LIKE "${sql}%" AND A.product_no NOT IN (?)
+        GROUP BY A.product_no
+        ORDER BY A.likes DESC
+        LIMIT 4`
+    )
+}
+
+
+//주문 등록(order)
+//필요한값 상품상세번호 ,가격,산사람,수량
+const create_order_sql = () => {
+    return (
+        `INSERT INTO orders (product_id,price,buyer,qty) VALUES(?,?,?,?)`
+    )
+}
+
+//배송정보 등록
+
+const create_delievery_sql = () =>{
+    return(
+`INSERT INTO delievery (order_id,reciever,request,recieve_type,phone_number,address,status) VALUES(?,?,?,?,?,?,"요청")`
+    )
+}
+
+//상품 수정
+
+const update_product_sql = () =>{
+    return(
+        `UPDATE product set leftover = ? WHERE product_no = ?`
+    )
+}
+
+//디테일 수정 
+
+const update_detail_sql = () =>{
+    return(
+        `UPDATE product_detail set rest = ? WHERE product_id = ?`
+    )
+}
+
+//경매 입찰
+// 경매 아이디,입찰자,입찰가격
+const bid_auction_sql = () => {
+    return (
+        `INSERT INTO auction_history (auction_id,bider,bid,status) VALUES(?,?,?,"입찰")`
+    )
+}
+
+//경매 히스토리 바꿔주기
+
+const chage_history_sql = () =>{
+    return(
+        `UPDATE auction_history SET status = "유찰" WHERE auction_history_id = ?`
+    )
+}
+
+//상품 좋아요 수정해주기 
+
+const chage_product_likes = () =>{
+    return(
+    `UPDATE product SET likes = ? WHERE product_no = ?`
+    )
+}
+
+
+//주문 배송 정보
+
+const notice_order_sql = () =>{
+    return(
+        `SELECT A.price,A.buyer,A.qty,B.dlvy_id,B.reciever,B.address,B.invoice,B.delievery_company,B.phone_number,B.request,C.color,C.size,D.name FROM orders as A
+        LEFT JOIN delievery as B
+        ON A.order_id = B.order_id
+        LEFT JOIN product_detail as C
+        ON A.product_id = C.product_id
+        LEFT JOIN product as D
+        ON C.product_no = D.product_no
+        WHERE A.order_id = ?
+        `
     )
 }
 
@@ -70,5 +159,14 @@ module.exports = {
     delete_like_sql,
     change_like,
     check_like_sql,
-    auction_detail_sql
+    auction_detail_sql,
+    other_product_sql,
+    create_order_sql,
+    create_delievery_sql,
+    update_product_sql,
+    update_detail_sql,
+    bid_auction_sql,
+    chage_history_sql,
+    chage_product_likes,
+    notice_order_sql
 }

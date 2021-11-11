@@ -8,7 +8,7 @@ const join_sql = () => {
 //로그인 구문
 //필요값 지갑주소
 const login_sql = () => {
-    return (`select * from user where wallet = ?`
+    return (`SELECT * FROM user WHERE wallet = ?`
     )
 }
 
@@ -50,7 +50,7 @@ const admin_login = () => {
 //필요값 닉네임,사업자 번호
 const apply_seller = () => {
     return (
-        `INSERT INTO seller("user_id", "seller_no", "kyc_status") VALUES(?,?,"요청")`
+        `INSERT INTO seller(user_id, seller_no, kyc_status) VALUES(?,?,"요청")`
     )
 }
 
@@ -59,7 +59,7 @@ const apply_seller = () => {
 //필요값 닉네임 , 상태값
 const update_seller = () => {
     return (
-        `UPDATE seller set kyc_status =  ? WHERE user_id =  ? `
+        `UPDATE seller set kyc_status =  ? WHERE nickname =  ? `
     )
 }
 
@@ -70,7 +70,15 @@ const check_seller_sql = () => {
     return (
         `SELECT A.seller_no,B.nickname,B.email FROM seller as A
         LEFT JOIN user as B
-        ON A.user_id = B.nickname WHERE kyc_status = ? `
+        ON A.nickname = B.nickname WHERE kyc_status = ? `
+    )
+}
+
+//판매자 정보
+// 닉네임
+const seller_info_sql=()=>{
+    return(
+        `SELECT * FROM seller WHERE nickname = ?`
     )
 }
 
@@ -83,5 +91,6 @@ module.exports = {
     admin_login,
     apply_seller,
     update_seller,
-    check_seller_sql
+    check_seller_sql,
+    seller_info_sql
 }

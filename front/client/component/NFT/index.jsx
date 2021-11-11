@@ -4,7 +4,7 @@ import { BsSuitHeartFill } from "react-icons/bs";
 import Link from "next/link";
 import  Router  from "next/router";
 
-const NFT = ({nft_id,title,creater,like,image}) => {
+const NFT = ({type,product_no,price,name,creater,likes,img}) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = (event) => {
@@ -15,7 +15,7 @@ const NFT = ({nft_id,title,creater,like,image}) => {
     ) {
       console.log("조아요 클릭");
     } else {
-      Router.push(`/nft/${nft_id}`)
+      Router.push(`/nft/${product_no}`)
     }
   };
 
@@ -28,27 +28,38 @@ const NFT = ({nft_id,title,creater,like,image}) => {
       }}
     >
       <div className="img_container">
-        <img src={image} alt="" />
+        <img src={img} alt="" />
       </div>
       <div className="content_container">
         <div className="content_top">
           <div className="content_top_left">
             <span className="content_name">
-              {title}
+              {name}
             </span>
             <span className="content_creater">{creater}</span>
           </div>
           <div className="content_top_right">
+            {type==='buy'
+            &&
+            <>
             <div>Price</div>
             <div className="content_price">
               <img src="/klay.png" alt="" />
-              <span>100</span>
-            </div>
-            <div className="content_offer">
-              Offer for
-              <img src="/klay.png" alt="" />
-              <span>0.00001</span>
-            </div>
+              <span>{price}</span>
+              </div>
+            </>            
+            }
+            {type==='auction'
+            &&
+            <>
+              <div>Bid</div>
+              <div className="content_price">
+                <img src="/klay.png" alt="" />
+                <span>{price}</span>
+              </div>
+            </>
+            }
+            
           </div>
         </div>
       </div>
@@ -59,7 +70,7 @@ const NFT = ({nft_id,title,creater,like,image}) => {
           <i className="like_btn">
             <BsSuitHeartFill size={16} />
           </i>
-          <span>{like}</span>
+          <span>{likes}</span>
         </div>
       </div>
     </StyledNFT>

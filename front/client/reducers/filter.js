@@ -5,7 +5,7 @@ const initalState = {
     designer:[],
     price_min:null,
     price_max:null,
-    type:"immy",
+    type:"buy",
     search:null,
     sort:null,
     skip:0,

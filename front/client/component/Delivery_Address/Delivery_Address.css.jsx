@@ -13,9 +13,13 @@ export const Table = styled.table`
     border: 1px solid black;
 }
 & > tr > td{
-    padding: 10px;
+    padding: 5px;
     box-sizing: border-box;
 
+}
+& > tr > td > img{
+    width: 20px;
+    height: 20px;
 }
 & > tr > td:nth-child(1){
     width: 30%;
@@ -48,6 +52,7 @@ export const Table = styled.table`
 `
 export const AddressFind = styled.button`
 padding: 12px 20px;
+box-sizing: border-box;
 background: #ffff;
 border: 1px solid #000000;
 `

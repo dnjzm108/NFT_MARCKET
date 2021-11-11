@@ -26,6 +26,11 @@ export const Table = styled.table`
     padding: 10px;
     box-sizing: border-box;
 }
+
+&>tr>td>img{
+    width: 15px;
+    height: 15px;
+}
 `
 
 export const Under_line = styled.div`

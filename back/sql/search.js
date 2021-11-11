@@ -69,21 +69,7 @@ const create_img = () => {
 }
 
 
-//주문 등록(order)
-//필요한값 상품상세번호 ,가격,산사람,수량
-const create_order = () => {
-    return (
-        `INSERT INTO order ("product_detail","price","buyer","qry") VALUES(?,?,?,?)`
-    )
-}
 
-//경매 입찰
-// 경매 아이디,입찰자,입찰가격,타입
-const bid_oction = () => {
-    return (
-        `INSERT INTO auction_history ("auction_id","bider","bid","type") VALUES(?,?,?,?)`
-    )
-}
 
 
 
@@ -268,7 +254,7 @@ GROUP BY A.id`
 ////////======메인페이지 상품리스트 쿼리=====////////
 function makeFilterQuery(query){
     const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
-  
+    console.log(query)
      const where = makeWhereVerse(query);
      const order = sortVerse(sort); 
       let sql;
@@ -374,8 +360,8 @@ function makeFilterQuery(query){
 
   function makeWhereVerse(query){
     const {type,price_min,price_max,designer,category,sort,search,skip,} = query;
-    let where = `WHERE rest>0`
-    if(designer.length>0){
+    let where = `WHERE leftover>0`
+    if(designer!=undefined &&designer.length>0){
       where += ' AND '+makeSignVerse('creater','=',designer);
     }
     if(price_min!=undefined && price_max!=undefined){
@@ -387,8 +373,6 @@ function makeFilterQuery(query){
     if(search!=undefined){
       where +=' AND ' + `(creater like '%${search}%' OR name like '%${search}%')`;
     }
-  
-    where += sortVerse(sort); 
   
     return where; 
   }
