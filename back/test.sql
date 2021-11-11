@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `auction` (
   CONSTRAINT `FK_auction_product_detail` FOREIGN KEY (`product_id`) REFERENCES `product_detail` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
--- 테이블 데이터 nft_market.auction:~6 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.auction:~4 rows (대략적) 내보내기
 DELETE FROM `auction`;
 /*!40000 ALTER TABLE `auction` DISABLE KEYS */;
 INSERT INTO `auction` (`auction_id`, `product_id`, `deadline`, `option`) VALUES
@@ -318,12 +318,12 @@ DELETE FROM `product`;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`product_no`, `name`, `explain`, `creater`, `date`, `likes`, `type`, `total_qty`, `leftover`) VALUES
 	('A103As0000', '셔츠입니다.', '셔츠에요', 'jin', '2021-11-07 20:38:14', 0, 'auction', NULL, 10),
-	('A103As0001', '셔츠2', '셔츠입니다', 'seong', '2021-11-10 10:40:42', 5, 'immy', NULL, NULL),
+	('A103As0001', '셔츠2', '셔츠입니다', 'seong', '2021-11-10 10:40:42', 5, 'buy', NULL, NULL),
 	('A103As0002', '셔츠3', '셔츠3 라네', 'jeong', '2021-11-10 10:41:36', 3, 'auction', NULL, NULL),
-	('A103As0003', '셔츠4', '셔츠4라네 ', 'jeong', '2021-11-10 10:42:12', 4, 'immy', NULL, NULL),
-	('A103As0004', '셔츠5', '셔츠5', 'jin', '2021-11-10 10:42:42', 1, 'auction', NULL, NULL),
-	('A104As0000', '바지', '그냥 바지입니다', 'jin', '2021-11-07 20:44:36', 0, '', NULL, NULL),
-	('B108Aw0000', '아우터', '아우터입니다.', 'seong', '2021-11-07 20:39:20', 0, '', NULL, NULL);
+	('A103As0003', '셔츠4', '셔츠4라네 ', 'jeong', '2021-11-10 10:42:12', 4, 'buy', NULL, NULL),
+	('A103As0004', '셔츠5', '셔츠5', 'jin', '2021-11-10 10:42:42', 1, 'buy', NULL, NULL),
+	('A104As0000', '바지', '그냥 바지입니다', 'jin', '2021-11-07 20:44:36', 0, 'buy', NULL, NULL),
+	('B108Aw0000', '아우터', '아우터입니다.', 'seong', '2021-11-07 20:39:20', 0, 'auction', NULL, NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- 테이블 nft_market.product_detail 구조 내보내기
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `product_image` (
   CONSTRAINT `FK_product_image_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 테이블 데이터 nft_market.product_image:~10 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.product_image:~0 rows (대략적) 내보내기
 DELETE FROM `product_image`;
 /*!40000 ALTER TABLE `product_image` DISABLE KEYS */;
 INSERT INTO `product_image` (`product_no`, `img`) VALUES
@@ -388,7 +388,7 @@ CREATE TABLE IF NOT EXISTS `seller` (
   CONSTRAINT `FK_seller_user` FOREIGN KEY (`nickname`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 테이블 데이터 nft_market.seller:~2 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.seller:~0 rows (대략적) 내보내기
 DELETE FROM `seller`;
 /*!40000 ALTER TABLE `seller` DISABLE KEYS */;
 INSERT INTO `seller` (`nickname`, `seller_no`, `kyc_status`) VALUES
@@ -405,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 테이블 데이터 nft_market.user:~3 rows (대략적) 내보내기
+-- 테이블 데이터 nft_market.user:~0 rows (대략적) 내보내기
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`nickname`, `wallet`, `email`, `picture`) VALUES
