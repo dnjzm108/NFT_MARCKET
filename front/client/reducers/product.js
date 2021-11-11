@@ -3,13 +3,24 @@ const initalState = {
     product_info: [],
     other_product: [],
     auction_info: [],
-    product_img:[]
+    product_img:[],
+    auctions:false
 }
 
 const PRODUCT_PAGE_REQUEST = "PRODUCT_PAGE_REQUEST"
 const PRODUCT_PAGE_SUCCESS = "PRODUCT_PAGE_SUCCESS"
 const PRODUCT_PAGE_ERROR = "PRODUCT_PAGE_ERROR"
 
+const APPLY_AUCTION = "APPLY_AUCTION"
+const AUCTION_SUCCEESS = "AUCTION_SUCCEESS"
+const AUCTION_ERROR = "AUCTION_ERROR"
+
+export const Apply_Auction = (data) => {
+    return {
+        type: APPLY_AUCTION,
+        data
+    }
+}
 export const Product_Page_Request = (data) => {
     return {
         type: PRODUCT_PAGE_REQUEST,
@@ -52,7 +63,24 @@ const reducer = (state = initalState, action) => {
                 ...state,
                 loadding: false
             }
-
+        case APPLY_AUCTION:
+            return{
+                ...state,
+                loadding:true,
+                auctions:true
+            }
+        case AUCTION_SUCCEESS:
+            return{
+                ...state,
+                loadding:false,
+                auctions:false
+            }
+        case AUCTION_ERROR:
+            return{
+                ...state,
+                loadding:false,
+                auctions:false
+            }
         default:
             return state
     }

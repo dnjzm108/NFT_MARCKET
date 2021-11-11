@@ -68,11 +68,11 @@ function* admin(action){
     }
 }
 
+
 function* watchUser(){
     yield takeLatest('USER_LOGIN_REQUEST',login)
     yield takeLatest('USER_JOIN_REQUEST',join)
-    yield takeLatest('ADMIN_LOGIN',admin)
-
+    yield takeLatest('ADMIN_LOGIN',admin)  
 }
 
 export default function* userSaga(){
