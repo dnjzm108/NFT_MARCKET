@@ -1,4 +1,4 @@
-import Release from '../../container/release'
+import Release from '../container/release'
 const mint = () => {
   return (
     <div>

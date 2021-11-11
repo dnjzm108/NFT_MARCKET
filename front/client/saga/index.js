@@ -3,6 +3,7 @@ import userSaga from './user'
 import mintSaga from './mint'
 import exploreSaga from './explore'
 import TokenSaga from './token'
+import FilterSaga from './filter'
 
 export default function* rootSaga(){
     yield all([
@@ -10,5 +11,6 @@ export default function* rootSaga(){
        fork(mintSaga),
        fork(exploreSaga),
        fork(TokenSaga),
+       fork(FilterSaga),
     ])
 }

@@ -15,14 +15,18 @@ import Router from "next/router";
 
 const Release = () => {
     const {isLoading} = useSelector(state=>state.mint)
+    const {user_info} = useSelector(state=>state.user)
     const dispatch = useDispatch()
     const title = useInput();
     const description = useInput();
+    const optionColor = useInput();
+    const optionSize = useInput();
+    const optionEtc = useInput();
     const [images, setImages] = useState();
     const [agree,setAgree]=useState([false,false]);
     const [isNow,setIsNow] = useState(true);
     const [isClick,setIsClick]=useState([false,false])
-
+    
 
     // 즉시구매를 선택한 경우
     const handleNow = () => {
@@ -55,6 +59,10 @@ const Release = () => {
             }
             formData.append("description", description.value)
             formData.append("title", title.value)
+            formData.append("optionColor", optionColor.value)
+            formData.append("optionSize", optionSize.value)
+            formData.append("optionEtc", optionEtc.value)
+            formData.append("creater",user_info.nickname)
             dispatch(Mint_REQUEST(formData))
     }
 
@@ -68,15 +76,15 @@ const Release = () => {
         if(agree[0]===false ||agree[1]===false){
             alert("개인정보제공 및 유의사항 확인에 동의해주세요")
             return ;
-        }
-        else if(title.value==null || description.value==null || images==null){ 
-            alert("이미지, 텍스트를 모두 입력해주세요.")
-            return;
+        // }
+        // else if(title.value==null || description.value==null || images==null){ 
+        //     alert("이미지, 텍스트를 모두 입력해주세요.")
+        //     return;
         }else if(isClick==false ){
             alert("옵션 선택 완료 버튼을 눌러주세요")
             return;
         }else{
-            alert("상품등록이 완료되었습니다.")
+            // alert("상품등록이 완료되었습니다.")
             handleData();
         }
         Router.push('/')
@@ -109,7 +117,17 @@ const Release = () => {
                     </div>
                     {/* <Thumbnail /> */}
                 </div>
-                <ProductOption isNow={isNow} isClick={isClick} setIsClick={setIsClick}/>
+                <ProductOption 
+                isNow={isNow} 
+                isClick={isClick} 
+                setIsClick={setIsClick}
+                optionColor={optionColor.value}
+                setOptionColor={optionColor.onChange}
+                optionSize={optionSize.value}
+                setOptionSize={optionSize.onChange}
+                optionEtc={optionEtc.value}
+                setOptionEtc={optionEtc.onChange}
+                />
                 
                 <AgreeInfo 
                 handleSubmit={handleSubmit}

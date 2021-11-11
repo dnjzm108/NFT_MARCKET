@@ -9,7 +9,7 @@ async function mintAPI(data){
 function* mint(action){
     let result = yield call(mintAPI,action.data)
     const {data} = result; 
-    // console.log(result);
+    console.log("result?",result);
     if(data.success){
       alert(`토큰아이디${data.tokenId}: 발행되었습니다.`)
       yield put({

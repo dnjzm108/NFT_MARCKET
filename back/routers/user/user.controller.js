@@ -16,10 +16,8 @@ let join = async (req,res) =>{
     let img = 'https://s3-practice-third.s3.ap-northeast-2.amazonaws.com/profile/image/sdf.png'
 
     try{
-        
         let params = [nickname,wallet,email,img]
         const result = await execute(join_sql(),params)
-        console.log("hihi",result)
         let user_info = {
             nickname,wallet,email,picture
         }

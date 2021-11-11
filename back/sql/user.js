@@ -1,20 +1,27 @@
-
+//회원가입 구문
+//필요값 닉네임,지갑주소,이메일,사진주소
 const join_sql = () => {
     return (
         `insert into user (nickname,wallet,email,picture) values (?,?,?,?)`
     )
 }
-
+//로그인 구문
+//필요값 지갑주소
 const login_sql = () => {
     return (`select * from user where wallet = ?`
     )
 }
+
+//닉네임 체크 구문
+//필요값 체크할 닉네임
 const name_check_sql = () => {
     return (
         `select nickname from user where nickname = ?`
     )
 }
 
+//회원정보 수정 구문
+//필요값 변경할 이메일 또는 사진
 const update_profile = (email, picture) => {
     let info = ''
     if (email != undefined) {
@@ -31,6 +38,8 @@ const update_profile = (email, picture) => {
     `)
 }
 
+//관리자 로그인
+//필요값 관리자 아이디,비밀번호
 const admin_login = () => {
     return (
         `SELECT * from admin WHERE id = ? AND pw = ?`
@@ -38,7 +47,7 @@ const admin_login = () => {
 }
 
 //판매자 신청
-//닉네임,사업자 번호
+//필요값 닉네임,사업자 번호
 const apply_seller = () => {
     return (
         `INSERT INTO seller("user_id", "seller_no", "kyc_status") VALUES(?,?,"요청")`
@@ -47,7 +56,7 @@ const apply_seller = () => {
 
 
 //판매자 승인
-//닉네임 , 상태값
+//필요값 닉네임 , 상태값
 const update_seller = () => {
     return (
         `UPDATE seller set kyc_status =  ? WHERE user_id =  ? `
@@ -56,7 +65,7 @@ const update_seller = () => {
 
 
 // 판매자 요청 불러오기
-// 상태값
+//필요값 상태값
 const check_seller_sql = () => {
     return (
         `SELECT A.seller_no,B.nickname,B.email FROM seller as A

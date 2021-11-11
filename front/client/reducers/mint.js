@@ -21,7 +21,7 @@ const reducer = (state = initalState,action) => {
     switch (action.type) {
         
         case MINT_REQUEST:
-            console.log("mint_request",action)
+            console.log("mint_request",state)
             return {
                 ...state,
                 isLoading:true

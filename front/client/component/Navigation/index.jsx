@@ -9,14 +9,39 @@ import {
 import NavToggle from "../NavToggle";
 import Button from "../Button";
 import { useState } from "react";
+import useInput from "../../hooks/useInput";
 import { BiUserCircle } from "react-icons/bi";
 import { Router } from 'next/router'
+import Input from '../Input'
+import { useDispatch, useSelector } from "react-redux";
+import { ExploreRequest } from '../../reducers/explore';
+
 // import cn from "classnames";
 
 const Navigation = () => {
   //임사상태
+  const dispatch = useDispatch(); 
   const [isLogin, setIsLogin] = useState(false);
   const [nowItem, setNowItem] = useState(null);
+  const [search,setSearch] = useState()
+  const {filter} = useSelector(state=>state.filter);
+  const {skip} = useSelector(state=>state.explore)
+  const test = useSelector(state=>state.user);
+  const handleSearch = (e)=>{
+    const temp = e.target.value;
+    setSearch(temp)
+    // dispatch(RelatedSearch(temp))
+  }
+
+
+  const handleSubmit =(e)=>{
+    e.preventDefault();
+    const data = {
+      ...filter,
+      search,
+    }
+    dispatch(ExploreRequest(data));
+  }
 
   return (
     <NavigationWrap>
@@ -27,6 +52,9 @@ const Navigation = () => {
           </Link>
         </Logo>
         <NavItemContainer>
+          <form onSubmit={(e)=>handleSubmit(e)}>
+           <input type="text"   onChange={(e)=>handleSearch(e)}/>
+          </form>
           <NavItem
             onClick={() => setNowItem(1)}
             isClicked={nowItem == 1 ? true : false}
@@ -52,13 +80,13 @@ const Navigation = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link href='/user/info?type=profile'><a><i><BiUserCircle size={32}/></i></a></Link>
+            <Link href='/user/profile'><a><i><BiUserCircle size={32}/></i></a></Link>
           </NavItem>
           <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
           {isLogin ? (
             <>
             <NavItem>
-              <Link href='/user/info?type=profile'><a><i><BiUserCircle size={32}/></i></a></Link>
+              <Link href='/user/profile'><a><i><BiUserCircle size={32}/></i></a></Link>
             </NavItem>
               <Button value="로그아웃" color="blue" func={()=>setIsLogin(false)} size="small" />
             </>

@@ -35,7 +35,10 @@ import Slider from "react-slick";
 `
 
 export const Styled_Slide = styled(Slider)`
-
+.slick-slide > div > div> h3 > img{
+    width: 100%;
+    height: 100%;
+} 
 .slick-prev:before, .slick-next:before{
     font-family: 'slick';
     font-size: 40px;
@@ -49,6 +52,7 @@ export const Styled_Slide = styled(Slider)`
     position: relative;
     left: -20px;
 }
+
 `
 
 export const Middle_container = styled.div`
@@ -74,22 +78,32 @@ export const Middle_container = styled.div`
 }
 & > div:nth-child(2){
     display: inline-block;
-    width: 250px;
+    width: 150px;
     height: 150px;
     float: right;
     padding: 30px 0;
     box-sizing: border-box;
 }
 & > div:nth-child(2) > button{
-    width: 200px;
+    width: 80px;
     height: 50px;
     background: #ffffff;
     border: 1px solid #000000;
     border-radius: 10px;
     margin: 5px 0;
+    float: right;
+}
+& > div:nth-child(2) > div{
+    display: inline-block;
+    padding-top: 15px;
+    box-sizing: border-box;
 }
 & > div:nth-child(2) > button:hover{
-    background: #1E73FA;
+    -webkit-box-shadow: 0px 7px 12px 2px rgba(119, 119, 119, 0.3);
+    box-shadow: 0px 7px 12px 2px rgba(119, 119, 119, 0.3);
+    /* box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px; */
+    transition: all 0.1s ease 0s;
+    transform: translateY(-1px);
 }
 & > div:nth-child(2) > button:nth-child(1){
 }

@@ -6,12 +6,15 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Auction, Auction_History } from './Auction_Box';
 import NowPopup from "./NowPopup"
 import AucPopup from "./AucPopup"
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { url } from "../../saga/url"
+import SelectBox from '../SelectBox';
+import useChangeValue from '../../hook/useChangeValue';
 
 
 import "slick-carousel/slick/slick.css"
@@ -19,30 +22,73 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 const Product_detail = () => {
+    const state_data = useSelector(state => state.user)
     const router = useRouter()
     const { id } = router.query
 
     const [auction, setAuction] = useState(true)
     const [ispopup, setIsPopup] = useState(false)
     const [isAuc, setIsAuc] = useState(false)
-    const [ProductImg, setProductImg] = useState('')
-    let product_img = []
+    const [ProductImg, setProductImg] = useState([])
+    const [product_de, setProduct_de] = useState([])
+    const [auction_data, setAuction_info] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [option, setOption] = useState(0)
+    const [likes, setLikes] = useState(false)
+
+    const data = {
+        product_no: id
+    }
+    const info = {
+        product_no: id,
+        nickname: state_data.user_info.nickname
+    }
+
     useEffect(async () => {
         if (id != undefined) {
-            let data = {
-                product_no: id
-            }
             let result = await axios.post(`${url}/product/product_detail`, data)
-            let { img } = result.data
-            img.map((v) => {
-                let test = v.img;
-                product_img.push(test)
-            })
+            setProductImg(result.data.img)
+            setProduct_de(result.data.product)
+            setIsLoading(false)
+            let { type } = result.data.product[0]
+            let { product_id } = result.data.product[0]
+
+            if (type == "auction") {
+               
+                let autcion_info = {
+                    product_id
+                }
+                let result = await axios.post(`${url}/product/auction_info`, autcion_info)
+                console.log(result.data);
+                setAuction_info(result.data)
+               
+            }
+            if (state_data.user_info.nickname !== undefined) {
+
+                let checking_like = await axios.post(`${url}/product/auction_info`, info)
+                if (checking_like.data == false) {
+                    setLikes(false)
+                } else {
+                    setLikes(true)
+                }
+            }
+
         }
-        setProductImg(product_img)
-        product_img.map(v => { console.log(v); })
-        console.log("--------------------------------------------", ProductImg);
     }, [id])
+
+    const list = []
+    product_de.map((v, i) => {
+        return (
+            list.push(`${v.color}(${v.size})(${product_de[i].price - product_de[0].price})`)
+        )
+    })
+    const category = useChangeValue(list)
+    useEffect(() => {
+        // console.log("list+++++",category.list[category.value])
+        // console.log("value+++++",category.value) 
+        // console.log("result+++++",category.result) 
+        setOption(category.value)
+    }, [category])
 
     const handlePopup = () => {
         return (
@@ -64,6 +110,26 @@ const Product_detail = () => {
         slidesToShow: 1,
         slidesToScroll: 1
     }
+    const onclickLike = async () => {
+        if (state_data.user_info.nickname == undefined) {
+            alert('로그인을 진행해 주세요')
+        } else {
+            if (likes == true) {
+                let result = await axios.post(`${url}/product/delete_like`, info)
+                setLikes(false)
+            } else {
+                let result = await axios.post(`${url}/product/create_like`, info)
+                setLikes(true)
+            }
+        }
+
+    }
+
+    if (isLoading) {
+        return (
+            <span>로딩중</span>
+        )
+    }
 
     return (
         <>
@@ -77,10 +143,10 @@ const Product_detail = () => {
                     <div>
                         <Styled_Slide {...settings}>
 
-                            {product_img.map((v) => {
+                            {ProductImg.map((v, i) => {
                                 return (
-                                    <div>
-                                        <h3><img src={v}/></h3>
+                                    <div key={i}>
+                                        <h3><img src={v.img} /></h3>
                                     </div>
                                 )
                             })}
@@ -90,44 +156,58 @@ const Product_detail = () => {
                     </div>
                     <Middle_container>
                         <div>
-                            <h1>오늘도 이렇게 코딩을</h1>
-                            <h3>#123719y847190309</h3>
+                            <h1>{product_de[0].name}</h1>
+                            <h3>{product_de[0].product_no}</h3>
                         </div>
                         <div>
-                            <button><FavoriteBorderIcon /></button>
+                            <div>
+                                <FavoriteBorderIcon />{product_de[0].likes}
+                            </div>
+                            {likes ?
+                                <button style={{ background: "#6e0606" }} onClick={onclickLike}><FavoriteBorderIcon /></button>
+                                :
+                                <button onClick={onclickLike}><FavoriteBorderIcon /></button>
+                            }
+
                         </div>
                     </Middle_container>
                     <Seller_contain>
                         <div>
                             <img src="" alt="" />
                             <h3>Created By</h3>
-                            <h3>product_img</h3>
+                            <h3>{product_de[0].creater}</h3>
                         </div>
                     </Seller_contain>
-                    <Price_contain>
-                        <h4> <img src="/klay.png" alt="" /> 100</h4>
-                        <Button value="즉시 구매" color="sky" func={handlePopup} />
-                    </Price_contain>
+                    <SelectBox {...category} />
+                    {product_de[0].auction_id == null ?
+                        <Price_contain>
+                            <h4> <img src="/klay.png" alt="" /> {product_de[`${option}`].price}</h4>
+                            <Button value="즉시 구매" color="sky" func={handlePopup} />
+                        </Price_contain>
+                        : ''}
 
                     {/* 팝업부분 */}
+
                     {ispopup ? <NowPopup handlePopup={handlePopup} /> : ""}
                     {isAuc ? <AucPopup handlePopup={handlePopup} /> : ""}
 
-                    <Auction_contain>
-                        <ul>
-                            {auction ? <li onClick={changeAuction} style={{ color: "blue" }}>경매 하기</li> : <li onClick={changeAuction}>경매 하기</li>}
-                            {!auction ? <li onClick={changeAuctionHist} style={{ color: "blue" }}>경매 히스토리</li> : <li onClick={changeAuctionHist}>경매 히스토리</li>}
-                        </ul>
+                    {product_de[0].auction_id !== null ?
+                        <Auction_contain>
+                            <ul>
+                                {auction ? <li onClick={changeAuction} style={{ color: "blue" }}>경매 하기</li> : <li onClick={changeAuction}>경매 하기</li>}
+                                {!auction ? <li onClick={changeAuctionHist} style={{ color: "blue" }}>경매 히스토리</li> : <li onClick={changeAuctionHist}>경매 히스토리</li>}
+                            </ul>
 
-                        <div>
-                            {auction ? <Auction handlePopup={handlePopup} /> : <Auction_History />}
+                            <div>
+                                {auction ? <Auction handlePopup={handlePopup} auction_data={auction_data} /> : <Auction_History />}
 
-                        </div>
-                    </Auction_contain>
+                            </div>
+                        </Auction_contain>
+                        : ''}
 
                     <Explain>
                         <h2>삼품 상세</h2>
-                        <h4>이것은 NFT 입니다. </h4>
+                        <h4>{product_de[0].explain} </h4>
                     </Explain>
 
                     <Slide_container>

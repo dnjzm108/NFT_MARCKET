@@ -102,7 +102,7 @@ const Join = (data) => {
                     </Circle>
 
                     <Small_Contain>
-                        <label htmlFor="nickname">닉네임</label>
+                        <label htmlFor="nickname" >닉네임</label>
                         <td>* 5~20자의 한글, 영문 대소문자, 숫자, 특수기호(_),(-),(.)만 사용 가능합니다.</td>
                         <Input {...nickname} func={checking} msg="닉네임을 입력해 주세요" type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
                     </Small_Contain>
