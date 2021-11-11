@@ -3,7 +3,7 @@ const util = require('util')
 const unlinkFile = util.promisify(fs.unlink)
 const { query,execute } = require("../../pool")
 const {uploadProfile} = require("../../s3")
-const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_seller} =require("../../sql/user")
+const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_seller,seller_info_sql} =require("../../sql/user")
 
 let join = async (req,res) =>{
     
@@ -32,12 +32,27 @@ let join = async (req,res) =>{
 let login = async (req,res) =>{
     let {wallet} = req.body
     let params = [wallet]
+
     const [result] = await execute(login_sql(),params)
-console.log(wallet);
-    if(result !== null){
-       res.json(result)
+    if(result !== undefined){
+        let user_params = [result.nickname]
+        const [seller_info] = await execute(seller_info_sql(),user_params)
+        if(seller_info !== undefined){
+            let info = {
+                nickname:result.nickname,
+                wallet:result.wallet,
+                email:result.email,
+                picrure:result.picture,
+                seller_no:seller_info.seller_no,
+                status:seller_info.kyc_status
+            }
+            console.log(info);
+            res.json(info)
+        }else{
+            res.json(result)
+        }
     }else{
-        return false
+        res.json(false)
     }
 
 }
@@ -68,6 +83,7 @@ let admin = async(req,res) =>{
 
 let checkseller = async(req,res) =>{
      let {data} = req.body
+     console.log(data);
      let params = [data]
     const result = await execute(check_seller_sql(),params)
     res.json(result)
