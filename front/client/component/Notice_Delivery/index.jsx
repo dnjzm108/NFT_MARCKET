@@ -1,8 +1,29 @@
 import { Notice_Wrap, Under_line, Table, Btn_Box } from "./Notice_Delivery.css"
 import Navigation from '../Navigation';
 import Button from '../Button'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react';
+import axios from 'axios'
+import { url } from "../../saga/url"
+
+
 
 const Notice_Delivery = () => {
+    const router = useRouter()
+    const { id } = router.query
+    const data = {
+        order_id : id
+    }
+    
+    const [info,setInfo] = useState('')
+
+    useEffect(async()=>{
+        if (id != undefined) {
+            let result = await axios.post(`${url}/product/notice_order`, data)
+            setInfo(result.data.response[0])
+        }
+    },[id])
+
     return (
         <>
             <Navigation />
@@ -17,17 +38,19 @@ const Notice_Delivery = () => {
                             <tr>
                                 <td>주문번호</td>
                                 <td>| </td>
-                                <td>A12937123909</td>
+                                <td>{info.dlvy_id}</td>
                             </tr>
                             <tr>
                                 <td>상태</td>
                                 <td>| </td>
-                                <td>배송 준비중</td>
+                                <td>{info.status == undefined ?  '조회중':''}</td>
                             </tr>
                             <tr>
                                 <td>운송장</td>
                                 <td>| </td>
-                                <td>182931741029418409 : 한진택배</td>
+                                <td>
+                                    {info.invocie == undefined ? '배송준비 중입니다.' : 
+                                    info.invocie +":"+ info.delievry_compony}</td>
                             </tr>
                         </Table>
                     </div>
@@ -41,12 +64,12 @@ const Notice_Delivery = () => {
                             <tr>
                                 <td>상품명</td>
                                 <td>| </td>
-                                <td>맥북 프로 512GB</td>
+                                <td>{info.name}</td>
                             </tr>
                             <tr>
                                 <td>상품가격</td>
                                 <td>| </td>
-                                <td>100 클레이튼</td>
+                                <td><img src="/klay.png" alt="" /> {info.price}</td>
                             </tr>
                             <tr>
                                 <td>결제방법</td>
@@ -66,27 +89,27 @@ const Notice_Delivery = () => {
                             <tr>
                                 <td>주문자</td>
                                 <td>| </td>
-                                <td>정성진</td>
+                                <td>{info.buyer}</td>
                             </tr>
                             <tr>
                                 <td>수령인</td>
                                 <td>| </td>
-                                <td>정성진</td>
+                                <td>{info.reciever}</td>
                             </tr>
                             <tr>
                                 <td>주소</td>
                                 <td>| </td>
-                                <td>서울 어딘가</td>
+                                <td>{info.address}</td>
                             </tr>
                             <tr>
                                 <td>전화번호</td>
                                 <td>| </td>
-                                <td>01023422342</td>
+                                <td>{info.phone_number}</td>
                             </tr>
                             <tr>
                                 <td>요청사항</td>
                                 <td>| </td>
-                                <td>빨리 가져다 주세요</td>
+                                <td>{info.request}</td>
                             </tr>
                         </Table>
                     </div>

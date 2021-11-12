@@ -6,6 +6,7 @@ import filter from './filter'
 import explore from './explore'
 import mylist from './mylist'
 
+import product from './product'
 
 
 // const rootReducer = combineReducers({
@@ -32,7 +33,13 @@ const rootReducer = (state = {},action) => {
             })
             return combineReducer(state,action)
         }
+<<<<<<< HEAD
     }
 }
+=======
+    },
+    user,filter,mint,explore,mylist,product
+})
+>>>>>>> e2a205cd396d24a5a0aed1bcf770ce6c17d10809
 
 export default rootReducer

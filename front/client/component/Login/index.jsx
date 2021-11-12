@@ -8,15 +8,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { UserLogin_REQUEST, User_Join_Check } from '../../reducers/user'
 import Router from "next/router"
 import { User_Logout } from '../../reducers/user';
+import { useState } from 'react';
 
-export const logout = () =>{
-    dispatch(User_Logout())
-}
 
 const Login = () => {
     const dispatch = useDispatch();
     const state_data = useSelector(state => state.user)
-
+    const { IsLogin, loadding ,user_info } = state_data
+    const [login,setLoigin] = useState(false)
 
 
     const kaikasLogin = async () => {
@@ -29,19 +28,19 @@ const Login = () => {
             }
             if (wallet !== undefined) {
                 await dispatch(UserLogin_REQUEST(user_info))
-                if (state_data.user_info.nickname == undefined) {
-                    Router.push('/user/join')
-                } else {
-                    Router.push('/')
-                }
+                setLoigin(true)
             }
-
         } else {
             alert("테스트넷으로 로그인 해주십시오")
         }
-
-
     }
+    useEffect(()=>{
+        if(login == true && loadding ==false && user_info.nickname == undefined){
+            Router.push('/user/join')
+        }else if(login == true && loadding ==false && user_info.nickname !== undefined){
+            Router.push('/')
+        }
+    },[loadding])
 
     const onClick = () => {
         if (!window.klaytn) {

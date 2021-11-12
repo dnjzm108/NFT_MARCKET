@@ -24,17 +24,25 @@ const Filter = () => {
   const { category, designer } = useSelector(state => state.explore)
   const currency = useChangeValue(tempCurrency);
   const [open, setOpen] = useState(true);
-  const typeList = ['즉시구매','경매']
-  const typeEng = ['immy','auction']
-  const type =useChangeValue(typeList)
-  const sortList = ['최신 순','오래된 순','낮은 가격 순','높은 가격 순','좋아요 순']
-  const sortEng = ['new','old','low','high','like']; 
-  const sort =useChangeValue(sortList)
+  const typeList = [
+    {name:'즉시구매',code:'buy'},
+    {name:'경매',code:'auction'}
+  ]
+  const sortList = [
+    {name:'최신 순',code:'new'},
+    {name:'오래된 순',code:'old'},
+    {name:'낮은 가격 순',code:'low'},
+    {name:'높은 가격 순',code:'high'},
+    {name:'좋아요 순',code:'like'}
+]
+  
+
 
 
   const Min = useInput();
   const Max = useInput();
   useEffect(() => {
+
     dispatch(GetFilterData())
   }, [])
 
@@ -59,9 +67,23 @@ const Filter = () => {
     dispatch(UpdateFilter(data));
   }
 
+  const handleType = (code) => {
+    const data = {
+      ...result,
+      type:code,
+    }
+    dispatch(UpdateFilter(data));
+  }
+
+  const handleSort = (code) => {
+    const data = {
+      ...result,
+      sort:code
+    }
+    dispatch(UpdateFilter(data));
+  }
+
   const handleDesigner = (name) => {
-    
-x
     let designer;
     if (result.designer.includes(name)) {
       designer = result.designer.filter(v => v!= name);
@@ -75,27 +97,15 @@ x
     dispatch(UpdateFilter(data));
   }
 
-  useEffect(()=>{
-    const data = {
-      ...result,
-      type:typeEng[type.value],
-    }
-    dispatch(UpdateFilter(data));
-  },[type.value])
 
-  useEffect(()=>{
-    const data = {
-      ...result,
-      sort:sortEng[sort.value]
-    }
-    dispatch(UpdateFilter(data));
-  },[sort.value])
 
   const renderBtnBox = () => {
     return category.map((v, i) => {
       return <SelectBtnBox list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={result.category} />
     })
   }
+
+ 
 
 
   return (
@@ -113,10 +123,10 @@ x
             </div>
           </div>
           <Panal value='판매유형' >
-            <SelectBox {...type}/>
+            <SelectBtnBox list={typeList} title='판매유형' onClick={handleType} now={result.type} />
           </Panal>
           <Panal value='정렬유형' >
-            <SelectBox {...sort}/>
+          <SelectBtnBox list={sortList} title='정렬' onClick={handleSort} now={result.sort} />
           </Panal>
           <Panal value='카테고리' >
             {renderBtnBox()}

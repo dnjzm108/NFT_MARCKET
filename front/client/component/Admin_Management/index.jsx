@@ -19,9 +19,9 @@ const Management = () => {
     
     useEffect(async()=>{
         let data = menu
-        let send ={data}
+        let send = {data}
         let result = await axios.post(`${url}/user/checkseller`,send)
-        setSeller(result.data)
+        setSeller(result.data.response)
     },[])
 
     const ChageMenu = async (e) => {
@@ -40,7 +40,7 @@ const Management = () => {
         let send={data} 
     
         let result = await axios.post(`${url}/user/checkseller`,send)
-        setSeller(result.data)
+        setSeller(result.data.response)
 
     }
 
@@ -57,6 +57,7 @@ Router.push('/admin/login')
         dispatch(Admin_Logout())
         Router.push('/admin/login')
     }
+
     return (
         <>
             <NavigationWrap>

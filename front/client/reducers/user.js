@@ -9,6 +9,7 @@ const initalState = {
 const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST"
 const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS"
 const USER_LOGIN_ERROR = "USER_LOGIN_ERROR"
+
 const USER_LOGOUT = "USER_LOGOUT"
 
 const USER_JOIN_REQUEST = "USER_JOIN_REQUEST"
@@ -25,6 +26,11 @@ export const Admin_Logout = () =>{
         type:ADMIN_ERROR
     }
  }
+export const User_Logout = () =>{
+    return{
+        type:USER_LOGOUT
+    }
+ }
  
 export const Admin_Login_REQUEST = (data) =>{
     return{
@@ -36,12 +42,6 @@ export const User_Join_Check = (data) =>{
     return{
         type: USER_JOIN_CHECK,
         data
-    }
-}
-
-export const User_Logout = () => {
-    return {
-        type: USER_LOGOUT
     }
 }
 
@@ -66,7 +66,7 @@ const reducer = (state = initalState,action) => {
             return {
                 ...state,
                 user_info:action.data,
-                loadding: true,
+                loadding: true
             }
             
 
@@ -77,13 +77,12 @@ const reducer = (state = initalState,action) => {
                 IsLogin: true,
                 loadding: false,
                 data: action.data,
-                user_info: action.user_info,
+                user_info: action.user_info
             }
         case USER_LOGIN_ERROR:
             return {
                 ...state,
-                loadding: false,
-                data: action.data,
+                loadding:false
             }
 
         case USER_JOIN_REQUEST:
@@ -109,10 +108,9 @@ const reducer = (state = initalState,action) => {
             return {
                 ...state,
                 IsLogin: false,
-                user_info: {},
-                data: 'logout'
+                user_info: {}
+            } 
 
-            }
         case ADMIN_LOGIN:
             return{
                 ...state

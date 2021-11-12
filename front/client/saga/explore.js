@@ -33,8 +33,8 @@ function* explore(action){
         yield put({
             type: 'EXPLORE_SUCCESS',
             data:{
-                nft:data.nft,
-                skip:data.skip
+                nft:data.response.nft,
+                skip:data.response.skip
             }
 
         })
