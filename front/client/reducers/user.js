@@ -1,7 +1,13 @@
 const initalState = {
     loadding: false,
     IsLogin: false,
-    user_info:{},
+    user_info:{
+        nickname:null,
+        wallet:null,
+        email:null,
+        seller:null,
+        status:null
+    },
     name_check:'',
     admin:''
 }
@@ -65,13 +71,11 @@ const reducer = (state = initalState,action) => {
         case USER_LOGIN_REQUEST:
             return {
                 ...state,
-                user_info:action.data,
-                loadding: true
+                loadding:true
             }
-            
-
 
         case USER_LOGIN_SUCCESS:
+            console.log(action);
             return {
                 ...state,
                 IsLogin: true,
@@ -80,9 +84,17 @@ const reducer = (state = initalState,action) => {
                 user_info: action.user_info
             }
         case USER_LOGIN_ERROR:
+            console.log(action);
             return {
                 ...state,
-                loadding:false
+                loadding:false,
+                user_info:{
+                    nickname:null,
+                    wallet:null,
+                    email:null,
+                    seller:null,
+                    status:null
+                }
             }
 
         case USER_JOIN_REQUEST:
@@ -92,9 +104,11 @@ const reducer = (state = initalState,action) => {
             }
 
         case USER_JOIN_SUCCESS:
+            console.log(action);
             return {
                 ...state,
                 loadding: false,
+                IsLogin: true,
                 user_info: action.user_info
             }
 
@@ -108,7 +122,13 @@ const reducer = (state = initalState,action) => {
             return {
                 ...state,
                 IsLogin: false,
-                user_info: {}
+                user_info:{
+                    nickname:null,
+                    wallet:null,
+                    email:null,
+                    seller:null,
+                    status:null
+                }
             } 
 
         case ADMIN_LOGIN:

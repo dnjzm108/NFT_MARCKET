@@ -11,15 +11,20 @@ let join = async (req,res) =>{
     
     let {nickname,wallet,email,picture} = req.body
     let {file} = req;
-    const image = await uploadProfile(file,nickname)
-    await unlinkFile(file.path)  
-
+    let params = [nickname,wallet,email]
+    if(file !== undefined){
+        const image = await uploadProfile(file,nickname)
+        await unlinkFile(file.path)  
+        params.push(image.Location)
+    }else{
+        params.push('null')
+    }
     try{
-        let params = [nickname,wallet,email,image.Location]
         const result = await execute(join_sql(),params)
         let user_info = {
             nickname,wallet,email,picture
         }
+
         res.json(successData(user_info))
 
     }catch(e){

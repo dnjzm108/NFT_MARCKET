@@ -3,8 +3,8 @@ const mysql = require('mysql2/promise');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '1234',
-    database: 'nftmarket',
+    password: '0000',
+    database: 'nft_market',
     multipleStatements: true,
     connectionLimit: 100
 })

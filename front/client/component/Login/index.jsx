@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 const Login = () => {
     const dispatch = useDispatch();
-    const state_data = useSelector(state => state.user)
+    const state_data =  useSelector(state => state.user)
     const { IsLogin, loadding ,user_info } = state_data
     const [login,setLoigin] = useState(false)
 
@@ -35,11 +35,12 @@ const Login = () => {
         }
     }
     useEffect(()=>{
-        if(login == true && loadding ==false && user_info.nickname == undefined){
-            Router.push('/user/join')
-        }else if(login == true && loadding ==false && user_info.nickname !== undefined){
-            Router.push('/')
-        }
+        console.log(user_info ,loadding ,login);
+            if(login == true && loadding ==false && user_info.nickname == null){
+                Router.push('/user/join')
+            }else if(login == true && loadding ==false && user_info.nickname !== null){
+                Router.push('/')
+            }
     },[loadding])
 
     const onClick = () => {
