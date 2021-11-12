@@ -11,9 +11,9 @@ function joinAPI(data){
 function* join(action){
     
     let result = yield call(joinAPI,action.data)
-    let {data} = result
+    let {response} = result.data
     
-    if (data !== null) {
+    if (response !== null) {
         yield put({
             type: 'USER_JOIN_SUCCESS',
             data: 'OK',
@@ -34,15 +34,12 @@ function loginAPI(data){
 
 function* login(action){
     let result = yield call(loginAPI,action.data)
-    console.log(result);
-    let {data} = result
-console.log(data);
-    if (data !== '') {
-        console.log(data);
+    let {response} = result.data
+    if (response !== '') {
         yield put({
             type: 'USER_LOGIN_SUCCESS',
             data: 'OK',
-            user_info:data
+            user_info:response
         })
     } else {
         yield put({
@@ -58,9 +55,8 @@ function adminAPI(data){
 }
 function* admin(action){
     let result = yield call(adminAPI,action.data)
-    let {data} = result
-    console.log(data);
-    if (data == true) {
+    let {response} = result.data
+    if (response == true) {
         yield put({
             type: 'ADMIN_SUCCESS'
         })
@@ -71,11 +67,11 @@ function* admin(action){
     }
 }
 
+
 function* watchUser(){
     yield takeLatest('USER_LOGIN_REQUEST',login)
     yield takeLatest('USER_JOIN_REQUEST',join)
-    yield takeLatest('ADMIN_LOGIN',admin)
-
+    yield takeLatest('ADMIN_LOGIN',admin)  
 }
 
 export default function* userSaga(){

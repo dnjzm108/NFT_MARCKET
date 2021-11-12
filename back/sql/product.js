@@ -89,9 +89,9 @@ const create_order_sql = () => {
 
 //배송정보 등록
 
-const create_delievery_sql = () =>{
+const create_delivery_sql = () =>{
     return(
-`INSERT INTO delievery (order_id,reciever,request,recieve_type,phone_number,address,status) VALUES(?,?,?,?,?,?,"요청")`
+`INSERT INTO delivery (order_id,reciever,request,recieve_type,phone_number,address,status) VALUES(?,?,?,?,?,?,"요청")`
     )
 }
 
@@ -140,8 +140,8 @@ const chage_product_likes = () =>{
 
 const notice_order_sql = () =>{
     return(
-        `SELECT A.price,A.buyer,A.qty,B.dlvy_id,B.reciever,B.address,B.invoice,B.delievery_company,B.phone_number,B.request,C.color,C.size,D.name FROM orders as A
-        LEFT JOIN delievery as B
+        `SELECT A.price,A.buyer,A.qty,B.dlvy_id,B.reciever,B.address,B.invoice,B.delivery_company,B.phone_number,B.request,C.color,C.size,D.name FROM orders as A
+        LEFT JOIN delivery as B
         ON A.order_id = B.order_id
         LEFT JOIN product_detail as C
         ON A.product_id = C.product_id
@@ -162,7 +162,7 @@ module.exports = {
     auction_detail_sql,
     other_product_sql,
     create_order_sql,
-    create_delievery_sql,
+    create_delivery_sql,
     update_product_sql,
     update_detail_sql,
     bid_auction_sql,
