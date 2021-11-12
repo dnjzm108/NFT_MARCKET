@@ -9,7 +9,6 @@ const errorData={
 
 const getNFTs= async(req,res)=>{
   const sql = makeFilterQuery(req.query);
-  console.log(sql)
   const result = await query(sql);
   const data ={
     skip:req.query.skip,

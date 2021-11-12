@@ -87,7 +87,7 @@ const Navigation = () => {
               <a>토큰 교환</a>
             </Link>
           </NavItem>
-          {user_info.nickname !== undefined ? (
+          {IsLogin !== false ? (
             <>
               <NavItem>
                 <Link href='/user/profile'><a><i><BiUserCircle size={32} /></i></a></Link>

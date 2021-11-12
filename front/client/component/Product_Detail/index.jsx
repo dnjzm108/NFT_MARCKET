@@ -25,8 +25,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 const product_detail = () => {
     const user_state = useSelector(state => state.user)
+    console.log(user_state);
     const {user_info,IsLogin} = user_state
     const product_state = useSelector(state => state.product)
+    console.log(product_state);
     const { loadding,auctions, product_img, product_info, auction_info, other_product } = product_state
     const dispatch = useDispatch();
     const router = useRouter()
