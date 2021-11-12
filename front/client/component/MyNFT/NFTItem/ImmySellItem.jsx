@@ -18,7 +18,7 @@ const ImmySellItem = (
     name,
     date,
     product_no,
-    totalqty,
+    total_qty,
     leftover,
     likes,
     type
@@ -60,7 +60,7 @@ const ImmySellItem = (
         </ul>
       </td>
       <td>{date}</td>
-      <td>{totalqty}</td>
+      <td>{total_qty}</td>
       <td>{leftover}</td>
       <td> {renderSellType()}</td>
     </StyledMyNFT>
