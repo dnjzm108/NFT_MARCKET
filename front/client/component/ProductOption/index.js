@@ -121,19 +121,15 @@ const ProductOption =
             <>
             <h1>상세옵션을 선택해주세요</h1>
             <div className="select_category"><h3>대분류</h3><h3>중분류</h3></div>
-                        <div className="select_box">
-            {/* const categoryBox = () => {
-            return category.map((v, i) => {
-            return <SelectBtnBox list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={result.category} />
-            })
-            } */}
-            <Selectbox {...category1}/>
-            <Selectbox {...category2}/>
-
+            <div className="select_contain">
+                <div className="select_box">
+                    <Selectbox {...category1} />
+                    <Selectbox {...category2} />
+                </div>
             </div>
-                <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요
-                    <p>예시 ) 색상 : black,white,beige,brown (O)
-                        사이즈 : S / M / L (X)  S,M,L (O)  옵션1 : 기모O,기모X (O)</p>
+            <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요
+            <p>예시 ) 색상 : black,white,beige,brown (O)
+            사이즈 : S / M / L (X)  S,M,L (O)  옵션1 : 기모O,기모X (O)</p>
                 </h3>
                 <div className="select_option">
                     <span><p>색상 :</p>

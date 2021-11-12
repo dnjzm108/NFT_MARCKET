@@ -4,6 +4,8 @@ const unlinkFile = util.promisify(fs.unlink)
 const { uploadFile, uploadNFT } = require('../../s3')
 const { query,execute } = require("../../pool");
 const { productInfo_sql,prdctDetail_sql,productNum_sql,nftInsert_sql } = require('../../sql/mint')
+const {successData} = require('../../returnData');
+
 
 // const INSERT = `INSERT INTO nft (${x}) VALUES(${x});`  
 // const SELECT = `SELECT * FROM table WHERE ?=${x}`
@@ -74,8 +76,8 @@ const mint_nft = async(req,res)=>{
 }
 
 const maincate = async(req,res)=>{
-  const result = await query(`select * from bigcategory`)
-  res.json(result)
+  const result = await query(`select * from bigcategory`) 
+  res.json(successData(result))
 }
 
 module.exports={

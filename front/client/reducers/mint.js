@@ -30,7 +30,7 @@ const reducer = (state = initalState,action) => {
     switch (action.type) {
         
         case MINT_REQUEST:
-            console.log("mint_request",state)
+            // console.log("mint_request",state)
             return {
                 ...state,
                 isLoading:true
@@ -56,7 +56,6 @@ const reducer = (state = initalState,action) => {
         case MINT_MAIN_CATE_ERROR:
             return {
                 ...state,
-                maincate:action.data,
                 isLoading:false,
             }
         default:

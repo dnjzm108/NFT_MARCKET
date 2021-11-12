@@ -43,16 +43,24 @@ function* mint(action){
 
 async function getMaincateAPI(){
     return await axios.get('http://localhost:4000/nft/maincate')
-     
 }
 
 function* getMaincate(action) {
+    // console.log("fffffffffff",action)
     let result = yield call(getMaincateAPI)
     let {data} = result
-    yield put({
-        type: MINT_MAIN_CATE_SUCCESS,
-        data: data.map(v => v.value),
-    })
+    console.log(data,"skjfhskfhsdkfjaglfjdlkfj")
+    if(data.success){
+        yield put({
+            type: MINT_MAIN_CATE_SUCCESS,
+            data: data.response.map(v => v.value),
+        })
+    }else{
+        yield put({  
+            // type: MINT_MAIN_CATE_ERROR,
+        })
+    }
+    
     // if (data.success) {
     //     yield put({
     //         type: MINT_MAIN_CATE_SUCCESS,
