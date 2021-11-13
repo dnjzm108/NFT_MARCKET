@@ -15,6 +15,18 @@ const APPLY_AUCTION = "APPLY_AUCTION"
 const AUCTION_SUCCEESS = "AUCTION_SUCCEESS"
 const AUCTION_ERROR = "AUCTION_ERROR"
 
+const APPLY_IMMY = "APPLY_IMMY"
+const IMMY_SUCCEESS = "IMMY_SUCCEESS"
+const IMMY_ERROR = "IMMY_ERROR"
+
+
+
+export const Apply_Immy = (data) => {
+    return {
+        type: APPLY_IMMY,
+        data
+    }
+}
 export const Apply_Auction = (data) => {
     return {
         type: APPLY_AUCTION,

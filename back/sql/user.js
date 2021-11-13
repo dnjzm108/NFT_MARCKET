@@ -48,9 +48,14 @@ const admin_login = () => {
 
 //판매자 신청
 //필요값 닉네임,사업자 번호
+/*
+seller [  0 : 구매자  
+    1 : 반려 
+    2 : 요청
+    3 : 인증 ]*/
 const apply_seller = () => {
     return (
-        `INSERT INTO seller(user_id, seller_no, kyc_status) VALUES(?,?,"요청")`
+        `INSERT INTO seller(user_id, seller_no, status) VALUES(?,?,"2")`
     )
 }
 
@@ -59,7 +64,7 @@ const apply_seller = () => {
 //필요값 닉네임 , 상태값
 const update_seller = () => {
     return (
-        `UPDATE seller set kyc_status =  ? WHERE nickname =  ? `
+        `UPDATE seller set status =  ? WHERE nickname =  ? `
     )
 }
 
@@ -70,7 +75,7 @@ const check_seller_sql = () => {
     return (
         `SELECT A.seller_no,B.nickname,B.email FROM seller as A
         LEFT JOIN user as B
-        ON A.nickname = B.nickname WHERE kyc_status = ? `
+        ON A.nickname = B.nickname WHERE status = ? `
     )
 }
 

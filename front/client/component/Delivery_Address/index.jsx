@@ -14,17 +14,17 @@ import useInput from '../../hooks/useInput';
 import axios from 'axios';
 import { url } from '../../saga/url'
 import Router from "next/router"
-
+import {useDispatch} from 'react-redux'
 
 const Delivery_Address_Component = (props) => {
     const data = useSelector(state => state.user)
     const { product, select_qty, option } = props;
-
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [address, setaddress] = useState('')
     const [postNumber, setpostNumber] = useState('')
     const [recieveType, setRecieveType] = useState('')
-
+    
+    const dispatch = useDispatch()
     const Ponenumber = useInput()
     const address_detail = useInput()
     const Recipient = useInput()
@@ -60,6 +60,7 @@ const Delivery_Address_Component = (props) => {
                 leftover: product[option].leftover
             }
             let result = await axios.post(`${url}/product/order`, order_info)
+            dispatch()
             Router.push(`/notice/${result.data.response}`)
     
         } else {

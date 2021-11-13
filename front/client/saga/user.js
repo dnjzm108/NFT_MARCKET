@@ -48,29 +48,12 @@ function* login(action){
     }
     
 }
-function adminAPI(data){
-    const options = {'Content-type':'application/json'}
-    return axios.post(`${url}/user/admin`,data)
-}
-function* admin(action){
-    let result = yield call(adminAPI,action.data)
-    let {response} = result.data
-    if (response == true) {
-        yield put({
-            type: 'ADMIN_SUCCESS'
-        })
-    } else {
-        yield put({
-            type: 'ADMIN_ERROR'
-        })
-    }
-}
+
 
 
 function* watchUser(){
     yield takeLatest('USER_LOGIN_REQUEST',login)
     yield takeLatest('USER_JOIN_REQUEST',join)
-    yield takeLatest('ADMIN_LOGIN',admin)  
 }
 
 export default function* userSaga(){
