@@ -9,7 +9,7 @@ const errorData={
 
 const getNFTs= async(req,res)=>{
   const sql = makeFilterQuery(req.query);
-  console.log(sql)
+  // console.log(sql)
   const result = await query(sql);
   const data ={
     skip:req.query.skip,
@@ -41,6 +41,7 @@ const getFilterData = async(req,res)=>{
   ;`
   const categoryResult = await query(categorySql);
 
+  
   const category={}; 
   const bigCategory = new Set(categoryResult.map(v=>{ 
     const {b_code,b_name} = v;
