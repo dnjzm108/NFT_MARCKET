@@ -9,21 +9,32 @@ import admin from './admin'
 import product from './product'
 
 
+// const rootReducer = combineReducers({
+//     index: (state = {}, action) => {
+//         switch (action.type) {
+//             case HYDRATE:
+//                 return{
+//                     ...state,
+//                     ...action.payload
+//                 }
+//             default:
+//                 return state
+//         }
+//     },
+//     user,filter,mint,explore,mylist
+// })
 
-
-const rootReducer = combineReducers({
-    index: (state = {}, action) => {
-        switch (action.type) {
-            case HYDRATE:
-                return{
-                    ...state,
-                    ...action.payload
-                }
-            default:
-                return state
+const rootReducer = (state = {},action) => {
+    switch(action.type){
+        case HYDRATE:
+            return action.payload
+        default:{
+            const combineReducer = combineReducers({
+                user,filter,mint,explore,mylist,product,admin // 저희가만들거 
+            })
+            return combineReducer(state,action)
         }
-    },
-    user,filter,mint,explore,mylist,product,admin
-})
+    }
+}
 
 export default rootReducer

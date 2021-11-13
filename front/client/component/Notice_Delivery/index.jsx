@@ -21,6 +21,7 @@ const Notice_Delivery = () => {
         if (id != undefined) {
             let result = await axios.post(`${url}/product/notice_order`, data)
             setInfo(result.data.response[0])
+            console.log(info);
         }
     },[id])
 
