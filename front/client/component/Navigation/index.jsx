@@ -11,7 +11,7 @@ import Button from "../Button";
 import { useState } from "react";
 import useInput from "../../hooks/useInput";
 import { BiLogOut, BiUserCircle } from "react-icons/bi";
-import Router from 'next/router'
+import  { useRouter } from 'next/router'
 import Input from '../Input'
 import { useDispatch, useSelector } from "react-redux";
 import { ExploreRequest } from '../../reducers/explore';
@@ -25,23 +25,27 @@ const Navigation = () => {
   const { IsLogin, user_info } = useSelector(state => state.user);
   const [nowItem, setNowItem] = useState(null);
   const [search, setSearch] = useState()
-  const { filter } = useSelector(state => state.filter);
-  const { skip } = useSelector(state => state.explore)
   const test = useSelector(state => state.user);
+  const router = useRouter()
+ 
   const handleSearch = (e) => {
     const temp = e.target.value;
     setSearch(temp)
-    // dispatch(RelatedSearch(temp))
   }
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      ...filter,
-      search,
+    let data = {...router.query}
+    if(data["search"]==undefined){
+      data["search"]=search; 
+    }else{
+      delete data.search; 
     }
-    dispatch(ExploreRequest(data));
+    router.push({
+      pathname: '/',
+      query: data,
+    })
   }
 
   const logOut = () => {

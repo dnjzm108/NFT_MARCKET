@@ -12,16 +12,16 @@ import SelectBtnBox from '../SelectBtnBox';
 import useCheckBox from "../../hook/useCheckbox";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDesignerRequest } from '../../reducers/filter'
-import router from "next/router";
 const tempCurrency = [{ "name": 'KLAY', 'img': '/klay.png' }, { 'name': 'KRW', 'img': '/krw.png' }]
-import { GetFilterData, ExploreRequest } from '../../reducers/explore';
-import { UpdateFilter } from "../../reducers/filter"
+import { ExploreRequest } from '../../reducers/explore';
+import { useRouter } from "next/router";
+import OptionBox from "../OptionBox/OptionBox";
+
 
 const Filter = () => {
+  const router = useRouter()
   const dispatch = useDispatch()
-  const { result } = useSelector(state => state.filter);
-  const { category, designer } = useSelector(state => state.explore)
+  const {category,designer } = useSelector(state => state.explore);
   const currency = useChangeValue(tempCurrency);
   const [open, setOpen] = useState(true);
   const typeList = [
@@ -41,72 +41,96 @@ const Filter = () => {
 
   const Min = useInput();
   const Max = useInput();
-  useEffect(() => {
 
-    dispatch(GetFilterData())
-  }, [])
-
+ ///가격이 바뀔때.
   const handlePrice = () => {
     if (Min.value == null || Max.value == null) {
       alert('값을 입력해주세요')
       return;
     }
-    const data = {
-      ...result,
-      price_min: Min.value,
-      price_max: Max.value,
-    }
-    dispatch(UpdateFilter(data));
-  }
-
-  const handleCategory = (code) => {
-    const data = {
-      ...result,
-      category: code,
-    }
-    dispatch(UpdateFilter(data));
-  }
-
-  const handleType = (code) => {
-    const data = {
-      ...result,
-      type:code,
-    }
-    dispatch(UpdateFilter(data));
-  }
-
-  const handleSort = (code) => {
-    const data = {
-      ...result,
-      sort:code
-    }
-    dispatch(UpdateFilter(data));
-  }
-
-  const handleDesigner = (name) => {
-    let designer;
-    if (result.designer.includes(name)) {
-      designer = result.designer.filter(v => v!= name);
-    } else {
-      designer = [...result.designer, name];
-    }
-    const data = {
-      ...result,
-      designer,
-    }
-    dispatch(UpdateFilter(data));
-  }
-
-
-
-  const renderBtnBox = () => {
-    return category.map((v, i) => {
-      return <SelectBtnBox list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={result.category} />
+    let data = {...router.query}
+    data["price_min"] =Min.value; 
+    data["price_max"] =Max.value; 
+    router.push({
+      pathname: '/',
+      query: data,
     })
+    dispatch(ExploreRequest({...router.query}));
   }
 
+  //카테고리가 바뀔때.
+  const handleCategory = (code) => {
+    let data = {...router.query}
+    if(data["category"]==code){
+      delete data.category; 
+    }else{
+        data["category"]=code
+    }
+    router.push({
+      pathname: '/',
+      query: data,
+    })
+    dispatch(ExploreRequest({...router.query}));
+  }
+  
+  // 판매유형 바뀔때. 
+  const handleType = (code) => {
+    let data = {...router.query}
+    if(data["type"]==code || code==null){
+      delete data.type; 
+    }else{
+        data["type"]=code
+    }
+    router.push({
+      pathname: '/',
+      query: data,
+    })
+    dispatch(ExploreRequest({...router.query}));
+  }
  
+  //정렬기준이 바뀔때.
+  const handleSort = (code) => {
+    console.log(code)
+    let data = {...router.query}
+    if(data["sort"]==code || code==null){
+      delete data.sort; 
+    }else{
+        data["sort"]=code
+    }
 
+    router.push({
+      pathname: '/',
+      query: data,
+    })
+    dispatch(ExploreRequest({...router.query}));
+  }
+
+  
+  //디자이너가 바뀔때.
+  const handleDesigner = (name) => {
+      let data = {...router.query};
+      if(data['designer']==undefined){
+        data['designer']=name
+      }else if(typeof data['designer'] == "string"){
+        if(data['designer']==name){
+          delete data.designer
+        }else{
+          data['designer']=[data['designer'],name]
+        }
+      }else{
+        if(data['designer'].includes(name)){
+          data['designer']=data['designer'].filter(v=>v!=name);
+        }else{
+          data['designer']=[...data['designer'],name]
+        }
+      }
+
+      router.push({
+        pathname: '/',
+        query: data,
+      })
+      dispatch(ExploreRequest({...router.query}));
+  }
 
   return (
     <StyledFilter>
@@ -123,16 +147,18 @@ const Filter = () => {
             </div>
           </div>
           <Panal value='판매유형' >
-            <SelectBtnBox list={typeList} title='판매유형' onClick={handleType} now={result.type} />
+            <SelectBtnBox list={typeList} title='판매유형' onClick={handleType} now={router.query.type} />
           </Panal>
           <Panal value='정렬유형' >
-          <SelectBtnBox list={sortList} title='정렬' onClick={handleSort} now={result.sort} />
+          <OptionBox list={sortList}  onClick={handleSort} now={router.query.sort==undefined? 'new' : router.query.sort }/>
           </Panal>
           <Panal value='카테고리' >
-            {renderBtnBox()}
+            {category.map((v, i) => {
+              return <SelectBtnBox list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={router.query.category} />
+            })}
           </Panal>
           <Panal value='디자이너' >
-        <CheckBoxes list={designer} result={result.designer} onCheck={handleDesigner} useImage={true}/>
+        <CheckBoxes list={designer} result={router.query.designer} onCheck={handleDesigner} useImage={true}/>
       </Panal>  
 
           <Panal value='가격'>

@@ -3,76 +3,79 @@ const initalState = {
   isError: false,
   category:[],
   designer:[],
-  nft: [],
+  list: [],
   skip: 0,
 }
 
-const EXPLORE_REQUEST = 'EXPLORE_REQUEST';
-const EXPLORE_SUCCESS = 'EXPLORE_SUCCESS';
-const EXPLORE_ERROR = 'EXPLORE_ERROR';
+export const INIT_EXPLORE_REQUEST = 'INIT_EXPLORE_REQUEST';
+export const GET_FILTER_SUCCESS = 'GET_FILTER_SUCCESS'
 
-const GET_FILTER_DATA_REQUEST = 'GET_FILTER_DATA_REQUEST';
-const GET_FILTER_DATA_SUCCESS = 'GET_FILTER_DATA_SUCCESS';
-const GET_FILTER_DATA_ERROR = 'GET_FILTER_DATA_ERROR';
+export const GET_EXPLORE_REQUEST = 'GET_EXPLORE_REQUEST';
+export const GET_EXPLORE_SUCCESS = 'GET_EXPLORE_SUCCESS';
+export const GET_EXPLORE_ERROR = 'GET_EXPLORE_ERROR';
 
-export const ExploreRequest = (data) => {
+
+
+
+export const MainPageInit = (data) =>{
   return {
-    type: EXPLORE_REQUEST,
+    type:INIT_EXPLORE_REQUEST,
     data,
   }
 }
 
-export const GetFilterData = ()=>{
-  return{
-    type:GET_FILTER_DATA_REQUEST,
+
+export const ExploreRequest = (data) => {
+  return {
+    type: GET_EXPLORE_REQUEST,
+    data,
   }
 }
 
 
-
 const reducer = (state = initalState, action) => {
   switch (action.type) {
-    case EXPLORE_REQUEST:
+    case GET_EXPLORE_REQUEST:
       return {
         ...state,
         isLoading: true,
       }
-    case EXPLORE_SUCCESS:
-      let newSkip = 10
-      let newNFT = [];
-      if (action.data.skip > 0) {
-        newNFT = [...state.nft]
-        newSkip = +action.data.skip + 10
-      }
 
+    case INIT_EXPLORE_REQUEST:
       return {
         ...state,
+        isLoading: true,
+      }
+      case GET_FILTER_SUCCESS:
+        return{
+          ...state,
+          category:action.data.category,
+          designer:action.data.designer,
+        }
+      
+
+    case GET_EXPLORE_SUCCESS:
+      let newList = [];
+      if(action.data.skip==16){
+      newList = [...action.data.list];
+      }else{
+      newList = [...state.list,...action.data.list]
+      }
+      return{
+        ...state,
+        list:newList,
+        skip:action.data.skip,
         isLoading: false,
-        nft: [...newNFT, ...action.data.nft],
-        skip: newSkip,
       }
-    case EXPLORE_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-      }
-    case GET_FILTER_DATA_REQUEST:
-      return {
-        ...state
-      }
-    case GET_FILTER_DATA_SUCCESS:
-      return {
-        ...state,
-        category:action.data.category,
-        designer:action.data.designer,
-      }
-    case GET_FILTER_DATA_ERROR:
-      return {
-        ...state
-      }
-
-
+    
+      //에러처리 할 것
+    case GET_EXPLORE_ERROR:
+        return {
+          ...state,
+          isLoading: false,
+          isError: true,
+        }
+  
     default:
       return state
       
