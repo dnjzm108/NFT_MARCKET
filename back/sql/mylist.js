@@ -375,7 +375,7 @@ function myImmySellListQuery(query,type){
             P.product_no,
             P.date, 
             P.likes,
-            P.totalqty,
+            P.total_qty,
             P.leftover,
             P.type,
             I.img` 

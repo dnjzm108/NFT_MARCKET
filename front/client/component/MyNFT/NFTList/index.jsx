@@ -128,7 +128,7 @@ const NFTList = (props) => {
                 date={v.date}
                 product_no={v.product_no}
                 size={v.size}
-                totalqty={v.totalqty}
+                total_qty={v.total_qty}
                 leftover={v.leftover}
                 likes={v.likes}     
                 type={v.type}     

@@ -8,6 +8,8 @@ const errorData={
 
 
 const getNFTs= async(req,res)=>{
+
+  
   const sql = makeFilterQuery(req.query);
   const result = await query(sql);
   const data ={
