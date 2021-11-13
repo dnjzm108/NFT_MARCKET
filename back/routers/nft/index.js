@@ -14,6 +14,7 @@ router.get('/',itemController.getNFTs)
 router.get('/filter',itemController.getFilterData)
 
 router.post('/mint',upload.array('image'),mintController.mint_nft);
+router.get('/maincate',mintController.maincate);
 
 router.post('/sell',sellController.immediatelySell);
 

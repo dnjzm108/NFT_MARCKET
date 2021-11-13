@@ -13,14 +13,24 @@ h3>p{
     font-size: 16px;
 }
 .select_category{
+    width: 72vw;
     display: flex;
-    justify-content: space-around
+    /* justify-content: space-around */
+    justify-content: space-around;
+    margin-bottom: 4%;
+
 }
-.select_box{
+.select_contain{
     height: 200px;
     display: flex;
     justify-content: space-around
 }
+.select_box{
+    width: 50vw;
+    display: flex;
+    justify-content: space-between
+}
+
 .select_option{
     height: 200px;
     display: flex;
