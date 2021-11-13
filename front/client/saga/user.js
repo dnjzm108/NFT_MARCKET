@@ -12,12 +12,12 @@ function* join(action){
     
     let result = yield call(joinAPI,action.data)
     let {response} = result.data
-    
+    console.log('사가',response);
     if (response !== null) {
         yield put({
             type: 'USER_JOIN_SUCCESS',
             data: 'OK',
-            user_info:data
+            user_info:response
         })
     } else {
         yield put({
@@ -35,16 +35,15 @@ function loginAPI(data){
 function* login(action){
     let result = yield call(loginAPI,action.data)
     let {response} = result.data
-    if (response !== '') {
+    console.log(response);
+    if (response !== undefined) {
         yield put({
             type: 'USER_LOGIN_SUCCESS',
-            data: 'OK',
             user_info:response
         })
     } else {
         yield put({
-            type: 'USER_LOGIN_ERROR',
-            data: '아이디와 비밀번호를 확인해주세요'
+            type: 'USER_LOGIN_ERROR'
         })
     }
     
