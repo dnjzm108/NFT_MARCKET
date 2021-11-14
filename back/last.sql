@@ -132,18 +132,18 @@ CREATE TABLE IF NOT EXISTS `delivery` (
   `recieve_type` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
   `phone_number` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `invoice` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `delievery_company` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `delivery_company` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `ready_date` datetime DEFAULT current_timestamp(),
   `ship_date` datetime DEFAULT NULL,
   PRIMARY KEY (`dlvy_id`),
-  KEY `FK_delievery_orders` (`order_id`),
-  CONSTRAINT `FK_delievery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK_delivery_orders` (`order_id`),
+  CONSTRAINT `FK_delivery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 nftmarket.delivery:~7 rows (대략적) 내보내기
 DELETE FROM `delivery`;
 /*!40000 ALTER TABLE `delivery` DISABLE KEYS */;
-INSERT INTO `delivery` (`dlvy_id`, `order_id`, `auction`, `status`, `reciever`, `address`, `request`, `recieve_type`, `phone_number`, `invoice`, `delievery_company`, `ready_date`, `ship_date`) VALUES
+INSERT INTO `delivery` (`dlvy_id`, `order_id`, `auction`, `status`, `reciever`, `address`, `request`, `recieve_type`, `phone_number`, `invoice`, `delivery_company`, `ready_date`, `ship_date`) VALUES
 	(1, NULL, 3, '대기', '성진', '1', '빨리', '문앞', '01088888888', NULL, '한진', '2021-11-07 22:47:22', '2021-11-10 17:21:55'),
 	(2, NULL, 5, '발송', '정성진', '2', '부탁', '집앞', '0108979846', '1115555', 'cj', '2021-11-07 22:48:05', '2021-11-10 17:21:55'),
 	(3, 4, 6, 'ready', '상엽', '3', 'null', 'directly', '01012345678', '1111111', 'lotte', '2021-11-10 15:02:34', '2021-11-10 17:21:55'),

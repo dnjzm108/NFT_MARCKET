@@ -50,6 +50,7 @@ const reducer = (state = initalState, action) => {
             }
         case PRODUCT_PAGE_SUCCESS:
             let { product_info } = action
+            console.log("bbbbbbbbbbbbbbb",product_info);
             if (product_info.length == 4) {
 
                 return {

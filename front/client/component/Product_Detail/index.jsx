@@ -62,6 +62,7 @@ const product_detail = () => {
                 setLikes(false)
             }
         }
+        console.log("aaaaaaaaaaa",other_product);
  
     }, [id,likes,IsLogin,auctions])
 
@@ -95,7 +96,7 @@ const product_detail = () => {
 
     const handlePopupImmy = () => {
         if (ispopup == false) {
-            if (user_info.nickname !== undefined) {
+            if (IsLogin == true) {
                 setIsPopup(!ispopup)
             } else {
                 alert("로그인을 진행해주세요")
@@ -106,7 +107,7 @@ const product_detail = () => {
     }
     const handlePopupAuc = () => {
         if (isAuc == false) {
-            if (user_info.nickname !== undefined) {
+            if (IsLogin == true) {
                 setIsAuc(!isAuc)
             } else {
                 alert("로그인을 진행해주세요")
@@ -269,7 +270,7 @@ const product_detail = () => {
                         <div>
                             <ul>
 
-                                {other_product.length == 0 ?
+                                {other_product !== false ?
                                     other_product.map((v, i) => {
                                         let url = `/nft/${v.product_no}`;
                                         return (
