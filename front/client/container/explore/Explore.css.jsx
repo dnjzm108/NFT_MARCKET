@@ -9,4 +9,12 @@ export const StyledExplore = styled.div`
     position: relative;
     display: flex;
   }
+  .content-box{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .content-right{
+    flex:1;
+  }
 `;

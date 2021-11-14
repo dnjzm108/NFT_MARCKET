@@ -2,9 +2,9 @@ import { StyledNFT } from "./NFT.css";
 import { useState } from "react";
 import { BsSuitHeartFill } from "react-icons/bs";
 import Link from "next/link";
-import  Router  from "next/router";
+import Router from "next/router";
 
-const NFT = ({type,product_no,price,name,creater,likes,img,bid}) => {
+const NFT = ({ type, product_no, price, name, creater, likes, img }) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = (event) => {
@@ -39,27 +39,11 @@ const NFT = ({type,product_no,price,name,creater,likes,img,bid}) => {
             <span className="content_creater">{creater}</span>
           </div>
           <div className="content_top_right">
-            {type==='buy'
-            &&
-            <>
-            <div>Price</div>
+            <div>{type == 'buy' ? "Price" : "Bid"}</div>
             <div className="content_price">
               <img src="/klay.png" alt="" />
               <span>{price}</span>
-              </div>
-            </>            
-            }
-            {type==='auction'
-            &&
-            <>
-              <div>Bid</div>
-              <div className="content_price">
-                <img src="/klay.png" alt="" />
-                <span>{bid==undefined ? price : bid}</span>
-              </div>
-            </>
-            }
-            
+            </div>
           </div>
         </div>
       </div>

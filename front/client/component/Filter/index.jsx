@@ -12,101 +12,105 @@ import SelectBtnBox from '../SelectBtnBox';
 import useCheckBox from "../../hook/useCheckbox";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDesignerRequest } from '../../reducers/filter'
-import router from "next/router";
 const tempCurrency = [{ "name": 'KLAY', 'img': '/klay.png' }, { 'name': 'KRW', 'img': '/krw.png' }]
-import { GetFilterData, ExploreRequest } from '../../reducers/explore';
-import { UpdateFilter } from "../../reducers/filter"
+import { ExploreRequest } from '../../reducers/explore';
+import { useRouter } from "next/router";
+import OptionBox from "../OptionBox/OptionBox";
+
 
 const Filter = () => {
+  const router = useRouter()
   const dispatch = useDispatch()
-  const { result } = useSelector(state => state.filter);
-  const { category, designer } = useSelector(state => state.explore)
+  const {category,designer } = useSelector(state => state.explore);
   const currency = useChangeValue(tempCurrency);
   const [open, setOpen] = useState(true);
   const typeList = [
     {name:'즉시구매',code:'buy'},
     {name:'경매',code:'auction'}
   ]
-  const sortList = [
-    {name:'최신 순',code:'new'},
-    {name:'오래된 순',code:'old'},
-    {name:'낮은 가격 순',code:'low'},
-    {name:'높은 가격 순',code:'high'},
-    {name:'좋아요 순',code:'like'}
-]
-  
-
-
 
   const Min = useInput();
   const Max = useInput();
-  useEffect(() => {
 
-    dispatch(GetFilterData())
-  }, [])
 
+
+
+ ///가격이 바뀔때.
   const handlePrice = () => {
-    if (Min.value == null || Max.value == null) {
+    if (Min.value == null && Max.value == null) {
       alert('값을 입력해주세요')
       return;
     }
-    const data = {
-      ...result,
-      price_min: Min.value,
-      price_max: Max.value,
+    let data = {...router.query}
+    if(Min.value!=null){
+      data["price_min"] =Min.value; 
     }
-    dispatch(UpdateFilter(data));
-  }
-
-  const handleCategory = (code) => {
-    const data = {
-      ...result,
-      category: code,
+    if(Max.value!=null){
+      data["price_max"] =Max.value; 
     }
-    dispatch(UpdateFilter(data));
-  }
-
-  const handleType = (code) => {
-    const data = {
-      ...result,
-      type:code,
-    }
-    dispatch(UpdateFilter(data));
-  }
-
-  const handleSort = (code) => {
-    const data = {
-      ...result,
-      sort:code
-    }
-    dispatch(UpdateFilter(data));
-  }
-
-  const handleDesigner = (name) => {
-    let designer;
-    if (result.designer.includes(name)) {
-      designer = result.designer.filter(v => v!= name);
-    } else {
-      designer = [...result.designer, name];
-    }
-    const data = {
-      ...result,
-      designer,
-    }
-    dispatch(UpdateFilter(data));
-  }
-
-
-
-  const renderBtnBox = () => {
-    return category.map((v, i) => {
-      return <SelectBtnBox list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={result.category} />
+    router.replace({
+      pathname: '/',
+      query: data,
     })
   }
 
+  //카테고리가 바뀔때.
+  const handleCategory = (code) => {
+    let data = {...router.query}
+    if(data["category"]==code|| code==null){
+      delete data.category; 
+    }else{
+        data["category"]=code
+    }
+    router.replace({
+      pathname: '/',
+      query: data,
+
+    })
+  }
+  
+  // 판매유형 바뀔때. 
+  const handleType = (code) => {
+    let data = {...router.query}
+    if(data["type"]==code || code==null){
+      delete data.type; 
+    }else{
+        data["type"]=code
+    }
+    router.replace({
+      pathname: '/',
+      query: data,
+    })
+  }
  
 
+
+  
+  //디자이너가 바뀔때.
+  const handleDesigner = (name) => {
+      let data = {...router.query};
+      if(data['designer']==undefined){
+        data['designer']=name
+      }else if(typeof data['designer'] == "string"){
+        if(data['designer']==name){
+          delete data.designer
+        }else{
+          data['designer']=[data['designer'],name]
+        }
+      }else{
+        if(data['designer'].includes(name)){
+          data['designer']=data['designer'].filter(v=>v!=name);
+        }else{
+          data['designer']=[...data['designer'],name]
+        }
+      }
+
+      router.replace({
+        pathname: '/',
+        query: data,
+
+      })
+  }
 
   return (
     <StyledFilter>
@@ -123,17 +127,17 @@ const Filter = () => {
             </div>
           </div>
           <Panal value='판매유형' >
-            <SelectBtnBox list={typeList} title='판매유형' onClick={handleType} now={result.type} />
-          </Panal>
-          <Panal value='정렬유형' >
-          <SelectBtnBox list={sortList} title='정렬' onClick={handleSort} now={result.sort} />
+            <SelectBtnBox list={typeList} title='판매유형' onClick={handleType} now={router.query.type} />
+           
           </Panal>
           <Panal value='카테고리' >
-            {renderBtnBox()}
+            {category.map((v, i) => {
+              return <SelectBtnBox header={true} list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={router.query.category} />
+            })}
           </Panal>
           <Panal value='디자이너' >
-        <CheckBoxes list={designer} result={result.designer} onCheck={handleDesigner} useImage={true}/>
-      </Panal>  
+            <CheckBoxes list={designer} result={router.query.designer} onCheck={handleDesigner} useImage={true}/>
+         </Panal>  
 
           <Panal value='가격'>
             <SelectBox {...currency} useImg={true} width='100%' />
