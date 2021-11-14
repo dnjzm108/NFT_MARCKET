@@ -8,7 +8,7 @@ const initalState = {
 }
 
 export const INIT_EXPLORE_REQUEST = 'INIT_EXPLORE_REQUEST';
-export const GET_FILTER_SUCCESS = 'GET_FILTER_SUCCESS'
+export const INIT_EXPLORE_SUCCESS = 'INIT_EXPLORE_SUCCESS'
 
 export const GET_EXPLORE_REQUEST = 'GET_EXPLORE_REQUEST';
 export const GET_EXPLORE_SUCCESS = 'GET_EXPLORE_SUCCESS';
@@ -46,11 +46,14 @@ const reducer = (state = initalState, action) => {
         ...state,
         isLoading: true,
       }
-      case GET_FILTER_SUCCESS:
+      case INIT_EXPLORE_SUCCESS:
         return{
           ...state,
+          isLoading:false,
           category:action.data.category,
           designer:action.data.designer,
+          list:action.data.list,
+          skip:action.data.skip,
         }
       
 

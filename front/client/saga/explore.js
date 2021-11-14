@@ -1,15 +1,14 @@
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 import axios from "axios";
 import qs from "qs";
-axios.default.paramsSerializer = params => {
-  return qs.stringify(params);
-}
+axios.default.paramsSerializer = params => {return qs.stringify(params);}
+
 import {
     INIT_EXPLORE_REQUEST,
     GET_EXPLORE_REQUEST,
     GET_EXPLORE_SUCCESS,
     GET_EXPLORE_ERROR,
-    GET_FILTER_SUCCESS,
+    INIT_EXPLORE_SUCCESS,
 } from '../reducers/explore'
 
 
@@ -17,7 +16,6 @@ const url = process.env.NEXT_PUBLIC_URL;
 
 
 async function exploreAPI(data){
-
     let params = {...data}
     if(params.category==null){
         delete params.category;
@@ -59,25 +57,33 @@ function* explore(action){
 
 }
 
-async function mainInitAPI(){
-    return  await axios.get(`${url}/main/init`)
+async function mainInitAPI(data){
+    let params = {...data}
+    if(params.category==null){
+        delete params.category;
+    }
+    if(params.designer==null||params.designer.length==0){
+        delete params.designer;
+    }
+    if(params.price_min==null||params.price_max==null){
+        delete params.price_min
+        delete params.price_max
+    }
+    if(params.search==null){
+        delete params.search
+    }
+    return  await axios.get(`${url}/main/init`,{params})
 }
 
 function* mainInit(action){
-    console.log(action.data)
-    let result = yield call(mainInitAPI)
+    let result = yield call(mainInitAPI,action.data)
     let {data} = result
     if (data.success) {
         yield put({
-            type: GET_EXPLORE_SUCCESS,
+            type: INIT_EXPLORE_SUCCESS,
             data:{
                 list:data.response.list,
                 skip:data.response.skip,
-                }
-            })
-        yield put({
-            type: GET_FILTER_SUCCESS,
-            data:{
                 category:data.response.category,
                 designer:data.response.designer,
                 }

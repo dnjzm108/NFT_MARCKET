@@ -163,7 +163,8 @@ const getBuyListSql = (params) =>{
               GROUP BY
                     product_no
               ) AS I 
-  ${where}
+      WHERE 
+              leftover>0 ${where}
   ${order}
   LIMIT 
       ${params.skip},16;
@@ -278,8 +279,11 @@ function makeWhereVerse(params){
   if(designer!=undefined &&designer.length>0){
     where += ' AND '+makeSignVerse('creater','=',designer);
   }
-  if(price_min!=undefined && price_max!=undefined){
-    where += ` AND (price>=${price_min} AND price<=${price_max} )`;
+  if(price_min!=undefined){
+    where += ` AND price>=${price_min}`;
+  }
+  if(price_max!=undefined){
+    where += ` AND price<=${price_max}`;
   }
   if(category!=undefined){
     where +=` AND (product_no like '${category}%')`;

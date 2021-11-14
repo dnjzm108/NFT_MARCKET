@@ -28,49 +28,45 @@ const Filter = () => {
     {name:'즉시구매',code:'buy'},
     {name:'경매',code:'auction'}
   ]
-  const sortList = [
-    {name:'최신 순',code:'new'},
-    {name:'오래된 순',code:'old'},
-    {name:'낮은 가격 순',code:'low'},
-    {name:'높은 가격 순',code:'high'},
-    {name:'좋아요 순',code:'like'}
-]
-  
-
-
 
   const Min = useInput();
   const Max = useInput();
 
+
+
+
  ///가격이 바뀔때.
   const handlePrice = () => {
-    if (Min.value == null || Max.value == null) {
+    if (Min.value == null && Max.value == null) {
       alert('값을 입력해주세요')
       return;
     }
     let data = {...router.query}
-    data["price_min"] =Min.value; 
-    data["price_max"] =Max.value; 
-    router.push({
+    if(Min.value!=null){
+      data["price_min"] =Min.value; 
+    }
+    if(Max.value!=null){
+      data["price_max"] =Max.value; 
+    }
+    router.replace({
       pathname: '/',
       query: data,
     })
-    dispatch(ExploreRequest({...router.query}));
   }
 
   //카테고리가 바뀔때.
   const handleCategory = (code) => {
     let data = {...router.query}
-    if(data["category"]==code){
+    if(data["category"]==code|| code==null){
       delete data.category; 
     }else{
         data["category"]=code
     }
-    router.push({
+    router.replace({
       pathname: '/',
       query: data,
+
     })
-    dispatch(ExploreRequest({...router.query}));
   }
   
   // 판매유형 바뀔때. 
@@ -81,29 +77,13 @@ const Filter = () => {
     }else{
         data["type"]=code
     }
-    router.push({
+    router.replace({
       pathname: '/',
       query: data,
     })
-    dispatch(ExploreRequest({...router.query}));
   }
  
-  //정렬기준이 바뀔때.
-  const handleSort = (code) => {
-    console.log(code)
-    let data = {...router.query}
-    if(data["sort"]==code || code==null){
-      delete data.sort; 
-    }else{
-        data["sort"]=code
-    }
 
-    router.push({
-      pathname: '/',
-      query: data,
-    })
-    dispatch(ExploreRequest({...router.query}));
-  }
 
   
   //디자이너가 바뀔때.
@@ -125,11 +105,11 @@ const Filter = () => {
         }
       }
 
-      router.push({
+      router.replace({
         pathname: '/',
         query: data,
+
       })
-      dispatch(ExploreRequest({...router.query}));
   }
 
   return (
@@ -148,18 +128,16 @@ const Filter = () => {
           </div>
           <Panal value='판매유형' >
             <SelectBtnBox list={typeList} title='판매유형' onClick={handleType} now={router.query.type} />
-          </Panal>
-          <Panal value='정렬유형' >
-          <OptionBox list={sortList}  onClick={handleSort} now={router.query.sort==undefined? 'new' : router.query.sort }/>
+           
           </Panal>
           <Panal value='카테고리' >
             {category.map((v, i) => {
-              return <SelectBtnBox list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={router.query.category} />
+              return <SelectBtnBox header={true} list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={router.query.category} />
             })}
           </Panal>
           <Panal value='디자이너' >
-        <CheckBoxes list={designer} result={router.query.designer} onCheck={handleDesigner} useImage={true}/>
-      </Panal>  
+            <CheckBoxes list={designer} result={router.query.designer} onCheck={handleDesigner} useImage={true}/>
+         </Panal>  
 
           <Panal value='가격'>
             <SelectBox {...currency} useImg={true} width='100%' />

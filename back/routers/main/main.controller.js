@@ -24,9 +24,22 @@ const getMainInit = async(req,res) => {
   const category = clearCategory(categoryResult); 
 
   //메인컨텐츠 가져오기.
-  const listSql = getAllListSql({skip:0});
+  let params = req.query;
+  params.skip = params.skip==undefined ? 0 : params.skip
+  let listSql;
+  switch(params.type){
+    case 'buy':
+      listSql=getBuyListSql(params);
+      break;
+    case 'auction':
+      listSql=getAuctionListSql(params);
+      break;
+    case 'all': default:
+      listSql=getAllListSql(params);
+      break;
+  }
   const list = await query(listSql);
-
+  
   const data = {
     designer,
     category,

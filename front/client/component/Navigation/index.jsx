@@ -24,29 +24,11 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const { IsLogin, user_info } = useSelector(state => state.user);
   const [nowItem, setNowItem] = useState(null);
-  const [search, setSearch] = useState()
+  
   const test = useSelector(state => state.user);
   const router = useRouter()
  
-  const handleSearch = (e) => {
-    const temp = e.target.value;
-    setSearch(temp)
-  }
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let data = {...router.query}
-    if(data["search"]==undefined){
-      data["search"]=search; 
-    }else{
-      delete data.search; 
-    }
-    router.push({
-      pathname: '/',
-      query: data,
-    })
-  }
 
   const logOut = () => {
     dispatch(User_Logout())
@@ -62,9 +44,6 @@ const Navigation = () => {
         </Logo>
         <NavItemContainer>
 
-           <form onSubmit={(e) => handleSubmit(e)}>
-             <input type="text" onChange={(e) => handleSearch(e)} />
-           </form>
 
 
           <NavItem

@@ -7,10 +7,15 @@ import { useEffect,useState } from 'react'
 import { useDispatch, useSelector,} from 'react-redux'
 import { useRouter } from "next/router";
 import { ExploreRequest } from '../../reducers/explore'
-
+import Rowfilter from "../../component/Rowfilter";
 const Explore = () => {
   const dispatch = useDispatch();
   const router = useRouter()
+  
+  useEffect(()=>{
+    dispatch(ExploreRequest(router.query))
+  },[router.query])
+
   const {isError,skip} = useSelector(state=>state.explore)
 
   const [fetch,setFetch] = useState(false);
@@ -48,9 +53,12 @@ const Explore = () => {
       <Navigation />
       <div>
         <StyledExplore>
-          <div>
+          <div className='content-box'>
             <Filter />
-            <Gallery />
+            <div className='content-right'>
+              <Rowfilter/>
+              <Gallery />
+            </div>
           </div>
         </StyledExplore>
       </div>
