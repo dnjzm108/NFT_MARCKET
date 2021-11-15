@@ -14,7 +14,7 @@ import Router from "next/router";
 
 
 const Release = ({mint}) => {
-    const {isLoading,maincate} = useSelector(state=>state.mint)
+    const {isLoading} = useSelector(state=>state.mint)
     const {user_info} = useSelector(state=>state.user)
     const dispatch = useDispatch()
     const title = useInput();

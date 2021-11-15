@@ -4,7 +4,7 @@ const unlinkFile = util.promisify(fs.unlink)
 const { uploadFile, uploadNFT } = require('../../s3')
 const { query,execute } = require("../../pool");
 const { productInfo_sql,prdctDetail_sql,productNum_sql,nftInsert_sql } = require('../../sql/mint')
-const {successData} = require('../../returnData');
+const {successData,errorData} = require('../../returnData');
 
 
 // const INSERT = `INSERT INTO nft (${x}) VALUES(${x});`  
@@ -80,7 +80,28 @@ const maincate = async(req,res)=>{
   res.json(successData(result))
 }
 
+const middlecate = async(req,res)=>{
+
+  // const getCode = await query(``)
+  const result = await query(`select * from middlecategory`)
+  res.json(successData(result));
+}
+
+
+const auction_info = async(req,res)=>{
+  // const {bid} = req.body
+  console.log("??",req.body)
+  // res.json(successData())
+  const data = {
+    success:true
+  }
+  res.json(data)
+}
+
+
 module.exports={
   mint_nft,
-  maincate
+  maincate,
+  middlecate,
+  auction_info,
 }

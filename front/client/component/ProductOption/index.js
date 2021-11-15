@@ -6,16 +6,12 @@ import AucOption from "./AucOption";
 import useInput from "../../hook/useInput";
 import {useSelector} from 'react-redux'
 import { useState,useEffect } from "react";
-import axios from "axios"
 
 const ProductOption = 
-({isNow,isClick,setIsClick,optionColor,optionSize,optionEtc,setOptionColor,setOptionSize,setOptionEtc})=>{
-    const list1 =["Men","Women","All"]
-    
-    const list2 = ["Top","Bottom","Shoes","Accessory"]
-    const category2 = useChangeValue(list2)
-    const {isLoading,maincate} = useSelector(state=>state.mint)
-    const category1 = useChangeValue(maincate)
+({isNow,isClick,setIsClick,optionColor,optionSize,optionEtc,setOptionColor,setOptionSize,setOptionEtc,onClick})=>{
+    const {isLoading,maincate,middlecate} = useSelector(state=>state.mint)
+    const category1 = useChangeValue(maincate.map(v=>v.value))
+    const category2 = useChangeValue(middlecate)
     const [colors,setColors]=useState([])
     const [colorInput,setColorInput] = useState("")
     const [option,setOption]=useState([])
@@ -28,6 +24,14 @@ const ProductOption =
     const [price,setPrice] = useState([]);
 
     
+    // console.log(maincate.map(v=>v.code))
+    // const getMaincate = maincate.map((v)=>{
+    //     return v = v.split(',')
+    // })
+
+    // for(let i=0;i<getMaincate.length;i++){
+    //     console.log(getMaincate[i][0])
+    // }
     
 
     const optionCheck =()=>{
@@ -113,6 +117,12 @@ const ProductOption =
     }
 
 
+    const renderList = (e) =>{
+        // console.log(e.target)
+        return maincate.map((v,i)=>{
+            // console.log(v)
+        })
+      }
 
     return(
         <>
@@ -123,7 +133,11 @@ const ProductOption =
             <div className="select_category"><h3>대분류</h3><h3>중분류</h3></div>
             <div className="select_contain">
                 <div className="select_box">
-                    <Selectbox {...category1} />
+                    
+                    <Selectbox {...category1} >
+                    {/* {onclick=(e)=>renderList(e)} */}
+                    </Selectbox>
+                    
                     <Selectbox {...category2} />
                 </div>
             </div>

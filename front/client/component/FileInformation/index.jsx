@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { StyledFileInformation, StyledNewRelease } from "./FileInformation.css.jsx";
 
 

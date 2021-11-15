@@ -97,7 +97,11 @@ color: #222;
 }
 
 
-
+.auction_btn{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
 
 
 
