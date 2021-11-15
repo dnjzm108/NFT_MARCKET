@@ -30,7 +30,7 @@ const configureStore = ()=>{
         const persistConfig = {  // 로컬스토리지 설정 // 개발자 도구- 애플리케이션- 로컬스토리지 확인. 
             key: "root",
             storage, 
-            whitelist: ["user","filter"] 
+            whitelist: ["user"] 
           };
 
         const persistedReducer  = persistReducer(persistConfig,rootReducer)  

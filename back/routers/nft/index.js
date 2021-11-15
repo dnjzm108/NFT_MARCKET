@@ -4,16 +4,13 @@ const upload = multer({ dest: 'uploads/' })
 const router = express.Router()
 const sellController = require('./sell.controller')
 const mintController = require('./mint.controller')
-const itemController = require('./item.controller')
 const swapController = require('./swap.controller')
 const transferController = require('./transfer.controller')
 
 
 
-router.get('/',itemController.getNFTs)
-router.get('/filter',itemController.getFilterData)
-
 router.post('/mint',upload.array('image'),mintController.mint_nft);
+router.get('/maincate',mintController.maincate);
 
 router.post('/sell',sellController.immediatelySell);
 

@@ -4,16 +4,18 @@ import Selectbox from "../../component/SelectBox";
 import useChangeValue from "../../hook/useChangeValue";
 import AucOption from "./AucOption";
 import useInput from "../../hook/useInput";
-import { useState } from "react";
+import {useSelector} from 'react-redux'
+import { useState,useEffect } from "react";
+import axios from "axios"
 
 const ProductOption = 
 ({isNow,isClick,setIsClick,optionColor,optionSize,optionEtc,setOptionColor,setOptionSize,setOptionEtc})=>{
     const list1 =["Men","Women","All"]
-    const category1 = useChangeValue(list1)
+    
     const list2 = ["Top","Bottom","Shoes","Accessory"]
     const category2 = useChangeValue(list2)
-    const list3=["Outer","Inner","Shirts"]
-    const category3 = useChangeValue(list3)
+    const {isLoading,maincate} = useSelector(state=>state.mint)
+    const category1 = useChangeValue(maincate)
     const [colors,setColors]=useState([])
     const [colorInput,setColorInput] = useState("")
     const [option,setOption]=useState([])
@@ -25,6 +27,8 @@ const ProductOption =
     const [qty,setQty] = useState([]);
     const [price,setPrice] = useState([]);
 
+    
+    
 
     const optionCheck =()=>{
         setCheck1(false)
@@ -62,6 +66,7 @@ const ProductOption =
                 });
             })
         }
+        
     }
 
     const handleQty = (e,x)=>{
@@ -115,20 +120,16 @@ const ProductOption =
             {isNow ? 
             <>
             <h1>상세옵션을 선택해주세요</h1>
-            <div className="select_category"><h3>대분류</h3><h3>중분류</h3><h3>소분류</h3></div>
-                        <div className="select_box">
-            {/* const categoryBox = () => {
-            return category.map((v, i) => {
-            return <SelectBtnBox list={v.list} title={v.name} key={v.name + i} onClick={handleCategory} now={result.category} />
-            })
-            } */}
-            <Selectbox {...category1}/>
-            <Selectbox {...category2}/>
-            <Selectbox {...category3}/>
+            <div className="select_category"><h3>대분류</h3><h3>중분류</h3></div>
+            <div className="select_contain">
+                <div className="select_box">
+                    <Selectbox {...category1} />
+                    <Selectbox {...category2} />
+                </div>
             </div>
-                <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요
-                    <p>예시 ) 색상 : black,white,beige,brown (O)
-                        사이즈 : S / M / L (X)  S,M,L (O)  옵션1 : 기모O,기모X (O)</p>
+            <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요
+            <p>예시 ) 색상 : black,white,beige,brown (O)
+            사이즈 : S / M / L (X)  S,M,L (O)  옵션1 : 기모O,기모X (O)</p>
                 </h3>
                 <div className="select_option">
                     <span><p>색상 :</p>
@@ -194,6 +195,24 @@ const ProductOption =
         </>
     )
 }
+
+
+
+// export const getServerSideProps = wrapper.getServerSideProps( (Store)=> async (req,res)=> {
+//     // 첫번쨰는 dispatch 써서 API 요청을 보냅니다. 그리고 상태를 변경시킵니다.
+//     // Store.dispatch(GET_POST())
+//     console.log("text")
+//     const result = await axios.get('http://localhost:4000/nft/maincate')
+//     // console.log(result.data);
+//     const list1 = result.data;
+//     // console.log(result.data)
+//     let lists = list1.map((v)=>{
+//         return v.value
+//     })
+//     setMaincate(lists)
+//     Store.dispatch(END)
+//     await Store.sagaTask.toPromise()
+// })
 
 
 export default ProductOption;
