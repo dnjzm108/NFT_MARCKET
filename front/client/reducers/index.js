@@ -25,7 +25,12 @@ import product from './product'
 const rootReducer = (state = {},action) => {
     switch(action.type){
         case HYDRATE:
-            return action.payload
+            const nextState = {
+                ...state, // use previous state
+                ...action.payload, // apply delta from hydration
+              }
+              if (state.user) nextState.user = state.user
+            return nextState
         default:{
             const combineReducer = combineReducers({
                 user,mint,explore,mylist // 저희가만들거 

@@ -6,6 +6,7 @@ import wrapper from '../store/configureStore'
 import { useRouter } from 'next/router';
 import Explore from '../container/explore'
 import { MainPageInit, ExploreRequest} from '../reducers/explore'
+import {UserLogin_REQUEST} from '../reducers/user'
 const Home = () => {
 
 

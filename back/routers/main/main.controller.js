@@ -1,15 +1,23 @@
-const { query } = require('../../pool');
+const { query, execute } = require('../../pool');
 const {successData,errorData} = require('../../returnData')
 const {
   getDesignerSql,
   getCategorySql,
   getAllListSql,
   getBuyListSql,
-  getAuctionListSql
+  getAuctionListSql,
+  checkLikeSql,
+  insertLikeSql,
+  deleteLikeSql,
 } = require('../../sql/main')
+
+const {
+  loginWithWalletSql
+} = require('../../sql/user') 
 
 
 const getMainInit = async(req,res) => {
+
   console.log('init')
   //필터 디자이너 목록 가져오기
   const designerSql = getDesignerSql();
@@ -51,19 +59,26 @@ const getMainInit = async(req,res) => {
 
 const getMain = async(req,res)=>{
   console.log('get')
+  const wallet = req.get('wallet')
+  let nickname='';
+  if(wallet!="null"){
+    const loginSql = loginWithWalletSql(wallet);
+    user_info = await query(loginSql);
+    nickname = user_info[0].nickname
+  }
 
   let params = req.query;
   params.skip = params.skip==undefined ? 0 : params.skip
   let listSql;
   switch(params.type){
     case 'buy':
-      listSql=getBuyListSql(params);
+      listSql=getBuyListSql(params,nickname);
       break;
     case 'auction':
-      listSql=getAuctionListSql(params);
+      listSql=getAuctionListSql(params,nickname);
       break;
     case 'all': default:
-      listSql=getAllListSql(params);
+      listSql=getAllListSql(params,nickname);
       break;
   }
   const list = await query(listSql);
@@ -76,13 +91,34 @@ const getMain = async(req,res)=>{
 }
 
 
+const updateLike = async(req,res)=>{
+  const {isLike,product_no,nickname} = req.body;
+  let data = {
+    product_no:product_no,
+    type:null,
+  }
+  if(isLike==0){// 없을 떄는 넣어주고.
+    /// insert like
+    const insertSql =  insertLikeSql();
+    await execute(insertSql,[product_no,nickname])
+    data.type='insert'
+  }else{
+    ///update like
+    const deleteSql= deleteLikeSql()
+    await execute(deleteSql,[product_no,nickname])
+    data.type='delete'
+  }
+  res.json(successData(data));
+}
+
 
 
 
 
 module.exports={
   getMainInit,
-  getMain
+  getMain,
+  updateLike
 }
 
 function clearCategory(category){

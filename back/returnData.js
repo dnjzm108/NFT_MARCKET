@@ -18,7 +18,7 @@ const errorData = ({code,message})=>{
   }
 }
 
-const error400 = ({code,message})=>{
+const error400 = ()=>{
   return{
     success:false,
     response:null,
@@ -28,7 +28,7 @@ const error400 = ({code,message})=>{
     }
   }
 }
-const error403 = ({code,message})=>{
+const error403 = ()=>{
   return{
     success:false,
     response:null,
@@ -38,7 +38,7 @@ const error403 = ({code,message})=>{
     }
   }
 }
-const error404 = ({code,message})=>{
+const error404 = ()=>{
   return{
     success:false,
     response:null,
@@ -48,7 +48,7 @@ const error404 = ({code,message})=>{
     }
   }
 }
-const error500 = ({code,message})=>{
+const error500 = ()=>{
   return{
     success:false,
     response:null,
