@@ -5,17 +5,28 @@ import Navigation from "../../component/Navigation";
 import  Footter from "../../component/Footter";
 import { useEffect,useState } from 'react'
 import { useDispatch, useSelector,} from 'react-redux'
-import { ExploreRequest,GetFilterData } from '../../reducers/explore'
-
+import { useRouter } from "next/router";
+import { ExploreRequest } from '../../reducers/explore'
+import Rowfilter from "../../component/Rowfilter";
 const Explore = () => {
   const dispatch = useDispatch();
-  const {isError,skip,end} = useSelector(state=>state.explore)
-  const {result} = useSelector(state=>state.filter);
+  const router = useRouter()
+  const {user_info} = useSelector(state=>state.user);
+  
+
+
+  const {isError,skip} = useSelector(state=>state.explore)
+
   const [fetch,setFetch] = useState(false);
 
   const fetchMoreNFT = async () => {
     setFetch(true);
-    dispatch(ExploreRequest({...result,skip}));
+    const data = {
+      params:{...router.query,skip},
+      wallet:user_info.wallet,
+      skip,
+    }
+    dispatch(ExploreRequest(data));
     setFetch(false);
   };
 
@@ -37,13 +48,16 @@ const Explore = () => {
     };
   });
 
+
   useEffect(()=>{
-    dispatch(ExploreRequest({...result}));
-    
-      return () => {
-        setFetch(false);
-      };
-  },[])
+    const data = {
+      params:router.query,
+      wallet:user_info.wallet
+    }
+    dispatch(ExploreRequest(data))
+  },[router.query])
+
+
 
 
 
@@ -51,13 +65,13 @@ const Explore = () => {
     <>
       <Navigation />
       <div>
-
-      </div>
-      <div>
         <StyledExplore>
-          <div>
+          <div className='content-box'>
             <Filter />
-            <Gallery />
+            <div className='content-right'>
+              <Rowfilter/>
+              <Gallery />
+            </div>
           </div>
         </StyledExplore>
       </div>

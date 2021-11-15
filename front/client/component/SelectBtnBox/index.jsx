@@ -27,7 +27,7 @@ const SelectBtnBoxItem = ({name,onClick,now,code}) =>{
 
 
 
-const SelectBtnBox = ({title,list,onClick,now}) => {
+const SelectBtnBox = ({title,list,onClick,now,header}) => {
 
   const [open,setOpen] = useState(false);
  
@@ -38,20 +38,28 @@ const SelectBtnBox = ({title,list,onClick,now}) => {
     })
   }  
 
-
-  return (
-    <StyledSelectBtnBox >
-      <SelectHeader onClick={()=>setOpen(!open)}>
-        <span>{title}</span>
-        <i><RiArrowDownSLine size={18}/></i>
-      </SelectHeader>
-      {open &&
-      <SelectBody>
-        {renderItem()}
-      </SelectBody>
-      }
-    </StyledSelectBtnBox>
-  );
+  if(header==true){
+    return (
+      <StyledSelectBtnBox >
+        <SelectHeader onClick={()=>setOpen(!open)}>
+          <span>{title}</span>
+          <i><RiArrowDownSLine size={18}/></i>
+        </SelectHeader>
+        {open &&
+        <SelectBody>
+            {renderItem()}
+        </SelectBody>
+        }
+      </StyledSelectBtnBox>
+    );
+  }else{
+    return (
+      <>
+      {renderItem()}
+      </>
+    )
+  }
+    
 }
 
 export default SelectBtnBox;

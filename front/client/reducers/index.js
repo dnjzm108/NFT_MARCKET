@@ -2,7 +2,6 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { combineReducers } from "redux";
 import user from './user'
 import mint from './mint'
-import filter from './filter'
 import explore from './explore'
 import mylist from './mylist'
 import admin from './admin'
@@ -27,10 +26,15 @@ import product from './product'
 const rootReducer = (state = {},action) => {
     switch(action.type){
         case HYDRATE:
-            return action.payload
+            const nextState = {
+                ...state, // use previous state
+                ...action.payload, // apply delta from hydration
+              }
+              if (state.user) nextState.user = state.user
+            return nextState
         default:{
             const combineReducer = combineReducers({
-                user,filter,mint,explore,mylist,product,admin // 저희가만들거 
+                user,mint,explore,mylist,product,admin // 저희가만들거 
             })
             return combineReducer(state,action)
         }

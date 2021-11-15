@@ -88,7 +88,26 @@ const seller_info_sql=()=>{
 }
 
 
+
+const loginWithWalletSql = (data)=>{
+    return(`
+    SELECT
+            U.nickname
+    FROM
+            user as U
+    LEFT JOIN
+            seller as S
+    ON
+        U.nickname=S.nickname
+    WHERE
+        U.wallet='${data}';
+    `)
+}
+
+
+
 module.exports = {
+    loginWithWalletSql,
     join_sql,
     login_sql,
     name_check_sql,

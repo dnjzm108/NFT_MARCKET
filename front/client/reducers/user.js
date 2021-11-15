@@ -39,6 +39,7 @@ export const User_Join_Check = (data) =>{
 }
 
 export const UserLogin_REQUEST = data => {
+    console.log(data);
     return {
         type: USER_LOGIN_REQUEST,
         data,
