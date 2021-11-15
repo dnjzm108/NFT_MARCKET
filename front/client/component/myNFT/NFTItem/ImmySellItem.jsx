@@ -30,18 +30,12 @@ const ImmySellItem = (
       return (
         <div>
           <div>판매중</div>
-          <button>판매중지</button>
         </div>
       )
     }else if(type=='buy' && leftover==0){
         <div>
           <div>매진</div>
         </div>
-    }else if(type=='stop'){
-      <div>
-        <div>판매중지</div>
-        <button>판매재개</button>
-      </div>
     }
   }
 

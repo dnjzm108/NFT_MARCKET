@@ -47,21 +47,6 @@ function* updateLike(action){
 }
 async function exploreAPI(data){
     let {params,wallet} = data
-    if(params.category==null){
-        delete params.category;
-    }
-    if(params.designer==null||params.designer.length==0){
-        delete params.designer;
-    }
-    if(params.price_min==null||params.price_max==null){
-        delete params.price_min
-        delete params.price_max
-    }
-    if(params.search==null){
-        delete params.search
-    }
-
-
     const config = {
         params,
         headers:{
@@ -97,21 +82,6 @@ function* explore(action){
 
 async function mainInitAPI(data){
     let params = {...data}
-
-    if(params.category==null){
-        delete params.category;
-    }
-    if(params.designer==null||params.designer.length==0){
-        delete params.designer;
-    }
-    if(params.price_min==null||params.price_max==null){
-        delete params.price_min
-        delete params.price_max
-    }
-    if(params.search==null){
-        delete params.search
-    }
-
     const config = {
         params,
         // headers:{

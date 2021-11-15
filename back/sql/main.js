@@ -362,16 +362,16 @@ module.exports = {
 
 
 function makeWhereVerse(params) {
-      const { category, designer, search, price_max, price_min } = params;
+      const { category, designer, search, priceMax, priceMin } = params;
       let where = ``
       if (designer != undefined && designer.length > 0) {
             where += ' AND ' + makeSignVerse('creater', '=', designer);
       }
-      if (price_min != undefined) {
-            where += ` AND price>=${price_min}`;
+      if (priceMin != undefined) {
+            where += ` AND price>=${priceMin}`;
       }
-      if (price_max != undefined) {
-            where += ` AND price<=${price_max}`;
+      if (priceMax != undefined) {
+            where += ` AND price<=${priceMax}`;
       }
       if (category != undefined) {
             where += ` AND (product_no like '${category}%')`;

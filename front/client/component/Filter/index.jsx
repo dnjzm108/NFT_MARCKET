@@ -29,26 +29,36 @@ const Filter = () => {
     {name:'경매',code:'auction'}
   ]
 
-  const Min = useInput();
-  const Max = useInput();
+  const Min = useInput('');
+  const Max = useInput('');
 
 
 
 
  ///가격이 바뀔때.
   const handlePrice = () => {
-    if (Min.value == null && Max.value == null) {
+    if (Min.value == "" && Max.value == "") {
       alert('값을 입력해주세요')
       return;
     }
+
+    if(Max.value!='' && ( +Min.value>+Max.value) ){
+      alert('Max 값은 Min 값보다 크거나 같아야 합니다.')
+      return;
+    }
     let data = {...router.query}
-    if(Min.value!=null){
-      data["price_min"] =Min.value; 
+
+    if(Min.value>0 && Max.value==''){
+      data["priceMin"] =Min.value; 
+    }else if(Min.value=='' && Max.value>0){
+      data["priceMax"] =Max.value; 
+    }else{
+      data["priceMin"] =Min.value; 
+      data["priceMax"] =Max.value; 
     }
-    if(Max.value!=null){
-      data["price_max"] =Max.value; 
-    }
-    router.replace({
+    
+    console.log(data)
+    router.push({
       pathname: '/',
       query: data,
     })
@@ -62,7 +72,7 @@ const Filter = () => {
     }else{
         data["category"]=code
     }
-    router.replace({
+    router.push({
       pathname: '/',
       query: data,
 
@@ -77,7 +87,7 @@ const Filter = () => {
     }else{
         data["type"]=code
     }
-    router.replace({
+    router.push({
       pathname: '/',
       query: data,
     })
@@ -105,7 +115,7 @@ const Filter = () => {
         }
       }
 
-      router.replace({
+      router.push({
         pathname: '/',
         query: data,
 

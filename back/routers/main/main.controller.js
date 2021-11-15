@@ -18,7 +18,6 @@ const {
 
 const getMainInit = async(req,res) => {
 
-  console.log('init')
   //필터 디자이너 목록 가져오기
   const designerSql = getDesignerSql();
   const designerResult = await query(designerSql);
@@ -58,10 +57,9 @@ const getMainInit = async(req,res) => {
 }
 
 const getMain = async(req,res)=>{
-  console.log('get')
   const wallet = req.get('wallet')
   let nickname='';
-  if(wallet!="null"){
+  if(wallet!="null" && wallet!="undefined"){
     const loginSql = loginWithWalletSql(wallet);
     user_info = await query(loginSql);
     nickname = user_info[0].nickname

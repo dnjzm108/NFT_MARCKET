@@ -23,8 +23,38 @@ export const Header = styled.div`
 
   .absolute{
     position: absolute;
+    display: flex;
+    flex-direction: row;
     top:28px;
-    left:350px;
+    right:70px;
+  }
+
+  .search-box{
+    width: 40%;
+  height: 100%;
+  padding: .625rem .75rem;
+
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.25rem;
+  border:  1px solid rgb(229, 232, 235);
+  cursor: text;
+  }
+
+  #search-input{
+    width: 100%;
+    height: 100%;
+    margin-left: 3px;
+    font-size: 24px;
+    border: none;
+    outline: none;
   }
 `
 

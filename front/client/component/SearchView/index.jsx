@@ -34,10 +34,11 @@ const handleDeleteDesigner = (name)=>{
 const handleDelete = (group)=>{
   let data = {...router.query};
   delete data[`${group}`];
-  router.replace({
+  router.push({
     pathname: '/',
     query: data,
   })
+  console.log(data)
 }
 
 const renderSearchButton = ()=>{
@@ -63,10 +64,10 @@ const renderSearchButton = ()=>{
         return <StyledSearchViewItem key={v[1]} onClick={()=>handleDelete('category')}><span>{'카테고리: '+big.name+':'+mid.name}</span><ImCross size={16}/></StyledSearchViewItem>
       case 'designer':
         return <StyledSearchViewItem key={v[1]} onClick={()=>handleDeleteDesigner(v[1])}><span>{'디자이너: '+v[1]}</span><ImCross size={16}/></StyledSearchViewItem>
-      case 'price_min':
-        return <StyledSearchViewItem key={v[1]} onClick={()=>handleDelete('price_min')}><span>{'가격: '+v[1]+'klay 이상'}</span><ImCross size={16}/></StyledSearchViewItem>
-      case 'price_max':
-        return <StyledSearchViewItem key={v[1]} onClick={()=>handleDelete('price_max')}><span>{'가격: '+v[1]+'klay 이하'}</span><ImCross size={16}/></StyledSearchViewItem>
+      case 'priceMin':
+        return <StyledSearchViewItem key={v[1]} onClick={()=>handleDelete('priceMin')}><span>{'가격: '+v[1]+'klay 이상'}</span><ImCross size={16}/></StyledSearchViewItem>
+      case 'priceMax':
+        return <StyledSearchViewItem key={v[1]} onClick={()=>handleDelete('priceMax')}><span>{'가격: '+v[1]+'klay 이하'}</span><ImCross size={16}/></StyledSearchViewItem>
       case `search`:
         return <StyledSearchViewItem key={v[1]} onClick={()=>handleDelete('search')}><span>{'검색: '+v[1]}</span><ImCross size={16}/></StyledSearchViewItem>
       }
