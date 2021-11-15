@@ -22,12 +22,12 @@ const getNFTs= async(req,res)=>{
 
 const getFilterData = async(req,res)=>{
 
-  const show_designer = `
+  const getDesigner = `
   SELECT B.nickname,B.picture FROM product as A
   LEFT JOIN user as B
   ON A.creater = B.nickname
   GROUP BY B.nickname`
-  const designer = await query(show_designer);
+  const designer = await query(getDesigner);
   const designerResult = designer.map(v=>{ return {"name":v.nickname, "img":v.picture}})
 
   const categorySql = `
