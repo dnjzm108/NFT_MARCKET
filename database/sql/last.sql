@@ -12,6 +12,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
+create user 'ingoo'@'localhost' identified by '1234';
+grant all privileges on *.* to 'ingoo'@'localhost';
+
+flush privileges;
+
+CREATE DATABASE db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 -- nft_market 데이터베이스 구조 내보내기
 CREATE DATABASE IF NOT EXISTS `nft_market` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `nft_market`;
@@ -124,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `delivery` (
   `reciever` varchar(20) NOT NULL,
   `address` varchar(50) DEFAULT NULL,
   `request` varchar(50) DEFAULT NULL,
-  `recieve_type` varchar(10) DEFAULT NULL,
+  `recieve_type` varchar(40) DEFAULT NULL,
   `phone_number` varchar(20) DEFAULT NULL,
   `invoice` varchar(50) DEFAULT NULL,
   `delivery_company` varchar(20) DEFAULT NULL,

@@ -43,7 +43,7 @@ const product_detail = () => {
         product_no: id
     }
     const info = {
-        product_no: id,
+         product_no: id,
         nickname: user_info.nickname,
     }
 
@@ -62,8 +62,6 @@ const product_detail = () => {
                 setLikes(false)
             }
         }
-        console.log("aaaaaaaaaaa",other_product);
- 
     }, [id,likes,IsLogin,auctions])
 
     
@@ -150,7 +148,6 @@ const product_detail = () => {
     }
 
     if (product_info.length == 0) {
-        console.log(product_img);
         return (
             <span>로딩중</span>
         )
@@ -241,7 +238,7 @@ const product_detail = () => {
                     {/* 팝업부분 */}
 
                     {ispopup ?
-                        <Deleivery_address handlePopup={handlePopupImmy} option={option} select_qty={select_qty} product={product_info} /> : ""}
+                        <Deleivery_address handlePopup={handlePopupImmy} option={option} select_qty={select_qty}/> : ""}
                     {isAuc ? <AucPopup handlePopup={handlePopupAuc} product={product_info} auction_info={auction_info} /> : ""}
 
                     {product_info[0].type == "auction" ?

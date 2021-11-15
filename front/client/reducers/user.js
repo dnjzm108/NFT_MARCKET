@@ -62,7 +62,6 @@ const reducer = (state = initalState,action) => {
             }
 
         case USER_LOGIN_SUCCESS:
-            console.log(action);
             return {
                 ...state,
                 IsLogin: true,
@@ -71,7 +70,6 @@ const reducer = (state = initalState,action) => {
                 user_info: action.user_info
             }
         case USER_LOGIN_ERROR:
-            console.log(action);
             return {
                 ...state,
                 loadding:false,
@@ -91,7 +89,6 @@ const reducer = (state = initalState,action) => {
             }
 
         case USER_JOIN_SUCCESS:
-            console.log(action);
             return {
                 ...state,
                 loadding: false,

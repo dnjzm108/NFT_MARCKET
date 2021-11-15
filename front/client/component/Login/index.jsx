@@ -35,7 +35,6 @@ const Login = () => {
         }
     }
     useEffect(()=>{
-        console.log(user_info ,loadding ,login);
             if(login == true && loadding ==false && user_info.nickname == null){
                 Router.push('/user/join')
             }else if(login == true && loadding ==false && user_info.nickname !== null){

@@ -50,7 +50,6 @@ function* explore(action){
 }
 
 async function getFilterDataAPI(){
-    console.log(url)
     return  await axios.get(`${url}/nft/filter`)
 }
 

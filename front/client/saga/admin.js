@@ -22,16 +22,13 @@ function* admin(action) {
 }
 
 function sellerAPI(data) {
-    console.log("seller,saga2",data);
     return axios.post(`${url}/user/checkseller`, data)
 }
 
 function* seller_info(action) {
-    console.log("selle1",action);
     let result = yield call(sellerAPI, action.data)
     let { response } = result.data
     if (result.data.success == true){
-        console.log("saga3",result.data);
         yield put({
             type: 'SELLER_SUCCESS',
             seller_info:response
@@ -44,7 +41,6 @@ function* seller_info(action) {
 }
 
 function change_sellerAPI(data) {
-    console.log("seller,saga2",data);
     return axios.post(`${url}/user/chageseller`,data)
 }
 

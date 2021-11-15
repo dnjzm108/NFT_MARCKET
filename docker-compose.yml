@@ -1,8 +1,23 @@
 version: '3'
 
 services:
+  db:
+    build: ./database
+  #  volumes:
+  #    - ./sql:/docker-entrypoint-initdb.d
+    restart: always
+    environment: 
+      - MYSQL_ALLOW_EMPTY_PASSWORD="true"
+      # - MYSQL_ROOT_PASSWORD="1234"
+    platform: linux/x86_64
+    ports:
+      - '3333:3306'
+    expose:
+      - '3333'
+
+
   front:
-    image: test
+    build: ./front
     expose:
       - "3500"
     ports:
@@ -14,7 +29,7 @@ services:
     command: sh -c "npm run dev"
 
   back:
-    image: back-img
+    build: ./back
     expose:
       - "4000"
     ports:
@@ -25,5 +40,16 @@ services:
     working_dir: /home/node/app
     command: sh -c "node server"
 
+    # networks:
+    #   - some_net
 
+    # depends_on:
+    #   - db
+
+
+
+networks:
+  default:
+    external:
+      name: some_net
     
