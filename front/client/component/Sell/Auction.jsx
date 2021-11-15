@@ -9,10 +9,6 @@ const Auction = () =>{
     const termCategory = useChangeValue(termList)
     const price = useInput();
 
-    useEffect(()=>{
-        // console.log(termCategory.termList)
-    })
-
     return(
         <>
         <div className="auction">

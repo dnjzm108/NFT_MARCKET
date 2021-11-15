@@ -8,7 +8,7 @@ import { Wrap } from "../Wrap/Popup_back"
 import Input from "../Input"
 import useInput from '../../hooks/useInput';
 import Button from '../Button';
-import {Admin_Login_REQUEST} from '../../reducers/user'
+import {Admin_Login_REQUEST} from '../../reducers/admin'
 import { useDispatch } from 'react-redux'
 
 const Admin_Login = () => {

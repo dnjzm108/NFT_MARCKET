@@ -4,6 +4,7 @@ const { successData } = require("../../returnData");
 
 let product_detail = async (req, res) => {
     let { product_no } = req.body
+    console.log(req.body);
     let params = [product_no]
 
     let img = await execute(product_img(), params)
@@ -85,12 +86,13 @@ let other_product = async(req,res) =>{
 
 let order = async (req,res) =>{
    let {product_id,buyer,price,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover} = req.body
-
+console.log(product_id,buyer,price,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover);
    //오더 테이블 추가
    let order_parms=[product_id,price,buyer,qty]
    let create_order = await execute(create_order_sql(),order_parms)
     
    let {insertId} = create_order
+   console.log(insertId);
     //배송정보 추가
     let delivery_parms=[insertId,reciever,request,recieve_type,phone_number,address]
    let create_delivery = await execute(create_delivery_sql(),delivery_parms)

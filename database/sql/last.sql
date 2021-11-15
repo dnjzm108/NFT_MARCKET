@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 호스트:                          127.0.0.1
--- 서버 버전:                        10.5.9-MariaDB - mariadb.org binary distribution
+-- 서버 버전:                        10.2.14-MariaDB - mariadb.org binary distribution
 -- 서버 OS:                        Win64
--- HeidiSQL 버전:                  11.0.0.5919
+-- HeidiSQL 버전:                  9.4.0.5125
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -10,6 +10,12 @@
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- create user 'ingoo'@'localhost' identified by '1234';
+-- grant all privileges on *.* to 'ingoo'@'localhost';
+-- flush privileges;
+-- CREATE DATABASE db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 -- nft_market 데이터베이스 구조 내보내기
@@ -129,15 +135,15 @@ CREATE TABLE IF NOT EXISTS `delivery` (
   `reciever` varchar(20) NOT NULL,
   `address` varchar(50) DEFAULT NULL,
   `request` varchar(50) DEFAULT NULL,
-  `recieve_type` varchar(10) DEFAULT NULL,
+  `recieve_type` varchar(40) DEFAULT NULL,
   `phone_number` varchar(20) DEFAULT NULL,
   `invoice` varchar(50) DEFAULT NULL,
   `delivery_company` varchar(20) DEFAULT NULL,
   `ready_date` datetime DEFAULT current_timestamp(),
   `ship_date` datetime DEFAULT NULL,
   PRIMARY KEY (`dlvy_id`),
-  KEY `FK_delievery_orders` (`order_id`),
-  CONSTRAINT `FK_delievery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK_delivery_orders` (`order_id`),
+  CONSTRAINT `FK_delivery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 nft_market.delivery:~7 rows (대략적) 내보내기
@@ -175,9 +181,9 @@ INSERT INTO `likes` (`product_no`, `nickname`) VALUES
 	('B108Aw0000', 'jin'),
 	('B108Aw0000', 'seong'),
 	('B108Aw0000', 'jeong'),
-	('A104As0000', 'jin'),
-	('A104As0000', 'seong'),
-	('A104As0000', 'jeong'),
+	('A103As0001', 'jin'),
+	('A103As0001', 'seong'),
+	('A103As0001', 'jeong'),
 	('A103As0000', 'jin'),
 	('A103As0000', 'seong'),
 	('A103As0000', 'jeong'),
@@ -366,14 +372,14 @@ CREATE TABLE IF NOT EXISTS `product_detail` (
   PRIMARY KEY (`product_id`) USING BTREE,
   KEY `product_no` (`product_no`),
   CONSTRAINT `FK_product_detail_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 nft_market.product_detail:~10 rows (대략적) 내보내기
 DELETE FROM `product_detail`;
 /*!40000 ALTER TABLE `product_detail` DISABLE KEYS */;
 INSERT INTO `product_detail` (`product_id`, `product_no`, `color`, `size`, `qty`, `rest`, `price`) VALUES
 	(8, 'A103As0000', 'blue', 'ss', 10, 10, 20),
-	(9, 'A103As0000', 'red', 'l', 20, 20, 10),
+	(9, 'A103As0001', 'red', 'l', 20, 20, 10),
 	(10, 'A103As0000', 'black', 'xl', 20, 20, 20),
 	(11, 'B108Aw0000', 'blue', 'l', 20, 20, 30),
 	(12, 'B108Aw0000', 'yellow', 'lx', 20, 20, 20),
@@ -381,7 +387,10 @@ INSERT INTO `product_detail` (`product_id`, `product_no`, `color`, `size`, `qty`
 	(14, 'B108Aw0001', 'skyblue', '2lx', 1, 51, 12),
 	(15, 'A105As1010', 'gray', 'l', 1, 11, 199),
 	(16, 'B105Aw1221', 'white', 'm', 1, 9, 99),
-	(17, 'B103Aw1245', 'red', 's', 1, 20, 66);
+	(17, 'B103Aw1245', 'red', 's', 1, 20, 66),
+	(18, 'B108Aw0001', 'red', 'l', 20, 20, 20),
+	(19, 'B108Aw0002', 'blue', 'l', 20, 20, 20),
+	(20, 'B108Aw0003', 'red', 'l', 20, 20, 20);
 /*!40000 ALTER TABLE `product_detail` ENABLE KEYS */;
 
 -- 테이블 nft_market.product_image 구조 내보내기
@@ -396,18 +405,21 @@ CREATE TABLE IF NOT EXISTS `product_image` (
 DELETE FROM `product_image`;
 /*!40000 ALTER TABLE `product_image` DISABLE KEYS */;
 INSERT INTO `product_image` (`product_no`, `img`) VALUES
-	('A104As0000', 'sdfsdf'),
-	('A104As0000', 'sadf'),
-	('A103As0000', 'safd'),
-	('A103As0000', 'sdfsf'),
-	('B108Aw0000', 'sdf'),
-	('B108Aw0000', 'sdfsf'),
+	('A103As0001', '/이재명.png'),
+	('A103As0001', '/이재명.png'),
+	('A103As0000', '/이재명.png'),
+	('A103As0000', '/이재명.png'),
+	('B108Aw0000', '/이재명.png'),
+	('B108Aw0000', '/이재명.png'),
 	('A105As1010', '/윤석열.png'),
 	('B108Aw0000', '/이재명.png'),
 	('B103Aw1245', '/심상정.png'),
 	('B105Aw1221', '/안철수.png'),
 	('A105As1111', '/홍준표.png'),
-	('B108Aw0001', '/이낙연.png');
+	('B108Aw0001', '/이낙연.png'),
+	('B108Aw0001', '/안철수.png'),
+	('B108Aw0002', '/안철수.png'),
+	('B108Aw0003', '/안철수.png');
 /*!40000 ALTER TABLE `product_image` ENABLE KEYS */;
 
 -- 테이블 nft_market.seller 구조 내보내기

@@ -4,7 +4,7 @@ import user from './user'
 import mint from './mint'
 import explore from './explore'
 import mylist from './mylist'
-
+import admin from './admin'
 import product from './product'
 
 
@@ -22,6 +22,7 @@ import product from './product'
 //     },
 //     user,filter,mint,explore,mylist
 // })
+
 const rootReducer = (state = {},action) => {
     switch(action.type){
         case HYDRATE:
@@ -33,7 +34,7 @@ const rootReducer = (state = {},action) => {
             return nextState
         default:{
             const combineReducer = combineReducers({
-                user,mint,explore,mylist // 저희가만들거 
+                user,mint,explore,mylist,product,admin // 저희가만들거 
             })
             return combineReducer(state,action)
         }

@@ -9,7 +9,6 @@ const initalState = {
         status:null
     },
     name_check:'',
-    admin:''
 }
 
 const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST"
@@ -22,28 +21,16 @@ const USER_JOIN_REQUEST = "USER_JOIN_REQUEST"
 const USER_JOIN_SUCCESS = "USER_JOIN_SUCCESS"
 const USER_JOIN_ERROR = "USER_JOIN_ERROR"
 
-const ADMIN_LOGIN = "ADMIN_LOGIN"
-const ADMIN_SUCCESS = "ADMIN_SUCCESS"
-const ADMIN_ERROR = "ADMIN_ERROR"
 
 
-export const Admin_Logout = () =>{
-    return{
-        type:ADMIN_ERROR
-    }
- }
+
 export const User_Logout = () =>{
     return{
         type:USER_LOGOUT
     }
  }
  
-export const Admin_Login_REQUEST = (data) =>{
-    return{
-        type:ADMIN_LOGIN,
-        data
-    }
-}
+
 export const User_Join_Check = (data) =>{
     return{
         type: USER_JOIN_CHECK,
@@ -76,7 +63,6 @@ const reducer = (state = initalState,action) => {
             }
 
         case USER_LOGIN_SUCCESS:
-            console.log(action);
             return {
                 ...state,
                 IsLogin: true,
@@ -85,7 +71,6 @@ const reducer = (state = initalState,action) => {
                 user_info: action.user_info
             }
         case USER_LOGIN_ERROR:
-            console.log(action);
             return {
                 ...state,
                 loadding:false,
@@ -105,7 +90,6 @@ const reducer = (state = initalState,action) => {
             }
 
         case USER_JOIN_SUCCESS:
-            console.log(action);
             return {
                 ...state,
                 loadding: false,
@@ -131,21 +115,6 @@ const reducer = (state = initalState,action) => {
                     status:null
                 }
             } 
-
-        case ADMIN_LOGIN:
-            return{
-                ...state
-            }
-        case ADMIN_SUCCESS:
-            return{
-                ...state,
-                admin:true
-            }
-        case ADMIN_ERROR:
-            return{
-                ...state,
-                admin:false
-            }
 
         default:
             return state
