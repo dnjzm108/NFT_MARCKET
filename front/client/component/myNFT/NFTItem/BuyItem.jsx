@@ -15,6 +15,39 @@ const sell_type={
   'auction':'경매'
 }
 
+const renderStatus = (type)=>{
+  switch(type){
+    case 'wait':
+      return(
+        <>
+         <div>배송지 미입력</div>
+         <button className='order_action_btn wait'>배송지 입력</button>
+        </>
+        )
+    case 'ready':
+      return(
+        <>
+         <div>상품준비중</div>
+        </>
+        )
+    case 'delivery':
+      return(
+        <>
+         <div>배송중</div>
+         <button className='order_action_btn delivery'>구매 확정</button>
+        </>
+        )
+    case 'completed':
+      return(
+        <>
+         <div>구매완료</div>
+         <button className='order_action_btn completed'>영수증</button>
+        </>
+        )
+      
+  }
+} 
+
 const BuyItem = (
   {type,
     color,
@@ -53,7 +86,7 @@ const BuyItem = (
       <td>{order_date}</td>
       <td>{order_id}</td>
       <td>{order_price}</td>
-      <td>{dlvy_status[status]}</td>
+      <td>{renderStatus(status)}</td>
     </StyledMyNFT>
     );
  

@@ -6,7 +6,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { VscSmiley, VscCheck, VscWarning } from "react-icons/vsc";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import { useEffect } from "react";
 
 
 

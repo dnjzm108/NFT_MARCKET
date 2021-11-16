@@ -12,12 +12,17 @@ const Explore = () => {
   const dispatch = useDispatch();
   const router = useRouter()
   const {user_info} = useSelector(state=>state.user);
-  
-
-
   const {isError,skip} = useSelector(state=>state.explore)
-
   const [fetch,setFetch] = useState(false);
+
+
+  useEffect(()=>{
+    const data = {
+      params:router.query,
+      nickname:user_info.nickname
+    }
+    dispatch(ExploreRequest(data))
+  },[router.query])
 
   const fetchMoreNFT = async () => {
     setFetch(true);
@@ -49,13 +54,7 @@ const Explore = () => {
   });
 
 
-  useEffect(()=>{
-    const data = {
-      params:router.query,
-      wallet:user_info.wallet
-    }
-    dispatch(ExploreRequest(data))
-  },[router.query])
+ 
 
 
 

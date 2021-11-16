@@ -12,7 +12,6 @@ function* join(action){
     
     let result = yield call(joinAPI,action.data)
     let {response} = result.data
-    console.log('사가',response);
     if (response !== null) {
         yield put({
             type: 'USER_JOIN_SUCCESS',

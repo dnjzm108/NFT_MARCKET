@@ -65,7 +65,7 @@ const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
         {isHover && <p className="buynow">{ type=='buy'?"Buy now" : "Bid now"}</p>}
 
         <div className="like_box">
-          {(isLike!==0 && IsLogin===true)
+          {(isLike===user_info.nickname && IsLogin===true)
           ?(
             <i className="like_btn">
               <BsSuitHeartFill size={16} color={"red"}/>

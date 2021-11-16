@@ -4,4 +4,4 @@
 
 //테스트용(local back)
 
- export const url = 'http://localhost:4000'
+ export const url = process.env.NEXT_PUBLIC_URL

@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import {ImCross} from 'react-icons/im'
 import { useSelector } from "react-redux";
 import {StyledSearchView, StyledSearchViewItem} from './SearchView.css'
@@ -38,7 +37,6 @@ const handleDelete = (group)=>{
     pathname: '/',
     query: data,
   })
-  console.log(data)
 }
 
 const renderSearchButton = ()=>{

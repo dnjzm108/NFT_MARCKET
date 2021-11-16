@@ -56,7 +56,7 @@ const getAllListSql = (params, nickname) => {
                   A.date,
                   A.leftover,
                   B.img,
-                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike'
+                  L.nickname AS isLike
           FROM
                   product AS A
         
@@ -163,7 +163,7 @@ const getBuyListSql = (params, nickname) => {
                   P.likes,
                   P.date,
                   P.leftover,
-                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike'   
+                  L.nickname  as isLike   
             FROM 
                   product as P
             LEFT JOIN (
@@ -233,7 +233,7 @@ const getAuctionListSql = (params, nickname) => {
                   A.product_no,
                   A.date,
                   A.leftover,
-                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike',
+                  L.nickname AS isLike,
                   I.img
           FROM( 
                 SELECT 

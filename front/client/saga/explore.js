@@ -1,8 +1,5 @@
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 import axios from "axios";
-import qs from "qs";
-axios.default.paramsSerializer = params => {return qs.stringify(params);}
-
 import {
     INIT_EXPLORE_REQUEST,
     GET_EXPLORE_REQUEST,
@@ -13,7 +10,9 @@ import {
     UPDATE_LIKE_ERROR,
     INIT_EXPLORE_SUCCESS,
 } from '../reducers/explore'
-
+import {
+    USER_LOGOUT
+}from '../reducers/user'
 
 
 
@@ -46,11 +45,11 @@ function* updateLike(action){
 
 }
 async function exploreAPI(data){
-    let {params,wallet} = data
+    let {params,nickname} = data
     const config = {
         params,
         headers:{
-            'wallet':wallet,
+            'nickname':nickname,
           },
     }
     return  await axios.get(`${url}/main`,config)
@@ -128,10 +127,11 @@ function* watchExploreLike(){
 }
 
 
+
 export default function* exploreSaga(){
     yield all([
         fork(watchExplore),
         fork(watchInitExplore),
-        fork(watchExploreLike)
+        fork(watchExploreLike),
     ])
 }

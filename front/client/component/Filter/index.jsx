@@ -5,24 +5,18 @@ import Panal from "../Panal";
 import { useState } from "react";
 import SelectBox from "../SelectBox";
 import Input from '../Input'
-import useChangeValue from "../../hook/useChangeValue";
 import useInput from '../../hook/useInput';
 import CheckBoxes from '../CheckBoxes'
 import SelectBtnBox from '../SelectBtnBox';
-import useCheckBox from "../../hook/useCheckbox";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const tempCurrency = [{ "name": 'KLAY', 'img': '/klay.png' }, { 'name': 'KRW', 'img': '/krw.png' }]
-import { ExploreRequest } from '../../reducers/explore';
 import { useRouter } from "next/router";
 import OptionBox from "../OptionBox/OptionBox";
 
 
 const Filter = () => {
   const router = useRouter()
-  const dispatch = useDispatch()
   const {category,designer } = useSelector(state => state.explore);
-  const currency = useChangeValue(tempCurrency);
   const [open, setOpen] = useState(true);
   const typeList = [
     {name:'즉시구매',code:'buy'},
@@ -150,7 +144,11 @@ const Filter = () => {
          </Panal>  
 
           <Panal value='가격'>
-            <SelectBox {...currency} useImg={true} width='100%' />
+            <div className='klay'>
+            <img src='./klay.png' alt="" />
+            <span>Klay</span>
+            </div>
+            
             <div className='price_input'>
               <Input {...Min} type='number' width='124px' placeholder='Min' />
               <span>to</span>

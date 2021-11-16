@@ -162,6 +162,49 @@ export const AuctionSellTable = styled.table`
   }
 `
 
+export const ImmySellTable = styled.table`
+  width: 100%;
+  padding: 28px;
+
+  &>thead{
+    width: 100%;
+    height: 2vh;
+
+    &>tr{
+      width: 100%;
+
+      &>th:nth-child(1){
+        width: 30%;
+      }
+
+      &>th:nth-child(2){
+        width: 10%;
+      }
+
+      &>th:nth-child(3){
+        width: 10%;
+      }
+
+      &>th:nth-child(4){
+        width: 10%;
+      }
+
+      &>th:nth-child(5){
+        width: 10%;
+      }
+      &>th:nth-child(6){
+        width: 10%;
+      }
+      &>th:nth-child(7){
+        width: 10%;
+      }
+      &>th:nth-child(8){
+        width: 10%;
+      }
+    }
+  }
+`
+
 
 
 

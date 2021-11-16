@@ -1,136 +1,63 @@
-import { NFTListContainer, Header, BuyTable, AuctionTable, AuctionSellTable } from "./NFTList css";
-import Selectbox from "../../SelectBox";
-import useChangeValue from "../../../hook/useChangeValue";
-import { useEffect ,useState} from "react";
+import { NFTListContainer, Header, BuyTable,ImmySellTable, AuctionTable, AuctionSellTable } from "./NFTList css";
 import { useDispatch, useSelector } from "react-redux";
 import { ListUpdateRequest } from '../../../reducers/mylist'
 import { BiSearch } from 'react-icons/bi'
+import {useState} from 'react'
 import BuyItem from "../NFTItem/BuyItem";
 import AuctionItem from "../NFTItem/AuctionItem";
 import AuctionSellItem from "../NFTItem/AuctionSellItem"
 import ImmySellItem from "../NFTItem/ImmySellItem";
 import OptionBox from '../../OptionBox/OptionBox'
-import useNameToCode from '../../../hook/useNameToCode'
+import {statusList,sortList,typeList} from './list.js'
+import { useRouter } from "next/router";
 
-const statusList = {
-  'buy':[
-    {name:'전체',code:'all'},
-    {name:'배송지 미입력',code:'wait'},
-    {name:'상품준비중',code:'ready'},
-    {name:'배송중',code:'delivery'},
-    {name:'구매완료',code:'completed'},
-  ],
-  'auction':[
-    {name:'전체',code:'all'},
-    {name:'입찰',code:'bid'},
-    {name:'유찰',code:'burial'},
-    {name:'낙찰',code:'success'},
-  ],
-  'immysell':[
-    {name:'전체',code:'all'},
-    {name:'판매중',code:'sale'},
-    {name:'매진',code:'soldout'},
-    {name:'판매중단',code:'stop'},
-  ],
-  'auctionsell':[
-    {name:'전체',code:'all'},
-    {name:'경매중',code:'true'},
-    {name:'경매종료',code:'false'},
-    {name:'배송지 미입력',code:'wait'},
-    {name:'배송 요청',code:'ready'},
-    {name:'배송중',code:'delivery'},
-    {name:'구매완료',code:'completed'},
-  ],
-}
 
-const sortList = {
-  'buy':[
-    {name:'최신 순',code:'new'},
-    {name:'오래된 순',code:'old'},
-    {name:'높은 가격 순',code:'high'},
-    {name:'낮은 가격 순',code:'low'},
-    {name:'좋아요 순',code:'likes'},
-  ],
-  'auction':[
-    {name:'최신 입찰 순',code:'new'},
-    {name:'오래된 입찰 순',code:'old'},
-    {name:'최신 등록 순',code:'regNew'},
-    {name:'오래된 등록 순',code:'regOld'},
-    {name:'높은 입찰가 순',code:'high'},
-    {name:'낮은 입찰가 순',code:'low'},
-    {name:'좋아요 순',code:'likes'},
-  ],
-  'immysell':[
-    {name:'최신 주문일 순',code:'new'},
-    {name:'오래된 주문일 순',code:'old'},
-    {name:'높은 가격 순',code:'high'},
-    {name:'낮은 가격 순',code:'low'},
-  ],
-  'auctionsell':[
-    {name:'최신 주문일 순',code:'new'},
-    {name:'오래된 주문일 순',code:'old'},
-    {name:'최신 등록일 순',code:'regNew'},
-    {name:'오래된 등록일 순',code:'regOld'},
-    {name:'높은 입찰가 순',code:'high'},
-    {name:'낮은 입찰가 순',code:'low'},
-  ],
-}
-
-const typeList = {
- 'buy': '구매 내역',
- 'auction':'경매 내역',
- 'immysell':'즉시판매 내역',
- 'auctionsell':'경매판매 내역',
-
-}
-
-const NFTList = (props) => {
-  let type = props.type
-  let list = props.list
-  let eng = props.eng;
+const NFTList = () => {
   const dispatch = useDispatch();
-  const mylist = useSelector(state => state.mylist);
-  const { user_info } = useSelector(state => state.user);
-  const status_list = useNameToCode(statusList[type]);
-  const sort_list =useNameToCode(sortList[type]);
-  const [status,setStatus] = useState(statusList[type][0].code)
-  const [sort,setSort] = useState(sortList[type][0].code)
+  const {list, searchData} = useSelector(state => state.mylist);
+  const {user_info} = useSelector(state => state.user);
+  const [input,setInput] = useState(''); 
+  const router = useRouter()
+  const {type} = router.query
 
-  const handleStatus = (code) =>{
-    setStatus(code)
-    alert(code);
-  }
-
-  const handleSort = (code) =>{
-    setSort(code)
-    alert(code);
-  }
-
-  useEffect(()=>{
-    const data ={
+  const handleSort = (code)=>{
+    const data = {
+      ...searchData,
       nickname:user_info.nickname,
-      page:1,
-
-    }
+      sort:code
+    };
     dispatch(ListUpdateRequest(data))
-  },[type])
-  
-  
+  }
+   
+  const handleStatus = (code)=>{
+    const data = {
+      ...searchData,
+      nickname:user_info.nickname,
+      status:code
+    };
+    dispatch(ListUpdateRequest(data))
+  }
 
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    const data = {
+      ...searchData,
+      nickname:user_info.nickname,
+      search:input
+    };
+    dispatch(ListUpdateRequest(data))
+  }
 
-  
-
-
-
-
-
+  const handleSearchInPut = (e)=>{
+    setInput(e.target.value)
+  }
 
 
   const renderBuyItem = () => {
-    if (mylist.list.length == 0) {
+    if (list.length == 0) {
       return <tr><td>검색결과가 없습니다.</td></tr>
     } else {
-      return mylist.list.map((v, i) => {
+      return list.map((v, i) => {
         return <BuyItem
           key={i}
           color={v.color}
@@ -144,7 +71,7 @@ const NFTList = (props) => {
           product_no={v.product_no}
           qty={v.qty}
           size={v.size}
-          status={v.status}
+          status={v.dlvy_status}
           selltype={v.selltype}
           likes={v.likes}
         />
@@ -153,10 +80,10 @@ const NFTList = (props) => {
   }
 
   const renderAuctionItem = () => {
-    if (mylist.list.length == 0) {
+    if (list.length == 0) {
       return <tr><td>검색결과가 없습니다.</td></tr>
     } else {
-      return mylist.list.map((v, i) => {
+      return list.map((v, i) => {
         return <AuctionItem
           key={i}
           color={v.color}
@@ -178,10 +105,10 @@ const NFTList = (props) => {
   }
 
   const renderAuctionSellItem = () => {
-    if (mylist.list.length == 0) {
+    if (list.length == 0) {
       return <tr><td>검색결과가 없습니다.</td></tr>
     } else {
-      return mylist.list.map((v, i) => {
+      return list.map((v, i) => {
         return <AuctionSellItem
           key={i}
           color={v.color}
@@ -206,40 +133,42 @@ const NFTList = (props) => {
   }
 
   const renderImmySellItem = () => {
-    if (mylist.list.length == 0) {
+    if (list.length == 0) {
       return <tr><td>검색결과가 없습니다.</td></tr>
     } else {
-      return mylist.list.map((v, i) => {
+      return list.map((v, i) => {
         return <ImmySellItem
           key={i}
           color={v.color}
+          size={v.size}
           img={v.img}
           name={v.name}
           date={v.date}
           product_no={v.product_no}
-          size={v.size}
-          total_qty={v.total_qty}
-          leftover={v.leftover}
+          qty={v.qty}
           likes={v.likes}
-          type={v.type}
+          order_id={v.order_id}
+          price={v.price}
+          buyer={v.buyer}
+          dlvy_status={v.dlvy_status}
         />
       })
     }
   }
 
 
-
+  if(type==null) return <span>로딩중입니다.</span>
   return (
     <NFTListContainer>
           <Header>
             <h3>{typeList[type]}</h3>
             <form className='search-box' onSubmit={(e) => handleSubmit(e)}>
               <BiSearch size={24} color={'#888'} />
-              <input id='search-input' type="text" placeholder='상품명/상품코드 검색' onChange={(e) => handleSearch(e)} />
+              <input id='search-input' type="text" placeholder={(type==='buy' ||type==='auction')? '상품명/상품번호/디자이너 검색':'상품명/상품번호 검색'} onChange={(e) => handleSearchInPut(e)} />
             </form>
             <div className='absolute'>
-              <OptionBox list={statusList[type]} onClick={handleStatus} now={status}/>
-              <OptionBox list={sortList[type]} onClick={handleSort} now={sort}/>
+              <OptionBox list={statusList[type]} onClick={handleStatus} now={searchData.status}/>
+              <OptionBox list={sortList[type]} onClick={handleSort} now={searchData.sort}/>
             </div>
           </Header>
       {type === 'buy' && (
@@ -277,20 +206,23 @@ const NFTList = (props) => {
           </AuctionTable>
       )}
       {type === 'immysell' && (
-          <BuyTable>
+          <ImmySellTable>
             <thead>
               <tr>
                 <th>상품정보</th>
-                <th>등록일자</th>
-                <th>입고량</th>
-                <th>재고량</th>
-                <th>판매상태</th>
+                <th>주문일자</th>
+                <th>주문자</th>
+                <th>주문량</th>
+                <th>가격</th>
+                <th>주문량×가격</th>
+                <th>주문번호</th>
+                <th>주문상태</th>
               </tr>
             </thead>
             <tbody>
               {renderImmySellItem()}
             </tbody>
-          </BuyTable>
+          </ImmySellTable>
       )}
       {type === 'auctionsell' && (
           <AuctionSellTable>

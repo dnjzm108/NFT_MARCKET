@@ -14,8 +14,8 @@ router.post('/admin',controller.admin)
 router.post('/checkseller',controller.checkseller)
 router.post('/chageseller',controller.chageseller)
 
-router.post('/buy',listController.getMyBuy);
-router.post('/auction',listController.getMyAuction);
-router.post('/immysell',listController.getMyImmySell);
-router.post('/auctionsell',listController.getMyAuctionSell);
+router.get('/buy',listController.getMyBuy);
+router.get('/auction',listController.getMyAuction);
+router.get('/immysell',listController.getMyImmySell);
+router.get('/auctionsell',listController.getMyAuctionSell);
 module.exports = router
