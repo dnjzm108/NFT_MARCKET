@@ -8,6 +8,7 @@ async function poductAPI(data) {
     let result = await axios.post(`${url}/product/product_detail`, data)
     info.push(result.data.response.img)
     info.push(result.data.response.product)
+
     let { product_id } = result.data.response.product[0]
     let { product_no } = result.data.response.product[0]
     
@@ -50,7 +51,7 @@ async function auctionAPI(data){
 function* apply_auction(action){
     let result = yield call(auctionAPI, action.data)
 
-    if(result.response){
+    if(result.data.success){
         yield put({
             type: 'AUCTION_SUCCEESS'
         })
@@ -61,9 +62,48 @@ function* apply_auction(action){
     }
 } 
 
+async function immyAPI(data){
+    return await axios.post(`${url}/product/order`, data)
+}
+
+function* apply_immy(action){
+    let result = yield call(immyAPI, action.data)
+
+    if(result.data.success){
+        yield put({
+            type: 'IMMY_SUCCEESS',
+            data : result.data.response
+        })
+    }else{
+        yield put({
+            type: 'IMMY_ERROR'
+        })
+    }
+} 
+
+async function noticeAPI(data){
+    return await axios.post(`${url}/product/notice_order`, data)
+}
+
+function* notice_info(action){
+    let result = yield call(noticeAPI, action.data)
+    if(result.data.success){
+        yield put({
+            type: 'NOTICE_INFO_SUCCESS',
+            data : result.data.response
+        })
+    }else{
+        yield put({
+            type: 'NOTICE_INFO_ERROR'
+        })
+    }
+} 
+
 function* watchProduct() {
     yield takeLatest('PRODUCT_PAGE_REQUEST', product_page)
+    yield takeLatest('APPLY_IMMY', apply_immy)
     yield takeLatest('APPLY_AUCTION', apply_auction)
+    yield takeLatest('NOTICE_INFO', notice_info)
 
 }
 

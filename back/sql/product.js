@@ -56,7 +56,7 @@ const check_like_sql = () =>{
 //상품 디테일 아이디
 const auction_detail_sql = () =>{
     return(
-        `SELECT A.auction_id,A.product_id,date_format(A.deadline,'%y-%m-%d %h:%i')as deadline,A.option,B.auction_history_id,B.bider,B.bid,B.status,date_format(B.date,'%y-%m-%d %h:%i')as date FROM auction as A 
+        `SELECT A.auction_id,A.product_id,date_format(A.deadline,'%y-%m-%d %h:%i')as deadline,A.option,B.auction_history_id,B.bidder,B.bid,B.status,date_format(B.date,'%y-%m-%d %h:%i')as date FROM auction as A 
         LEFT JOIN auction_history as B
         ON B.auction_id = A.auction_id
         WHERE A.product_id = ?
@@ -91,7 +91,7 @@ const create_order_sql = () => {
 
 const create_delivery_sql = () =>{
     return(
-`INSERT INTO delivery (order_id,reciever,request,recieve_type,phone_number,address,status) VALUES(?,?,?,?,?,?,"요청")`
+`INSERT INTO delivery (order_id,reciever,request,recieve_type,phone_number,address,status) VALUES(?,?,?,?,?,?,"ready")`
     )
 }
 
@@ -115,7 +115,7 @@ const update_detail_sql = () =>{
 // 경매 아이디,입찰자,입찰가격
 const bid_auction_sql = () => {
     return (
-        `INSERT INTO auction_history (auction_id,bider,bid,status) VALUES(?,?,?,"입찰")`
+        `INSERT INTO auction_history (auction_id,bidder,bid,status) VALUES(?,?,?,"bid")`
     )
 }
 
@@ -123,7 +123,7 @@ const bid_auction_sql = () => {
 
 const chage_history_sql = () =>{
     return(
-        `UPDATE auction_history SET status = "유찰" WHERE auction_history_id = ?`
+        `UPDATE auction_history SET status = "burial" WHERE auction_history_id = ?`
     )
 }
 
@@ -140,7 +140,7 @@ const chage_product_likes = () =>{
 
 const notice_order_sql = () =>{
     return(
-        `SELECT A.price,A.buyer,A.qty,B.dlvy_id,B.reciever,B.address,B.invoice,B.delivery_company,B.phone_number,B.request,C.color,C.size,D.name FROM orders as A
+        `SELECT A.price,A.buyer,A.qty,B.dlvy_id,B.status,B.reciever,B.address,B.invoice,B.delivery_company,B.phone_number,B.request,C.color,C.size,D.name FROM orders as A
         LEFT JOIN delivery as B
         ON A.order_id = B.order_id
         LEFT JOIN product_detail as C

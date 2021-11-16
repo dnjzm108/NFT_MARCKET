@@ -46,7 +46,6 @@ const Join = (data) => {
         }
         if (nickname.value !== '') {
             let result = await axios.post(`${url}/user/name_check`,name)
-            console.log(result.data.response);
             if (result.data.response) {
                 setCheck(result.data.response)
             } else {

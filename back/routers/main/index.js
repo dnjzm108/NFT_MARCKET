@@ -7,6 +7,7 @@ const mainController = require('./main.controller')
 
 router.get('/',mainController.getMain);
 router.get('/init',mainController.getMainInit);
+router.post('/like',mainController.updateLike);
 
 
 

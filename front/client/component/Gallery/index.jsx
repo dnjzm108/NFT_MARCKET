@@ -22,6 +22,7 @@ const Gallery = () => {
         creater = {v.creater}
         likes = {v.likes}
         img = {v.img}
+        isLike = {v.isLike}
       />
     })
   }

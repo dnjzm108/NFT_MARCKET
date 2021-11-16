@@ -8,15 +8,45 @@ import {
     GET_EXPLORE_REQUEST,
     GET_EXPLORE_SUCCESS,
     GET_EXPLORE_ERROR,
+    UPDATE_LIKE_REQUEST,
+    UPDATE_LIKE_SUCCESS,
+    UPDATE_LIKE_ERROR,
     INIT_EXPLORE_SUCCESS,
 } from '../reducers/explore'
+
+
 
 
 const url = process.env.NEXT_PUBLIC_URL; 
 
 
+async function updateLikeAPI(data){
+    return  await axios.post(`${url}/main/like`,data)
+}
+
+
+function* updateLike(action){
+    let result = yield call(updateLikeAPI,action.data)
+    let {data} = result
+    if (data.success) {
+        yield put({
+            type: UPDATE_LIKE_SUCCESS,
+            data:{
+              ...data.response
+            }
+        })
+        } else {
+        yield put({
+            type: UPDATE_LIKE_ERROR,
+            data:{
+                ...data.error
+            }
+        })
+    }
+
+}
 async function exploreAPI(data){
-    let params = {...data}
+    let {params,wallet} = data
     if(params.category==null){
         delete params.category;
     }
@@ -30,7 +60,15 @@ async function exploreAPI(data){
     if(params.search==null){
         delete params.search
     }
-    return  await axios.get(`${url}/main`,{params})
+
+
+    const config = {
+        params,
+        headers:{
+            'wallet':wallet,
+          },
+    }
+    return  await axios.get(`${url}/main`,config)
 }
 
 
@@ -59,6 +97,7 @@ function* explore(action){
 
 async function mainInitAPI(data){
     let params = {...data}
+
     if(params.category==null){
         delete params.category;
     }
@@ -72,7 +111,14 @@ async function mainInitAPI(data){
     if(params.search==null){
         delete params.search
     }
-    return  await axios.get(`${url}/main/init`,{params})
+
+    const config = {
+        params,
+        // headers:{
+        //     'wallet':wallet,
+        //   },
+      }
+    return  await axios.get(`${url}/main/init`,config)
 }
 
 function* mainInit(action){
@@ -99,13 +145,23 @@ function* mainInit(action){
     }
 }
 
-function* watchExplore(){
-    yield takeLatest(GET_EXPLORE_REQUEST,explore)
+function* watchInitExplore(){
     yield takeLatest(INIT_EXPLORE_REQUEST,mainInit)
 }
 
+function* watchExplore(){
+    yield takeLatest(GET_EXPLORE_REQUEST,explore)
+}
+
+function* watchExploreLike(){
+    yield takeLatest(UPDATE_LIKE_REQUEST,updateLike)
+}
+
+
 export default function* exploreSaga(){
     yield all([
-        fork(watchExplore)
+        fork(watchExplore),
+        fork(watchInitExplore),
+        fork(watchExploreLike)
     ])
 }

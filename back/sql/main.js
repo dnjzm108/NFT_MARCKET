@@ -1,5 +1,5 @@
-const getDesignerSql = ()=>{
-  return `
+const getDesignerSql = () => {
+      return `
   SELECT 
         U.nickname,
         U.picture 
@@ -14,8 +14,8 @@ const getDesignerSql = ()=>{
 }
 
 
-const getCategorySql = ()=> {
-  return `
+const getCategorySql = () => {
+      return `
   SELECT 
         B.code AS b_code,
         B.value AS b_name,
@@ -31,11 +31,11 @@ const getCategorySql = ()=> {
 }
 
 
-const getAllListSql = (params)=>{
-  
-  const where = makeWhereVerse(params);
-  const order = makeOrderVerse(params.sort);
-  return `
+const getAllListSql = (params, nickname) => {
+      const _nickname = nickname == undefined ? '' : nickname;
+      const where = makeWhereVerse(params);
+      const order = makeOrderVerse(params.sort);
+      return `
   SELECT 
           P.product_no,
           P.name,
@@ -44,6 +44,7 @@ const getAllListSql = (params)=>{
           P.type,
           P.date,
           ifnull(D.bid,D.price) AS price,
+          P.isLike,
           P.img
   FROM(
           SELECT
@@ -54,9 +55,11 @@ const getAllListSql = (params)=>{
                   A.product_no,
                   A.date,
                   A.leftover,
-                  B.img
+                  B.img,
+                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike'
           FROM
                   product AS A
+        
           NATURAL JOIN ( 
                           SELECT
                                 img, 
@@ -66,6 +69,17 @@ const getAllListSql = (params)=>{
                           GROUP BY
                                 product_no
                 ) AS B
+
+            LEFT JOIN (
+                  SELECT 
+                         * 
+                  FROM 
+                        likes 
+                  WHERE 
+                        nickname='${_nickname}'
+                  ) AS L 
+        ON 
+            A.product_no=L.product_no
       )AS P
   NATURAL JOIN(
             SELECT 
@@ -115,6 +129,7 @@ const getAllListSql = (params)=>{
                 )AS A
             ON Q.product_id=A.product_id
   ) AS D
+
   WHERE 
         leftover>0 ${where} 
   ${order}
@@ -124,10 +139,11 @@ const getAllListSql = (params)=>{
 }
 
 
-const getBuyListSql = (params) =>{
-  const where = makeWhereVerse(params);
-  const order = makeOrderVerse(params.sort);
-  return`
+const getBuyListSql = (params, nickname) => {
+      const _nickname = nickname == undefined ? '' : nickname;
+      const where = makeWhereVerse(params);
+      const order = makeOrderVerse(params.sort);
+      return `
   SELECT 
           P.type,
           P.product_no,
@@ -136,16 +152,35 @@ const getBuyListSql = (params) =>{
           P.creater,
           P.likes,
           P.date,
+          P.isLike,
           I.img
   FROM 
-            (SELECT 
-                      * 
-              FROM 
-                    product  
+            (SELECT
+                  P.type,
+                  P.product_no,
+                  P.name,
+                  P.creater,
+                  P.likes,
+                  P.date,
+                  P.leftover,
+                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike'   
+            FROM 
+                  product as P
+            LEFT JOIN (
+                        SELECT 
+                               * 
+                        FROM 
+                              likes 
+                        WHERE 
+                              nickname='${_nickname}'
+                        ) AS L 
+            ON 
+                  P.product_no=L.product_no
               WHERE
                     type="buy"
+              
               ) AS P  
-  NATURAL JOIN
+NATURAL JOIN
               (SELECT
                       price,
                       product_no 
@@ -154,6 +189,7 @@ const getBuyListSql = (params) =>{
                 GROUP BY 
                       product_no
               ) AS D
+
   NATURAL JOIN
               (SELECT
                       img,
@@ -162,7 +198,8 @@ const getBuyListSql = (params) =>{
                     product_image
               GROUP BY
                     product_no
-              ) AS I 
+              ) AS I
+  
       WHERE 
               leftover>0 ${where}
   ${order}
@@ -171,10 +208,11 @@ const getBuyListSql = (params) =>{
   `
 }
 
-const getAuctionListSql = (params) =>{
-  const where = makeWhereVerse(params);
-  const order = makeOrderVerse(params.sort);
-  return `
+const getAuctionListSql = (params, nickname) => {
+      const _nickname = nickname == undefined ? '' : nickname;
+      const where = makeWhereVerse(params);
+      const order = makeOrderVerse(params.sort);
+      return `
   SELECT 
           P.product_no,
           P.name,
@@ -184,6 +222,7 @@ const getAuctionListSql = (params) =>{
           P.date,
           ifnull(D.bid,D.price) AS price,
           P.img,
+          P.isLike,
           D.deadline
   FROM(
           SELECT
@@ -194,12 +233,13 @@ const getAuctionListSql = (params) =>{
                   A.product_no,
                   A.date,
                   A.leftover,
+                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike',
                   I.img
           FROM( 
                 SELECT 
                         *
                 FROM
-                      product
+                      product 
                 WHERE type='auction'
           )AS A
           NATURAL JOIN ( 
@@ -211,6 +251,16 @@ const getAuctionListSql = (params) =>{
                           GROUP BY
                                 product_no
                 ) AS I
+            LEFT JOIN (
+                  SELECT 
+                         * 
+                  FROM 
+                        likes 
+                  WHERE 
+                        nickname='${_nickname}'
+                  ) AS L 
+        ON 
+            A.product_no=L.product_no 
       )AS P
   NATURAL JOIN(
             SELECT 
@@ -263,6 +313,7 @@ const getAuctionListSql = (params) =>{
                 )AS A
             ON Q.product_id=A.product_id
   ) AS D
+
   WHERE 
         leftover>0 ${where} 
   ${order}
@@ -273,64 +324,94 @@ const getAuctionListSql = (params) =>{
 }
 
 
-function makeWhereVerse(params){
-  const {category,designer,search,price_max,price_min} = params;
-  let where = ``
-  if(designer!=undefined &&designer.length>0){
-    where += ' AND '+makeSignVerse('creater','=',designer);
-  }
-  if(price_min!=undefined){
-    where += ` AND price>=${price_min}`;
-  }
-  if(price_max!=undefined){
-    where += ` AND price<=${price_max}`;
-  }
-  if(category!=undefined){
-    where +=` AND (product_no like '${category}%')`;
-  }
-  if(search!=undefined){
-    where +=` AND (creater like '%${search}%' OR name like '%${search}%')`;
-  }
-  return where;
+const checkLikeSql = (data) =>{
+      return `
+      SELECT
+            COUNT(nickname) as cnt
+      FROM
+            likes
+      WHERE product_no='${data.product_no}' AND nickname='${data.nickname}'
+      `
 }
 
-function makeOrderVerse(sort){
-  switch(sort){
-    case 'like':
-      return ` ORDER BY likes DESC`;
-    case 'low':
-      return ` ORDER BY price ASC`;
-    case 'high':
-      return ` ORDER BY price DESC`;
-    case 'old':
-      return ` ORDER BY date ASC`;
-    case 'dead':
-      return ` ORDER BY deadline ASC`
-    case 'new': default:
-      return ` ORDER BY date DESC`;
-  }
+
+const insertLikeSql = ()=>{
+      return `
+      INSERT INTO likes (product_no,nickname) VALUES(?,?); 
+      `
 }
 
-function makeSignVerse(key,sign,value){
-  if(value){
-    if(typeof value=='string'){
-      return `${key}${sign}"${value}"`
-    }else{
-      const tempArr = [];
-      value.forEach(v=>{
-        tempArr.push(`${key}${sign}"${v}"`)
-      })
-      return '('+tempArr.join(' OR ')+')'
-    }
-  }else{
-    return ''
-  }
+const deleteLikeSql = ()=>{
+      return `
+      DELETE FROM likes WHERE product_no=? AND nickname=?; 
+      `
 }
 
-module.exports={
-  getDesignerSql,
-  getCategorySql,
-  getAllListSql,
-  getBuyListSql,
-  getAuctionListSql,
+module.exports = {
+      getDesignerSql,
+      getCategorySql,
+      getAllListSql,
+      getBuyListSql,
+      getAuctionListSql,
+      checkLikeSql,
+      insertLikeSql,
+      deleteLikeSql,
 }
+
+
+
+
+function makeWhereVerse(params) {
+      const { category, designer, search, price_max, price_min } = params;
+      let where = ``
+      if (designer != undefined && designer.length > 0) {
+            where += ' AND ' + makeSignVerse('creater', '=', designer);
+      }
+      if (price_min != undefined) {
+            where += ` AND price>=${price_min}`;
+      }
+      if (price_max != undefined) {
+            where += ` AND price<=${price_max}`;
+      }
+      if (category != undefined) {
+            where += ` AND (product_no like '${category}%')`;
+      }
+      if (search != undefined) {
+            where += ` AND (creater like '%${search}%' OR name like '%${search}%')`;
+      }
+      return where;
+}
+
+function makeOrderVerse(sort) {
+      switch (sort) {
+            case 'like':
+                  return ` ORDER BY likes DESC`;
+            case 'low':
+                  return ` ORDER BY price ASC`;
+            case 'high':
+                  return ` ORDER BY price DESC`;
+            case 'old':
+                  return ` ORDER BY date ASC`;
+            case 'dead':
+                  return ` ORDER BY deadline ASC`
+            case 'new': default:
+                  return ` ORDER BY date DESC`;
+      }
+}
+
+function makeSignVerse(key, sign, value) {
+      if (value) {
+            if (typeof value == 'string') {
+                  return `${key}${sign}"${value}"`
+            } else {
+                  const tempArr = [];
+                  value.forEach(v => {
+                        tempArr.push(`${key}${sign}"${v}"`)
+                  })
+                  return '(' + tempArr.join(' OR ') + ')'
+            }
+      } else {
+            return ''
+      }
+}
+

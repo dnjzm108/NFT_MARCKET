@@ -14,6 +14,10 @@ export const GET_EXPLORE_REQUEST = 'GET_EXPLORE_REQUEST';
 export const GET_EXPLORE_SUCCESS = 'GET_EXPLORE_SUCCESS';
 export const GET_EXPLORE_ERROR = 'GET_EXPLORE_ERROR';
 
+export const UPDATE_LIKE_REQUEST = 'UPDATE_LIKE_REQUEST';
+export const UPDATE_LIKE_SUCCESS = 'UPDATE_LIKE_SUCCESS';
+export const UPDATE_LIKE_ERROR = 'UPDATE_LIKE_ERROR';
+
 
 
 
@@ -25,9 +29,17 @@ export const MainPageInit = (data) =>{
 }
 
 
+
 export const ExploreRequest = (data) => {
   return {
     type: GET_EXPLORE_REQUEST,
+    data,
+  }
+}
+
+export const UpdateLike = (data)=>{
+  return{
+    type:UPDATE_LIKE_REQUEST,
     data,
   }
 }
@@ -78,7 +90,36 @@ const reducer = (state = initalState, action) => {
           isLoading: false,
           isError: true,
         }
-  
+    
+    case UPDATE_LIKE_REQUEST:
+      return state
+    case UPDATE_LIKE_SUCCESS:
+      const product_no = action.data.product_no;
+      const type = action.data.type;
+      let likeUpdateList = [...state.list];
+      likeUpdateList.forEach((v,i)=>{
+        if(v.product_no==product_no){
+          if(type=='insert'){
+            likeUpdateList[i].likes++;
+            likeUpdateList[i].isLike=1;
+          }else{
+            likeUpdateList[i].likes--;
+            likeUpdateList[i].isLike=0;
+          }
+        }
+      })
+
+      return {
+        ...state,
+        list:likeUpdateList
+      }
+    case UPDATE_LIKE_ERROR:
+      return {
+        ...state,
+        isError:true,
+      }
+
+
     default:
       return state
       

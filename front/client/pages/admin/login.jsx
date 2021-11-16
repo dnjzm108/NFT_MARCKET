@@ -4,12 +4,14 @@ import { useEffect } from 'react';
 import Router from "next/router"
 
 const Admin_Login = () => {
-    const state_data = useSelector(state => state.user)
+    const state_data = useSelector(state => state.admin)
+    const {IsLogin} = state_data
+    
     useEffect(()=>{
-        if(state_data.admin == true){
+        if(IsLogin == true){
             Router.push('/admin/management')
         }
-    },[state_data.admin])
+    },[IsLogin])
     return (
 
         <>

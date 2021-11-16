@@ -4,7 +4,7 @@ const unlinkFile = util.promisify(fs.unlink)
 const { query,execute } = require("../../pool")
 const {uploadProfile} = require("../../s3")
 const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_seller,seller_info_sql} =require("../../sql/user")
-const { successData } = require("../../returnData");
+const { successData,error403 } = require("../../returnData");
 
 let join = async (req,res) =>{
     
@@ -35,7 +35,13 @@ let join = async (req,res) =>{
 } 
 
 let login = async (req,res) =>{
+    
     let {wallet} = req.body
+    if(wallet==undefined){
+        console.log(req.body)
+        res.json(error403())
+        return;
+    }
     let params = [wallet]
 
     const [result] = await execute(login_sql(),params)

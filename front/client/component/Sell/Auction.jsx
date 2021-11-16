@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux"
 import { Auction_REQUEST } from '../../reducers/mint'
 import OptionBox from "../OptionBox/OptionBox"
 import DatePicker from "react-datepicker"
-import CalendarContainer from './sell.css'
 
 
 
@@ -37,19 +36,6 @@ const Auction = () =>{
 }
 
     const AuctionSubmit = async()=>{
-        // const formData = new FormData();
-        // const deadline = date_to_str(startDate)
-        // formData.append("bid", price.value)
-        // formData.append("deadline",deadline)
-        // formData.append("option",extension)
-        // for (let key of formData.keys()) {
-        //     console.log(key);
-        //   }
-        // for (let value of formData.values()) {
-        //     console.log(value);
-        //   }
-        // await dispatch(Auction_REQUEST(formData))
-
         const deadline = date_to_str(startDate)
         const data ={
             bid:price.value,
@@ -58,13 +44,7 @@ const Auction = () =>{
         }
         dispatch(Auction_REQUEST(data))
     }
-    // const getDeadline =()=>{
-    //     const date = new Date();
-    // }
 
-    // const getDeadline=(date)=>{
-    //     console.log(date);
-    // }
     return(
         <>
         <div className="auction">
@@ -82,14 +62,13 @@ const Auction = () =>{
             </div>
         </div>
         <div className="select_terms">
-            <p>경매 기간을 선택해주세요</p>
+            <p>경매 마감일을 선택해주세요</p>
             <div>
                 <DatePicker
                 closeOnScroll={true}
                 dateFormat="yyyy/MM/dd"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
-                // onClick={(date)=>{getDeadline(date)}}
                 />
             </div>
             

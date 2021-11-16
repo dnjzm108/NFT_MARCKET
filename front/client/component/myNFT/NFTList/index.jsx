@@ -115,7 +115,6 @@ const NFTList = (props) => {
   }
 
   const renderImmySellItem = () =>{
-    console.log(mylist.list)
     if(mylist.list.length==0){
       return <tr><td>검색결과가 없습니다.</td></tr>
     }else{

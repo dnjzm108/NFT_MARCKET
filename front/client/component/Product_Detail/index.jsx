@@ -25,10 +25,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 const product_detail = () => {
     const user_state = useSelector(state => state.user)
-    console.log(user_state);
     const {user_info,IsLogin} = user_state
     const product_state = useSelector(state => state.product)
-    console.log(product_state);
     const { loadding,auctions, product_img, product_info, auction_info, other_product } = product_state
     const dispatch = useDispatch();
     const router = useRouter()
@@ -45,7 +43,7 @@ const product_detail = () => {
         product_no: id
     }
     const info = {
-        product_no: id,
+         product_no: id,
         nickname: user_info.nickname,
     }
 
@@ -96,7 +94,7 @@ const product_detail = () => {
 
     const handlePopupImmy = () => {
         if (ispopup == false) {
-            if (user_info.nickname !== undefined) {
+            if (IsLogin == true) {
                 setIsPopup(!ispopup)
             } else {
                 alert("로그인을 진행해주세요")
@@ -107,7 +105,7 @@ const product_detail = () => {
     }
     const handlePopupAuc = () => {
         if (isAuc == false) {
-            if (user_info.nickname !== undefined) {
+            if (IsLogin == true) {
                 setIsAuc(!isAuc)
             } else {
                 alert("로그인을 진행해주세요")
@@ -240,7 +238,7 @@ const product_detail = () => {
                     {/* 팝업부분 */}
 
                     {ispopup ?
-                        <Deleivery_address handlePopup={handlePopupImmy} option={option} select_qty={select_qty} product={product_info} /> : ""}
+                        <Deleivery_address handlePopup={handlePopupImmy} option={option} select_qty={select_qty}/> : ""}
                     {isAuc ? <AucPopup handlePopup={handlePopupAuc} product={product_info} auction_info={auction_info} /> : ""}
 
                     {product_info[0].type == "auction" ?
@@ -269,7 +267,7 @@ const product_detail = () => {
                         <div>
                             <ul>
 
-                                {other_product.length !== 0 ?
+                                {other_product !== false ?
                                     other_product.map((v, i) => {
                                         let url = `/nft/${v.product_no}`;
                                         return (

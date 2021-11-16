@@ -3,17 +3,31 @@ import { useState } from "react";
 import { BsSuitHeartFill } from "react-icons/bs";
 import Link from "next/link";
 import Router from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import {UpdateLike} from "../../reducers/explore"
 
-const NFT = ({ type, product_no, price, name, creater, likes, img }) => {
+const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
+  const dispatch = useDispatch()
+  const {user_info} = useSelector(state=>state.user)
   const [isHover, setIsHover] = useState(false);
-
   const handleClick = (event) => {
     if (
       event.target.className == "like_btn" ||
       event.target.parentNode.className == "like_btn" ||
       event.target.parentNode.parentNode.className == "like_btn"
     ) {
-      console.log("조아요 클릭");
+      
+        const nickname = user_info.nickname;
+        
+        if(nickname==null || nickname==undefined)return;
+
+        const data = {
+          product_no,
+          nickname,
+          isLike,
+        }
+        dispatch(UpdateLike(data))
+
     } else {
       Router.push(`/nft/${product_no}`)
     }
@@ -51,9 +65,20 @@ const NFT = ({ type, product_no, price, name, creater, likes, img }) => {
         {isHover && <p className="buynow">Buy now</p>}
 
         <div className="like_box">
-          <i className="like_btn">
-            <BsSuitHeartFill size={16} />
-          </i>
+          {isLike!==0
+          ?(
+            <i className="like_btn">
+              <BsSuitHeartFill size={16} color={"red"}/>
+            </i>
+          )
+          :(
+            <i className="like_btn">
+              <BsSuitHeartFill size={16} color={'gray'}/>
+            </i>
+          )
+           
+            
+          }
           <span>{likes}</span>
         </div>
       </div>

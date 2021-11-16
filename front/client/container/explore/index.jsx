@@ -11,10 +11,9 @@ import Rowfilter from "../../component/Rowfilter";
 const Explore = () => {
   const dispatch = useDispatch();
   const router = useRouter()
+  const {user_info} = useSelector(state=>state.user);
   
-  useEffect(()=>{
-    dispatch(ExploreRequest(router.query))
-  },[router.query])
+
 
   const {isError,skip} = useSelector(state=>state.explore)
 
@@ -22,7 +21,12 @@ const Explore = () => {
 
   const fetchMoreNFT = async () => {
     setFetch(true);
-    dispatch(ExploreRequest({...router.query,skip}));
+    const data = {
+      params:{...router.query,skip},
+      wallet:user_info.wallet,
+      skip,
+    }
+    dispatch(ExploreRequest(data));
     setFetch(false);
   };
 
@@ -43,6 +47,15 @@ const Explore = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   });
+
+
+  useEffect(()=>{
+    const data = {
+      params:router.query,
+      wallet:user_info.wallet
+    }
+    dispatch(ExploreRequest(data))
+  },[router.query])
 
 
 

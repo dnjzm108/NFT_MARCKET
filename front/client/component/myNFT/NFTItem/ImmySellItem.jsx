@@ -25,7 +25,6 @@ const ImmySellItem = (
 }) => {
   
   const renderSellType=()=>{
-    console.log(type)
     if(type=='buy' && leftover>0){
       return (
         <div>
