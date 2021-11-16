@@ -124,8 +124,6 @@ const Release = ({mint}) => {
                 setOptionColor={optionColor.onChange}
                 optionSize={optionSize.value}
                 setOptionSize={optionSize.onChange}
-                optionEtc={optionEtc.value}
-                setOptionEtc={optionEtc.onChange}
                 />
                 
                 <AgreeInfo 

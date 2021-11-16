@@ -6,81 +6,45 @@ import AucOption from "./AucOption";
 import useInput from "../../hook/useInput";
 import {useSelector} from 'react-redux'
 import { useState,useEffect } from "react";
+import OptionBox from '../OptionBox/OptionBox'
 
 const ProductOption = 
-({isNow,isClick,setIsClick,optionColor,optionSize,optionEtc,setOptionColor,setOptionSize,setOptionEtc,onClick})=>{
-    const {isLoading,maincate,middlecate} = useSelector(state=>state.mint)
-    const category1 = useChangeValue(maincate.map(v=>v.value))
-    const category2 = useChangeValue(middlecate)
+({isNow,isClick,setIsClick,optionColor,optionSize,setOptionColor,setOptionSize,onClick})=>{
+    const {isLoading,category} = useSelector(state=>state.mint)
     const [colors,setColors]=useState([])
     const [colorInput,setColorInput] = useState("")
-    const [option,setOption]=useState([])
-    const [optionInput,setOptionInput] = useState("")
     const [size,setSize]=useState([])
     const [sizeInput,setSizeInput] = useState("")
-    const [check1,setCheck1] = useState(false)
-    const [check2,setCheck2] = useState(false)
+    const [optionEntered,setOptionEntered] = useState(false)
     const [qty,setQty] = useState([]);
     const [price,setPrice] = useState([]);
-
-    
-    // console.log(maincate.map(v=>v.code))
-    // const getMaincate = maincate.map((v)=>{
-    //     return v = v.split(',')
-    // })
-
-    // for(let i=0;i<getMaincate.length;i++){
-    //     console.log(getMaincate[i][0])
-    // }
-    
+    const [bigcate,setBigcate]=useState(category[0].code)
+    const [middlecate,setMiddlecate]=useState(category[0].list[0].code)
 
     const optionCheck =()=>{
-        setCheck1(false)
+        setOptionEntered(false)
         const colorArr = colorInput.split(',').filter(v=>v!='');
         setColors(colorArr)
         const sizeArr = sizeInput.split(',').filter(v=>v!='');
         setSize(sizeArr)
-        if(optionInput!='' && optionInput.split('').includes(',')){
-            const optionArr = optionInput.split(',').filter(v=>v!='');
-            if(optionArr.length>1){
-                let tmp = [...optionArr]
-                setOption(tmp)
-            }
-        }
-        setCheck1(true); 
+        setOptionEntered(true); 
     }
 
-    // 이중 for문
-    // i 0 1
-    // j 0 1 2
-    // return 00 01 02 10 11 12
-
-    const handleOption =()=>{
-        item = {
-            color:null,
-            size:null,
-            option:null,
-            qty:null,
-            price: null
-        }
-        const optionSet=[];
-        if(option.length==0){
-            colors.forEach(c=>{
-                size.forEach(s=>{
-                });
-            })
-        }
-        
-    }
+    
 
     const handleQty = (e,x)=>{
-        let tmpQ = [...qty];
-        tmpQ[x] = e.target.value;
-        setQty(tmpQ);
+        let qty = [...qty];
+        qty[x] = e.target.value;
+        setQty(qty);
+    }
+
+    const handlePrice = (e,x)=>{
+        let price = [...price];
+        price[x] = e.target.value;
+        setPrice(price);
     }
 
     const renderOptions = () => {
-        if(option.length==0){
             const slength = size.length;
             return colors.map((c, i) => {
                 return (
@@ -98,31 +62,30 @@ const ProductOption =
                 </ul>
             )
         })
-    }else{
-        return colors.map(c=>{
-            return size.map(s=>{
-                return option.map(o=>{
-                    return(
-                        <li key={c+s+o} className="option_li">
-                            <h1>{`${c},${s},${o}`}</h1>
-                            <p>수량 입력: <input /></p>
-                            <p>가격 입력: <input /></p>
-                        </li>
-                    )
-                })
-            })
-        
-        })
     }
+    const handleOption =()=>{
+        let item = {
+            color:colors,
+            size:size,
+            qty:qty,
+            price: price
+        }
+        const optionSet=[];
+        // console.log(item)
     }
 
+    //여기 인자는 bigcate code
+    const handleCategory =(code)=>{
+        console.log(code,bigcate)
+        setBigcate(code)
+        setMiddlecate(category.filter(v=>v.code==code)[0].list[0].code)
+    }
 
-    const renderList = (e) =>{
-        // console.log(e.target)
-        return maincate.map((v,i)=>{
-            // console.log(v)
-        })
-      }
+    //여기 인자는 middlecate code
+    const handleMiddleCategory =(code)=>{
+        setMiddlecate(code)
+    } 
+    //나중에 back에 내가 현재 고른 카테고리 보낼 때 middlecate 만 보내면 됨! 
 
     return(
         <>
@@ -133,17 +96,13 @@ const ProductOption =
             <div className="select_category"><h3>대분류</h3><h3>중분류</h3></div>
             <div className="select_contain">
                 <div className="select_box">
-                    
-                    <Selectbox {...category1} >
-                    {/* {onclick=(e)=>renderList(e)} */}
-                    </Selectbox>
-                    
-                    <Selectbox {...category2} />
+                    <OptionBox list={category} onClick={handleCategory} now={bigcate}/>
+                    <OptionBox list={category.filter(v=>v.code==bigcate)[0].list} onClick={handleMiddleCategory} now={middlecate}/>
                 </div>
             </div>
-            <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요
+            <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요. 
             <p>예시 ) 색상 : black,white,beige,brown (O)
-            사이즈 : S / M / L (X)  S,M,L (O)  옵션1 : 기모O,기모X (O)</p>
+            사이즈 : S / M / L (X)  S,M,L (O)</p>
                 </h3>
                 <div className="select_option">
                     <span><p>색상 :</p>
@@ -161,14 +120,6 @@ const ProductOption =
                     placeholder="사이즈 옵션을 입력하세요 ex) free"
                     />
                     </span>
-                    <span><p>기타 옵션 :</p>
-                    <input 
-                    type="text"
-                    defaultValue={optionEtc}
-                    onChange={(e)=>{setOptionInput(e.target.value)}}
-                    placeholder="기타 옵션을 입력하세요 ex) 추가 없음, 길이 추가"
-                    />
-                    </span>
                 </div>
             </>
                 :
@@ -181,15 +132,16 @@ const ProductOption =
         <OptionCheck>
             <div className="op_box">
             {
-                check1 ?
+                optionEntered ?
                 <div className="enter_all">
                     <p>수량 일괄 입력:<input /></p>
                     <p>가격 일괄 입력:<input /></p>
+                    <button className="enter_all_btn">입력</button>
                 </div>
                 : ""
             }
             {
-                check1 ? 
+                optionEntered ? 
                 (   <>
                     {renderOptions()}
                     <Button value="옵션 입력 완료" func={handleOption}/>

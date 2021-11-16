@@ -3,9 +3,9 @@ const util = require('util')
 const unlinkFile = util.promisify(fs.unlink)
 const { uploadFile, uploadNFT } = require('../../s3')
 const { query,execute } = require("../../pool");
-const { productInfo_sql,prdctDetail_sql,productNum_sql,nftInsert_sql } = require('../../sql/mint')
+const { productInfo_sql,prdctDetail_sql,productNum_sql,nftInsert_sql,auction_initial_info } = require('../../sql/mint')
 const {successData,errorData} = require('../../returnData');
-
+const { getCategorySql} = require('../../sql/main')
 
 // const INSERT = `INSERT INTO nft (${x}) VALUES(${x});`  
 // const SELECT = `SELECT * FROM table WHERE ?=${x}`
@@ -62,10 +62,7 @@ const mint_nft = async(req,res)=>{
     // 블록체인 네트워크 상에서 토큰 생산자가 상품제작자가 아닌 개발자가 되므로.. 토큰 정보 안에 넣어준다. 사실 안 넣어줘도 됨. 
     // 닉네임을 넣어줄지 말지는 회의 후 결정.
     // const metadata = await uploadNFT(tokenId,name,explain,creater,creater_nick,files); 
-    // const tokenURI = metadata.Location;
-        
-
-  
+    // const tokenURI = metadata.Location;  
 
   const data = {
     success:true,
@@ -75,33 +72,54 @@ const mint_nft = async(req,res)=>{
   res.json(data)
 }
 
-const maincate = async(req,res)=>{
-  const result = await query(`select * from bigcategory`) 
-  res.json(successData(result))
+const getCategory =async(req,res)=>{
+  const categorySql = getCategorySql();
+  const categoryResult = await query(categorySql);
+  const category = clearCategory(categoryResult); 
+  const data = {
+    category
+  }
+  res.json(successData(data))
 }
-
-const middlecate = async(req,res)=>{
-
-  // const getCode = await query(``)
-  const result = await query(`select * from middlecategory`)
-  res.json(successData(result));
-}
-
 
 const auction_info = async(req,res)=>{
-  // const {bid} = req.body
-  console.log("??",req.body)
-  // res.json(successData())
+  let {bid, deadline, option} = req.body
+  let params = [bid,deadline,option]
+  let result = await execute(auction_initial_info(product_code),params)
+ 
   const data = {
-    success:true
+    success:true,
+    bid,
+    deadline,
+    option
   }
-  res.json(data)
+  res.json(successData(data))
 }
 
+function clearCategory(category){
+  let categoryTemp = {};
+  const bigCategory = new Set(category.map(v=>{ 
+    const {b_code,b_name} = v;
+    return JSON.stringify({b_code,b_name})
+  }))
 
+  bigCategory.forEach(v=>{
+    const {b_code,b_name} = JSON.parse(v);
+    categoryTemp[b_code] = {
+      name:b_name, 
+      code:b_code,
+      list:[]
+    }
+  })
+
+  category.forEach(v=>{
+    const {m_name,m_code,b_code} = v;
+    categoryTemp[b_code].list.push({name:m_name, code:`${b_code}${m_code}`})
+  })
+  return  Object.entries(categoryTemp).map(v=>v[1]); 
+}
 module.exports={
   mint_nft,
-  maincate,
-  middlecate,
   auction_info,
+  getCategory
 }
