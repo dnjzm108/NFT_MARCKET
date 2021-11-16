@@ -1,7 +1,7 @@
 //배포용 
 
-// export const url = 'https://.co.kr'
+ export const url =  process.env.NEXT_PUBLIC_URL
 
 //테스트용(local back)
 
- export const url = 'http://localhost:4000'
+ //export const url = process.env.NEXT_PUBLIC_URL

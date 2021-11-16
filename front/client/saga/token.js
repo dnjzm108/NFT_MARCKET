@@ -1,8 +1,9 @@
 import axios from "axios"
+import {url} from "./url"
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 
 async function tokenSwapAPI(data){
-    return  await axios.post('http://localhost:4000/nft/swap', data)
+    return  await axios.post(`${url}/nft/swap`, data)
   }
 
 
@@ -23,7 +24,7 @@ function* swapSaga(action){
 
 
 function* KipSaga(){
-    const result = yield call(axios.post,`http://localhost:4000/nft/transfer`)
+    const result = yield call(axios.post,`${url}/nft/transfer`)
     //NFT랑 같이 해줘야하나?
 }
 

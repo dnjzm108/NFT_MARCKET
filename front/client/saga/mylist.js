@@ -3,7 +3,7 @@ import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 import {url} from './url'
 
 async function myListAPI(data){
-      return await axios.post(`http://localhost:4000/user/${data.type}`, data)
+      return await axios.post(`${url}/user/${data.type}`, data)
 
   }
 

@@ -1,6 +1,7 @@
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 import axios from "axios";
 import qs from "qs";
+import {url} from './url'
 axios.default.paramsSerializer = params => {return qs.stringify(params);}
 
 import {
@@ -13,12 +14,6 @@ import {
     UPDATE_LIKE_ERROR,
     INIT_EXPLORE_SUCCESS,
 } from '../reducers/explore'
-
-
-
-
-const url = process.env.NEXT_PUBLIC_URL; 
-
 
 async function updateLikeAPI(data){
     return  await axios.post(`${url}/main/like`,data)

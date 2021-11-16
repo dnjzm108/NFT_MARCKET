@@ -8,7 +8,7 @@ import {
 } from "../reducers/mint"
 
 async function mintAPI(data){
-  return  await axios.post('http://localhost:4000/nft/mint', data, { headers: {'Content-Type': 'multipart/form-data'}})
+  return  await axios.post(`${url}/nft/mint`, data, { headers: {'Content-Type': 'multipart/form-data'}})
 }
 
 function* mint(action){
@@ -42,7 +42,7 @@ function* mint(action){
 }
 
 async function getMaincateAPI(){
-    return await axios.get('http://localhost:4000/nft/maincate')
+    return await axios.get(`${url}/nft/maincate`)
 }
 
 function* getMaincate(action) {
