@@ -17,6 +17,7 @@ const developerKey = config.developerKey;
 
 const kip17 = new caver.kct.kip17(CONTRACT_ADDRESS);
 
+const product_code = `10`
 
 
 const keyring = caver.wallet.keyring.createFromPrivateKey(developerKey);
@@ -25,12 +26,10 @@ if (!caver.wallet.getKeyring(keyring.address)) {
   caver.wallet.add(singleKeyRing);
 }
 
-// execute는 params를 순서대로 받아서 쿼리문의 ?에 넣어주는거
-// query는 select에다가 쓰는거. 근데 그냥 execute로만 사용하면 된다고 하심
 const mint_nft = async(req,res)=>{
-  // console.log("mint_nft",req);
+  console.log("mint_nft",req);
   const {name,explain,creater,optionColor,optionSize,optionEtc,type} = req.body;
-  const category = 'A103As0000';
+ 
   const productOpparams = [optionColor,optionSize,optionEtc]
   const productOp = await execute(prdctDetail_sql(),productOpparams)
   // console.log("ff",productOp);
@@ -82,11 +81,13 @@ const getCategory =async(req,res)=>{
   res.json(successData(data))
 }
 
+
+//auction 에 데이터 넣기
 const auction_info = async(req,res)=>{
   let {bid, deadline, option} = req.body
-  let params = [bid,deadline,option]
-  let result = await execute(auction_initial_info(product_code),params)
- 
+  let params = [deadline,option]
+  // let insert_auction_info = await execute(auction_initial_info(product_code),params)
+
   const data = {
     success:true,
     bid,
@@ -118,6 +119,8 @@ function clearCategory(category){
   })
   return  Object.entries(categoryTemp).map(v=>v[1]); 
 }
+
+
 module.exports={
   mint_nft,
   auction_info,

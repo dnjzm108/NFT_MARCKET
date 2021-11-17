@@ -23,14 +23,15 @@ const productNum_sql = ()=>{
 
 const nftInsert_sql =()=>{
     return(
-        `INSERT INTO product (name, explain,creater,category) VALUES(?,?,?,?);`
+        `INSERT INTO auction ( product_no, name, explain, creater, DATE, likes, TYPE, total_qty, leftover, symbol, contractAddr ,tokenURI) 
+        VALUES();`
     )
 }
 
 // 판매자가 입력한 경매 정보 넣기
-const auction_initial_info =()=>{
-    reuturn(
-        `INSERT INTO auction (auction_id,product_id,deadline,option) VALUES(?,?,?,?)`
+const auction_initial_info =(product_code)=>{
+    return(
+        `INSERT INTO auction (product_id,deadline,option) VALUES(${product_code},?,?)`
     )
 }
 module.exports = {

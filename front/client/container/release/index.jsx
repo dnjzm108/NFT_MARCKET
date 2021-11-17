@@ -18,6 +18,7 @@ const Release = ({mint}) => {
     const {user_info} = useSelector(state=>state.user)
     const dispatch = useDispatch()
     const title = useInput();
+    const symbol = useInput();
     const description = useInput();
     const optionColor = useInput();
     const optionSize = useInput();
@@ -58,10 +59,12 @@ const Release = ({mint}) => {
             }
             formData.append("description", description.value)
             formData.append("title", title.value)
+            formData.append("symbol", symbol.value)
             formData.append("optionColor", optionColor.value)
             formData.append("optionSize", optionSize.value)
             formData.append("optionEtc", optionEtc.value)
             formData.append("creater",user_info.nickname)
+            console.log(formData)
             dispatch(Mint_REQUEST(formData))
     }
 
@@ -109,6 +112,8 @@ const Release = ({mint}) => {
                         <FileInformation
                             title={title.value}
                             setTitle={title.onChange}
+                            symbol = {symbol.value}
+                            setSymbol = {symbol.onChange}
                             description={description.value}
                             setDescription={description.onChange}
                             handleImg={fileSelected}

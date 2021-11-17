@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux"
 import { Auction_REQUEST } from '../../reducers/mint'
 import OptionBox from "../OptionBox/OptionBox"
 import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -13,35 +14,25 @@ const Auction = () =>{
     const price = useInput();
     const [extension,setExtension] = useState(false)
     const dispatch = useDispatch();
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date())
 
     const handleExtension =()=>{
         setExtension(!extension)
     }
-
-    const date_to_str=(format)=>{
-    const year = format.getFullYear();
-    const month = format.getMonth() + 1;
-    if(month<10) month = '0' + month;
-    const date = format.getDate();
-    if(date<10) date = '0' + date;
-    const hour = format.getHours();
-    if(hour<10) hour = '0' + hour;
-    const min = format.getMinutes();
-    if(min<10) min = '0' + min;
-    // const sec = format.getSeconds();
-    // if(sec<10) sec = '0' + sec;
-
-    return year + "-" + month + "-" + date + " " + hour + ":" + min ;
-}
+    const isPossibleDay = (date) => {
+        const currentDate = new Date();
+        const selectedDate = new Date(date);
+        return currentDate.getDate() <= selectedDate.getDate();
+      };
 
     const AuctionSubmit = async()=>{
-        const deadline = date_to_str(startDate)
+        const deadline = new Date(+startDate+ 3240*10000).toISOString().replace("T", " ").replace(/\..*/, ''); 
         const data ={
             bid:price.value,
-            deadline:deadline,
+            deadline:deadline, //2021-11-16 14:36:51 이런 형태로 바꿔야 함
             option:extension
         }
+        console.log(deadline)
         dispatch(Auction_REQUEST(data))
     }
 
@@ -66,9 +57,14 @@ const Auction = () =>{
             <div>
                 <DatePicker
                 closeOnScroll={true}
-                dateFormat="yyyy/MM/dd"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                timeCaption="time"
+                dateFormat="MMMM d, yyyy h:mm aa"
+                filterDate={isPossibleDay}
                 />
             </div>
             

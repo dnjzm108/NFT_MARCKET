@@ -90,6 +90,11 @@ color: #222;
     font-weight: bold;
     padding: 2%;
 }
+.select_terms>h3{
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2%;
+}
 
 .select_terms>div{
     margin-left: 10px;
@@ -116,16 +121,17 @@ color: #222;
 }
 
 .react-datepicker__input-container>input{
-    width: 16vw;
+    width: 18vw;
     height: 6vh;
     cursor: pointer;
     padding: 4%;
-    font-size: 20px;
+    font-size: 16px;
 }
-
+ 
 .react-datepicker-ignore-onclickoutside{
     width: 16vw;
 }
+/*
 .react-datepicker{
     width: 16vw;
     background-color: white;
@@ -142,17 +148,16 @@ color: #222;
     flex-direction: column;
     justify-content: space-between;
     text-align : center;
-    /* padding: 10%; */
 }
 .react-datepicker__day-names{
     display: flex;
     justify-content: space-around;
-    /* padding: 10%; */
 }
+
 .react-datepicker__week{
     display: flex;
     justify-content: space-evenly;
     cursor: pointer;
-}
+} */
 
 `

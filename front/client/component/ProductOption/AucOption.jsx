@@ -4,7 +4,7 @@ import { useState } from "react"
 import {useSelector} from 'react-redux'
 
 
-const AucOption = ()=>{
+const AucOption = ({renderOptions})=>{
     const {category} = useSelector(state=>state.mint)
     const [bigcate,setBigcate]=useState(category[0].code)
     const [middlecate,setMiddlecate]=useState(category[0].list[0].code)
@@ -18,7 +18,6 @@ const AucOption = ()=>{
         setMiddlecate(code)
     }
 
-    
     return(
         <>
             <Options>
@@ -33,8 +32,6 @@ const AucOption = ()=>{
                 <div className="select_option">
                     <span><p>색상 :</p><input type="text" /></span>
                     <span><p>사이즈 :</p><input /></span>
-                    <span><p>옵션1 :</p><input /></span>
-                    <span><p>옵션2 :</p><input /></span>
                 </div>
             </Options>
         </>

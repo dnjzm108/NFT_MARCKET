@@ -123,7 +123,7 @@ const ProductOption =
                 </div>
             </>
                 :
-            <AucOption/>
+            <AucOption renderOptions={renderOptions}/>
             }
             <div className="option_btn">
             <Button value="옵션 선택 완료" func={optionCheck}/>

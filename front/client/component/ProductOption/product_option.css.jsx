@@ -32,7 +32,7 @@ h3>p{
 }
 
 .select_option{
-    height: 200px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -46,7 +46,7 @@ h3>p{
 }
 
 .select_option>span>input{
-    width: 64vw;
+    width: 60vw;
     height: 5vh;
 }
 

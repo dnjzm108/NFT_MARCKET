@@ -54,6 +54,14 @@ const FileInformation = (props) => {
                     className="name_input" 
                     placeholder="이름을 입력해주세요. (최대 50자까지)" />
 
+                    {/* 심볼 */}
+                    <p>SYMBOL</p>
+                    <input type="text" 
+                    defaultValue={props.symbol}
+                    onChange={(e)=>{props.setSymbol(e)}}
+                    className="symbol_input" 
+                    placeholder="심볼을 입력해주세요" />
+
                     {/* description */}
                     <p>설명</p>
                     <textarea 
