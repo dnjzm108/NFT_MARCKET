@@ -7,11 +7,14 @@ const mintController = require('./mint.controller')
 const swapController = require('./swap.controller')
 const transferController = require('./transfer.controller')
 const itemController = require('./item.controller')
+// const { default: mint } = require('../../../front/client/pages/mint')
 
 
 
 router.post('/mint',upload.array('image'),mintController.mint_nft);
-router.get('/maincate',mintController.maincate);
+
+router.post('/auctioninfo',mintController.auction_info);
+router.get('/category',mintController.getCategory);
 
 router.post('/sell',sellController.immediatelySell);
 
@@ -20,8 +23,4 @@ router.post('/transfer',transferController.KIP7token);
 
 
 router.get('/test',itemController.getNFTs)
-module.exports = router
-
-
-
 module.exports = router

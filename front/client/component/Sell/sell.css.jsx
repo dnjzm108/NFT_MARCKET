@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const CalendarContainer = styled.div`
+    /* padding: "16px";
+    background: "#216ba5";
+    color: "#fff" ; */
+
+`
+
+
+
 export const StyledSell = styled.div`
 /* margin-top: 10%; */
 width: 100%;
@@ -81,7 +90,16 @@ color: #222;
     font-weight: bold;
     padding: 2%;
 }
+.select_terms>h3{
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2%;
+}
 
+.select_terms>div{
+    margin-left: 10px;
+    margin-top: 10px;
+}
 .extension_box{
     margin-top: 10%;
     display: flex;
@@ -96,10 +114,50 @@ color: #222;
     margin-left: 10px;
 }
 
+.auction_btn{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
 
+.react-datepicker__input-container>input{
+    width: 18vw;
+    height: 6vh;
+    cursor: pointer;
+    padding: 4%;
+    font-size: 16px;
+}
+ 
+.react-datepicker-ignore-onclickoutside{
+    width: 16vw;
+}
+/*
+.react-datepicker{
+    width: 16vw;
+    background-color: white;
+    border: 1px solid black;
+}
 
+.react-datepicker__month-container{
+    display: flex;
+    flex-direction: column;
+}
 
+.react-datepicker__month{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align : center;
+}
+.react-datepicker__day-names{
+    display: flex;
+    justify-content: space-around;
+}
 
-
+.react-datepicker__week{
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+} */
 
 `

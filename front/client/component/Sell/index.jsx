@@ -15,8 +15,6 @@ const Sell = ({handleNow,handleAuc,isNow})=>{
                     <h1 onClick={(e) => handleAuc(e)} className="select_auc"> 경매 </h1>
                 </div>
                 <div className="select_sell">
-                {/* <BuyNow />
-                <Auction /> */}
                     {
                         isNow ? <BuyNow /> : <Auction />
                     }
