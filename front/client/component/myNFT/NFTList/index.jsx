@@ -214,7 +214,7 @@ const NFTList = () => {
                 <th>주문자</th>
                 <th>주문량</th>
                 <th>가격</th>
-                <th>주문량×가격</th>
+                <th>주문량×가격(klay)</th>
                 <th>주문번호</th>
                 <th>주문상태</th>
               </tr>
