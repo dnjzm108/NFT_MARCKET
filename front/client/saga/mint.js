@@ -2,11 +2,16 @@ import axios from "axios";
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 import {url} from './url'
 import {
-    MINT_MAIN_CATE_REQUEST,
-    MINT_MAIN_CATE_SUCCESS,
-    MINT_MAIN_CATE_ERROR
+    MINT_REQUEST,
+    MINT_SUCCESS,
+    AUCTION_REQUEST,
+    AUCTION_SUCCESS,
+    GET_CATEGORY_REQUEST,
+    GET_CATEGORY_SUCCESS
 } from "../reducers/mint"
 
+
+// mint 상품 등록 정보 api
 async function mintAPI(data){
   return  await axios.post(`${url}/nft/mint`, data, { headers: {'Content-Type': 'multipart/form-data'}})
 }
@@ -17,72 +22,58 @@ function* mint(action){
     if(data.success){
       alert(`토큰아이디${data.tokenId}: 발행되었습니다.`)
       yield put({
-                type: 'MINT_SUCCESS',
+                type: MINT_SUCCESS,
                 data: data,
             })
-    }else{
-
     }
-    // let {data} = result
-
-    // if (data.login_info !== undefined) {
-    //     yield put({
-    //         type: 'USER_LOGIN_SUCCESS',
-    //         data: 'OK',
-    //         user_info:data.login_info
-    //     })
-    // } else {
-    //     yield put({
-    //         type: 'USER_LOGIN_ERROR',
-    //         data: '아이디와 비밀번호를 확인해주세요'
-    //     })
-    // }
-    
 }
 
-async function getMaincateAPI(){
-    return await axios.get(`${url}/nft/maincate`)
+// auction 정보 api
+async function AunctionInfoAPI(data){
+    return await axios.post(`${url}/nft/auctioninfo`,data, {headers: { "Content-Type": `application/json`}})
 }
 
-function* getMaincate(action) {
-    let result = yield call(getMaincateAPI)
+function* sendAuctionInfo(action){
+    let result =yield call(AunctionInfoAPI,action.data)
     let {data} = result
     if(data.success){
         yield put({
-            type: MINT_MAIN_CATE_SUCCESS,
-            data: data.response.map(v => v.value),
-        })
-    }else{
-        yield put({  
-            // type: MINT_MAIN_CATE_ERROR,
+            type: AUCTION_SUCCESS,
+            data:data
         })
     }
     
-    // if (data.success) {
-    //     yield put({
-    //         type: MINT_MAIN_CATE_SUCCESS,
-    //         data: data.map(v => v.value),
-    //     })
-    // } else {
-    //     yield put({
-    //         type: MINT_MAIN_CATE_ERROR,
-    //         data: 'error',
-    //     })
-    // }
 }
 
+
+async function getCategoryAPI(){
+    return await axios.get(`${url}/nft/category`)
+}
+
+function* getCategory(){
+    let result = yield call(getCategoryAPI)
+    let {data} = result
+    if(data.success){
+        yield put({
+            type: GET_CATEGORY_SUCCESS,
+            data:{
+                category: data.response.category,
+            } 
+        })
+    }
+    
+}
+
+// watch 모아놓는 곳
 function* watchMint(){
-    yield takeLatest('MINT_REQUEST',mint)
+    yield takeLatest(MINT_REQUEST,mint),
+    yield takeLatest(AUCTION_REQUEST,sendAuctionInfo),
+    yield takeLatest(GET_CATEGORY_REQUEST,getCategory)
 }
 
-function* watchMintMainCate(){
-    yield takeLatest(MINT_MAIN_CATE_REQUEST,getMaincate)
-
-}
 
 export default function* mintSaga(){
     yield all([
-        fork(watchMint),
-        fork(watchMintMainCate)
+        fork(watchMint)
     ])
 }

@@ -20,8 +20,6 @@ const SelectBox = ({list,value,onChangeValue,useImg,width}) => {
     }
   }
 
-
-
   const handleClick = (i) =>{
     onChangeValue(i);
     setOpen(false);
@@ -56,8 +54,6 @@ const SelectBox = ({list,value,onChangeValue,useImg,width}) => {
         </div>
         :<span>{list[value]}</span>
       }
-
-        
         <i><RiArrowDownSLine size={24}/></i>
       </SelectHeader>
       {open &&

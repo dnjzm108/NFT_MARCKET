@@ -6,6 +6,7 @@ const useChangeValue = (defaultValue) => {
   const onChangeValue = (data) => {
     setValue(data);
   };
+
   let result = list[value];
   return {
     list,
