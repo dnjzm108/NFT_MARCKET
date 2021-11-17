@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Underline, Table, Btn_Box } from './seller_apply.css'
 import { useSelector } from 'react-redux'
 import Link from "next/link";
-import Input from "../input";
+import Input from "../Input";
 import Button from '../Button';
 import useInput from "../../hooks/useInput";
 

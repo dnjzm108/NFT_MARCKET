@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { Logo, Circle, Copyed, Small_Contain, Check_Content, Line, Btn_Box } from './Join.css.jsx'
-import { Wrap } from '../../component/Wrap/Popup_back.jsx';
+import { Wrap } from '../../component/Wrap/Popup_Back.jsx';
 import useInput from '../../hooks/useInput.jsx';
 import { useEffect, useState } from 'react';
 import Input from '../Input'

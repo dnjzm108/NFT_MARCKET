@@ -9,10 +9,7 @@ import {LIST_UPDATE_REQUEST,
 
 
 async function myListAPI(data){
-    const config = {
-        params:data,
-    }
-      return await axios.get(`http://localhost:4000/user/${data.type}`,config)
+      return await axios.post(`${url}/user/${data.type}`, data)
 
   }
 

@@ -4,7 +4,7 @@ import { Container } from "../Form/Container";
 import { Icon_Close } from "../Login/Login.css"
 import CloseIcon from '@mui/icons-material/Close';
 import {Info_Container,Input_Invoice,Table} from './Invoice.css'
- import Input from "../input";
+ import Input from "../Input";
 import Button from '../Button';
 
 export const Invoice = () => {

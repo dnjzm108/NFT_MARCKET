@@ -10,6 +10,9 @@ router.use('/user',user)
 router.use('/main',main)
 router.use('/nft',nft)
 router.use('/product',product)
+router.get('/',(req,res)=>{
+    res.send('backend connect success')
+})
 
 
 

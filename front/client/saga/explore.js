@@ -1,4 +1,5 @@
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
+import { url } from './url'
 import axios from "axios";
 import {
     INIT_EXPLORE_REQUEST,
@@ -10,14 +11,10 @@ import {
     UPDATE_LIKE_ERROR,
     INIT_EXPLORE_SUCCESS,
 } from '../reducers/explore'
+
 import {
     USER_LOGOUT
 }from '../reducers/user'
-
-
-
-const url = process.env.NEXT_PUBLIC_URL; 
-
 
 async function updateLikeAPI(data){
     return  await axios.post(`${url}/main/like`,data)

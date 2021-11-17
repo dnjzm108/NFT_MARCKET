@@ -2,19 +2,15 @@ import Navigation from "../../../component/Navigation";
 import Info from "../../../container/Info";
 import SideMenu from "../../../component/SideMenu";
 import NFTList from "../../../component/MyNFT/NFTList";
-
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useRouter } from 'next/router'
 import { Pageblock } from "../../../component/Pageblock";
 import { statusList,sortList } from "../../../component/MyNFT/NFTList/list";
 import { ListUpdateRequest } from "../../../reducers/mylist";
 
 
-const list = () => {
-  const dispatch = useDispatch();
-  const {user_info} = useSelector(state => state.user)
+const List = () => {
+  const state_data = useSelector(state => state.user)
   const router = useRouter()
   const {type} = router.query;
   const [loading,setLoading] = useState(true)
@@ -50,5 +46,4 @@ const list = () => {
   );
 }
 
-
-export default list;
+export default List;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RiArrowDownSLine} from "react-icons/Ri"
+import { RiArrowDownSLine} from "react-icons/ri"
 
 import { StyledSelectBox,SelectHeader,SelectBody,SelectItem} from "./OptionBox.css";
 

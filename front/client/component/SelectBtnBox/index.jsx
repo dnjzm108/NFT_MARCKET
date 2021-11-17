@@ -1,6 +1,6 @@
 import {StyledSelectBtnBoxItemBlue,StyledSelectBtnBoxItemWhite,StyledSelectBtnBox,SelectHeader,SelectBody} from './SelectBtnBox.css'
 import { useState } from 'react'
-import { RiArrowDownSLine} from "react-icons/Ri"
+import { RiArrowDownSLine} from "react-icons/ri"
 
 
 

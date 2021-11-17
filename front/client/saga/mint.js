@@ -46,7 +46,6 @@ function* sendAuctionInfo(action){
 }
 
 
-//
 async function getCategoryAPI(){
     return await axios.get(`${url}/nft/category`)
 }
