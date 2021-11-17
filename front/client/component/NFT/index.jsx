@@ -8,7 +8,7 @@ import {UpdateLike} from "../../reducers/explore"
 
 const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
   const dispatch = useDispatch()
-  const {user_info} = useSelector(state=>state.user)
+  const {user_info,IsLogin} = useSelector(state=>state.user)
   const [isHover, setIsHover] = useState(false);
   const handleClick = (event) => {
     if (
@@ -62,10 +62,10 @@ const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
         </div>
       </div>
       <div className="content_bottom">
-        {isHover && <p className="buynow">Buy now</p>}
+        {isHover && <p className="buynow">{ type=='buy'?"Buy now" : "Bid now"}</p>}
 
         <div className="like_box">
-          {isLike!==0
+          {(isLike===user_info.nickname && IsLogin===true)
           ?(
             <i className="like_btn">
               <BsSuitHeartFill size={16} color={"red"}/>

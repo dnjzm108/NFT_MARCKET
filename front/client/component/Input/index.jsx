@@ -2,7 +2,6 @@ import { StyledInput ,InputWrap} from "./Input.css";
 import {BiSearch} from 'react-icons/bi'
 import {BsFillExclamationCircleFill} from 'react-icons/bs'
 import { useState } from "react";
-import { useEffect } from "react";
 
 // onChange  (object) : useInput 훅 넘기기
 //  const nickname = useInput();

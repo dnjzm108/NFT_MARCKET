@@ -56,7 +56,7 @@ const getAllListSql = (params, nickname) => {
                   A.date,
                   A.leftover,
                   B.img,
-                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike'
+                  L.nickname AS isLike
           FROM
                   product AS A
         
@@ -163,7 +163,7 @@ const getBuyListSql = (params, nickname) => {
                   P.likes,
                   P.date,
                   P.leftover,
-                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike'   
+                  L.nickname  as isLike   
             FROM 
                   product as P
             LEFT JOIN (
@@ -233,7 +233,7 @@ const getAuctionListSql = (params, nickname) => {
                   A.product_no,
                   A.date,
                   A.leftover,
-                  CASE WHEN L.nickname IS NULL THEN FALSE ELSE TRUE END AS 'isLike',
+                  L.nickname AS isLike,
                   I.img
           FROM( 
                 SELECT 
@@ -362,16 +362,16 @@ module.exports = {
 
 
 function makeWhereVerse(params) {
-      const { category, designer, search, price_max, price_min } = params;
+      const { category, designer, search, priceMax, priceMin } = params;
       let where = ``
       if (designer != undefined && designer.length > 0) {
             where += ' AND ' + makeSignVerse('creater', '=', designer);
       }
-      if (price_min != undefined) {
-            where += ` AND price>=${price_min}`;
+      if (priceMin != undefined) {
+            where += ` AND price>=${priceMin}`;
       }
-      if (price_max != undefined) {
-            where += ` AND price<=${price_max}`;
+      if (priceMax != undefined) {
+            where += ` AND price<=${priceMax}`;
       }
       if (category != undefined) {
             where += ` AND (product_no like '${category}%')`;

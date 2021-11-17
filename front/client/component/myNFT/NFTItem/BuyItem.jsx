@@ -1,6 +1,7 @@
 import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
 import { useSelector } from "react-redux";
+import Link from "next/dist/client/link";
 
 const dlvy_status = {
   'all':'전체',
@@ -14,6 +15,39 @@ const sell_type={
   'buy':'즉시구매',
   'auction':'경매'
 }
+
+const renderStatus = (type)=>{
+  switch(type){
+    case 'wait':
+      return(
+        <>
+         <div>배송지 미입력</div>
+         <button className='order_action_btn wait'>배송지 입력</button>
+        </>
+        )
+    case 'ready':
+      return(
+        <>
+         <div>상품준비중</div>
+        </>
+        )
+    case 'delivery':
+      return(
+        <>
+         <div>배송중</div>
+         <button className='order_action_btn delivery'>구매 확정</button>
+        </>
+        )
+    case 'completed':
+      return(
+        <>
+         <div>구매완료</div>
+         <button className='order_action_btn completed'>영수증</button>
+        </>
+        )
+      
+  }
+} 
 
 const BuyItem = (
   {type,
@@ -38,9 +72,14 @@ const BuyItem = (
   }
 
     return (
+      
       <StyledMyNFT>
       <td className='NFT_info'>
-        <div className='NFT_img'><img src={img} alt="" /></div>
+        <div >
+      <Link href={`/nft/${product_no}`}>
+        <a ><img className='NFT_img' src={img} alt="" /></a>
+        </Link>
+          </div>
         <ul className='NFT_detail'>
           <li className='NFT_creater'>상품번호: {product_no}</li>
           <li className='NFT_creater'>{creater}</li>
@@ -53,7 +92,7 @@ const BuyItem = (
       <td>{order_date}</td>
       <td>{order_id}</td>
       <td>{order_price}</td>
-      <td>{dlvy_status[status]}</td>
+      <td>{renderStatus(status)}</td>
     </StyledMyNFT>
     );
  

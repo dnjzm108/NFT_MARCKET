@@ -8,16 +8,15 @@ const errorData={
 
 
 const getNFTs= async(req,res)=>{
-
   
-  const sql = makeFilterQuery(req.query);
-  // console.log(sql)
-  const result = await query(sql);
-  const data ={
-    skip:req.query.skip,
-    nft:result
-  }
-  res.json(successData(data))
+  const p = 12;
+  const d = new Date('2021-11-10')
+  const o = false;
+  
+  const params = [p,d,o]
+  const sql = `INSERT INTO auction (product_id,deadline,option) VALUES(?,?,?);`
+  const result = await execute(sql,params)
+  
 }
 
 

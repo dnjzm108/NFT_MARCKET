@@ -1,6 +1,12 @@
 import axios from "axios";
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 import {url} from './url'
+import {LIST_UPDATE_REQUEST,
+    LIST_UPDATE_SUCCESS,
+    LIST_UPDATE_ERROR,
+
+} from '../reducers/mylist'
+
 
 async function myListAPI(data){
       return await axios.post(`${url}/user/${data.type}`, data)
@@ -17,7 +23,7 @@ function* getMyList(action){
     const {data} = result; 
     if(data.success){
       yield put({
-                type:"LIST_UPDATE_SUCCESS",
+                type:LIST_UPDATE_SUCCESS,
                 data:data.response,
             })
     }else{
@@ -31,7 +37,7 @@ function* getMyList(action){
 
 
 function* watchMyList(){
-    yield takeLatest('LIST_UPDATE_REQUEST',getMyList)
+    yield takeLatest(LIST_UPDATE_REQUEST,getMyList)
 }
 
 export default function* MyListSaga(){
