@@ -15,7 +15,7 @@ export const StyledMyNFT = styled.tr`
   }
 
   
-  .NFT_img>img{
+  .NFT_img{
       width: 120px;
       height: 120px;
       overflow: hidden;

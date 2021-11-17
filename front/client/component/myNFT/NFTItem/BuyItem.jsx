@@ -74,10 +74,12 @@ const BuyItem = (
     return (
       
       <StyledMyNFT>
-      <td >
+      <td className='NFT_info'>
+        <div >
       <Link href={`/nft/${product_no}`}>
-        <a className='NFT_info'>
-        <div className='NFT_img'><img src={img} alt="" /></div>
+        <a ><img className='NFT_img' src={img} alt="" /></a>
+        </Link>
+          </div>
         <ul className='NFT_detail'>
           <li className='NFT_creater'>상품번호: {product_no}</li>
           <li className='NFT_creater'>{creater}</li>
@@ -85,8 +87,6 @@ const BuyItem = (
           <li className='NFT_creater'>{color} {size}</li>
           <li className='NFT_creater'>수량:{qty}</li>
         </ul>
-        </a>
-        </Link>
       </td>
       <td>{sell_type[selltype]}</td>
       <td>{order_date}</td>

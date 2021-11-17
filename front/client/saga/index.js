@@ -5,6 +5,7 @@ import exploreSaga from './explore'
 import TokenSaga from './token'
 import MyListSaga from './mylist'
 import poroductSaga from './product'
+import adminSaga from './admin'
 
 export default function* rootSaga(){
     yield all([
@@ -13,6 +14,7 @@ export default function* rootSaga(){
        fork(exploreSaga),
        fork(TokenSaga),
        fork(MyListSaga),
-       fork(poroductSaga)
+       fork(poroductSaga),
+       fork(adminSaga)
     ])
 }

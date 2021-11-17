@@ -9,7 +9,6 @@ const Auction = () =>{
     const termCategory = useChangeValue(termList)
     const price = useInput();
 
-
     return(
         <>
         <div className="auction">

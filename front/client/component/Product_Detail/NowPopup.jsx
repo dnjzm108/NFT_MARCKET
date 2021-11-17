@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 
 const NowPopup = (props) => {
     const state_data = useSelector(state => state.user)
-    console.log('00000000000000',props);
     const {product,select_qty,option} = props;
 
   

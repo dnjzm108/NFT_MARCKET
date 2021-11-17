@@ -14,17 +14,21 @@ import useInput from '../../hooks/useInput';
 import axios from 'axios';
 import { url } from '../../saga/url'
 import Router from "next/router"
-
+import {useDispatch} from 'react-redux'
+import {Apply_Immy} from '../../reducers/product'
+import { useEffect } from 'react';
 
 const Delivery_Address_Component = (props) => {
     const data = useSelector(state => state.user)
-    const { product, select_qty, option } = props;
-
+    const product_data = useSelector(state => state.product)
+    const {notice_page , product_info} = product_data
+    const { select_qty, option } = props;
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [address, setaddress] = useState('')
     const [postNumber, setpostNumber] = useState('')
     const [recieveType, setRecieveType] = useState('')
-
+    
+    const dispatch = useDispatch()
     const Ponenumber = useInput()
     const address_detail = useInput()
     const Recipient = useInput()
@@ -44,28 +48,33 @@ const Delivery_Address_Component = (props) => {
 
     const handleOrder = async () => {
         if (Recipient.value !== undefined && recieveType !== undefined && Ponenumber.value !== undefined && address_detail.value !== undefined && address !== '') {
-           let recieve
             const order_info = {
-                product_id: product[option].product_id,
-                price: product[option].price,
+                product_id: product_info[option].product_id,
+                price: product_info[option].price,
                 buyer: data.user_info.nickname,
                 qty: select_qty,
-                product_no: product[option].product_no,
+                product_no: product_info[option].product_no,
                 reciever: Recipient.value,
                 request: requirement.value,
                 recieve_type: recieveType+','+other.value,
                 phone_number: Ponenumber.value,
                 address: address + address_detail.value,
-                rest: product[option].rest,
-                leftover: product[option].leftover
+                rest: product_info[option].rest,
+                leftover: product_info[option].leftover
             }
-            let result = await axios.post(`${url}/product/order`, order_info)
-            Router.push(`/notice/${result.data.response}`)
-    
-        } else {
-            alert('빈칸을 확인해주세요')
+             dispatch(Apply_Immy(order_info))
+             
+            } else {
+                alert('빈칸을 확인해주세요')
+            }
         }
-    }
+        useEffect(()=>{
+            if(notice_page !== ''){
+                
+                Router.push(`/notice/${notice_page}`)
+            }
+
+    },[notice_page])
 
     return (
         <>
@@ -79,15 +88,15 @@ const Delivery_Address_Component = (props) => {
                     <Table>
                         <tr>
                             <td>상품명</td>
-                            <td>{product[option].name}</td>
+                            <td>{product_info[option].name}</td>
                         </tr>
                         <tr>
                             <td>컬러</td>
-                            <td>{product[option].color}</td>
+                            <td>{product_info[option].color}</td>
                         </tr>
                         <tr>
                             <td>사이즈</td>
-                            <td>{product[option].size}</td>
+                            <td>{product_info[option].size}</td>
                         </tr>
                         <tr>
                             <td>수량</td>
@@ -95,7 +104,7 @@ const Delivery_Address_Component = (props) => {
                         </tr>
                         <tr>
                             <td>결제금액</td>
-                            <td><img src="/klay.png" alt="" /> {product[option].price * select_qty}</td>
+                            <td><img src="/klay.png" alt="" /> {product_info[option].price * select_qty}</td>
                         </tr>
 
                         <tr>

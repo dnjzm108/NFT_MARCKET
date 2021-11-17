@@ -40,21 +40,6 @@ export const Liststyle = styled.div`
     border-radius: 8px;
   }
 
-<<<<<<< HEAD:front/client/component/myNFT/sub.css.jsx
-  .ProMenu{
-    border-bottom: 1px solid ${p=>p.isSelect ? 'black' : "none"};
-  }
-
-  .sellist{
-    border-bottom: 1px solid ${p=>!p.isSelect ? 'black' : "none"};
-  }
-  /* .buylist{
-    border-bottom: 1px solid ${p=>!p.isSelect ? 'black' : "none"};
-  } */
-  /* .auclist{
-    border-bottom: 1px solid ${p=>p.isSelect ? 'black' : "none"};
-  } */
-=======
   .buylist{
     border-bottom: 1px solid ${p=>p.isSelect==1 ? 'black' : "none"};
   }
@@ -64,6 +49,5 @@ export const Liststyle = styled.div`
   .auclist{
     border-bottom: 1px solid ${p=>p.isSelect==3 ? 'black' : "none"};
   }
->>>>>>> 83b7f2c84514beb88ddb607a4ad6afb0828cc0ac:front/client/component/SubNav/SubNav.css.jsx
 `
 

@@ -70,18 +70,18 @@ const ImmySellItem = (
 
     return (
       <StyledMyNFT>
-      <td>
+      <td className='NFT_info'>
+        <div >
         <Link href={`/nft/${product_no}`}>
-        <a  className='NFT_info'>
-        <div className='NFT_img'><img src={img} alt="" /></div>
+        <a ><img className='NFT_img' src={img} alt="" /></a>
+        </Link>
+        </div>
         <ul className='NFT_detail'>
           <li className='NFT_creater'>상품번호: {product_no}</li>
           <li className='NFT_name'><strong>{name}</strong></li>
           <li className='NFT_name'><strong>{color} {size}</strong></li>
           <li className='NFT_creater'>{likes}</li>
         </ul>
-        </a>
-        </Link>
       </td>
       <td>{date}</td>
       <td>{buyer}</td>

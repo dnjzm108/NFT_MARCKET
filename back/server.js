@@ -28,6 +28,7 @@ nunjucks.configure('views', {
     express:app,
 })
 
+
 app.use('/',router)
 
 server.listen(PORT,()=>{
