@@ -46,10 +46,10 @@ const kip7 = await caver.kct.kip7.deploy(
 );
 console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
 
-console.log(`Token name: ${await kip7.name()}`);
-console.log(`Token symbol: ${await kip7.symbol()}`);
-console.log(`Token decimals: ${await kip7.decimals()}`);
-console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
+// console.log(`Token name: ${await kip7.name()}`);
+// console.log(`Token symbol: ${await kip7.symbol()}`);
+// console.log(`Token decimals: ${await kip7.decimals()}`);
+// console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
 
 // const kip7Instance = new caver.kct.kip7('0x9700a87945766F28B461ddB4f4097Cb69270fa94')
 //   kip7Instance.name().then(console.log)

@@ -18,7 +18,6 @@ const {
 
 const getMainInit = async(req,res) => {
 
-  console.log('init')
   //필터 디자이너 목록 가져오기
   const designerSql = getDesignerSql();
   const designerResult = await query(designerSql);
@@ -58,14 +57,11 @@ const getMainInit = async(req,res) => {
 }
 
 const getMain = async(req,res)=>{
-  console.log('get')
-  const wallet = req.get('wallet')
-  let nickname='';
-  if(wallet!="null"){
-    const loginSql = loginWithWalletSql(wallet);
-    user_info = await query(loginSql);
-    nickname = user_info[0].nickname
-  }
+  let nickname = req.get('nickname')
+  if(nickname=='null'){
+    nickname=''
+  };
+  
 
   let params = req.query;
   params.skip = params.skip==undefined ? 0 : params.skip
@@ -95,18 +91,17 @@ const updateLike = async(req,res)=>{
   const {isLike,product_no,nickname} = req.body;
   let data = {
     product_no:product_no,
-    type:null,
+    IsLike:null,
   }
   if(isLike==0){// 없을 떄는 넣어주고.
     /// insert like
     const insertSql =  insertLikeSql();
     await execute(insertSql,[product_no,nickname])
-    data.type='insert'
+    data.IsLike=nickname
   }else{
     ///update like
     const deleteSql= deleteLikeSql()
     await execute(deleteSql,[product_no,nickname])
-    data.type='delete'
   }
   res.json(successData(data));
 }

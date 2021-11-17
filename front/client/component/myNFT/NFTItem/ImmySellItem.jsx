@@ -1,67 +1,95 @@
 import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
 import { useSelector } from "react-redux";
+import {dlvyList} from '../NFTList/list'
+import Link from "next/dist/client/link";
 
-const dlvy_status = {
-  'all':'전체',
-  'wait':'배송지 미입력',
-  'ready':'배송요청',
-  'delivery':'배송중',
-  'completed':'구매완료',
-}
+
+
+
+
+
 
 
 const ImmySellItem = (
   {
     color,
+    size,
     img,
     name,
     date,
     product_no,
-    total_qty,
-    leftover,
+    qty,
+    price,
     likes,
-    type
+    dlvy_status,
+    order_id,
+    buyer
 }) => {
-  
-  const renderSellType=()=>{
-    if(type=='buy' && leftover>0){
-      return (
-        <div>
-          <div>판매중</div>
-          <button>판매중지</button>
-        </div>
-      )
-    }else if(type=='buy' && leftover==0){
-        <div>
-          <div>매진</div>
-        </div>
-    }else if(type=='stop'){
-      <div>
-        <div>판매중지</div>
-        <button>판매재개</button>
-      </div>
-    }
-  }
 
+
+  const renderStatus = (type)=>{
+    switch(type){
+      case 'wait':
+        return(
+          <>
+           <div>배송지 미입력</div>
+          </>
+          )
+      case 'ready':
+        return(
+          <>
+           <div>상품준비중</div>
+           <button className='order_action_btn invoice'>송장 입력</button>
+          </>
+          )
+      case 'delivery':
+        return(
+          <>
+           <div>배송중</div>
+          </>
+          )
+      case 'completed':
+        return(
+          <>
+           <div>구매완료</div>
+           <button className='order_action_btn completed'>영수증</button>
+          </>
+          )
+        
+    }
+  } 
+  
+ 
   const sample = () =>{
     alert('함수 샘플')
   }
+  
+
+
 
     return (
       <StyledMyNFT>
       <td className='NFT_info'>
-        <div className='NFT_img'><img src={img} alt="" /></div>
+        <div >
+        <Link href={`/nft/${product_no}`}>
+        <a ><img className='NFT_img' src={img} alt="" /></a>
+        </Link>
+        </div>
         <ul className='NFT_detail'>
           <li className='NFT_creater'>상품번호: {product_no}</li>
           <li className='NFT_name'><strong>{name}</strong></li>
+          <li className='NFT_name'><strong>{color} {size}</strong></li>
           <li className='NFT_creater'>{likes}</li>
         </ul>
       </td>
       <td>{date}</td>
-      <td>{total_qty}</td>
-      <td>{leftover}</td>
-      <td> {renderSellType()}</td>
+      <td>{buyer}</td>
+      <td>{qty}</td>
+      <td>{price}</td>
+      <td>{(+price)*(+qty)}</td>
+      <td>{order_id}</td>
+      <td>{renderStatus(dlvy_status)}</td>
     </StyledMyNFT>
     );
  

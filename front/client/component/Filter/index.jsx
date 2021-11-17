@@ -5,50 +5,54 @@ import Panal from "../Panal";
 import { useState } from "react";
 import SelectBox from "../SelectBox";
 import Input from '../Input'
-import useChangeValue from "../../hook/useChangeValue";
 import useInput from '../../hook/useInput';
 import CheckBoxes from '../CheckBoxes'
 import SelectBtnBox from '../SelectBtnBox';
-import useCheckBox from "../../hook/useCheckbox";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const tempCurrency = [{ "name": 'KLAY', 'img': '/klay.png' }, { 'name': 'KRW', 'img': '/krw.png' }]
-import { ExploreRequest } from '../../reducers/explore';
 import { useRouter } from "next/router";
 import OptionBox from "../OptionBox/OptionBox";
 
 
 const Filter = () => {
   const router = useRouter()
-  const dispatch = useDispatch()
   const {category,designer } = useSelector(state => state.explore);
-  const currency = useChangeValue(tempCurrency);
   const [open, setOpen] = useState(true);
   const typeList = [
     {name:'즉시구매',code:'buy'},
     {name:'경매',code:'auction'}
   ]
 
-  const Min = useInput();
-  const Max = useInput();
+  const Min = useInput('');
+  const Max = useInput('');
 
 
 
 
  ///가격이 바뀔때.
   const handlePrice = () => {
-    if (Min.value == null && Max.value == null) {
+    if (Min.value == "" && Max.value == "") {
       alert('값을 입력해주세요')
       return;
     }
+
+    if(Max.value!='' && ( +Min.value>+Max.value) ){
+      alert('Max 값은 Min 값보다 크거나 같아야 합니다.')
+      return;
+    }
     let data = {...router.query}
-    if(Min.value!=null){
-      data["price_min"] =Min.value; 
+
+    if(Min.value>0 && Max.value==''){
+      data["priceMin"] =Min.value; 
+    }else if(Min.value=='' && Max.value>0){
+      data["priceMax"] =Max.value; 
+    }else{
+      data["priceMin"] =Min.value; 
+      data["priceMax"] =Max.value; 
     }
-    if(Max.value!=null){
-      data["price_max"] =Max.value; 
-    }
-    router.replace({
+    
+    console.log(data)
+    router.push({
       pathname: '/',
       query: data,
     })
@@ -62,7 +66,7 @@ const Filter = () => {
     }else{
         data["category"]=code
     }
-    router.replace({
+    router.push({
       pathname: '/',
       query: data,
 
@@ -77,7 +81,7 @@ const Filter = () => {
     }else{
         data["type"]=code
     }
-    router.replace({
+    router.push({
       pathname: '/',
       query: data,
     })
@@ -105,7 +109,7 @@ const Filter = () => {
         }
       }
 
-      router.replace({
+      router.push({
         pathname: '/',
         query: data,
 
@@ -140,7 +144,11 @@ const Filter = () => {
          </Panal>  
 
           <Panal value='가격'>
-            <SelectBox {...currency} useImg={true} width='100%' />
+            <div className='klay'>
+            <img src='./klay.png' alt="" />
+            <span>Klay</span>
+            </div>
+            
             <div className='price_input'>
               <Input {...Min} type='number' width='124px' placeholder='Min' />
               <span>to</span>

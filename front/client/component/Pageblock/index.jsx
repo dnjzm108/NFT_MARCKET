@@ -1,41 +1,52 @@
 import { useDispatch, useSelector } from "react-redux";
 import {ListUpdateRequest} from '../../reducers/mylist'
-
+import {StyledPageBlock} from './Pageblock.css'
 
 export const Pageblock = () => {
   const dispatch = useDispatch();
-  const { pageblock, endpage,page,type,status,sort,search } = useSelector(state=>state.mylist)
+  const { pageblock, endpage,searchData } = useSelector(state=>state.mylist)
+  const {user_info} = useSelector(state=>state.user)
   
   const handlePage = (v) => {
+  
       const data={
-        status,
-        type,
-        sort,
-        search,
+        ...searchData,
         page:v,
         rows:10,
-        nickname:'seong',
+        nickname:user_info.nickname,
       }
-      dispatch(ListUpdateRequest(data));
+      dispatch(ListUpdateRequest(data))
   }
 
   const renderPageBlock = () => {
     return pageblock.map((v, i) => {
-      return (
-        <button
-          key={i}
-          onClick={() => {
-            handlePage(v);
-          }}
-        >
-          {v}
-        </button>
-      );
+      if(v==searchData.page){
+        return (
+          <button className='now'
+            key={i}
+          >
+            {v}
+          </button>
+        ) 
+      }else{  
+        return (
+          <button
+            key={i}
+            onClick={() => {
+              handlePage(v);
+            }}
+          >
+            {v}
+          </button>
+        );
+      }
+
     });
+    
   };
 
   return (
-    <>
+    <StyledPageBlock>
       <button
         onClick={() => {
           handlePage(1);
@@ -43,7 +54,21 @@ export const Pageblock = () => {
       >
         처음
       </button>
+      {searchData.page>1 && <button
+        onClick={() => {
+          handlePage(searchData.page-1);
+        }}
+      >
+        이전
+      </button>}
       {renderPageBlock()}
+      {searchData.page<endpage && <button
+        onClick={() => {
+          handlePage(searchData.page+1);
+        }}
+      >
+        다음
+      </button>}
       <button
         onClick={() => {
           handlePage(endpage);
@@ -51,7 +76,7 @@ export const Pageblock = () => {
       >
         끝
       </button>
-    </>
+    </StyledPageBlock>
   );
 };
 

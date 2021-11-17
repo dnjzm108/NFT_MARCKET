@@ -15,7 +15,7 @@ const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST"
 const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS"
 const USER_LOGIN_ERROR = "USER_LOGIN_ERROR"
 
-const USER_LOGOUT = "USER_LOGOUT"
+export const USER_LOGOUT = "USER_LOGOUT"
 
 const USER_JOIN_REQUEST = "USER_JOIN_REQUEST"
 const USER_JOIN_SUCCESS = "USER_JOIN_SUCCESS"
@@ -39,7 +39,6 @@ export const User_Join_Check = (data) =>{
 }
 
 export const UserLogin_REQUEST = data => {
-    console.log(data);
     return {
         type: USER_LOGIN_REQUEST,
         data,
