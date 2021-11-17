@@ -1,9 +1,30 @@
 ///=== 구매 목록 sql
 
+
+
+
+
+
+
 //////////======== 구매상품 쿼리
 function myBuyListQuery(query,type){
   const {nickname,page,rows,search, status,sort} = query;
-  let value=`O.order_id,O.price AS order_price,O.date as order_date, O.qty, D.product_no, D.color, D.size, P.name,P.type as selltype, P.creater,P.likes,V.dlvy_id,V.status,V.address,I.img`
+  let value=`
+            O.order_id,
+            O.price AS order_price,
+            date_format(O.date,'%y-%m-%d %h:%i') as order_date, 
+            O.qty, 
+            D.product_no, 
+            D.color, 
+            D.size, 
+            P.name,
+            P.type as selltype, 
+            P.creater,
+            P.likes,
+            V.dlvy_id,
+            ifnull(V.status,'wait')as dlvy_status,
+            V.address,
+            I.img`
   if(type=='cnt'){
     value='COUNT(*) AS cnt'
   }
@@ -19,7 +40,12 @@ function myBuyListQuery(query,type){
               buyer='${nickname}'
       )	as O 
   LEFT JOIN 
-            product_detail as D
+            (
+              SELECT 
+                    product_id,product_no,color,size
+               FROM
+                  product_detail 
+            )as D
   ON 
             O.product_id=D.product_id
   LEFT JOIN 
@@ -52,7 +78,7 @@ function myBuyListQuery(query,type){
   }
 
   if(search!=undefined){
-    sql+=` AND (creater like '%${search}%' OR name like '%${search}%')`
+    sql+=` AND (creater like '%${search}%' OR P.product_no like '%${search}%' OR name like '%${search}%')`
   }
 
   if(type=='cnt'){
@@ -94,7 +120,22 @@ function myBuyListQuery(query,type){
 //////////======== 경매상품 쿼리
 function myAuctionListQuery(query,type){
   const {nickname,page,rows,search, status,sort} = query;
-  let value=`H.bid,H.date as bid_date,H.auction_id,H.status as bid_status,D.date as order_date, D.product_no, D.color, D.size,D.qty, P.name, P.creater,P.likes,I.img,L.latest`
+  let value=`
+        H.bid,
+        date_format(H.date,'%y-%m-%d %h:%i:%s') as bid_date,  
+        H.auction_id,
+        H.status as bid_status,
+        date_format(D.date,'%y-%m-%d %h:%i') as order_date,  
+        D.product_no, 
+        D.color,
+        D.size,
+        D.qty, 
+        P.name, 
+        P.creater,
+        P.likes,
+        I.img,
+        L.latest`
+
   if(type=='cnt'){
     value='COUNT(*) AS cnt'
   }
@@ -170,7 +211,7 @@ function myAuctionListQuery(query,type){
   }
 
   if(search!=undefined){
-    sql+=` AND (P.creater like '%${search}%' OR P.name like '%${search}%')`
+    sql+=` AND (P.creater like '%${search}%' OR P.product_no like '%${search}%' OR P.name like '%${search}%')`
   }
 
   if(type=='cnt'){
@@ -214,20 +255,21 @@ function myAuctionSellListQuery(query,type){
             P.name,
             P.creater,
             P.likes,
-            P.date as start_date,
+            date_format(P.date,'%y-%m-%d %h:%i:%s') as start_date,   
             P.leftover,
             I.img,
             D.color,
             D.size,
             D.price as start_price,
             A.auction_id,
-            A.deadline as end_date,
+            date_format(A.deadline,'%y-%m-%d %h:%i:%s') as end_date,   
             A.option,
             L.latest,
             O.order_id,
             O.buyer,
             V.dlvy_id,
-            V.status as dlvy_status` 
+            ifnull(V.status,'wait')as dlvy_status
+            `
   let wherCnt = false;
   if(type=='cnt'){
     value='COUNT(*) AS cnt'
@@ -325,9 +367,9 @@ function myAuctionSellListQuery(query,type){
 
   if(search!=undefined){
     if(wherCnt){
-      sql+=` AND  P.name like '%${search}%'`
+      sql+=` AND  (P.name like '%${search}%' OR P.product_no like '%${search}%')`
     }else{
-      sql+=` WHERE  P.name like '%${search}%'`
+      sql+=` WHERE (P.name like '%${search} OR P.product_no like '%${search}%')%'`
       wherCnt=true; 
     }
   }
@@ -367,13 +409,13 @@ function myAuctionSellListQuery(query,type){
 
 
 /////==== 즉시 판매 상품 리스트 쿼리
-function myImmySellListQuery(query,type){
+function myImmySellAllListQuery(query,type){
   const {nickname,page,rows,search, status,sort} = query;
   let wherCnt = false;
   let value=`	
             P.name,
             P.product_no,
-            P.date, 
+            date_format(P.date,'%y-%m-%d %h:%i') as date,   
             P.likes,
             P.total_qty,
             P.leftover,
@@ -423,9 +465,9 @@ function myImmySellListQuery(query,type){
 
   if(search!=undefined){
     if(wherCnt){
-      sql+=` AND  P.name like '%${search}%'`
+      sql+=` AND  (P.name like '%${search}%' OR P.product_no like '%${search}%')`
     }else{
-      sql+=` WHERE  P.name like '%${search}%'`
+      sql+=` WHERE  (P.name like '%${search}% OR P.product_no like '%${search}%')'`
       wherCnt=true; 
     }
   }
@@ -455,6 +497,96 @@ function myImmySellListQuery(query,type){
 }
 
 
+/////==== 즉시 판매 상품 리스트 쿼리
+function myImmySellListQuery(query,type){
+  const {nickname,page,rows,search, status,sort} = query;
+  let wherCnt = false;
+  let value=`	
+  O.qty,
+  date_format(O.date,'%y-%m-%d %h:%i') as date,   
+  O.order_id,
+  O.price,
+  O.buyer,
+  D.color,
+  D.size,
+  P.product_no,
+  P.name,
+  P.likes,
+  date_format(P.date,'%y-%m-%d %h:%i') as reg_date,   
+  ifnull(V.status,'wait')as dlvy_status
+  ` 
+
+  if(type=='cnt'){
+    value='COUNT(*) AS cnt'
+  }
+  let sql=`
+            SELECT
+                  ${value}
+            FROM 	
+                  orders AS O 
+            LEFT JOIN
+                  delivery AS V
+            ON 
+                  V.order_id=O.order_id
+            NATURAL JOIN
+                  product_detail AS D
+            LEFT JOIN 
+                  product AS P
+            ON
+              P.product_no=D.product_no
+            WHERE 
+                 P.creater='${nickname}'`
+  
+  /////// 나중에 상품 타입에 판매 중지 값을 넣어줄 수도 있음. 
+    switch(status){
+      case "sale":
+      sql+=` AND (P.leftover>0 AND P.type='buy')`
+      break;
+      case "soldout":
+      sql+=` AND P.leftover=0`
+      break;
+      case "stop":
+      sql+=` AND P.type='stop'`
+      break;
+      case "all": default:
+      sql+=` AND P.type='buy'`
+      break;
+    }
+
+  if(search!=undefined){
+      sql+=` AND (P.name like '%${search}%' OR P.product_no like '%${search}%')`
+    }
+  
+
+  if(type=='cnt'){
+    return sql+';';
+  }
+  
+  sql+=`\nORDER BY `
+  switch(sort){
+    case 'like':
+      sql+='P.likes DESC';
+      break;
+    case 'low':
+      sql+='O.price ASC';
+      break;
+    case 'high':
+      sql+='O.price DESC';
+      break;
+    case 'old':
+      sql+='O.date ASC';
+      break;
+    case 'new': default:
+      sql+='O.date DESC';
+      break;
+  }
+
+  sql+= `\n LIMIT ${(page-1)*rows},${rows}`
+
+  return sql+';'; 
+}
+
+
 
 
 
@@ -473,5 +605,6 @@ module.exports={
   myBuyListQuery,
   myAuctionListQuery,
   myAuctionSellListQuery,
-  myImmySellListQuery
+  myImmySellListQuery,
+  myImmySellAllListQuery
 }

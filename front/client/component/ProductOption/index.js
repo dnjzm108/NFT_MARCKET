@@ -5,7 +5,7 @@ import useChangeValue from "../../hook/useChangeValue";
 import AucOption from "./AucOption";
 import useInput from "../../hook/useInput";
 import {useSelector} from 'react-redux'
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import axios from "axios"
 
 const ProductOption = 

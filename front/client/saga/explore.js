@@ -1,9 +1,6 @@
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
+import { url } from './url'
 import axios from "axios";
-import qs from "qs";
-import {url} from './url'
-axios.default.paramsSerializer = params => {return qs.stringify(params);}
-
 import {
     INIT_EXPLORE_REQUEST,
     GET_EXPLORE_REQUEST,
@@ -14,6 +11,10 @@ import {
     UPDATE_LIKE_ERROR,
     INIT_EXPLORE_SUCCESS,
 } from '../reducers/explore'
+
+import {
+    USER_LOGOUT
+}from '../reducers/user'
 
 async function updateLikeAPI(data){
     return  await axios.post(`${url}/main/like`,data)
@@ -41,26 +42,11 @@ function* updateLike(action){
 
 }
 async function exploreAPI(data){
-    let {params,wallet} = data
-    if(params.category==null){
-        delete params.category;
-    }
-    if(params.designer==null||params.designer.length==0){
-        delete params.designer;
-    }
-    if(params.price_min==null||params.price_max==null){
-        delete params.price_min
-        delete params.price_max
-    }
-    if(params.search==null){
-        delete params.search
-    }
-
-
+    let {params,nickname} = data
     const config = {
         params,
         headers:{
-            'wallet':wallet,
+            'nickname':nickname,
           },
     }
     return  await axios.get(`${url}/main`,config)
@@ -92,21 +78,6 @@ function* explore(action){
 
 async function mainInitAPI(data){
     let params = {...data}
-
-    if(params.category==null){
-        delete params.category;
-    }
-    if(params.designer==null||params.designer.length==0){
-        delete params.designer;
-    }
-    if(params.price_min==null||params.price_max==null){
-        delete params.price_min
-        delete params.price_max
-    }
-    if(params.search==null){
-        delete params.search
-    }
-
     const config = {
         params,
         // headers:{
@@ -153,10 +124,11 @@ function* watchExploreLike(){
 }
 
 
+
 export default function* exploreSaga(){
     yield all([
         fork(watchExplore),
         fork(watchInitExplore),
-        fork(watchExploreLike)
+        fork(watchExploreLike),
     ])
 }

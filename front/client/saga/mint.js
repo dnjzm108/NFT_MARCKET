@@ -14,7 +14,6 @@ async function mintAPI(data){
 function* mint(action){
     let result = yield call(mintAPI,action.data)
     const {data} = result; 
-    // console.log("result?",result);
     if(data.success){
       alert(`토큰아이디${data.tokenId}: 발행되었습니다.`)
       yield put({
@@ -46,10 +45,8 @@ async function getMaincateAPI(){
 }
 
 function* getMaincate(action) {
-    // console.log("fffffffffff",action)
     let result = yield call(getMaincateAPI)
     let {data} = result
-    console.log(data,"skjfhskfhsdkfjaglfjdlkfj")
     if(data.success){
         yield put({
             type: MINT_MAIN_CATE_SUCCESS,

@@ -1,7 +1,7 @@
 import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
 import { useSelector } from "react-redux";
-
+import Link from "next/dist/client/link";
 const dlvy_kor = {
   'all':'전체',
   'wait':'배송지 미입력',
@@ -38,7 +38,13 @@ const AuctionItem = (
     return (
       <StyledMyNFT>
       <td className='NFT_info'>
-        <div className='NFT_img'><img src={img} alt="" /></div>
+        <div >
+        <Link href={`/nft/${product_no}`}>
+        <a >
+          <img className='NFT_img' src={img} alt="" />
+        </a>
+        </Link>
+        </div>
         <ul className='NFT_detail'>
           <li className='NFT_creater'>상품번호: {product_no}</li>
           <li className='NFT_name'><strong>{name}</strong></li>
