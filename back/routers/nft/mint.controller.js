@@ -31,7 +31,7 @@ const mint_nft = async(req,res)=>{
   const {name,explain,creater,optionColor,optionSize,optionEtc,type} = req.body;
  
   const productOpparams = [optionColor,optionSize,optionEtc]
-  const productOp = await execute(prdctDetail_sql(),productOpparams)
+  const productOp = await execute(productInfo_sql(),productOpparams)
   // console.log("ff",productOp);
   // const id_result = await query(productNum_sql())
   
@@ -70,6 +70,7 @@ const mint_nft = async(req,res)=>{
   }
   res.json(data)
 }
+
 
 const getCategory =async(req,res)=>{
   const categorySql = getCategorySql();
@@ -124,5 +125,5 @@ function clearCategory(category){
 module.exports={
   mint_nft,
   auction_info,
-  getCategory
+  getCategory,
 }

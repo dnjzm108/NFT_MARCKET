@@ -14,8 +14,9 @@ const prdctDetail_sql =()=>{
     )
 }
 
-
-const productNum_sql = ()=>{
+// 상품 상세코드 앞 4자리가 같은 상품들 중 
+// 맨 마지막 상품 가져옴 (끝 4자리)
+const productNum_sql = (category)=>{
     return(
         `SELECT * FROM product WHERE product_no LIKE '${category}%'
          ORDER BY product_no DESC LIMIT 1 ;`

@@ -5,13 +5,8 @@ import useChangeValue from "../../hook/useChangeValue";
 import AucOption from "./AucOption";
 import useInput from "../../hook/useInput";
 import {useSelector} from 'react-redux'
-<<<<<<< HEAD
 import { useState,useEffect } from "react";
 import OptionBox from '../OptionBox/OptionBox'
-=======
-import { useState } from "react";
-import axios from "axios"
->>>>>>> 8b0685c114680ce942973ec9ddf918f5a2818371
 
 const ProductOption = 
 ({isNow,isClick,setIsClick,optionColor,optionSize,setOptionColor,setOptionSize,onClick})=>{
