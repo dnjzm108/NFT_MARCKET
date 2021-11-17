@@ -71,7 +71,15 @@ const mint_nft = async(req,res)=>{
   res.json(data)
 }
 
+const getLastProduct = async(req,res)=>{
+  const category = `B105`
+  const LastProduct = await query(productNum_sql(category))
+}
 
+
+
+
+// 카테고리 가져오기
 const getCategory =async(req,res)=>{
   const categorySql = getCategorySql();
   const categoryResult = await query(categorySql);
@@ -81,23 +89,6 @@ const getCategory =async(req,res)=>{
   }
   res.json(successData(data))
 }
-
-
-//auction 에 데이터 넣기
-const auction_info = async(req,res)=>{
-  let {bid, deadline, option} = req.body
-  let params = [deadline,option]
-  // let insert_auction_info = await execute(auction_initial_info(product_code),params)
-
-  const data = {
-    success:true,
-    bid,
-    deadline,
-    option
-  }
-  res.json(successData(data))
-}
-
 function clearCategory(category){
   let categoryTemp = {};
   const bigCategory = new Set(category.map(v=>{ 
@@ -119,6 +110,23 @@ function clearCategory(category){
     categoryTemp[b_code].list.push({name:m_name, code:`${b_code}${m_code}`})
   })
   return  Object.entries(categoryTemp).map(v=>v[1]); 
+}
+
+
+
+//auction 에 데이터 넣기
+const auction_info = async(req,res)=>{
+  let {bid, deadline, option} = req.body
+  let params = [deadline,option]
+  // let insert_auction_info = await execute(auction_initial_info(product_code),params)
+
+  const data = {
+    success:true,
+    bid,
+    deadline,
+    option
+  }
+  res.json(successData(data))
 }
 
 
