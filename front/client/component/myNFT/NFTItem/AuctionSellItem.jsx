@@ -31,6 +31,44 @@ const AuctionItem = (
     likes,
 }) => {
 
+  const renderStatus = (type)=>{
+    switch(type){
+      case 'wait':
+        return(
+          <>
+           <div>배송지 미입력</div>
+          </>
+          )
+      case 'ready':
+        return(
+          <>
+           <div>상품준비중</div>
+           <button className='order_action_btn invoice'>송장 입력</button>
+          </>
+          )
+      case 'delivery':
+        return(
+          <>
+           <div>배송중</div>
+          </>
+          )
+      case 'completed':
+        return(
+          <>
+           <div>구매완료</div>
+           <button className='order_action_btn completed'>영수증</button>
+          </>
+          )
+      default:
+        return(
+          <>
+           -
+          </>
+        )
+        
+    }
+  } 
+
   const sample = () =>{
     alert('함수 샘플')
   }
@@ -72,10 +110,24 @@ const AuctionItem = (
       <td>{new Date(end_date)>new Date() 
           ? '경매중'
           : '경매종료'}</td>
-      <td>{dlvy_status===null 
-              ? '-' 
-              : dlvy_kor[dlvy_status]
-            }</td>
+      <td>
+        {order_id===null
+        ?
+        <>
+        -
+        </>
+        :
+        <>
+        <div>
+        {order_id}
+        </div>
+        <button className='order_action_btn order'>
+            주문서 보기
+        </button>
+        </>
+      }
+        </td>
+      <td>{renderStatus(dlvy_status)}</td>
     </StyledMyNFT>
     );
  

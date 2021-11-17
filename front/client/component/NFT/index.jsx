@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {UpdateLike} from "../../reducers/explore"
 
 const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
+  console.log(isLike)
   const dispatch = useDispatch()
   const {user_info,IsLogin} = useSelector(state=>state.user)
   const [isHover, setIsHover] = useState(false);

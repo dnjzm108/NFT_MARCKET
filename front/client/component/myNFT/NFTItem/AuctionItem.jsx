@@ -2,24 +2,9 @@ import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
 import { useSelector } from "react-redux";
 import Link from "next/dist/client/link";
-const dlvy_status = {
-  'all':'전체',
-  'wait':'배송지 미입력',
-  'ready':'상품준비중',
-  'delivery':'배송중',
-  'completed':'구매완료',
-}
 
-const sell_type={
-  'buy':'즉시구매',
-  'auction':'경매'
-}
 
-const bid_kor={
-  'bid':'입찰',
-  'burial':'유찰',
-  'success':'낙찰',
-}
+
 
 const AuctionItem = (
   {
@@ -34,8 +19,29 @@ const AuctionItem = (
     bid,
     bid_status,
     bid_date,
-    latest
+    latest,
+    deadline
 }) => {
+
+  const renderStatus = (type)=>{
+    switch(type){
+      case 'bid':
+        return(
+           <div className='auction_type bid'>입찰</div>
+          )
+      case 'burial':
+        return(
+           <div className='auction_type burial' >유찰</div>
+          )
+      case 'success':
+        return(
+           <div className='auction_type success'>낙찰</div>
+          )
+      default:
+        return;
+    }
+  } 
+  
 
   const sample = () =>{
     alert('함수 샘플')
@@ -43,7 +49,6 @@ const AuctionItem = (
 
     return (
       <StyledMyNFT>
-
       <td className='NFT_info'>
         <div>
         <Link href={`/nft/${product_no}`}>
@@ -61,9 +66,10 @@ const AuctionItem = (
         </ul>
       </td>
       <td>{bid_date}</td>
+      <td>{deadline}</td>
       <td>{bid}</td>
       <td>{latest}</td>
-      <td>{bid_kor[bid_status]}</td>
+      <td>{renderStatus(bid_status)}</td>
     </StyledMyNFT>
     );
  

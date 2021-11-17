@@ -2,7 +2,7 @@ import Selectbox from "../SelectBox/index"
 import useChangeValue from "../../hook/useChangeValue"
 import { useEffect } from "react"
 import useInput from "../../hook/useInput"
-import CustomInput from "../Input/index"
+import CustomInput from "../CustomInput/index"
 
 const Auction = () =>{
     const termList = ["1일","7일","30일","3개월"]

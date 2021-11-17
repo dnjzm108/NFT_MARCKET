@@ -4,7 +4,7 @@ import Button from "../Button";
 import Panal from "../Panal";
 import { useState } from "react";
 import SelectBox from "../SelectBox";
-import Input from '../Input'
+import Input from '../CustomInput'
 import useInput from '../../hook/useInput';
 import CheckBoxes from '../CheckBoxes'
 import SelectBtnBox from '../SelectBtnBox';

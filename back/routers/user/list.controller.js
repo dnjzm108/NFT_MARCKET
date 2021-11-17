@@ -1,9 +1,11 @@
-const {query} = require('../../pool');
+const {query, execute} = require('../../pool');
 const {myBuyListQuery,
       myAuctionListQuery,
       myAuctionSellListQuery,
-      myImmySellListQuery} = require('../../sql/mylist');
-const {successData,errorData} = require('../../returnData')
+      myImmySellListQuery,
+      updateShipQuery
+    } = require('../../sql/mylist');
+const {successData,errorData,error400} = require('../../returnData')
 
 
 const getMyBuy = async(req,res)=>{
@@ -157,6 +159,36 @@ const getMyAuctionSell = async(req,res)=>{
   res.json(successData(data))
 
 }
+///////////////////////////////////////
+///// 주문자 확인하는 코드 추가하기 ////
+///////////////////////////////////////
+const updateShipInfo = async(req,res)=>{
+  const {
+    reciever,
+    recieve_type,
+    phone_number,
+    address,
+    order_id,
+  } = req.body;
+  const shipSql = updateShipQuery();
+  const params=[
+    reciever,
+    recieve_type,
+    phone_number,
+    address,
+    order_id,]
+  const result = await execute(shipSql,params)
+  if(result==false){
+    res.json(error400())
+    return;
+  }
+  const data={
+    order_id,
+  }
+  res.json(successData(data))
+}
+
+
 
 
 const makePageBlock = (cnt,page,rows) => {
@@ -180,4 +212,5 @@ module.exports={
   getMyAuction,
   getMyImmySell,
   getMyAuctionSell,
+  updateShipInfo,
 }

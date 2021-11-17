@@ -1,4 +1,4 @@
-import CustomInput from "../Input/index"
+import CustomInput from "../CustomInput/index"
 import useInput from "../../hook/useInput";
 
 const BuyNow = () => {

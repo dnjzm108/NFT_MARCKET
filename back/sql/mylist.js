@@ -1,5 +1,20 @@
 ///=== 구매 목록 sql
-
+function updateShipQuery(){
+  return `INSERT INTO 
+                delivery 
+            (
+              reciever,
+              recieve_type,
+              phone_number,
+              address,
+              status,
+              order_id
+              ) 
+            VALUES(
+              ?,?,?,?,'ready',?
+            );  
+            `
+}
 
 
 
@@ -21,6 +36,7 @@ function myBuyListQuery(query,type){
             P.type as selltype, 
             P.creater,
             P.likes,
+            O.total,
             V.dlvy_id,
             ifnull(V.status,'wait')as dlvy_status,
             V.address,
@@ -33,7 +49,8 @@ function myBuyListQuery(query,type){
       ${value}
   FROM(
         SELECT
-              *
+              *,
+              (qty*price) as total
         FROM
               orders  
         WHERE 
@@ -99,11 +116,11 @@ function myBuyListQuery(query,type){
       break;
 
     case 'low':
-      sql+='price ASC';
+      sql+='total ASC';
       break;
 
     case 'high':
-      sql+='price DESC';
+      sql+='total DESC';
       break;
 
     default:
@@ -134,7 +151,9 @@ function myAuctionListQuery(query,type){
         P.creater,
         P.likes,
         I.img,
-        L.latest`
+        L.latest,
+        date_format(A.deadline,'%y-%m-%d %h:%i:%s') as deadline
+        `
 
   if(type=='cnt'){
     value='COUNT(*) AS cnt'
@@ -230,7 +249,8 @@ function myAuctionListQuery(query,type){
       sql+='H.date DESC';
       break;
     case 'dead':
-      sql+='A.deadline DESC'
+      sql+='A.deadline ASC'
+      break;
     case 'low':
       sql+='H.bid ASC';
       break;
@@ -329,7 +349,7 @@ function myAuctionSellListQuery(query,type){
             ON 
                A.auction_id=L.auction_id
             LEFT JOIN 
-            			 orders AS O 
+                      orders AS O        
             ON  
             	D.product_id=O.product_id
             LEFT JOIN
@@ -408,7 +428,8 @@ function myAuctionSellListQuery(query,type){
 }
 
 
-/////==== 즉시 판매 상품 리스트 쿼리
+/////==== 즉시 판매 대표상품, 판매내역 없는 목록. 
+//// 안쓰는 거. 
 function myImmySellAllListQuery(query,type){
   const {nickname,page,rows,search, status,sort} = query;
   let wherCnt = false;
@@ -500,7 +521,6 @@ function myImmySellAllListQuery(query,type){
 /////==== 즉시 판매 상품 리스트 쿼리
 function myImmySellListQuery(query,type){
   const {nickname,page,rows,search, status,sort} = query;
-  let wherCnt = false;
   let value=`	
   O.qty,
   date_format(O.date,'%y-%m-%d %h:%i') as date,   
@@ -522,8 +542,13 @@ function myImmySellListQuery(query,type){
   let sql=`
             SELECT
                   ${value}
-            FROM 	
-                  orders AS O 
+            FROM 	( 
+                  SELECT
+                        *,
+                        (qty*price) as total
+                  FROM
+                        orders 
+              )AS O 
             LEFT JOIN
                   delivery AS V
             ON 
@@ -568,10 +593,10 @@ function myImmySellListQuery(query,type){
       sql+='P.likes DESC';
       break;
     case 'low':
-      sql+='O.price ASC';
+      sql+='total ASC';
       break;
     case 'high':
-      sql+='O.price DESC';
+      sql+='total DESC';
       break;
     case 'old':
       sql+='O.date ASC';
@@ -606,5 +631,6 @@ module.exports={
   myAuctionListQuery,
   myAuctionSellListQuery,
   myImmySellListQuery,
-  myImmySellAllListQuery
+  myImmySellAllListQuery,
+  updateShipQuery
 }

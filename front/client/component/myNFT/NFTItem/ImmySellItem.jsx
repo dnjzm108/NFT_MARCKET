@@ -56,7 +56,6 @@ const ImmySellItem = (
            <button className='order_action_btn completed'>영수증</button>
           </>
           )
-        
     }
   } 
   
@@ -88,7 +87,14 @@ const ImmySellItem = (
       <td>{qty}</td>
       <td>{price}</td>
       <td>{(+price)*(+qty)}</td>
-      <td>{order_id}</td>
+      <td>
+        <div>
+        {order_id}
+        </div>
+        <button className='order_action_btn order'>
+            주문서 보기
+        </button>
+      </td>
       <td>{renderStatus(dlvy_status)}</td>
     </StyledMyNFT>
     );
