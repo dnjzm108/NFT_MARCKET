@@ -2,7 +2,8 @@
 // 상품 nft 정보
 const productInfo_sql =()=>{
     return(
-        `insert into product ( name, explain, creater, type) values (?,?,?,?)` 
+        `INSERT INTO product (product_no, name, explain, creater, date, likes, type, total_qty, leftover, symbol, contractAddr, tokenURI) VALUES
+	(?,?,?,?,?,?,?,?,?,?,?,?)`
     )
 }
 

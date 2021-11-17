@@ -21,13 +21,14 @@ export const UPDATE_LIKE_ERROR = 'UPDATE_LIKE_ERROR';
 
 
 
+
+
 export const MainPageInit = (data) =>{
   return {
     type:INIT_EXPLORE_REQUEST,
     data,
   }
 }
-
 
 
 export const ExploreRequest = (data) => {
@@ -37,12 +38,16 @@ export const ExploreRequest = (data) => {
   }
 }
 
+
 export const UpdateLike = (data)=>{
   return{
     type:UPDATE_LIKE_REQUEST,
     data,
   }
 }
+
+
+
 
 
 const reducer = (state = initalState, action) => {
@@ -95,17 +100,16 @@ const reducer = (state = initalState, action) => {
       return state
     case UPDATE_LIKE_SUCCESS:
       const product_no = action.data.product_no;
-      const type = action.data.type;
+      const IsLike = action.data.IsLike;
       let likeUpdateList = [...state.list];
       likeUpdateList.forEach((v,i)=>{
         if(v.product_no==product_no){
-          if(type=='insert'){
-            likeUpdateList[i].likes++;
-            likeUpdateList[i].isLike=1;
-          }else{
+          if(IsLike==null){
             likeUpdateList[i].likes--;
-            likeUpdateList[i].isLike=0;
+          }else{
+            likeUpdateList[i].likes++;
           }
+          likeUpdateList[i].isLike=IsLike;
         }
       })
 

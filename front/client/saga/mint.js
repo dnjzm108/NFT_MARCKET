@@ -28,7 +28,7 @@ function* mint(action){
     }
 }
 
-
+// auction 정보 api
 async function AunctionInfoAPI(data){
     return await axios.post(`${url}/nft/auctioninfo`,data, {headers: { "Content-Type": `application/json`}})
 }
@@ -45,6 +45,8 @@ function* sendAuctionInfo(action){
     
 }
 
+
+//
 async function getCategoryAPI(){
     return await axios.get(`${url}/nft/category`)
 }
@@ -70,19 +72,9 @@ function* watchMint(){
     yield takeLatest(GET_CATEGORY_REQUEST,getCategory)
 }
 
-// function* watchAuctionInfo(){
-    
-// }
-
-// function* watchMintCategory(){
-    
-
-// }
 
 export default function* mintSaga(){
     yield all([
-        fork(watchMint),
-        // fork(watchAuctionInfo),
-        // fork(watchMintCategory),
+        fork(watchMint)
     ])
 }

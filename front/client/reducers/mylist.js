@@ -1,20 +1,24 @@
+
 const initialState = {
   isLoading:true,
-  type: null,
-  status:'all',
-  search: null,
-  page: 1,
-  rows: 10,
   pageblock: [1],
   endpage: 1,
   list: [],
+  searchData:{
+    type: null,
+    status:'all',
+    sort:'new',
+    search: null,
+    page: 1,
+    rows: 10,
+  },
 }
 
 
 
-const LIST_UPDATE_REQUEST = 'LIST_UPDATE_REQUEST'; 
-const LIST_UPDATE_SUCCESS = 'LIST_UPDATE_SUCCESS'; 
-const LIST_UPDATE_ERROR = 'LIST_UPDATE_ERROR'; 
+export const LIST_UPDATE_REQUEST = 'LIST_UPDATE_REQUEST'; 
+export const LIST_UPDATE_SUCCESS = 'LIST_UPDATE_SUCCESS'; 
+export const LIST_UPDATE_ERROR = 'LIST_UPDATE_ERROR'; 
 
 
 
@@ -28,22 +32,30 @@ export const ListUpdateRequest = data => {
 
 const reducer = (state = initialState,action) => {
   switch (action.type) {
+
     case LIST_UPDATE_REQUEST:
-        const type = action.data.type || state.type
           return {
               ...state,
               isLoading:true,
-              type:type,
-              status:action.data.status,
-              page:action.data.page,
-              rows:action.data.rows,
+              searchData:{
+                ...state.searchData,
+                type:action.data.type,
+                status:action.data.status,
+                search:action.data.search,
+                sort:action.data.sort,
+                page:action.data.page,
+                rows:action.data.rows,
+              }
           }
 
       case LIST_UPDATE_SUCCESS:
           return{
               ...state,
               list:action.data.list,
-              page:action.data.page,
+              searchData:{
+                ...state.searchData,
+                page:action.data.page,
+              },
               totalpage:action.data.totalpage,
               pageblock:action.data.pageblock,
               isLoading:false

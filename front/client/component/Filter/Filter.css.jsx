@@ -72,5 +72,27 @@ export const StyledFilter = styled.div`
         color:black;
       }
     }
+
+    
   }
+
+  .klay{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+
+      &>img{
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+      }
+
+      &>span{
+        font-size: 30px;
+        font-weight: 600;
+        margin-left: 5px;
+      }
+    }
   `
