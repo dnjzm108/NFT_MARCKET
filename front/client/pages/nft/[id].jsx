@@ -3,7 +3,6 @@ import {END} from 'redux-saga'
 import wrapper from '../../store/configureStore'
 import {Product_Page_Request} from '../../reducers/product'
 import { useRouter } from 'next/router'
-import { Input } from "@mui/material"
 
 
 const Product_Detail = () => {

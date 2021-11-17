@@ -16,6 +16,32 @@ function updateShipQuery(){
             `
 }
 
+function updateInvoiceQuery(){
+  return`
+    UPDATE
+          delivery
+    SET
+        invoice=?,
+        delivery_company=?,
+        ship_date=NOW(),
+        status='delivery'
+    WHERE
+        order_id=?;
+  `
+}
+
+function completeDeliveryQuery(){
+  return`
+    UPDATE
+          delivery
+    SET
+        complete_date=NOW(),
+        status='completed'
+    WHERE
+        order_id=?;
+  `
+}
+
 
 
 
@@ -39,7 +65,16 @@ function myBuyListQuery(query,type){
             O.total,
             V.dlvy_id,
             ifnull(V.status,'wait')as dlvy_status,
+            V.reciever,
             V.address,
+            V.request,
+            V.recieve_type,
+            V.phone_number,
+            V.ready_date,
+            V.ship_date,
+            V.complete_date,
+            V.invoice,
+            V.delivery_company,
             I.img`
   if(type=='cnt'){
     value='COUNT(*) AS cnt'
@@ -287,8 +322,19 @@ function myAuctionSellListQuery(query,type){
             L.latest,
             O.order_id,
             O.buyer,
+            O.price,
             V.dlvy_id,
-            ifnull(V.status,'wait')as dlvy_status
+            ifnull(V.status,'wait')as dlvy_status,
+            V.reciever,
+            V.address,
+            V.request,
+            V.recieve_type,
+            V.phone_number,
+            V.ready_date,
+            V.ship_date,
+            V.complete_date,
+            V.invoice,
+            V.delivery_company
             `
   let wherCnt = false;
   if(type=='cnt'){
@@ -533,7 +579,17 @@ function myImmySellListQuery(query,type){
   P.name,
   P.likes,
   date_format(P.date,'%y-%m-%d %h:%i') as reg_date,   
-  ifnull(V.status,'wait')as dlvy_status
+  ifnull(V.status,'wait')as dlvy_status,
+  V.reciever,
+  V.address,
+  V.request,
+  V.recieve_type,
+  V.phone_number,
+  V.ready_date,
+  V.ship_date,
+  V.complete_date,
+  V.invoice,
+  V.delivery_company
   ` 
 
   if(type=='cnt'){
@@ -632,5 +688,7 @@ module.exports={
   myAuctionSellListQuery,
   myImmySellListQuery,
   myImmySellAllListQuery,
-  updateShipQuery
+  updateShipQuery,
+  updateInvoiceQuery,
+  completeDeliveryQuery
 }

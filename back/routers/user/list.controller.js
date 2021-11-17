@@ -3,7 +3,9 @@ const {myBuyListQuery,
       myAuctionListQuery,
       myAuctionSellListQuery,
       myImmySellListQuery,
-      updateShipQuery
+      updateShipQuery,
+      updateInvoiceQuery,
+      completeDeliveryQuery
     } = require('../../sql/mylist');
 const {successData,errorData,error400} = require('../../returnData')
 
@@ -160,7 +162,7 @@ const getMyAuctionSell = async(req,res)=>{
 
 }
 ///////////////////////////////////////
-///// 주문자 확인하는 코드 추가하기 ////
+/////아래 3개 주문자 확인하는 코드 추가하기 ////
 ///////////////////////////////////////
 const updateShipInfo = async(req,res)=>{
   const {
@@ -188,6 +190,64 @@ const updateShipInfo = async(req,res)=>{
   res.json(successData(data))
 }
 
+const updateInvoiceInfo = async(req,res)=>{
+  const {
+    invoice,
+    delivery_company,
+    order_id,
+  } = req.body;
+  const invoiceSql = updateInvoiceQuery();
+  const params=[
+    invoice,
+    delivery_company,
+    order_id,]
+  const result = await execute(invoiceSql,params)
+  if(result==false){
+    res.json(error400())
+    return;
+  }
+  const data={
+    order_id,
+  }
+  res.json(successData(data))
+}
+
+
+///////////////////////////////////////////////////
+/////////////영수증 발급하는 쿼리 추가해야됨///////
+/////////////////////////////////////////////////
+const completeDelivery = async(req,res)=>{
+  const {order_id} = req.body;
+  const completeSql = completeDeliveryQuery();
+  const params=[order_id]
+  const result = await execute(completeSql,params)
+  if(result==false){
+    res.json(error400())
+    return;
+  }
+  const data={
+    order_id,
+  }
+  res.json(successData(data))
+}
+
+
+
+
+
+
+
+
+
+module.exports={
+  getMyBuy,
+  getMyAuction,
+  getMyImmySell,
+  getMyAuctionSell,
+  updateShipInfo,
+  updateInvoiceInfo,
+  completeDelivery
+}
 
 
 
@@ -205,12 +265,4 @@ const makePageBlock = (cnt,page,rows) => {
   }
   if(page==0) page=1 
   return { page: page, rows: +rows, pageblock: pageblock, totalPage: totalPage }
-}
-
-module.exports={
-  getMyBuy,
-  getMyAuction,
-  getMyImmySell,
-  getMyAuctionSell,
-  updateShipInfo,
 }

@@ -5,7 +5,7 @@ import { Logo, Circle, Copyed, Small_Contain, Check_Content, Line, Btn_Box } fro
 import { Wrap } from '../../component/Wrap/Popup_back.jsx';
 import useInput from '../../hooks/useInput.jsx';
 import { useEffect, useState } from 'react';
-import Input from '../Input'
+import CustomInput from '../CustomInput'
 import Button from '../Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserJoin_REQUEST } from '../../reducers/user.js';
@@ -104,12 +104,12 @@ const Join = (data) => {
                     <Small_Contain>
                         <label htmlFor="nickname" >닉네임</label>
                         <span>* 5~20자의 한글, 영문 대소문자, 숫자, 특수기호(_),(-),(.)만 사용 가능합니다.</span>
-                        <Input {...nickname} func={checking} msg="닉네임을 입력해 주세요" type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
+                        <InpCustomInputut {...nickname} func={checking} msg="닉네임을 입력해 주세요" type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
                     </Small_Contain>
                     {check !== '' ? check == true ? <span style={{ color: 'blue' }}>사용할수있는 닉네임 입니다.</span> : <span style={{ color: "red" }}>사용할수없는 닉네임 입니다.</span> : ''}
                     <Small_Contain>
                         <label htmlFor="email_address">이메일 주소</label>
-                        <Input {...email} msg="이메일을 입력해 주세요" id="email_address" placeholder="이메일을 입력해주세요" />
+                        <CustomInput {...email} msg="이메일을 입력해 주세요" id="email_address" placeholder="이메일을 입력해주세요" />
 
 
                     </Small_Contain>

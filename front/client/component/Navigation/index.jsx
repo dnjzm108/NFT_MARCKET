@@ -12,7 +12,7 @@ import { useState } from "react";
 import useInput from "../../hooks/useInput";
 import { BiLogOut, BiUserCircle } from "react-icons/bi";
 import  { useRouter } from 'next/router'
-import Input from '../CustomInput'
+import CustomInput from '../CustomInput'
 import { useDispatch, useSelector } from "react-redux";
 import { ExploreRequest } from '../../reducers/explore';
 import { User_Logout } from '../../reducers/user'

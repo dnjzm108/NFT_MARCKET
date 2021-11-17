@@ -51,11 +51,11 @@ export const Table = styled.table`
     box-sizing: border-box;
 }
 
-&>tr{
+&>tbody>tr{
     padding: 10px;
 }
 
-&>tr>td:nth-child(2){
+&>tbody>tr>td:nth-child(2){
     padding:  5px;
     box-sizing: border-box;
 }

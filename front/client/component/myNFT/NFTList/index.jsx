@@ -11,17 +11,18 @@ import OptionBox from '../../OptionBox/OptionBox'
 import {statusList,sortList,typeList} from './list.js'
 import { useRouter } from "next/router";
 import Invoice from '../../Invoice'
-import Delivery_Address_Component from "../../Delivery_Address";
 import ShipAddress from "../../Popup/ShipAddress";
 const NFTList = () => {
   const dispatch = useDispatch();
-  const {list, searchData} = useSelector(state => state.mylist);
+  const {list, searchData,transactionLoading} = useSelector(state => state.mylist);
   const {user_info} = useSelector(state => state.user);
   const [input,setInput] = useState(''); 
   const router = useRouter()
   const {type} = router.query
-  const [invoicePopUp,setInvoicePopUp] = useState(true)
+  const [invoicePopUp,setInvoicePopUp] = useState(false)
   const [shipPopUp,setShipPopUp] = useState(false)
+  const [invoice,setInvoice] = useState("");
+  const [ship,setShip] = useState("");
 
 
 
@@ -58,9 +59,6 @@ const NFTList = () => {
     setInput(e.target.value)
   }
 
-  const handleShipPopUp = (data)=>{
-    setShipPopUp(data);
-  }
 
 
 
@@ -93,7 +91,8 @@ const NFTList = () => {
           status={v.dlvy_status}
           selltype={v.selltype}
           likes={v.likes}
-          handleShipPopUp={handleShipPopUp}
+          handleShipTarget ={setShip}
+          handleShipPopUp={setShipPopUp}
         />
       })
     }
@@ -148,6 +147,8 @@ const NFTList = () => {
           latest={v.latest}
           auction_id={v.auction_id}
           likes={v.likes}
+          handleInvoiceTarget = {setInvoice}
+          handleInvoicePopUp={setInvoicePopUp}
         />
       })
     }
@@ -172,6 +173,8 @@ const NFTList = () => {
           price={v.price}
           buyer={v.buyer}
           dlvy_status={v.dlvy_status}
+          handleInvoiceTarget = {setInvoice}
+          handleInvoicePopUp={setInvoicePopUp}
         />
       })
     }
@@ -181,8 +184,9 @@ const NFTList = () => {
   if(type==null) return <span>로딩중입니다.</span>
   return (
     <NFTListContainer>
-      {shipPopUp ? <ShipAddress handleShipPopUp={handleShipPopUp} /> : ""}
-       {/* {sellerPopUp ? <Seller_apply /> : ""} */}
+      {shipPopUp ? <ShipAddress order_id={ship}handleShipPopUp={setShipPopUp} /> : ""}
+      {invoicePopUp ? <Invoice order_id={invoice} handleInvoicePopUp={setInvoicePopUp} /> : ""}
+      {transactionLoading ? <span>구매요청중</span> : ""}
           <Header>
             <h3>{typeList[type]}</h3>
             <form className='search-box' onSubmit={(e) => handleSubmit(e)}>

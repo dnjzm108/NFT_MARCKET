@@ -2,15 +2,7 @@ import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/dist/client/link";
-import { UpdateOrder } from "../../../reducers/mylist";
-
-const dlvy_status = {
-  'all':'전체',
-  'wait':'배송지 미입력',
-  'ready':'상품준비중',
-  'delivery':'배송중',
-  'completed':'구매완료',
-}
+import { UpdateDeliveryRequest,TransactionRequest } from "../../../reducers/mylist";
 
 const sell_type={
   'buy':'즉시구매',
@@ -33,30 +25,26 @@ const BuyItem = (
     size,
     status,
     selltype,
-    handleShipPopUp
+    handleShipPopUp,
+    handleShipTarget,
 }) => {
+
   const dispatch = useDispatch();  
+
   const handleShipAddress = ()=>{
-    const data ={
-    color,
-    name,
-    creater,
-    order_date,
-    order_id,
-    order_price,
-    product_no,
-    qty,
-    size,
-    status,
-    selltype  
-    }
-    dispatch(UpdateOrder(data));
+    handleShipTarget(order_id)
     handleShipPopUp(true)
   }
   
-
-  const sample = () =>{
-    alert('함수 샘플')
+  const handleCompleted = (order_id) =>{
+    dispatch(TransactionRequest())
+    ///////////////////////////////
+    ////// 거래하는 솔리디티 //////
+    //////////////////////////////
+    const data={
+      order_id
+    }
+    dispatch(UpdateDeliveryRequest(data))
   }
 
 
@@ -66,7 +54,7 @@ const BuyItem = (
         return(
           <>
            <div>배송지 미입력</div>
-           <button className='order_action_btn wait' onClick={()=>handleShipAddress()}>배송지 입력</button>
+           <button className='order_action_btn wait' onClick={()=>handleShipAddress(order_id)}>배송지 입력</button>
           </>
           )
       case 'ready':
@@ -79,7 +67,7 @@ const BuyItem = (
         return(
           <>
            <div>배송중</div>
-           <button className='order_action_btn delivery'>구매 확정</button>
+           <button className='order_action_btn delivery' onClick={()=>handleCompleted(order_id)}>구매 확정</button>
           </>
           )
       case 'completed':

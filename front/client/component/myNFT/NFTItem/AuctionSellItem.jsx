@@ -2,16 +2,11 @@ import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
 import { useSelector } from "react-redux";
 import Link from "next/dist/client/link";
-const dlvy_kor = {
-  'all':'전체',
-  'wait':'배송지 미입력',
-  'ready':'배송요청',
-  'delivery':'배송중',
-  'completed':'구매완료',
-}
 
 
-const AuctionItem = (
+
+
+const AuctionSellItem = (
   {
     color,
     img,
@@ -29,7 +24,16 @@ const AuctionItem = (
     latest,
     auction_id,
     likes,
+    handleInvoicePopUp,
+    handleInvoiceTarget
 }) => {
+
+  const handleInvoice = (data) =>{
+    handleInvoiceTarget(data)
+      handleInvoicePopUp(true)
+
+  }
+
 
   const renderStatus = (type)=>{
     switch(type){
@@ -43,7 +47,7 @@ const AuctionItem = (
         return(
           <>
            <div>상품준비중</div>
-           <button className='order_action_btn invoice'>송장 입력</button>
+           <button className='order_action_btn invoice' onClick={()=>handleInvoice(order_id)}>송장 입력</button>
           </>
           )
       case 'delivery':
@@ -133,4 +137,4 @@ const AuctionItem = (
  
 }
 
-export default AuctionItem;
+export default AuctionSellItem;

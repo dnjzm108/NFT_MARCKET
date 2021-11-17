@@ -42,11 +42,6 @@ const AuctionItem = (
     }
   } 
   
-
-  const sample = () =>{
-    alert('함수 샘플')
-  }
-
     return (
       <StyledMyNFT>
       <td className='NFT_info'>
