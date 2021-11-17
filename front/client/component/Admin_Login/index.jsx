@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import {Content,Logo,Copyed,Icon_Close} from './Admin_Login.css'
 import {Small_Contain} from '../Join/Join.css'
 import { Middle_btn} from '../../component/Btn.jsx';
-import { Wrap } from "../Wrap/Popup_back"
+import { Wrap } from "../Wrap/Popup_Back"
 import Input from "../Input"
 import useInput from '../../hooks/useInput';
 import Button from '../Button';

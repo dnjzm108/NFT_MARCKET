@@ -2,9 +2,7 @@ import Navigation from "../../../component/Navigation";
 import Info from "../../../container/Info";
 import SideMenu from "../../../component/SideMenu";
 import NFTList from "../../../component/MyNFT/NFTList";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useRouter } from 'next/router'
 import { Pageblock } from "../../../component/Pageblock";
 
@@ -21,7 +19,7 @@ const auctionSell_list = ["전체","경매중", "경매종료","배송 요청 �
 const auctionSell_eng = ["all","true", "false","wait","ready", "delivery", "completed"]
 
 
-const list = () => {
+const List = () => {
   const state_data = useSelector(state => state.user)
   const router = useRouter()
   const { type } = router.query
@@ -46,4 +44,4 @@ const list = () => {
   );
 }
 
-export default list;
+export default List;

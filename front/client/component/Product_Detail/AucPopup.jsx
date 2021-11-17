@@ -1,4 +1,4 @@
-import { Popup_background } from "../wrap/popup_background"
+import { Popup_background } from "../Wrap/Popup_Background"
 import CloseIcon from '@mui/icons-material/Close';
 import { StyledNowPopup } from "./Product_Detail.css"
 import Button from "../Button"
