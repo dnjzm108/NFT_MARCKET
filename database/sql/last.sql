@@ -328,10 +328,10 @@ INSERT INTO `orders` (`order_id`, `product_id`, `price`, `buyer`, `date`, `qty`)
 -- 테이블 nft_market.product 구조 내보내기
 CREATE TABLE IF NOT EXISTS `product` (
   `product_no` varchar(10) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `explain` varchar(200) NOT NULL,
+  `title` varchar(30) NOT NULL,
+  `description` varchar(200) NOT NULL,
   `creater` varchar(20) NOT NULL,
-  `date` datetime DEFAULT current_timestamp(),
+  `register_date` datetime DEFAULT current_timestamp(),
   `likes` int(11) NOT NULL DEFAULT 0,
   `type` varchar(10) NOT NULL,
   `total_qty` int(11) DEFAULT NULL,
@@ -347,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- 테이블 데이터 nft_market.product:~10 rows (대략적) 내보내기
 DELETE FROM `product`;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` (`product_no`, `name`, `explain`, `creater`, `date`, `likes`, `type`, `total_qty`, `leftover`, `symbol`, `contractAddr`, `tokenURI`) VALUES
+INSERT INTO `product` (`product_no`, `title`, `description`, `creater`, `register_date`, `likes`, `type`, `total_qty`, `leftover`, `symbol`, `contractAddr`, `tokenURI`) VALUES
 	('A103As0000', '셔츠입니다.', '셔츠에요', 'jin', '2021-11-07 20:38:14', 12, 'buy', 1, 1, '', NULL, NULL),
 	('A104As0000', '바지', '그냥 바지입니다', 'jin', '2021-11-07 20:44:36', 0, 'buy', 1, 1, '', NULL, NULL),
 	('A105As1010', '구찌 긴팔옷', '긴팔원숭이', 'seong', '2021-11-10 10:40:47', 33, 'auction', 1, 1, '', NULL, NULL),

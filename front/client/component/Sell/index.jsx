@@ -5,7 +5,8 @@ import Auction from './Auction'
 import Button from '../Button/index'
 
 
-const Sell = ({handleNow,handleAuc,isNow})=>{
+const Sell = 
+({handleNow,handleAuc,isNow,bid,extension,setExtension,startDate,setStartDate,isPossibleDay})=>{
     return (
         <StyledSell isNow={isNow}>
             <div className="sell_section">
@@ -16,7 +17,15 @@ const Sell = ({handleNow,handleAuc,isNow})=>{
                 </div>
                 <div className="select_sell">
                     {
-                        isNow ? <BuyNow /> : <Auction />
+                        isNow ? <BuyNow /> : <Auction 
+                        bid={bid.value} 
+                        setBid={bid.onChange}
+                        extension={extension}
+                        setExtension={setExtension}
+                        startDate={startDate}
+                        setStartDate={setStartDate}
+                        isPossibleDay={isPossibleDay}
+                        />
                     }
                 </div>
             </div>

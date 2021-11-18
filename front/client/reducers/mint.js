@@ -2,8 +2,8 @@ const initalState = {
     isLoading: false,
     category:[],
     bid:{},
-    deadline:{},
     extension:false,
+    product_code:"",
 }
 
 export const MINT_REQUEST = "MINT_REQUEST"
@@ -15,6 +15,9 @@ export const GET_CATEGORY_REQUEST ="GET_CATEGORY_REQUEST"
 export const GET_CATEGORY_SUCCESS ="GET_CATEGORY_SUCCESS"
 export const GET_CATEGORY_ERROR ="GET_CATEGORY_ERROR"
 
+export const PRODUCT_OPTIONS_REQUEST = "PRODUCT_OPTIONS_REQUEST"
+export const PRODUCT_OPTIONS_SUCCESS = "PRODUCT_OPTIONS_SUCCESS"
+export const PRODUCT_OPTIONS_ERROR = "PRODUCT_OPTIONS_ERROR"
 
 
 
@@ -38,6 +41,15 @@ export const Getcategory_REQUEST =()=>{
     }
 }
 
+
+export const Product_options_REQUEST= data =>{
+    return{
+        type: PRODUCT_OPTIONS_REQUEST,
+        data,
+    }
+}
+
+
 const reducer = (state = initalState,action) => {
     
     switch (action.type) {
@@ -53,6 +65,16 @@ const reducer = (state = initalState,action) => {
                 isLoading:false,
             }
         case GET_CATEGORY_ERROR:
+            return {
+                ...state,
+                isLoading:false,
+            }
+        case PRODUCT_OPTIONS_REQUEST:
+            return {
+                ...state,
+                isLoading:true,
+            }
+        case PRODUCT_OPTIONS_SUCCESS:
             return {
                 ...state,
                 isLoading:false,

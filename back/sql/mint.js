@@ -1,21 +1,21 @@
 
 // 상품 nft 정보
-const productInfo_sql =()=>{
+const productInfo_sql =(total_qty)=>{
     return(
-        `INSERT INTO product (product_no, name, explain, creater, date, likes, type, total_qty, leftover, symbol, contractAddr, tokenURI) VALUES
-	(?,?,?,?,?,?,?,?,?,?,?,?)`
+    `INSERT INTO product (product_no,title,description,creater,register_date,likes,type,total_qty,leftover,symbol,contractAddr,tokenURI) VALUES
+	(?,?,?,?,?,0,?,?,${total_qty},?,NULL,NULL)`
     )
 }
 
-// 상품 옵션 정보
-const prdctDetail_sql =()=>{
+// 상품 옵션 정보 넣기
+const prdctDetail_sql =(getProductNo,qty)=>{
     return(
-       `insert into product_detail (color, size, price) values (?,?,?)` 
+       `insert into product_detail (product_no, color, size, qty, rest, price) values (${getProductNo},?,?,?,${qty},?)` 
     )
 }
 
 // 상품 상세코드 앞 4자리가 같은 상품들 중 
-// 맨 마지막 상품 가져옴 (끝 4자리)
+// 맨 마지막 상품 가져옴 
 const productNum_sql = (category)=>{
     return(
         `SELECT * FROM product WHERE product_no LIKE '${category}%'
@@ -31,9 +31,9 @@ const nftInsert_sql =()=>{
 }
 
 // 판매자가 입력한 경매 정보 넣기
-const auction_initial_info =(product_code)=>{
+const auction_option_info =()=>{
     return(
-        `INSERT INTO auction (product_id,deadline,option) VALUES(${product_code},?,?)`
+        `INSERT INTO auction (deadline,option) VALUES(?,?)`
     )
 }
 module.exports = {
@@ -41,5 +41,5 @@ module.exports = {
     productNum_sql,
     nftInsert_sql,
     prdctDetail_sql,
-    auction_initial_info
+    auction_option_info
 }

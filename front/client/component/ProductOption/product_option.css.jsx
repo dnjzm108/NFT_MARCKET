@@ -21,11 +21,13 @@ h3>p{
 
 }
 .select_contain{
+    position: relative;
     height: 200px;
     display: flex;
     justify-content: space-around
 }
 .select_box{
+    position: absolute;
     width: 50vw;
     display: flex;
     justify-content: space-between

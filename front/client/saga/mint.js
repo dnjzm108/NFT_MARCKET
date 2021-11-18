@@ -7,12 +7,15 @@ import {
     AUCTION_REQUEST,
     AUCTION_SUCCESS,
     GET_CATEGORY_REQUEST,
-    GET_CATEGORY_SUCCESS
+    GET_CATEGORY_SUCCESS,
+    PRODUCT_OPTIONS_REQUEST,
+    PRODUCT_OPTIONS_SUCCESS,
 } from "../reducers/mint"
 
 
 // mint 상품 등록 정보 api
 async function mintAPI(data){
+    console.log(data)
   return  await axios.post(`${url}/nft/mint`, data, { headers: {'Content-Type': 'multipart/form-data'}})
 }
 
@@ -26,6 +29,26 @@ function* mint(action){
                 data: data,
             })
     }
+}
+
+
+// 카테고리 정보 가져오는 API
+async function getCategoryAPI(){
+    return await axios.get(`${url}/nft/category`)
+}
+
+function* getCategory(){
+    let result = yield call(getCategoryAPI)
+    let {data} = result
+    if(data.success){
+        yield put({
+            type: GET_CATEGORY_SUCCESS,
+            data:{
+                category: data.response.category,
+            } 
+        })
+    }
+    
 }
 
 // auction 정보 api
@@ -45,31 +68,31 @@ function* sendAuctionInfo(action){
     
 }
 
-
-//
-async function getCategoryAPI(){
-    return await axios.get(`${url}/nft/category`)
+// 상품 옵션 정보 넣기
+async function ProductOptionsAPI(data){
+    return await axios.post(`${url}/nft/options`,data,{headers: { "Content-Type": `application/json`}})
 }
-
-function* getCategory(){
-    let result = yield call(getCategoryAPI)
+    
+function* sendProductOptions(action){
+    let result = yield call(ProductOptionsAPI,action.data)
     let {data} = result
     if(data.success){
         yield put({
-            type: GET_CATEGORY_SUCCESS,
-            data:{
-                category: data.response.category,
-            } 
+            type: PRODUCT_OPTIONS_SUCCESS,
+            data:data
         })
     }
     
 }
 
+
 // watch 모아놓는 곳
 function* watchMint(){
     yield takeLatest(MINT_REQUEST,mint),
     yield takeLatest(AUCTION_REQUEST,sendAuctionInfo),
-    yield takeLatest(GET_CATEGORY_REQUEST,getCategory)
+    yield takeLatest(GET_CATEGORY_REQUEST,getCategory),
+    yield takeLatest(PRODUCT_OPTIONS_REQUEST,sendProductOptions)
+
 }
 
 
