@@ -8,19 +8,21 @@ import WebSocket from '../component/WebSocket';
 
 const App = ({ Component,pageProps}) => {
     const store = useStore((state) => state);
-    // const dispatch = useDispatch();
-    // useEffect(()=>{
-    //     if(typeof window !== 'undefined'){
-    //         if( window.klaytn !== undefined){
-    //             klaytn.on('accountsChanged', function(accounts) {
-    //                 dispatch(User_Logout())
-    //               })
-    //               klaytn.on('networkChanged', function() {
-    //                 dispatch(User_Logout())
-    //               })
-    //         }
-    //     }
-    // },[])
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        console.log('test')
+        if(typeof window !== 'undefined'){
+            if( window.klaytn !== undefined){
+                klaytn.on('accountsChanged', function(accounts) {
+                    dispatch(User_Logout())
+                  })
+                  klaytn.on('networkChanged', function() {
+                    dispatch(User_Logout())
+                  })
+            }
+        }
+    },[])
    
     return (
         <> 

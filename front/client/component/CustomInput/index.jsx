@@ -88,7 +88,8 @@ return (
         </label>
       }
       {func == undefined ?
-        <input type={handleType()} id="inpput" maxLength={length} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} /> : <input type={handleType()} id="inpput" maxLength={length} onMouseOut={() => { func() }} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} />}
+        <input type={handleType()} id="inpput" maxLength={length} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} /> :
+         <input type={handleType()} id="inpput" maxLength={length} onMouseOut={() => { func() }} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} />}
 
       {require &&
         (<i>

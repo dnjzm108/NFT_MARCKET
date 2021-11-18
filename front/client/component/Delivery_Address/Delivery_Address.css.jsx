@@ -6,8 +6,9 @@ export const Table = styled.table`
     border: 1px solid #000000;
     box-sizing: border-box;
 }
+&>tbody{
 
-& > tr{
+    & > tr{
     width: 300px;
     height: 100%;
     border: 1px solid black;
@@ -49,6 +50,10 @@ export const Table = styled.table`
     height: 20px;
     margin: 0 auto;
 }
+
+}
+
+
 `
 export const AddressFind = styled.button`
 padding: 12px 20px;
