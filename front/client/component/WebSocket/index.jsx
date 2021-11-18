@@ -17,9 +17,10 @@ const WebSocket = ({ children }) => {
 
   useEffect(() => {
     if (lastJsonMessage != null) {
-      console.log("JsonMessage", lastJsonMessage); // 여기서 객체로 받아옴. 이걸처리해주면됨. 받아서 리덕스나? 뭐 컨텍스트 업데이트해주면됨.
-        dispatch(UpdateExchange(lastJsonMessage));
-  
+      console.log("JsonMessage", lastJsonMessage); 
+      
+
+
     }
   }, [lastJsonMessage]);
 

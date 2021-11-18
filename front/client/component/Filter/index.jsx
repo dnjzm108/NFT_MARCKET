@@ -1,5 +1,5 @@
 import { StyledFilter } from "./Filter.css";
-import { RiFilter3Line, RiArrowLeftLine, RiArrowRightLine } from 'react-icons/Ri'
+import { RiFilter3Line, RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
 import Button from "../Button";
 import Panal from "../Panal";
 import { useState } from "react";

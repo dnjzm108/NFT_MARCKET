@@ -2,7 +2,7 @@ import Button from '../Button'
 import { useEffect, useState } from 'react';
 import { Auction_Wrap ,Auction_History_Wrap} from './Auction.css'
 import { useSelector } from 'react-redux';
-
+import Loadding from '../Loadding'
 
 
 export const Auction = (props) => {
@@ -15,11 +15,12 @@ useEffect(()=>{
 if(auction_info[0] !== undefined){
     setIsLoading(false)
 }
+console.log(auction_info);
 },[auction_info])
 
 if(isLoading){
     return(
-        <span>로딩중</span>
+        <Loadding />
     )
 } 
     return (
@@ -30,7 +31,7 @@ if(isLoading){
                     <h3>현재 최고가</h3>
                     <h2><img src="/klay.png" alt="" />{auction_info[0].bid}</h2>
                     <h4>현재 낙찰받을수있는 사람</h4>
-                    <h5> {auction_info[0].bider} </h5>
+                    <h5> {auction_info[0].bidder} </h5>
                 </div>
                 <div>
                     <Button value="경매 참여하기" color="sky" func={props.handlePopup}/>
@@ -74,7 +75,7 @@ const {auction_info} = product_state;
                             <tr key={i}>
                             <td>{v.date}</td>
                             <td><img src="/klay.png"/>{v.bid}</td>
-                            <td>{v.bider}</td>
+                            <td>{v.bidder}</td>
                         </tr>
                         )
                     })

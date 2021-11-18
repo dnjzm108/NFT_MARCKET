@@ -1,7 +1,7 @@
 import { StyledPanal } from "./Panal.css";
 import { useState } from "react";
 
-import {RiArrowUpSLine, RiArrowDownSLine} from "react-icons/Ri"
+import {RiArrowUpSLine, RiArrowDownSLine} from "react-icons/ri"
 
 const Panal = ({children, value}) => {
 

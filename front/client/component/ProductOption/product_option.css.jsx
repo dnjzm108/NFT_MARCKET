@@ -32,7 +32,7 @@ h3>p{
 }
 
 .select_option{
-    height: 200px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -46,7 +46,7 @@ h3>p{
 }
 
 .select_option>span>input{
-    width: 64vw;
+    width: 60vw;
     height: 5vh;
 }
 
@@ -61,15 +61,27 @@ export const OptionCheck= styled.div`
     margin-top: 50px;
 }
 .enter_all{
+    display: flex;
     width: 50%;
     height: 10vh;
     background-color: #f0f9ff;
     margin-bottom: 4%;
+    align-items: center
+}
+.enter_all_btn{
+    background-color: white;
+    height: 40px;
+    width: 50px;
+    padding: 2px;
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 2%;
 }
 .op_box>div>p{
     display: inline-block;
     padding: 1%;
-    transform: translateY(80%);
+    /* transform: translateY(80%); */
 }
 .op_box>div>p>input{
     margin-left: 10px;

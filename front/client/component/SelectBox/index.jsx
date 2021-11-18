@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RiArrowDownSLine} from "react-icons/Ri"
+import { RiArrowDownSLine} from "react-icons/ri"
 
 import { StyledSelectBox,SelectHeader,SelectBody,SelectItem} from "./SelectBox css";
 
@@ -19,8 +19,6 @@ const SelectBox = ({list,value,onChangeValue,useImg,width}) => {
       return `240px`
     }
   }
-
-
 
   const handleClick = (i) =>{
     onChangeValue(i);
@@ -56,8 +54,6 @@ const SelectBox = ({list,value,onChangeValue,useImg,width}) => {
         </div>
         :<span>{list[value]}</span>
       }
-
-        
         <i><RiArrowDownSLine size={24}/></i>
       </SelectHeader>
       {open &&

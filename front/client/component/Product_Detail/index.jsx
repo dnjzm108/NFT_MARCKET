@@ -1,4 +1,4 @@
-import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container, Styled_Slide, Price_contain, Auction_contain, Center_contain } from './product_detail.css'
+import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container, Styled_Slide, Price_contain, Auction_contain, Center_contain } from './Product_Detail.css'
 import Footter from '../../component/Footter'
 // import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
@@ -18,6 +18,7 @@ import useChangeValue from '../../hook/useChangeValue';
 import Deleivery_address from '../Delivery_Address'
 import { useDispatch } from 'react-redux'
 import { Product_Page_Request } from '../../reducers/product';
+import Loadding from '../Loadding'
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
@@ -149,7 +150,7 @@ const product_detail = () => {
 
     if (product_info.length == 0) {
         return (
-            <span>로딩중</span>
+            <Loadding />
         )
     }
 
