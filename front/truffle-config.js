@@ -1,5 +1,5 @@
 const HDWalletProvider = require("truffle-hdwallet-provider-klaytn");
-const privateKey = "0x7fd74d3f75fee42dc2a3f96096a86c2c7e021b292c4c6719c318691422c8da41";
+const privateKey = "0x637e352fed89ae10d1875e96ef19b9f328f1e4dc58572a64cc46351bfac53e0c";
 
 module.exports = {
   networks: {
@@ -25,4 +25,9 @@ module.exports = {
       gasPrice: null,
     },
   },
+  compilers: {
+    solc: {
+      version: "0.5.6"
+    }
+  }
 };

@@ -6,77 +6,102 @@ const option = {
       name: "Authorization",
       value: authorization,
     },
-    { name: 'x-chain-id', value: '1001:node' },
+    { name: "x-krn", value: "krn:1001:node" },
   ],
 };
 
 const Caver = require("caver-js");
-// const caver = new Caver(
-//   new Caver.providers.HttpProvider(
-//     "https://node-api.klaytnapi.com/v1/klaytn",
-//     option
-//   )
-// );
+const caver = new Caver(
+  new Caver.providers.HttpProvider(
+    "https://node-api.klaytnapi.com/v1/klaytn",
+    option
+  )
+);
 
+let KIP7Token_transfer = async () => {
 
-const developerPrivateKey = '0x7fd74d3f75fee42dc2a3f96096a86c2c7e021b292c4c6719c318691422c8da41'
-const caver = new Caver('https://api.baobab.klaytn.net:8651/', option)
-const deployer = caver.wallet.add(
-  caver.wallet.keyring.createFromPrivateKey(developerPrivateKey)
-)
+  // 해당 토큰으로 구매하기
 
-// console.log(deployer)
+  const keyring = caver.wallet.keyring.createFromPrivateKey(
+    "0x637e352fed89ae10d1875e96ef19b9f328f1e4dc58572a64cc46351bfac53e0c"
+  );
+  // wallet에 keyring이 추가되지 않은 경우에만 keyring을 추가합니다.
+  // 자기 것의 개인키를 keyring 시키고
+  if (!caver.wallet.getKeyring(keyring.address)) {
+    const singleKeyRing = caver.wallet.keyring.createFromPrivateKey(
+      "0x637e352fed89ae10d1875e96ef19b9f328f1e4dc58572a64cc46351bfac53e0c"
+    );
+    caver.wallet.add(singleKeyRing);
+  }
 
-let KIP7token_swap = async (req,res) => {
-  const {recipientAddress,perroAmount} = req.body; 
-  console.log(req.body)
-
-  // const kip7 = await caver.kct.kip7.deploy(
-  //   {
-  //     name: 'perroToken',
-  //     symbol: 'PRR',
-  //     decimals: 18,
-  //     initialSupply: '10000000000000000000000',
-  //   },
-  //   deployer.address
-  // );
-  // console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
-
-  // console.log(`Token name: ${await kip7.name()}`);
-  // console.log(`Token symbol: ${await kip7.symbol()}`);
-  // console.log(`Token decimals: ${await kip7.decimals()}`);
-  // console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
-  // console.log(kip7);
-
-
-  const kip7Instance = new caver.kct.kip7('0x00950113B6c29D7bd18aE1f19B9d9654e1d03229')
-  const keyring = caver.wallet.keyring.createFromPrivateKey('0x7fd74d3f75fee42dc2a3f96096a86c2c7e021b292c4c6719c318691422c8da41')
+  const kip7Instance = new caver.kct.kip7('0x04feb1c6d54c38c4e0c5af14d11e12f3eb2ad32e')
+  kip7Instance.name().then(console.log)
   const opts = { from: keyring.address }
   //보낼 account 주소를 입력 시키기
-  const _recipientAddress = recipientAddress; 
-  const value = 100000;
-  // const allow = await kip7Instance.allowance('0x544c995914d37f4300b375073a9efcabb8e6d881', _recipientAddress);
-  // console.log('alllowwwwaaaancccee'+allow)
-  // const approve = await kip7Instance.approve(_recipientAddress, value, opts)
-  // console.log(approve);
- console.log('=====================================================================================')
+  const recipientAddress = '0x544C995914d37f4300b375073A9EFCABb8e6d881'
+  const value = 1000000000
+  const receipt = await kip7Instance.transfer(recipientAddress, value, opts)
+  console.log(receipt)
 
-  const receipt = await kip7Instance.transferFrom('0x544C995914d37f4300b375073A9EFCABb8e6d881',_recipientAddress, value, opts)
-  console.log('value: '+receipt.value); 
-  console.log(receipt); 
-  const data = {
-    success:true,
-    receipt:receipt,
-    amount:value,
+
+
+  // 구매 완료 후 nft transfer
+
+  let senderPrivateKey = "0x637e352fed89ae10d1875e96ef19b9f328f1e4dc58572a64cc46351bfac53e0c";
+  const senderKeyring = caver.wallet.keyring.createFromPrivateKey(
+    senderPrivateKey
+  );
+  // wallet에 keyring이 추가되지 않은 경우에만 keyring을 추가합니다.
+  if (!caver.wallet.getKeyring(senderKeyring.address)) {
+    const singleKeyRing = caver.wallet.keyring.createFromPrivateKey(
+      senderPrivateKey
+    );
+    caver.wallet.add(singleKeyRing);
   }
-  
-  res.json(data)
+
+    let contractAddr = "0xe7aB6CD5318F26f1610c21Fa49742451E51789B3";
+
+        const KIP_17 = new caver.kct.kip17(contractAddr);
+
+        transferResult = await KIP_17.transferFrom(
+          senderKeyring.address,
+          "0x544C995914d37f4300b375073A9EFCABb8e6d881",
+          // 5511296877575945, 토큰 ID값
+          { from: senderKeyring.address, gas: 200000 }
+        );
+        console.log(transferResult);
+    
+
 }
 
 
+const creator = "0x637e352fed89ae10d1875e96ef19b9f328f1e4dc58572a64cc46351bfac53e0c"
+
+let KIP7token_swap = async () => {
+  const keyring = caver.wallet.keyring.createFromPrivateKey(creator);
+  // wallet에 keyring이 추가되지 않은 경우에만 keyring을 추가합니다.
+  // 자기 것의 개인키를 keyring 시키고
+  if (!caver.wallet.getKeyring(keyring.address)) {
+    const singleKeyRing = caver.wallet.keyring.createFromPrivateKey(
+      creator
+    );
+    caver.wallet.add(singleKeyRing);
+  }
+
+  const kip7Instance = new caver.kct.kip7('0x04feb1c6d54c38c4e0c5af14d11e12f3eb2ad32e')
+  const opts = { from: keyring.address }
+  //보낼 account 주소를 입력 시키기
+  const recipientAddress = '0x544C995914d37f4300b375073A9EFCABb8e6d881'
+  // 로그인한 계정으로 보내야되는데 어떻게 해야되지?
+  // from으로 요청한 주소로 보내야 되지 않나?
+  const value = 1000000000
+  const receipt = await kip7Instance.transfer(recipientAddress, value, opts)
+  console.log(receipt)
+}
 
 
 module.exports = {
-  KIP7token_swap
+  KIP7token_swap,
+  KIP7Token_transfer
 }
 
