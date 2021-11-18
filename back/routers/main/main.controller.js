@@ -93,7 +93,7 @@ const updateLike = async(req,res)=>{
     product_no:product_no,
     IsLike:null,
   }
-  if(isLike==0){// 없을 떄는 넣어주고.
+  if(isLike==null){// 없을 떄는 넣어주고.
     /// insert like
     const insertSql =  insertLikeSql();
     await execute(insertSql,[product_no,nickname])

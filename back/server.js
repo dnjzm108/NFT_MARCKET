@@ -2,8 +2,11 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const nunjucks = require('nunjucks')
+const mysql = require('mysql')
+const axios = require('axios')
 const http = require('http')
 const server = http.createServer(app)
+// const io = socket(server)
 const cors = require('cors');
 
 
@@ -12,6 +15,7 @@ require('dotenv').config();
 const PORT = process.env.PORT ||'4000'
 // const {sequelize, Auction} = require('./models')
 const router = require('./routers')
+const socket = require('./socket.js');
 
 
 app.use(cors({
@@ -29,6 +33,7 @@ nunjucks.configure('views', {
 
 app.use('/',router)
 
+socket.wsInit();
 
 server.listen(PORT,()=>{
     console.log(`server start port ${PORT}`)

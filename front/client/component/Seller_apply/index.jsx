@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Underline, Table, Btn_Box } from './seller_apply.css'
 import { useSelector } from 'react-redux'
 import Link from "next/link";
-import Input from "../Input";
+import CustomInput from "../CustomInput";
 import Button from '../Button';
 import useInput from "../../hooks/useInput";
 
@@ -49,7 +49,7 @@ const Seller_Apply = () => {
                     <from>
                         <h1>사업자 등록 번호</h1>
                         <Underline />
-                        <Input {...sell_number} />
+                        <CustomInput {...sell_number} />
                         <Btn_Box>
                             <Button value="신청하기" url="/" />
                         </Btn_Box>

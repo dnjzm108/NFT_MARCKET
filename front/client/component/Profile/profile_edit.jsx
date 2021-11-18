@@ -4,7 +4,7 @@ import {Circle} from "../Join/Join.css"
 import { ProfileStyled,StyleTd,Contain } from "./Profile.css";
 import useInput from '../../hooks/useInput.jsx';
 import { useState } from "react";
-import Input from "../Input"
+import CustomInput from "../CustomInput"
 import axios from "axios";
 import { url } from "../../saga/url";
 
@@ -90,12 +90,12 @@ const Profile_edit = () => {
         <Contain>
         <label htmlFor="nickname">닉네임</label>
         <td>* 5~20자의 한글, 영문 대소문자, 숫자, 특수기호(_),(-),(.)만 사용 가능합니다.</td>
-        <Input {...Nickname} func={overlap} msg={"닉네임을 입력해주세요."} type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
+        <CustomInput {...Nickname} func={overlap} msg={"닉네임을 입력해주세요."} type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
 
         </Contain>
         <Contain>
         <label htmlFor="email_address">이메일 주소</label>&nbsp;
-        <Input {...Email} msg={"이메일을 입력해주세요."}type="text" id="email_address" placeholder="이메일을 입력해주세요" />
+        <CustomInput {...Email} msg={"이메일을 입력해주세요."}type="text" id="email_address" placeholder="이메일을 입력해주세요" />
     
         </Contain>
             <div className="btn_edit">

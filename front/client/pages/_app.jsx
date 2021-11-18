@@ -4,6 +4,7 @@ import { useSelector, useStore ,useDispatch } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react"
 import { useEffect } from 'react';
 import {User_Logout} from '../reducers/user'
+import WebSocket from '../component/WebSocket';
 
 const App = ({ Component,pageProps}) => {
     const store = useStore((state) => state);
@@ -24,7 +25,9 @@ const App = ({ Component,pageProps}) => {
     return (
         <> 
             <PersistGate persistor={store.__persistor}>
-                <Component {...pageProps} />
+                <WebSocket>
+                    <Component {...pageProps} />
+                </WebSocket>
             </PersistGate>
 
         </>

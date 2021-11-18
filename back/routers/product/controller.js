@@ -1,6 +1,7 @@
 const { query, execute } = require("../../pool")
 const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,chage_product_likes,notice_order_sql } = require("../../sql/product")
 const { successData } = require("../../returnData");
+const socket = require('../../socket'); 
 
 let product_detail = async (req, res) => {
     let { product_no } = req.body
@@ -99,6 +100,13 @@ let order = async (req,res) =>{
    let detail_parms=[minus_rest,product_id]
    let update_detail = await execute(update_detail_sql(),detail_parms)
 
+   const socketMessage = {
+       product_no,
+       product_id,
+       leftover:minus_leftover,
+       rest:minus_rest
+   }
+   socket.broadcast(socketMessage)
    res.json(successData(insertId))
 
 }

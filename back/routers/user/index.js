@@ -18,4 +18,7 @@ router.get('/buy',listController.getMyBuy);
 router.get('/auction',listController.getMyAuction);
 router.get('/immysell',listController.getMyImmySell);
 router.get('/auctionsell',listController.getMyAuctionSell);
+router.post('/ship',listController.updateShipInfo);
+router.put('/invoice',listController.updateInvoiceInfo);
+router.put('/delivery',listController.completeDelivery);
 module.exports = router
