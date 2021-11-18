@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import useInput from "../../hook/useInput"
-import CustomInput from "../Input/index"
+import CustomInput from "../CustomInput"
 import Button from "../Button"
 import { useDispatch } from "react-redux"
 import { Auction_REQUEST } from '../../reducers/mint'
