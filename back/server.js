@@ -2,13 +2,11 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const nunjucks = require('nunjucks')
-const mysql = require('mysql')
-const axios = require('axios')
-const socket = require('socket.io')
 const http = require('http')
 const server = http.createServer(app)
-const io = socket(server)
 const cors = require('cors');
+
+
 require('dotenv').config();
 
 const PORT = process.env.PORT ||'4000'
@@ -30,6 +28,7 @@ nunjucks.configure('views', {
 
 
 app.use('/',router)
+
 
 server.listen(PORT,()=>{
     console.log(`server start port ${PORT}`)

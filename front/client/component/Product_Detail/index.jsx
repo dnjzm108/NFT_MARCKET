@@ -5,7 +5,7 @@ import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,useRef} from 'react';
 import { useSelector } from 'react-redux';
 import { Auction, Auction_History } from './Auction_Box';
 // import NowPopup from "./NowPopup"
@@ -39,6 +39,7 @@ const product_detail = () => {
     const [option, setOption] = useState(0)
     const [select_qty, setSelect_qty] = useState(0)
     const [likes, setLikes] = useState(false)
+
 
     const data = {
         product_no: id
@@ -131,8 +132,7 @@ const product_detail = () => {
     const onclickLike = async () => {
         let like_info = {
             product_no: id,
-            nickname: user_info.nickname,
-            likes: product_info[0].likes
+            nickname: user_info.nickname
         }
         if (user_state.user_info.nickname == undefined) {
             alert('로그인을 진행해 주세요')
