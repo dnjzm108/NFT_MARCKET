@@ -1,14 +1,58 @@
 const initalState = {
     loadding: false,
-    product_info: [],
-    other_product: [],
-    auction_info: [
-        
+    product_info: [{
+        product_id: null,
+        product_no: null,
+        color: null,
+        size: null,
+        qty: null,
+        rest: null,
+        price: null,
+        name: null,
+        explain: null,
+        creater: null,
+        date: null,
+        likes: null,
+        type: null,
+        total_qty: null,
+        leftover: null
+    }],
+    other_product: [{
+        product_no:null,
+        img:null
+    }],
+    auction_info: [{
+        auction_id: null,
+        product_id: null,
+        deadline: null,
+        option: null,
+        auction_history_id: null,
+        bidder: null,
+        bid: null,
+        status: null,
+        date: null
+    }],
+    product_img: [
+        {img:null}
     ],
-    product_img: [],
     auctions: false,
     notice_page: '',
-    notice_info:{}
+    notice_info: {
+        price:null,
+        buyer:null,
+        qty:null,
+        dlvy_id:null,
+        status:null,
+        reciever:null,
+        address:null,
+        invoice:null,
+        delivery_company:null,
+        phone_number:null,
+        request:null,
+        color:null,
+        size:null,
+        name:null,
+    }
 }
 
 const PRODUCT_PAGE_REQUEST = "PRODUCT_PAGE_REQUEST"
@@ -27,8 +71,8 @@ const NOTICE_INFO = "NOTICE_INFO"
 const NOTICE_INFO_SUCCESS = "NOTICE_INFO_SUCCESS"
 const NOTICE_INFO_ERROR = "NOTICE_INFO_ERROR"
 
-export const Notice_Info = (data) =>{
-    return{
+export const Notice_Info = (data) => {
+    return {
         type: NOTICE_INFO,
         data
     }
@@ -117,7 +161,7 @@ const reducer = (state = initalState, action) => {
             return {
                 ...state,
                 loadding: false,
-                notice_page : action.data
+                notice_page: action.data
             }
         case IMMY_ERROR:
             return {
@@ -127,24 +171,24 @@ const reducer = (state = initalState, action) => {
 
             }
 
-            case NOTICE_INFO:
-                return{
-                    ...state,
-                    loadding:true,
-                    notice_page: ''
-                }
-            case NOTICE_INFO_SUCCESS:
-                return{
-                    ...state,
-                    loadding:false,
-                    notice_info:action.data
-                   
-                }
-            case NOTICE_INFO_ERROR:
-                return{
-                    ...state,
-                    loadding:false
-                }
+        case NOTICE_INFO:
+            return {
+                ...state,
+                loadding: true,
+                notice_page: ''
+            }
+        case NOTICE_INFO_SUCCESS:
+            return {
+                ...state,
+                loadding: false,
+                notice_info: action.data
+
+            }
+        case NOTICE_INFO_ERROR:
+            return {
+                ...state,
+                loadding: false
+            }
 
 
 

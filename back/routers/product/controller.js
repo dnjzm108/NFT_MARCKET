@@ -18,14 +18,9 @@ let product_detail = async (req, res) => {
 
 
 let create_like = async (req, res) => {
-   let {product_no,nickname,likes} = req.body;
+   let {product_no,nickname} = req.body;
    let params = [product_no,nickname]
    let result = await execute(add_like_sql(), params)
-
-
-   let plus_like = likes + 1
-   let product_params = [ plus_like,product_no]
-   let product_like = await execute(chage_product_likes(), product_params)
 
    res.json(successData(result))
 
@@ -33,12 +28,10 @@ let create_like = async (req, res) => {
 
 
 let delete_like = async (req, res) => {
-   let {product_no,nickname,likes} = req.body;
+   let {product_no,nickname} = req.body;
    let params = [product_no,nickname]
    let result = await execute(delete_like_sql(), params)
-   let minus_like = likes - 1
-   let product_params = [minus_like,product_no]
-   let product_like = await execute(chage_product_likes(), product_params)
+   
    res.json(successData(result))
 }
 
@@ -86,13 +79,12 @@ let other_product = async(req,res) =>{
 
 let order = async (req,res) =>{
    let {product_id,buyer,price,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover} = req.body
-console.log(product_id,buyer,price,qty,product_no,reciever,request,recieve_type,phone_number,address,rest,leftover);
+
    //오더 테이블 추가
    let order_parms=[product_id,price,buyer,qty]
    let create_order = await execute(create_order_sql(),order_parms)
     
    let {insertId} = create_order
-   console.log(insertId);
     //배송정보 추가
     let delivery_parms=[insertId,reciever,request,recieve_type,phone_number,address]
    let create_delivery = await execute(create_delivery_sql(),delivery_parms)
