@@ -95,7 +95,7 @@ const ShipAddress = ({handleShipPopUp}) => {
                       <tr>
                           <td>수령인</td>
                           <td>
-                              <InpCustomInputut {...Recipient} placeholder="수령인을 적어주세요" msg="수령인을 적어주세요" />
+                              <CustomInput {...Recipient} placeholder="수령인을 적어주세요" msg="수령인을 적어주세요" />
                           </td>
                       </tr>
                       <tr>

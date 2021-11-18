@@ -31,7 +31,7 @@ import { useState } from "react";
 
 
 
-const CustomInput = ({onChange,placeholder,search,width,height,msg,type,func}) => {
+const CustomInput = ({onChange,placeholder,search,width,height,msg,type,func,max}) => {
 
   const [require,setRequire] = useState(false); 
 
@@ -49,6 +49,13 @@ const CustomInput = ({onChange,placeholder,search,width,height,msg,type,func}) =
     if(e.target.value=='' && msg){
       setRequire(true)
     }
+  }
+
+  const handleMax = ()=>{
+    if(max==undefined){
+      return "524,288";
+    }
+    return `${max}`
   }
   
 
@@ -88,7 +95,8 @@ const CustomInput = ({onChange,placeholder,search,width,height,msg,type,func}) =
         </label>
       }
       {func == undefined ? 
-       <input type={handleType()} id="inpput" onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder}/> : <input type={handleType()} id="inpput" onMouseOut={()=>{func()}} onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder}/> }
+       <input type={handleType()} id="inpput" onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder} maxLength={handleMax()}/> 
+       : <input type={handleType()} id="inpput" onMouseOut={()=>{func()}} onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder} maxLength={handleMax()}/> }
  
       {require &&  
         (<i>
