@@ -20,21 +20,21 @@ const SwapToken = () => {
     const handleKlay = (e) =>{
             const klayInput = e.target.value;
             setKlay(klayInput);
-            setK2P(klayInput*1300)
+            setK2P(klayInput*10)
     }
 
     const handlePerr = (e) =>{
             const perrInput = e.target.value;
             setPerr(perrInput);
-            setP2K(perrInput/1300);
+            setP2K(perrInput/10);
     }
 
     useEffect(()=>{
-            setPerr(klay*1300)
+            setPerr(klay*10)
     },[klay])
 
     useEffect(()=>{
-            setKlay(perr/1300)
+            setKlay(perr/10)
     },[perr])
 
     const SwapPerro = () =>{
@@ -56,7 +56,7 @@ const SwapToken = () => {
         .sendTransaction({
             type: 'VALUE_TRANSFER',
             from: window.klaytn.selectedAddress,
-            to: '0x544C995914d37f4300b375073A9EFCABb8e6d881',
+            to: '0x22CA3559D885CFb99b48CfF8AA3E38Ed8C4d0A4f',
             value: caver.utils.toPeb(sendKlay, 'KLAY'),
             gas: 8000000
         })
@@ -75,11 +75,12 @@ const SwapToken = () => {
         })
         .once('error', error => {
             console.log('error', error)
-            alert('서명거절에 대한 알림')
+            alert('거절.')
         })
         
     }
-    
+
+  
     return (
         <>
         <StyledSwap>
@@ -120,8 +121,8 @@ const SwapToken = () => {
     </div>)    
         }
 
+
         
-        <div className="rate">1 KLAY = 1300 PERR</div>
         </StyledSwap>
         </>
     );
