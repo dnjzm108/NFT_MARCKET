@@ -114,13 +114,13 @@ const Delivery_Address_Component = (props) => {
                         <tr>
                             <td>수령인</td>
                             <td>
-                                <CustomInput {...Recipient} placeholder="수령인을 적어주세요" msg="수령인을 적어주세요" />
+                                <CustomInput {...Recipient} length="10" placeholder="수령인을 적어주세요" msg="수령인을 적어주세요" />
                             </td>
                         </tr>
                         <tr>
                             <td>요청 사항</td>
                             <td>
-                                <CustomInput {...requirement} placeholder="요청 사항을 적어주세요" />
+                                <CustomInput {...requirement} length="20" placeholder="요청 사항을 적어주세요" />
                             </td>
                         </tr>
                         <tr>
@@ -154,7 +154,7 @@ const Delivery_Address_Component = (props) => {
                         </tr>
                         <tr>
                             <td>전화번호</td>
-                            <td><CustomInput {...Ponenumber} placeholder=" - 빼고 입력해 주세요" /></td>
+                            <td><CustomInput {...Ponenumber}  length="12" placeholder=" - 빼고 입력해 주세요" /></td>
                         </tr>
                     </Table>
 
