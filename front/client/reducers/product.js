@@ -2,7 +2,9 @@ const initalState = {
     loadding: false,
     product_info: [],
     other_product: [],
-    auction_info: [],
+    auction_info: [
+        
+    ],
     product_img: [],
     auctions: false,
     notice_page: '',

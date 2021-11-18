@@ -10,15 +10,22 @@ import ImmySellItem from "../NFTItem/ImmySellItem";
 import OptionBox from '../../OptionBox/OptionBox'
 import {statusList,sortList,typeList} from './list.js'
 import { useRouter } from "next/router";
-
-
+import Invoice from '../../Invoice'
+import ShipAddress from "../../Popup/ShipAddress";
 const NFTList = () => {
   const dispatch = useDispatch();
-  const {list, searchData} = useSelector(state => state.mylist);
+  const {list, searchData,transactionLoading} = useSelector(state => state.mylist);
   const {user_info} = useSelector(state => state.user);
   const [input,setInput] = useState(''); 
   const router = useRouter()
   const {type} = router.query
+  const [invoicePopUp,setInvoicePopUp] = useState(false)
+  const [shipPopUp,setShipPopUp] = useState(false)
+  const [invoice,setInvoice] = useState("");
+  const [ship,setShip] = useState("");
+
+
+
 
   const handleSort = (code)=>{
     const data = {
@@ -53,6 +60,16 @@ const NFTList = () => {
   }
 
 
+
+
+
+
+
+
+
+
+
+
   const renderBuyItem = () => {
     if (list.length == 0) {
       return <tr><td>검색결과가 없습니다.</td></tr>
@@ -74,6 +91,8 @@ const NFTList = () => {
           status={v.dlvy_status}
           selltype={v.selltype}
           likes={v.likes}
+          handleShipTarget ={setShip}
+          handleShipPopUp={setShipPopUp}
         />
       })
     }
@@ -98,6 +117,7 @@ const NFTList = () => {
           bid_status={v.bid_status}
           latest={v.latest}
           auction_id={v.auction_id}
+          deadline={v.deadline}
           likes={v.likes}
         />
       })
@@ -127,6 +147,8 @@ const NFTList = () => {
           latest={v.latest}
           auction_id={v.auction_id}
           likes={v.likes}
+          handleInvoiceTarget = {setInvoice}
+          handleInvoicePopUp={setInvoicePopUp}
         />
       })
     }
@@ -151,6 +173,8 @@ const NFTList = () => {
           price={v.price}
           buyer={v.buyer}
           dlvy_status={v.dlvy_status}
+          handleInvoiceTarget = {setInvoice}
+          handleInvoicePopUp={setInvoicePopUp}
         />
       })
     }
@@ -160,6 +184,9 @@ const NFTList = () => {
   if(type==null) return <span>로딩중입니다.</span>
   return (
     <NFTListContainer>
+      {shipPopUp ? <ShipAddress order_id={ship}handleShipPopUp={setShipPopUp} /> : ""}
+      {invoicePopUp ? <Invoice order_id={invoice} handleInvoicePopUp={setInvoicePopUp} /> : ""}
+      {transactionLoading ? <span>구매요청중</span> : ""}
           <Header>
             <h3>{typeList[type]}</h3>
             <form className='search-box' onSubmit={(e) => handleSubmit(e)}>
@@ -178,8 +205,10 @@ const NFTList = () => {
                 <th>상품정보</th>
                 <th>구매유형</th>
                 <th>주문일자</th>
+                <th>주문량</th>
+                <th>가격</th>
+                <th>주문량*가격</th>
                 <th>주문번호</th>
-                <th>주문금액</th>
                 <th>주문상태</th>
               </tr>
             </thead>
@@ -195,8 +224,9 @@ const NFTList = () => {
               <tr>
                 <th>상품정보</th>
                 <th>입찰시간</th>
-                <th>입찰가</th>
-                <th>현재 입찰가</th>
+                <th>마감시간</th>
+                <th>나의 입찰가</th>
+                <th>마지막 입찰가</th>
                 <th>입찰상태</th>
               </tr>
             </thead>
@@ -214,7 +244,7 @@ const NFTList = () => {
                 <th>주문자</th>
                 <th>주문량</th>
                 <th>가격</th>
-                <th>주문량×가격(klay)</th>
+                <th>주문량×가격</th>
                 <th>주문번호</th>
                 <th>주문상태</th>
               </tr>
@@ -232,6 +262,7 @@ const NFTList = () => {
                 <th>경매 정보</th>
                 <th>입찰가</th>
                 <th>경매상태</th>
+                <th>주문번호</th>
                 <th>주문상태</th>
               </tr>
             </thead>

@@ -1,59 +1,20 @@
 import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/dist/client/link";
-
-const dlvy_status = {
-  'all':'전체',
-  'wait':'배송지 미입력',
-  'ready':'상품준비중',
-  'delivery':'배송중',
-  'completed':'구매완료',
-}
+import { UpdateDeliveryRequest,TransactionRequest } from "../../../reducers/mylist";
 
 const sell_type={
   'buy':'즉시구매',
   'auction':'경매'
 }
 
-const renderStatus = (type)=>{
-  switch(type){
-    case 'wait':
-      return(
-        <>
-         <div>배송지 미입력</div>
-         <button className='order_action_btn wait'>배송지 입력</button>
-        </>
-        )
-    case 'ready':
-      return(
-        <>
-         <div>상품준비중</div>
-        </>
-        )
-    case 'delivery':
-      return(
-        <>
-         <div>배송중</div>
-         <button className='order_action_btn delivery'>구매 확정</button>
-        </>
-        )
-    case 'completed':
-      return(
-        <>
-         <div>구매완료</div>
-         <button className='order_action_btn completed'>영수증</button>
-        </>
-        )
-      
-  }
-} 
+
 
 const BuyItem = (
   {type,
     color,
     creater,
-    dlvy_id,
     img,
     name,
     order_date,
@@ -63,13 +24,62 @@ const BuyItem = (
     qty,
     size,
     status,
-    selltype
+    selltype,
+    handleShipPopUp,
+    handleShipTarget,
 }) => {
-  
 
-  const sample = () =>{
-    alert('함수 샘플')
+  const dispatch = useDispatch();  
+
+  const handleShipAddress = ()=>{
+    handleShipTarget(order_id)
+    handleShipPopUp(true)
   }
+  
+  const handleCompleted = (order_id) =>{
+    dispatch(TransactionRequest())
+    ///////////////////////////////
+    ////// 거래하는 솔리디티 //////
+    //////////////////////////////
+    const data={
+      order_id
+    }
+    dispatch(UpdateDeliveryRequest(data))
+  }
+
+
+  const renderStatus = (type)=>{
+    switch(type){
+      case 'wait':
+        return(
+          <>
+           <div>배송지 미입력</div>
+           <button className='order_action_btn wait' onClick={()=>handleShipAddress(order_id)}>배송지 입력</button>
+          </>
+          )
+      case 'ready':
+        return(
+          <>
+           <div>상품준비중</div>
+          </>
+          )
+      case 'delivery':
+        return(
+          <>
+           <div>배송중</div>
+           <button className='order_action_btn delivery' onClick={()=>handleCompleted(order_id)}>구매 확정</button>
+          </>
+          )
+      case 'completed':
+        return(
+          <>
+           <div>구매완료</div>
+           <button className='order_action_btn completed'>영수증</button>
+          </>
+          )
+        
+    }
+  } 
 
     return (
       
@@ -85,13 +95,19 @@ const BuyItem = (
           <li className='NFT_creater'>{creater}</li>
           <li className='NFT_name'><strong>{name}</strong></li>
           <li className='NFT_creater'>{color} {size}</li>
-          <li className='NFT_creater'>수량:{qty}</li>
         </ul>
       </td>
       <td>{sell_type[selltype]}</td>
       <td>{order_date}</td>
-      <td>{order_id}</td>
+      <td>{qty}</td>
       <td>{order_price}</td>
+      <td>{qty*order_price}</td>
+      <td> <div>
+        {order_id}
+        </div>
+        <button className='order_action_btn order'>
+            주문서 보기
+        </button></td>
       <td>{renderStatus(status)}</td>
     </StyledMyNFT>
     );

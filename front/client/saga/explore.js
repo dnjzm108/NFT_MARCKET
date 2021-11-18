@@ -17,7 +17,7 @@ import {
 }from '../reducers/user'
 
 async function updateLikeAPI(data){
-    return  await axios.post(`${url}/main/like`,data)
+    return  await axios.put(`${url}/main/like`,data)
 }
 
 

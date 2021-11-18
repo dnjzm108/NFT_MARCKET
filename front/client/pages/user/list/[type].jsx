@@ -2,20 +2,20 @@ import Navigation from "../../../component/Navigation";
 import Info from "../../../container/Info";
 import SideMenu from "../../../component/SideMenu";
 import NFTList from "../../../component/MyNFT/NFTList";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useRouter } from 'next/router'
 import { Pageblock } from "../../../component/Pageblock";
 import { statusList,sortList } from "../../../component/MyNFT/NFTList/list";
 import { ListUpdateRequest } from "../../../reducers/mylist";
-
+import {useState,useEffect} from 'react'
 
 const List = () => {
-  const state_data = useSelector(state => state.user)
+  const {user_info} = useSelector(state => state.user)
+  const dispatch = useDispatch()
   const router = useRouter()
   const {type} = router.query;
-  const [loading,setLoading] = useState(true)
   useEffect(()=>{
-    if(type!=undefined && loading){
+    if(type!=undefined){
       const data ={
         nickname:user_info.nickname,
         page:1,
