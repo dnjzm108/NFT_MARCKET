@@ -86,6 +86,7 @@ const Delivery_Address_Component = (props) => {
                     <Subject> 주문서 </Subject>
 
                     <Table>
+                        <tbody>
                         <tr>
                             <td>상품명</td>
                             <td>{product_info[option].name}</td>
@@ -156,6 +157,7 @@ const Delivery_Address_Component = (props) => {
                             <td>전화번호</td>
                             <td><CustomInput {...Ponenumber} placeholder=" - 빼고 입력해 주세요" /></td>
                         </tr>
+                        </tbody>
                     </Table>
 
 
