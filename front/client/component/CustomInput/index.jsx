@@ -51,12 +51,7 @@ const CustomInput = ({onChange,placeholder,search,width,height,msg,type,func,max
     }
   }
 
-  const handleMax = ()=>{
-    if(max==undefined){
-      return "524,288";
-    }
-    return `${max}`
-  }
+
   
 
   const handleType = () => {
@@ -95,8 +90,8 @@ const CustomInput = ({onChange,placeholder,search,width,height,msg,type,func,max
         </label>
       }
       {func == undefined ? 
-       <input type={handleType()} id="inpput" onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder} maxLength={handleMax()}/> 
-       : <input type={handleType()} id="inpput" onMouseOut={()=>{func()}} onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder} maxLength={handleMax()}/> }
+       <input type={handleType()} id="inpput" onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder} maxLength={max}/> 
+       : <input type={handleType()} id="inpput" onMouseOut={()=>{func()}} onBlur={(e)=>{handleBlur(e)}} onChange={(e)=>{handleChange(e)}} placeholder={placeholder} maxLength={handleMax()} maxLength={max}/> }
  
       {require &&  
         (<i>

@@ -102,8 +102,8 @@ let order = async (req,res) =>{
 
    const socketMessage = {
        product_no,
+       type:'buy',
        product_id,
-       leftover:minus_leftover,
        rest:minus_rest
    }
    socket.broadcast(socketMessage)
@@ -111,10 +111,12 @@ let order = async (req,res) =>{
 
 }
 
+///옵션 값에 따라 데드라인 확인해서 셋타임아웃 조정.데드라인도 업데이트 
+// 
 let applyauction = async (req,res) =>{
-    let {auction_id,bider,bid,auction_history_id} = req.body
-
-    let history_parms=[auction_id,bider,bid]
+    let {product_no,option,deadline,auction_id,bider,bid,auction_history_id} = req.body
+    const nowTime = new Date();
+    let history_parms=[auction_id,bider,bid,nowTime]
     let update_detail = await execute(bid_auction_sql(),history_parms)
     //이전 기록이 있을경우 유찰로 바꿔주기
     if(auction_history_id !== null){
@@ -122,6 +124,15 @@ let applyauction = async (req,res) =>{
         let chage_history = await execute(chage_history_sql(),chage_parms)
     } 
     if(auction_id !== undefined && bider !== undefined && bid !== undefined && auction_history_id !== undefined ){
+        const socketMessage={
+            product_no,
+            type:'auction',
+            bider,
+            bid,
+            deadline,
+            bid_date:nowTime.toLocaleString(),
+        }
+        socket.broadcast(socketMessage)
         res.json(successData(true))
     }else{
         res.json(successData(false))

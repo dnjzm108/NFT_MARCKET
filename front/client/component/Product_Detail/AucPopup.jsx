@@ -22,9 +22,12 @@ const AucPopup = (props) => {
     const applyAuction = async () => {
 
         const histoty_data = {
+            product_no: product_info[0].product_no,
             auction_id: auction_info[0].auction_id,
             bider: user_info.nickname,
             bid: bid_price.value,
+            option:auction_info[0].option,
+            deadline:auction_info[0].deadline,
             auction_history_id:auction_info[0].auction_history_id
         }
         if (user_info.nickname == undefined) {
