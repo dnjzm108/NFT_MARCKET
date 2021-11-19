@@ -8,7 +8,7 @@ const successData = (result)=>{
   }
 }
 
-const errorData = ({code,message})=>{
+const errorData = (code,message)=>{
   return{
     success:false,
     response:null,

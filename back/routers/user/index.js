@@ -12,7 +12,7 @@ router.post('/login',controller.login)
 router.post('/name_check',controller.name_check)
 router.post('/admin',controller.admin)
 router.post('/checkseller',controller.checkseller)
-router.post('/chageseller',controller.chageseller)
+router.post('/applyseller',controller.applyseller)
 
 router.get('/buy',checking,listController.getMyBuy);
 router.get('/auction',checking,listController.getMyAuction);
