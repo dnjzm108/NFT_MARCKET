@@ -5,7 +5,7 @@ const {myBuyListQuery,
       myImmySellListQuery,
       updateShipQuery,
       updateInvoiceQuery,
-      completeDeliveryQuery
+      completeDeliveryQuery,
     } = require('../../sql/mylist');
 const {successData,errorData,error400} = require('../../returnData')
 
@@ -159,8 +159,11 @@ const getMyAuctionSell = async(req,res)=>{
     totalPage,
   }
   res.json(successData(data))
-
 }
+
+
+
+
 ///////////////////////////////////////
 /////아래 3개 주문자 확인하는 코드 추가하기 ////
 ///////////////////////////////////////
@@ -246,7 +249,8 @@ module.exports={
   getMyAuctionSell,
   updateShipInfo,
   updateInvoiceInfo,
-  completeDelivery
+  completeDelivery,
+
 }
 
 

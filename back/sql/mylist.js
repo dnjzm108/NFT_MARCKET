@@ -670,18 +670,6 @@ function myImmySellListQuery(query,type){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports={
   myBuyListQuery,
   myAuctionListQuery,

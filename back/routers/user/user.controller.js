@@ -47,29 +47,16 @@ let login = async (req,res) =>{
 
     const [result] = await execute(login_sql(),params)
     if(result !== undefined){
-        let user_params = [result.nickname]
-        const [seller_info] = await execute(seller_info_sql(),user_params)
-        if(seller_info !== undefined){
             let info = {
                 nickname:result.nickname,
                 wallet:result.wallet,
                 email:result.email,
                 picrure:result.picture,
-                seller_no:seller_info.seller_no,
-                status:seller_info.status,
+                status:result.status,
                 auth:createHash(result.nickname)
-            }
-            res.json(info)
-        }else{
-            let info = {
-                nickname:result.nickname,
-                wallet:result.wallet,
-                email:result.email,
-                picrure:result.picture,
-                auth:createHash(result.nickname)
-            }
+            } 
             res.json(successData(info))
-        }
+        
     }else{
         res.json(false)
     }

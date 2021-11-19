@@ -14,6 +14,7 @@ export const Pageblock = () => {
         page:v,
         rows:10,
         nickname:user_info.nickname,
+        auth:user_info.auth,
       }
       dispatch(ListUpdateRequest(data))
   }

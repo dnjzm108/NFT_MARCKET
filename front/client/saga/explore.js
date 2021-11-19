@@ -12,9 +12,6 @@ import {
     INIT_EXPLORE_SUCCESS,
 } from '../reducers/explore'
 
-import {
-    USER_LOGOUT
-}from '../reducers/user'
 
 async function updateLikeAPI(data){
     return  await axios.put(`${url}/main/like`,data)
@@ -42,11 +39,13 @@ function* updateLike(action){
 
 }
 async function exploreAPI(data){
-    let {params,nickname} = data
+    
+    let {params,nickname,auth} = data
     const config = {
         params,
         headers:{
             'nickname':nickname,
+            'auth':auth,
           },
     }
     return  await axios.get(`${url}/main`,config)
@@ -80,9 +79,6 @@ async function mainInitAPI(data){
     let params = {...data}
     const config = {
         params,
-        // headers:{
-        //     'wallet':wallet,
-        //   },
       }
     return  await axios.get(`${url}/main/init`,config)
 }
