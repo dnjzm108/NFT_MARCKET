@@ -71,4 +71,16 @@ export const Icon_Close = styled.div`
      }
 `
 
+export const Container = styled.div`
+&{
+    width: 720px;
+    padding: 120px;
+    box-sizing:border-box;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 8%);
+    border-radius: 16px;
+    position: relative;
+    margin: 5vh auto;
+}
 
+`

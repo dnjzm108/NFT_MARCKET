@@ -1,7 +1,7 @@
 
 import Link from 'next/link'
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { Logo, Circle, Copyed, Small_Contain, Check_Content, Line, Btn_Box } from './Join.css.jsx'
+import { Logo, Circle, Copyed, Small_Contain, Check_Content, Line, Btn_Box,Container } from './Join.css.jsx'
 import { Wrap } from '../../component/Wrap/Popup_Back.jsx';
 import useInput from '../../hooks/useInput.jsx';
 import { useEffect, useState } from 'react';
@@ -68,7 +68,7 @@ const Join = (data) => {
                             <img src="/logo.png" alt="" /></Logo>
                     </a>
                 </Link>
-                <div>
+                <Container>
 
                     <h1>회원가입</h1>
                     <Circle>
@@ -123,7 +123,7 @@ const Join = (data) => {
                     &nbsp;
 
 
-                </div>
+                </Container>
                 <Copyed>Copyright © 2021 GroundX.All rights reserved.</Copyed>
 
 
