@@ -25,7 +25,8 @@ const AucPopup = (props) => {
             auction_id: auction_info[0].auction_id,
             bider: user_info.nickname,
             bid: bid_price.value,
-            auction_history_id:auction_info[0].auction_history_id
+            auction_history_id:auction_info[0].auction_history_id,
+            auth:user_info.auth
         }
         if (user_info.nickname == undefined) {
             return alert("로그인을 진행해 주세요")

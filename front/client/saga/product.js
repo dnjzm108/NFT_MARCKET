@@ -45,6 +45,7 @@ function* product_page(action) {
 }
 
 async function auctionAPI(data){
+    console.log(data);
     return await axios.post(`${url}/product/applyauction`,data)
 }
 

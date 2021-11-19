@@ -37,8 +37,9 @@ const CustomInput = ({ onChange, placeholder, search, width, height, msg, type, 
 
   const handleChange = (e) => {
     onChange(e);
-
-    func(e.target.value)
+if(func !== undefined){
+  func(e.target.value)
+}
     
     if (e.target.value == '' && msg) {
       setRequire(true)
