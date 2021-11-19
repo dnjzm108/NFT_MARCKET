@@ -1,10 +1,10 @@
 import { StyledFilter } from "./Filter.css";
-import { RiFilter3Line, RiArrowLeftLine, RiArrowRightLine } from 'react-icons/Ri'
+import { RiFilter3Line, RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
 import Button from "../Button";
 import Panal from "../Panal";
 import { useState } from "react";
 import SelectBox from "../SelectBox";
-import Input from '../Input'
+import CustomInput from '../CustomInput'
 import useInput from '../../hook/useInput';
 import CheckBoxes from '../CheckBoxes'
 import SelectBtnBox from '../SelectBtnBox';
@@ -150,9 +150,9 @@ const Filter = () => {
             </div>
             
             <div className='price_input'>
-              <Input {...Min} type='number' width='124px' placeholder='Min' />
+              <CustomInput {...Min} type='number' width='124px' placeholder='Min' />
               <span>to</span>
-              <Input {...Max} type='number' width='124px' placeholder='Max' />
+              <CustomInput {...Max} type='number' width='124px' placeholder='Max' />
             </div>
             {(+Min.value > +Max.value && Max.value > 0) && <span className='price_warning'>Minimum must be less than Maximum</span>}
             <div className='price_button'>

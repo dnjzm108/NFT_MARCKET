@@ -20,6 +20,7 @@ export const StyledMyNFT = styled.tr`
       height: 120px;
       overflow: hidden;
       padding: 4px;
+      cursor: pointer;
     }
   
   .NFT_detail{
@@ -62,12 +63,67 @@ export const StyledMyNFT = styled.tr`
 
  .delivery{
    background-color: #28a745;
+   border-color: #28a745;
    color:#fff;
    
    &:hover{
      background-color: #348F2C;
+   border-color: #28a745;
+
       color:#fff;
     }
+ }
+ .invoice{
+   background-color: #e9207e;
+   border-color: #e9207e;
+   color:#fff;
+   
+   &:hover{
+     background-color: #d11a6f;
+   border-color: #e9207e;
+
+      color:#fff;
+    }
+ }
+
+ .completed{
+   background-color: #fd7e14;
+   border-color: #fd7e14;
+   color:#fff;
+   
+   &:hover{
+     background-color: #e06806;
+    border-color: #fd7e14;
+      color:#fff;
+    }
+ }
+
+ .order{
+   background-color: #777;
+   border-color: #777;
+   color:#fff;
+   
+   &:hover{
+     background-color: #555555;
+    border-color: #555555;
+      color:#fff;
+    }
+ }
+
+ .auction_type{
+   font-weight: 800;
+ }
+
+ .bid{
+  color:blue;
+ } 
+
+ .burial{
+   color:red;
+ }
+
+ .success{
+   color:green;
  }
 
 

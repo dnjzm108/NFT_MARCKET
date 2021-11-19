@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 
 const AucOption = ({renderOptions,colors,setColors,colorInput,setColorInput,
     size,setSize,sizeInput,setSizeInput,
-    qty,setQty,price,setPrice,})=>{
+    qty,setQty,price,setPrice,season,seasons,handleSeason})=>{
     const {category} = useSelector(state=>state.mint)
     const [bigcate,setBigcate]=useState(category[0].code)
     const [middlecate,setMiddlecate]=useState(category[0].list[0].code)
@@ -29,6 +29,7 @@ const AucOption = ({renderOptions,colors,setColors,colorInput,setColorInput,
                     <div className="select_box">
                         <OptionBox list={category} onClick={handleCategory} now={bigcate} />
                         <OptionBox list={category.filter(v => v.code == bigcate)[0].list} onClick={handleMiddleCategory} now={middlecate} />
+                        <OptionBox list={seasons} onClick={handleSeason} now={season}/>
                     </div>
                 </div>
                 <div className="select_option">

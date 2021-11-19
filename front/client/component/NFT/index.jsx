@@ -5,6 +5,8 @@ import Link from "next/link";
 import Router from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import {UpdateLike} from "../../reducers/explore"
+import {GiBuyCard} from 'react-icons/gi'
+import {RiAuctionFill} from 'react-icons/ri'
 
 const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
   const dispatch = useDispatch()
@@ -47,10 +49,10 @@ const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
       <div className="content_container">
         <div className="content_top">
           <div className="content_top_left">
-            <span className="content_name">
+            <strong className="content_name">
               {name}
-            </span>
-            <span className="content_creater">{creater}</span>
+            </strong>
+            <span className="content_creater">creater {creater}</span>
           </div>
           <div className="content_top_right">
             <div>{type == 'buy' ? "Price" : "Bid"}</div>
@@ -62,7 +64,11 @@ const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
         </div>
       </div>
       <div className="content_bottom">
-        {isHover && <p className="buynow">{ type=='buy'?"Buy now" : "Bid now"}</p>}
+        {isHover && <p className="hovertext">{ type=='buy'?"Buy now" : "Bid now"}</p>}
+        {type=='buy'
+        ? <GiBuyCard size={24}/>
+        : <RiAuctionFill size={24}/>
+        }
 
         <div className="like_box">
           {(isLike===user_info.nickname && IsLogin===true)

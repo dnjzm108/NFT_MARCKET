@@ -1,5 +1,5 @@
 import { StyledSideMenu,StyledMenuItem } from "./SideMenu.css";
-import {RiArrowLeftLine,RiArrowRightLine, RiMenu2Line} from 'react-icons/Ri'
+import {RiArrowLeftLine,RiArrowRightLine, RiMenu2Line} from 'react-icons/ri'
 import { useState } from "react";
 import Link from 'next/link'
 

@@ -70,27 +70,32 @@ export const BuyTable = styled.table`
       width: 100%;
 
       &>th:nth-child(1){
-        width: 40%;
+        width: 30%;
       }
 
       &>th:nth-child(2){
-        width: 12%;
+        width: 10%;
       }
       &>th:nth-child(3){
-        width: 12%;
+        width: 10%;
 
       }
       &>th:nth-child(4){
-        width: 12%;
+        width: 10%;
 
       }
       &>th:nth-child(5){
-        width: 12%;
+        width: 10%;
 
       }
       &>th:nth-child(6){
-        width: 12%;
-
+        width: 10%;
+      }
+      &>th:nth-child(7){
+        width: 10%;
+      }
+      &>th:nth-child(8){
+        width: 10%;
       }
     }
   }
@@ -118,12 +123,17 @@ export const AuctionTable = styled.table`
 
       }
       &>th:nth-child(4){
-        width: 15%;
+        width: 10%;
 
       }
       &>th:nth-child(5){
-        width: 15%;
-
+        width: 10%;
+      }
+      &>th:nth-child(6){
+        width: 10%;
+      }
+      &>th:nth-child(7){
+        width: 10%;
       }
     }
   }
@@ -140,11 +150,11 @@ export const AuctionSellTable = styled.table`
       width: 100%;
 
       &>th:nth-child(1){
-        width: 35%;
+        width: 30%;
       }
 
       &>th:nth-child(2){
-        width: 35%;
+        width: 30%;
       }
       &>th:nth-child(3){
         width: 10%;
@@ -155,6 +165,10 @@ export const AuctionSellTable = styled.table`
 
       }
       &>th:nth-child(5){
+        width: 10%;
+
+      }
+      &>th:nth-child(6){
         width: 10%;
 
       }

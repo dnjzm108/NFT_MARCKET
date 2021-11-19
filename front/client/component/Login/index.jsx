@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import CloseIcon from '@mui/icons-material/Close';
 import { Content, Logo, Copyed, Icon_Close } from './Login.css.jsx'
-import { Wrap } from '../../component/Wrap/Popup_back.jsx';
+import { Wrap } from '../Wrap/Popup_Back.jsx';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { UserLogin_REQUEST, User_Join_Check } from '../../reducers/user'

@@ -53,7 +53,7 @@ export const StyledNFT = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 800;
   }
 
   .content_creater {
@@ -123,12 +123,17 @@ export const StyledNFT = styled.div`
     height: 42px;
     padding: 12px;
     line-height: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .buynow {
+  .hovertext {
     position: absolute;
-    left: 12px;
-    color: transparent;
+    left: 40px;
+    top:px;
+    color: #1e73fa;
     font-size: 14px;
     font-weight: 600;
   }

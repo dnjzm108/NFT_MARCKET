@@ -226,6 +226,7 @@ export const Auction_contain = styled.div`
     padding: 20px;
     box-sizing: border-box;
     margin-top: 10px;
+    position: relative;
     
 }
 

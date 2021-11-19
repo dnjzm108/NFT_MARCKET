@@ -69,9 +69,12 @@ function* sendAuctionInfo(action){
 }
 
 // 상품 옵션 정보 넣기
-async function ProductOptionsAPI(data){
-    return await axios.post(`${url}/nft/options`,data,{headers: { "Content-Type": `application/json`}})
-}
+// async function ProductOptionsAPI(data){
+//     return await axios.post(`${url}/nft/options`,data,{headers: { "Content-Type": `application/json`}})
+
+// async function getCategoryAPI(){
+//     return await axios.get(`${url}/nft/category`)
+// }
     
 function* sendProductOptions(action){
     let result = yield call(ProductOptionsAPI,action.data)

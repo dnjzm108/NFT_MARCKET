@@ -135,6 +135,9 @@ const ProductOption =
                 :
             <AucOption 
             renderOptions={renderOptions}
+            season={season}
+            seasons={seasons}
+            handleSeason={handleSeason}
             colors={colors}
             setColors={setColors}
             colorInput={colorInput}

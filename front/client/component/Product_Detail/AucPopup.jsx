@@ -1,8 +1,8 @@
-import { Popup_background } from "../wrap/popup_background"
+import { Popup_background } from "../Wrap/Popup_Background"
 import CloseIcon from '@mui/icons-material/Close';
 import { StyledNowPopup } from "./Product_Detail.css"
 import Button from "../Button"
-import Input from "../Input"
+import CustomInput from "../CustomInput"
 import useInput from "../../hooks/useInput";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
@@ -70,7 +70,7 @@ const AucPopup = (props) => {
                                     auction_info[0].bid : product_info[0].price
                             }
                         </span> 이상으로 입력해주세요</li>
-                        <li> 입찰금액 <span><Input {...bid_price} type="number" msg="입찰가를 입력해 주세요" /></span></li>
+                        <li> 입찰금액 <span><CustomInput {...bid_price} type="number" msg="입찰가를 입력해 주세요" /></span></li>
                     </ul>
                     <div className="flex_contain">
                         <Button value="주문 취소" func={() => props.handlePopup()} />

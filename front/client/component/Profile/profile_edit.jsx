@@ -2,64 +2,73 @@ import Button from "../Button"
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import {Circle} from "../Join/Join.css"
 import { ProfileStyled,StyleTd,Contain } from "./Profile.css";
-import useInput from '../../hooks/useInput.jsx';
 import { useState } from "react";
-import Input from "../Input"
+import CustomInput from "../CustomInput"
 import axios from "axios";
-import { url } from "../../saga/url";
+import { UserUpdate_REQUEST } from "../../reducers/user";
+import { useSelector, useDispatch } from "react-redux";
+import Router from "next/router";
 
 
 const Profile_edit = () => {
-    const[Check_id,setCheck_id] = useState('')
-    const[Check_email,setCheck_email] = useState(true)
-    const[Check_img,setCheck_img] = useState();
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.user)
+    // const [check_id, setCheck_id] = useState('')
+    const [Email, setEmail] = useState();
+    const [images, setimages] = useState();
 
-    const Img = useInput('')
-    const Nickname = useInput('')
-    const Email = useInput('')
+    const currentemail = user.user_info.email
+    // const currentpicture = user.user_info.picture
 
-    // const Check_Name = e => {
-    //     let {value} = Nickname;
-    //     if(value == ''){
-    //         console.log(value);
-    //         setCheck_id(false);
-    //     } else {
-    //         console.log(value);
-    //         setCheck_id(true);
-    //     }
-    // }
+    const handleSumit = () =>{
+        const formData = new FormData();
+        formData.append("image",images)
 
-    // const Check_Mail = e =>{
-    //     let{value} = Email;
-    //     if(value == ''){
-    //         console.log(value);
-    //         setCheck_email(false);
-    //     } else {
-    //         console.log(value);
-    //         setCheck_email(true);
-    //     }
-    // }
+        dispatch(UserUpdate_REQUEST(formData))
+        Router.push('/user/profile')
 
-    const handleImg = async (e) =>{
+    }
+    
+    const handleImg = async(e)=>{
         const img = e.target.files[0];
-        setCheck_img(img)
-    }
+        setimages(img)
+    }   
 
-    const overlap = async ()=>{
-        const nick = {
-            nick : Nickname.value
-        }
-        if(Nickname.value !==''){
-            let result = await axios.post(`${url}/user/name_check`,nick)
-            if(result){
-                setCheck_id(result.data)
-            } else{
-                setCheck_id(result.data)
-            }
-        }else{
-            setCheck_id('')
-        }
+    const handlemail = async()=>{
+        const mail = currentemail;
+        setEmail(mail)
     }
+    // const handleimage = (e) => {
+    //     const img = e.target.files[0];
+    //     setimages(img)
+    // }
+
+    // const handlemail = ()=>{
+    //     const mail = currentemail
+    //     console.log(mail)
+    //     setEmail(mail)
+    // }
+
+    // const editPage = () => {
+    //     dispatch(UserUpdate_REQUEST(user.user_info))
+    //     alert('수정되었습니다!')
+    //     Router.push('/user/profile')
+    // }
+    // const overlap = async ()=>{
+    //     const nick = {
+    //         nick : nickname.value
+    //     }
+    //     if(nickname.value !==''){
+    //         let result = await axios.post(`${url}/user/name_check`,nick)
+    //         if(result){
+    //             setCheck_id(result.data)
+    //         } else{
+    //             setCheck_id(result.data)
+    //         }
+    //     }else{
+    //         setCheck_id('')
+    //     }
+    // }
 
     return (
         <>
@@ -69,7 +78,8 @@ const Profile_edit = () => {
         <h1>프로필 편집</h1>
         <StyleTd/>
         <Circle> 
-        {Check_img !==undefined? <label htmlFor="profile" >
+        {images !==undefined? 
+        <label htmlFor="profile" style={{background:"green"}} >
                               <CameraAltIcon />
                               </label> : 
                               <label htmlFor="profile" >
@@ -87,20 +97,20 @@ const Profile_edit = () => {
                        / >
                            </Circle>
         <StyleTd/>
-        <Contain>
-        <label htmlFor="nickname">닉네임</label>
+        /* <Contain>
+        {/* <label htmlFor="nickname">닉네임</label>
         <td>* 5~20자의 한글, 영문 대소문자, 숫자, 특수기호(_),(-),(.)만 사용 가능합니다.</td>
-        <Input {...Nickname} func={overlap} msg={"닉네임을 입력해주세요."} type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
+        <CustomInput {...Nickname} func={overlap} msg={"닉네임을 입력해주세요."} type="text" id="nickname" placeholder="닉네임을 입력해주세요" /> */}
 
         </Contain>
         <Contain>
         <label htmlFor="email_address">이메일 주소</label>&nbsp;
-        <Input {...Email} msg={"이메일을 입력해주세요."}type="text" id="email_address" placeholder="이메일을 입력해주세요" />
+        <CustomInput {...Email} msg={"이메일을 입력해주세요."}type="text" id="email_address" placeholder="이메일을 입력해주세요" />
     
         </Contain>
             <div className="btn_edit">
-                <Button value='변경사항 저장' url='/user/edit' color="sky" size='small' />
-                <Button value='취소' url='/user/info?type=profile' ml={20} size='small' />
+                <Button value='변경사항 저장' func={handleSumit} color="sky" size='small' />
+                <Button value='취소' url='/user/profile' ml={20} size='small' />
             </div>
         </div>
         </ProfileStyled>

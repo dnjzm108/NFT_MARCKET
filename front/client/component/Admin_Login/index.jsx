@@ -5,7 +5,7 @@ import {Content,Logo,Copyed,Icon_Close} from './Admin_Login.css'
 import {Small_Contain} from '../Join/Join.css'
 import { Middle_btn} from '../../component/Btn.jsx';
 import { Wrap } from "../Wrap/Popup_back"
-import Input from "../Input"
+import CustomInput from "../CustomInput"
 import useInput from '../../hooks/useInput';
 import Button from '../Button';
 import {Admin_Login_REQUEST} from '../../reducers/admin'
@@ -46,11 +46,11 @@ const Admin_Login = () => {
                         
                         <Small_Contain>
                             <label htmlFor="id">아이디</label>
-                            <Input {...admin_id} type="text" id="id" />
+                            <CustomInput {...admin_id} type="text" id="id" />
                             </Small_Contain>
                             <Small_Contain>
                                 <label htmlFor="password">비밀번호</label>
-                            <Input {...admin_pw} type="password" id="password"/>
+                            <CustomInput {...admin_pw} type="password" id="password"/>
                             </Small_Contain>
 
                             <Button func={login} color="sky" value="로그인" />

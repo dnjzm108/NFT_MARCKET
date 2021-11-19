@@ -7,7 +7,7 @@ import axios from 'axios'
 import { url } from "../../saga/url"
 import {Notice_Info} from '../../reducers/product'
 import { useDispatch,useSelector } from "react-redux";
-
+import Loadding from "../Loadding";
 
 
 
@@ -42,7 +42,7 @@ const Notice_Delivery = () => {
 
     if(notice_info == undefined){
         return(
-            <span>로딩중</span>
+            <Loadding />
         )
     }
 

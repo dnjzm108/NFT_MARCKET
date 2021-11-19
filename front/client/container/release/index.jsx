@@ -49,11 +49,6 @@ const Release = () => {
     const [bigcate,setBigcate]=useState(category[0].code)
     const [middlecate,setMiddlecate]=useState(category[0].list[0].code)
     const [season,setSeason] = useState(seasons[0].code)
-    const [ex,setEx] = useState('buy')
-
-    const handleEx =()=>{
-
-    }
 
     // 즉시구매를 선택한 경우
     const handleNow = () => {
@@ -89,7 +84,6 @@ const Release = () => {
 
     // 정보들 formData에 담는 코드
     const handleData = async () => {
-        console.log(middlecate)
         const slength = size.length;
         const options = [];
         const formData = new FormData();
@@ -107,14 +101,16 @@ const Release = () => {
             });
         })
 
-        // for (let i = 0; i < images.length; i++) {
-        //     files.push(images[i])
-        //     formData.append("image", images[i] )
-        // }
-        formData.append("description", explain.value)
-        formData.append("title", name.value)
+        for (let i = 0; i < images.length; i++) {
+            files.push(images[i])
+            formData.append("image", images[i] )
+        }
+        formData.append("explain", explain.value)
+        formData.append("name", name.value)
         formData.append("symbol", symbol.value)
         formData.append("creater", user_info.nickname)
+        // formData.append("creater", user_info.nickname)
+
         formData.append("type", isNow)
         formData.append("bid", bid.value)
         formData.append("deadline", deadline)
@@ -126,8 +122,10 @@ const Release = () => {
         formData.append("season", season)
 
         dispatch(Mint_REQUEST(formData))
+        Router.push('/')
     }
     
+
 
 
     // 동의 1,2 모두 했는지 확인

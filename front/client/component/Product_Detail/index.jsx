@@ -1,11 +1,11 @@
-import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container, Styled_Slide, Price_contain, Auction_contain, Center_contain } from './product_detail.css'
+import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container, Styled_Slide, Price_contain, Auction_contain, Center_contain } from './Product_Detail.css'
 import Footter from '../../component/Footter'
 // import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,useRef} from 'react';
 import { useSelector } from 'react-redux';
 import { Auction, Auction_History } from './Auction_Box';
 // import NowPopup from "./NowPopup"
@@ -18,6 +18,7 @@ import useChangeValue from '../../hook/useChangeValue';
 import Deleivery_address from '../Delivery_Address'
 import { useDispatch } from 'react-redux'
 import { Product_Page_Request } from '../../reducers/product';
+import Loadding from '../Loadding'
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
@@ -38,6 +39,7 @@ const product_detail = () => {
     const [option, setOption] = useState(0)
     const [select_qty, setSelect_qty] = useState(0)
     const [likes, setLikes] = useState(false)
+
 
     const data = {
         product_no: id
@@ -130,8 +132,7 @@ const product_detail = () => {
     const onclickLike = async () => {
         let like_info = {
             product_no: id,
-            nickname: user_info.nickname,
-            likes: product_info[0].likes
+            nickname: user_info.nickname
         }
         if (user_state.user_info.nickname == undefined) {
             alert('로그인을 진행해 주세요')
@@ -149,7 +150,7 @@ const product_detail = () => {
 
     if (product_info.length == 0) {
         return (
-            <span>로딩중</span>
+            <Loadding />
         )
     }
 

@@ -1,9 +1,8 @@
 
 // 상품 nft 정보
-const productInfo_sql =(total_qty)=>{
+const productInfo_sql =()=>{
     return(
-    `INSERT INTO product (product_no,title,description,creater,register_date,likes,type,total_qty,leftover,symbol,contractAddr,tokenURI) VALUES
-	(?,?,?,?,?,0,?,?,${total_qty},?,NULL,NULL)`
+'INSERT INTO product (\`product_no\`,\`name\`,\`explain\`,creater,\`date\`,likes,\`type\`,total_qty,leftover,symbol,contractAddr,tokenURI) VALUES(?,?,?,?,?,0,?,?,?,?,NULL,NULL)'
     )
 }
 
@@ -33,7 +32,7 @@ const nftInsert_sql =()=>{
 // 판매자가 입력한 경매 정보 넣기
 const auction_option_info =()=>{
     return(
-        `INSERT INTO auction (deadline,option) VALUES(?,?)`
+        `INSERT INTO auction (product_id,deadline,option) VALUES(?,?,?)`
     )
 }
 module.exports = {
