@@ -18,18 +18,20 @@ export const Notice_Wrap = styled.div`
 `
 
 export const Table = styled.table`
-&>tr>td:nth-child(1){
+& > tbody{
+  &>tr>td:nth-child(1){
     padding: 10px;
     box-sizing: border-box;
-}
-&>tr>td:nth-child(2){
+  }
+  &>tr>td:nth-child(2){
     padding: 10px;
     box-sizing: border-box;
-}
+  }
 
-&>tr>td>img{
+  &>tr>td>img{
     width: 15px;
     height: 15px;
+  }
 }
 `
 

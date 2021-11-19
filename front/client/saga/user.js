@@ -12,6 +12,8 @@ function* join(action){
     
     let result = yield call(joinAPI,action.data)
     let {response} = result.data
+    const {data} = result;
+
     if (response !== null) {
         yield put({
             type: 'USER_JOIN_SUCCESS',
@@ -33,7 +35,6 @@ function loginAPI(data){
 
 function* login(action){
     let result = yield call(loginAPI,action.data)
-    console.log(result);
     let {response} = result.data
     if (response !== undefined) {
         yield put({

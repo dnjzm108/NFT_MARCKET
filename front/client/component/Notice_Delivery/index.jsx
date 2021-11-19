@@ -57,6 +57,7 @@ const Notice_Delivery = () => {
                     <Under_line />
                     <div>
                         <Table>
+                            <tbody>
                             <tr>
                                 <td>주문번호</td>
                                 <td>| </td>
@@ -74,6 +75,7 @@ const Notice_Delivery = () => {
                                     {notice_info.invocie == undefined ? '배송준비 중입니다.' : 
                                     notice_info.invocie +":"+ notice_info.delievry_compony}</td>
                             </tr>
+                            </tbody>
                         </Table>
                     </div>
                 </div>
@@ -83,6 +85,7 @@ const Notice_Delivery = () => {
                     <Under_line />
                     <div>
                         <Table>
+                            <tbody>
                             <tr>
                                 <td>상품명</td>
                                 <td>| </td>
@@ -98,7 +101,7 @@ const Notice_Delivery = () => {
                                 <td>| </td>
                                 <td>kaikas</td>
                             </tr>
-
+</tbody>
                         </Table>
                     </div>
                 </div>
@@ -108,6 +111,7 @@ const Notice_Delivery = () => {
                     <Under_line />
                     <div>
                         <Table>
+                            <tbody>
                             <tr>
                                 <td>주문자</td>
                                 <td>| </td>
@@ -133,6 +137,7 @@ const Notice_Delivery = () => {
                                 <td>| </td>
                                 <td>{notice_info.request}</td>
                             </tr>
+                            </tbody>
                         </Table>
                     </div>
                 </div>

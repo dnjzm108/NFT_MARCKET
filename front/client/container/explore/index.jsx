@@ -19,17 +19,21 @@ const Explore = () => {
   useEffect(()=>{
     const data = {
       params:router.query,
-      nickname:user_info.nickname
+      nickname:user_info.nickname,
+      auth:user_info.auth,
     }
     dispatch(ExploreRequest(data))
   },[router.query])
   
   const [fetch,setFetch] = useState(false);
 
+
   const fetchMoreNFT = async () => {
     setFetch(true);
     const data = {
       params:{...router.query,skip},
+      nickname:user_info.nickname,
+      auth:user_info.auth,
     }
     dispatch(ExploreRequest(data));
     setFetch(false);

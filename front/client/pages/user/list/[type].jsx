@@ -31,6 +31,7 @@ const List = () => {
         dispatch(ExploreRequest(data))
       }else{
         let data ={
+          auth:user_info.auth,
           nickname:user_info.nickname,
           page:1,
           rows:10,

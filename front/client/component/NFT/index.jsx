@@ -27,6 +27,7 @@ const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
           product_no,
           nickname,
           isLike,
+          auth:user_info.auth
         }
         dispatch(UpdateLike(data))
 

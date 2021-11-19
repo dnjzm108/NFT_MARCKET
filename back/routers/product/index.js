@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-
+const {checking} = require('../../auth')
 const controller = require('./controller')
 
 router.post('/notice_order',controller.notice_order)
-router.post('/applyauction',controller.applyauction)
-router.post('/order',controller.order)
+router.post('/applyauction',checking,controller.applyauction)
+router.post('/order',checking,controller.order)
 router.post('/other_product',controller.other_product)
 router.post('/auction_info',controller.auction_info)
 router.post('/check_like',controller.check_like)

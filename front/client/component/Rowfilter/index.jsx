@@ -22,10 +22,15 @@ const Rowfilter = ({children}) => {
   const dispatch= useDispatch()
   const router = useRouter()
   const [search, setSearch] = useState("")
+  const {user_info} = useSelector(state=>state.user)
 
     //정렬기준이 바뀔때.
     const handleSort = (code) => {
-      let data = {...router.query}
+      let data = {
+        ...router.query,
+        nickname:user_info.nickname,
+        auth:user_info.auth,
+      }
       if(data["sort"]==code || code==null){
         delete data.sort; 
       }else{
