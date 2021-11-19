@@ -59,7 +59,7 @@ let login = async (req,res) =>{
                 status:seller_info.status,
                 auth:createHash(result.nickname)
             }
-            res.json(info)
+            res.json(successData(info))
         }else{
             let info = {
                 nickname:result.nickname,
