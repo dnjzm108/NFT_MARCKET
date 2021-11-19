@@ -113,7 +113,6 @@ let order = async (req,res) =>{
 
 let applyauction = async (req,res) =>{
     let {auction_id,bider,bid,auction_history_id} = req.body
-
     let history_parms=[auction_id,bider,bid]
     let update_detail = await execute(bid_auction_sql(),history_parms)
     //이전 기록이 있을경우 유찰로 바꿔주기
