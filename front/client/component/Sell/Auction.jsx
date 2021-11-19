@@ -32,7 +32,6 @@ const Auction = () =>{
             deadline:deadline, //2021-11-16 14:36:51 이런 형태로 바꿔야 함
             option:extension
         }
-        console.log(deadline)
         dispatch(Auction_REQUEST(data))
     }
 

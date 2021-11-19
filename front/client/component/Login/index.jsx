@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { UserLogin_REQUEST, User_Join_Check } from '../../reducers/user'
 import Router from "next/router"
-import { User_Logout } from '../../reducers/user';
 import { useState } from 'react';
 
 

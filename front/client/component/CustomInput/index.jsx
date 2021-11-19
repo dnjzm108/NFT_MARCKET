@@ -38,6 +38,8 @@ const CustomInput = ({ onChange, placeholder, search, width, height, msg, type, 
   const handleChange = (e) => {
     onChange(e);
 
+    func(e.target.value)
+    
     if (e.target.value == '' && msg) {
       setRequire(true)
     } else {
@@ -87,10 +89,7 @@ return (
           </i>
         </label>
       }
-      {func == undefined ?
-        <input type={handleType()} id="inpput" maxLength={length} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} /> :
-         <input type={handleType()} id="inpput" maxLength={length} onMouseOut={() => { func() }} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} />}
-
+         <input type={handleType()} id="inpput" maxLength={length} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} />
       {require &&
         (<i>
           <BsFillExclamationCircleFill size={24} color={'#dc3545'} />
