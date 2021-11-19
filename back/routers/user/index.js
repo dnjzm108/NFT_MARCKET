@@ -4,7 +4,7 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const controller = require('./user.controller')
 const listController = require('./list.controller')
-
+const {checking} = require('../../auth')
 
 
 router.post('/join',upload.single('image'),controller.join)

@@ -5,6 +5,7 @@ const { query,execute } = require("../../pool")
 const {uploadProfile} = require("../../s3")
 const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_seller,seller_info_sql} =require("../../sql/user")
 const { successData,error403 } = require("../../returnData");
+const {createHash} = require('../../auth')
 
 let join = async (req,res) =>{
     
@@ -55,11 +56,19 @@ let login = async (req,res) =>{
                 email:result.email,
                 picrure:result.picture,
                 seller_no:seller_info.seller_no,
-                status:seller_info.kyc_status
+                status:seller_info.status,
+                auth:createHash(result.nickname)
             }
             res.json(info)
         }else{
-            res.json(successData(result))
+            let info = {
+                nickname:result.nickname,
+                wallet:result.wallet,
+                email:result.email,
+                picrure:result.picture,
+                auth:createHash(result.nickname)
+            }
+            res.json(successData(info))
         }
     }else{
         res.json(false)
@@ -70,11 +79,15 @@ let login = async (req,res) =>{
 let name_check = async (req,res) =>{
     let {name} = req.body
     let params = [name]
-    const [result] = await execute(name_check_sql(),params)
-    if( result !== undefined){
-        res.json(successData(false))
+    if(name !== ''){
+        const [result] = await execute(name_check_sql(),params)
+        if( result !== undefined){
+            res.json(successData(false))
+        }else{
+            res.json(successData(true))
+        }
     }else{
-        res.json(successData(true))
+        return res.json(error403())
     }
 }
 
