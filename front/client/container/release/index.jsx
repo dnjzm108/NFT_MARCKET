@@ -34,7 +34,7 @@ const Release = () => {
 
     const [startDate, setStartDate] = useState(new Date())
     const [extension,setExtension] = useState('0')
-    const [images, setImages] = useState();
+    const [images, setImages] = useState([]);
     const [agree,setAgree]=useState([false,false]);
     const [isNow,setIsNow] = useState(true);
     const [isClick,setIsClick]=useState([false,false])
@@ -49,6 +49,9 @@ const Release = () => {
     const [bigcate,setBigcate]=useState(category[0].code)
     const [middlecate,setMiddlecate]=useState(category[0].list[0].code)
     const [season,setSeason] = useState(seasons[0].code)
+
+
+    const [fileBase,setFileBase]=useState([]);
 
     // 즉시구매를 선택한 경우
     const handleNow = () => {
@@ -68,27 +71,35 @@ const Release = () => {
       };
 
 
-    // 파일 최대 10개만 고를수 있게
+    // 이미지 추가 탐색기 닫았다 열어도 그대로 추가 되게
     const fileSelected = event => {
-        let {files} = event.target
-        if (files.length > 10) {
+        let { files } = event.target
+        if (files.length > 10 || images.length + files.length > 10) {    // 파일갯수 10개까지
             alert('최대 선택할 수 있는 파일 개수는 10개입니다.')
         } else {
-            const newImages = [];
             for (let i = 0; i < files.length; i++) {
-                newImages.push(files[i])
+                if (files[i]) { // 새로 추가된 파일이 있으면 
+                    let newFile = []; // 기존 파일 + 추가된 파일 담을 배열
+                    for (let i = 0; i < files.length; i++) {
+                        newFile.push(files[i])  
+                    }
+                    setImages(newFile => [...newFile, files[i]])
+                }
+                // const imgBox = document.querySelector('.imgcon')
+                // console.log(imgBox)
             }
-            setImages(newImages)
         }
     }
-
+    
     // 정보들 formData에 담는 코드
     const handleData = async () => {
+        
         const slength = size.length;
         const options = [];
         const formData = new FormData();
         const deadline = new Date(+startDate + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, '');
         const files = [];
+
         colors.forEach((c, i) => {
             size.forEach((s, j) => {
                 const option = {
@@ -138,19 +149,17 @@ const Release = () => {
 
     // 입력정보 모두 받았는지 프론트 체크
     const handleSubmit =()=>{
-        // if(agree[0]===false ||agree[1]===false){
-        //     return alert("개인정보제공 및 유의사항 확인에 동의해주세요")
-        // }else if(isClick==false ){
-        //     return alert("옵션 선택 완료 버튼을 눌러주세요")
-        // }else if (images == undefined) {
-        //    return alert('이미지를 선택해주세요')
-        // } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
-        //     return alert("상품 정보를 입력해주세요")
-        // } else{
-            alert("상품등록이 완료되었습니다.")
+        if(agree[0]===false ||agree[1]===false){
+            return alert("개인정보제공 및 유의사항 확인에 동의해주세요")
+        }else if(isClick==false ){
+            return alert("옵션 선택 완료 버튼을 눌러주세요")
+        }else if (images == undefined) {
+           return alert('이미지를 선택해주세요')
+        } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
+            return alert("상품 정보를 입력해주세요")
+        } else{
             handleData();
-        // }
-        // Router.push('/')
+        }
     }
     
 

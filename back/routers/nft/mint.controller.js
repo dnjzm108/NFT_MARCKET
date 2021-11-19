@@ -76,6 +76,7 @@ const mint_nft = async(req,res)=>{
   
   // product_detail 테이블
   if(type=="true" || type==true || type){ // 일반 상품. (경매상품의 경우 수량과 가격이 없으므로 확인해줌)
+    console.log("product_detail- type: buy")
     getOption.forEach(v=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
@@ -85,6 +86,7 @@ const mint_nft = async(req,res)=>{
   }
 
   if(type=="false" || type==false || !type){ // 경매 상품
+    console.log("product_detail- type: auction")
     optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}",NULL,NULL,NULL,NULL,NULL);\n`
   }
   const product_detail = await query(optionSql)
