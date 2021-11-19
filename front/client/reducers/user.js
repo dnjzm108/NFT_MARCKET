@@ -7,15 +7,14 @@ const initalState = {
         email:null,
         seller:null,
         status:null
-    },
-    name_check:'',
+    }
 }
 
 const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST"
 const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS"
 const USER_LOGIN_ERROR = "USER_LOGIN_ERROR"
 
-export const USER_LOGOUT = "USER_LOGOUT"
+const USER_LOGOUT = "USER_LOGOUT"
 
 const USER_JOIN_REQUEST = "USER_JOIN_REQUEST"
 const USER_JOIN_SUCCESS = "USER_JOIN_SUCCESS"
@@ -114,6 +113,7 @@ const reducer = (state = initalState,action) => {
                     status:null
                 }
             } 
+            
 
         default:
             return state

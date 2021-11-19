@@ -11,7 +11,6 @@ const App = ({ Component,pageProps}) => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        console.log('test')
         if(typeof window !== 'undefined'){
             if( window.klaytn !== undefined){
                 klaytn.on('accountsChanged', function(accounts) {
