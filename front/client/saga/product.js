@@ -45,21 +45,21 @@ function* product_page(action) {
 }
 
 async function auctionAPI(data){
-    console.log(data);
     return await axios.post(`${url}/product/applyauction`,data)
 }
 
 function* apply_auction(action){
     let result = yield call(auctionAPI, action.data)
-
-    if(result.data.success){
+    if(result.data.error == null){
         yield put({
             type: 'AUCTION_SUCCEESS'
         })
     }else{
         yield put({
-            type: 'AUCTION_ERROR'
+            type: 'AUCTION_ERROR',
+            msg:result.data.error.message
         })
+        alert(result.data.error.message)
     }
 } 
 
@@ -69,8 +69,9 @@ async function immyAPI(data){
 
 function* apply_immy(action){
     let result = yield call(immyAPI, action.data)
+    console.log(result);
 
-    if(result.data.success){
+    if(result.data.error == null){
         yield put({
             type: 'IMMY_SUCCEESS',
             data : result.data.response
@@ -79,6 +80,7 @@ function* apply_immy(action){
         yield put({
             type: 'IMMY_ERROR'
         })
+        alert(result.data.error.message)
     }
 } 
 

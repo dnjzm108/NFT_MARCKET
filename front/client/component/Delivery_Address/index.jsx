@@ -57,7 +57,9 @@ const Delivery_Address_Component = (props) => {
                 phone_number: Ponenumber.value,
                 address: address + address_detail.value,
                 rest: product_info[option].rest,
-                leftover: product_info[option].leftover
+                leftover: product_info[option].leftover,
+                nickname: data.user_info.nickname,
+                auth:data.user_info.auth
             }
              dispatch(Apply_Immy(order_info))
              

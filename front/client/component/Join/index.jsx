@@ -117,7 +117,7 @@ const Join = (data) => {
                     <Line />
                     <Btn_Box>
                         <Button value="취소" url="/" />
-                        {checkBox1 && checkBox2 && checkBox3 && check && email.value !== '' ? <Button value="회원가입" color="sky" func={handleSumit} /> : ''}
+                        {checkBox1 && checkBox2 && checkBox3 && name_check && email.value !== '' ? <Button value="회원가입" color="sky" func={handleSumit} /> : ''}
 
                     </Btn_Box>
                     &nbsp;
