@@ -33,6 +33,7 @@ function loginAPI(data){
 
 function* login(action){
     let result = yield call(loginAPI,action.data)
+    console.log(result);
     let {response} = result.data
     if (response !== undefined) {
         yield put({
@@ -48,10 +49,10 @@ function* login(action){
 }
 
 
-
 function* watchUser(){
     yield takeLatest('USER_LOGIN_REQUEST',login)
     yield takeLatest('USER_JOIN_REQUEST',join)
+    
 }
 
 export default function* userSaga(){

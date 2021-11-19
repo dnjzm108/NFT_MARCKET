@@ -1,6 +1,11 @@
 
 const initialState = {
   isLoading:true,
+  isError:false,
+  error:{
+    code:null,
+    message:null,
+  },
   pageblock: [1],
   endpage: 1,
   list: [],
@@ -92,7 +97,7 @@ const reducer = (state = initialState,action) => {
                 sort:action.data.sort,
                 page:action.data.page,
                 rows:action.data.rows,
-              }
+              },
           }
 
       case LIST_UPDATE_SUCCESS:
@@ -112,6 +117,10 @@ const reducer = (state = initialState,action) => {
           return{
               ...state,
               isLoading:false,
+              isError:true,
+              error:{
+                ...action.data,
+              }
           }
       
       case UPDATE_SHIP_REQUEST:

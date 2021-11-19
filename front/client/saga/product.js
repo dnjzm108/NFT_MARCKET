@@ -45,6 +45,7 @@ function* product_page(action) {
 }
 
 async function auctionAPI(data){
+    console.log(data);
     return await axios.post(`${url}/product/applyauction`,data)
 }
 
@@ -99,12 +100,33 @@ function* notice_info(action){
     }
 } 
 
+function checkAPI(data){
+    return axios.post(`${url}/user/name_check`,data)
+}
+
+function* check(action){
+    let result = yield call(checkAPI,action.data)
+    let {response} = result.data
+    if (response !== null) {
+        yield put({
+            type: 'USER_NAME_SUCCESS',
+            check:response
+        })
+    } else {
+        yield put({
+            type: 'USER_NAME_ERROR'
+        })
+    }
+    
+}
+
+
 function* watchProduct() {
     yield takeLatest('PRODUCT_PAGE_REQUEST', product_page)
     yield takeLatest('APPLY_IMMY', apply_immy)
     yield takeLatest('APPLY_AUCTION', apply_auction)
     yield takeLatest('NOTICE_INFO', notice_info)
-
+    yield takeLatest('USER_NAME_CHECK',check)
 }
 
 export default function* productSaga() {

@@ -57,6 +57,8 @@ const getMainInit = async(req,res) => {
 }
 
 const getMain = async(req,res)=>{
+  console.log(req.query)
+  console.log(req.params)
   let nickname = req.get('nickname')
   if(nickname=='null'){
     nickname=''

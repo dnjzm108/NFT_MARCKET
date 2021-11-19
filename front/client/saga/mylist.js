@@ -50,7 +50,7 @@ function* getMyList(action){
     }else{
         yield put({
         type:LIST_UPDATE_ERROR,
-        data,
+        data:data.error,
     })
 
     }

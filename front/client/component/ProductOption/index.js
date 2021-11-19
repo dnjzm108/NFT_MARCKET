@@ -1,47 +1,52 @@
 import { Options,OptionCheck } from "./product_option.css"
 import Button from "../Button";
-import Selectbox from "../../component/SelectBox";
-import useChangeValue from "../../hook/useChangeValue";
 import AucOption from "./AucOption";
-import useInput from "../../hook/useInput";
 import {useSelector} from 'react-redux'
 import { useState,useEffect } from "react";
 import OptionBox from '../OptionBox/OptionBox'
+import { useDispatch } from "react-redux"
+import useInput from "../../hook/useInput";
+import {Product_options_REQUEST} from '../../reducers/mint'
 
-const ProductOption = 
-({isNow,isClick,setIsClick,optionColor,optionSize,setOptionColor,setOptionSize,onClick})=>{
-    const {isLoading,category} = useSelector(state=>state.mint)
-    const [colors,setColors]=useState([])
-    const [colorInput,setColorInput] = useState("")
-    const [size,setSize]=useState([])
-    const [sizeInput,setSizeInput] = useState("")
+
+
+
+const ProductOption =
+    ({isNow,isClick,
+    colors,setColors,colorInput,setColorInput,
+    size,setSize,sizeInput,setSizeInput,
+    qty,setQty,price,setPrice,
+    bigcate,setBigcate,middlecate,setMiddlecate,
+    seasons,season,setSeason})=>{
+
     const [optionEntered,setOptionEntered] = useState(false)
-    const [qty,setQty] = useState([]);
-    const [price,setPrice] = useState([]);
-    const [bigcate,setBigcate]=useState(category[0].code)
-    const [middlecate,setMiddlecate]=useState(category[0].list[0].code)
+    const {category} = useSelector(state=>state.mint)
+    
 
+
+    // 컬러, 사이즈 모두 입력 됐는지 확인
     const optionCheck =()=>{
-        setOptionEntered(false)
         const colorArr = colorInput.split(',').filter(v=>v!='');
-        setColors(colorArr)
         const sizeArr = sizeInput.split(',').filter(v=>v!='');
-        setSize(sizeArr)
+        if(colorInput!=="" && sizeInput!==""){
+            setColors(colorArr)
+            setSize(sizeArr)
+        }else{
+            alert("상품 옵션을 입력해주세요")
+        }
         setOptionEntered(true); 
     }
 
-    
-
     const handleQty = (e,x)=>{
-        let qty = [...qty];
-        qty[x] = e.target.value;
-        setQty(qty);
+        let newQty = [...qty];
+        newQty[x] = e.target.value;
+        setQty(newQty);
     }
 
     const handlePrice = (e,x)=>{
-        let price = [...price];
-        price[x] = e.target.value;
-        setPrice(price);
+        let newPrice = [...price];
+        newPrice[x] = e.target.value;
+        setPrice(newPrice);
     }
 
     const renderOptions = () => {
@@ -63,20 +68,21 @@ const ProductOption =
             )
         })
     }
-    const handleOption =()=>{
-        let item = {
-            color:colors,
-            size:size,
-            qty:qty,
-            price: price
-        }
-        const optionSet=[];
-        // console.log(item)
+
+    const handleOption = async()=>{
+        const priceList = price.indexOf('')
+        const qtyList = qty.indexOf('')
+        // if(priceList==-1 || qtyList==-1){
+        //     alert('수량 또는 가격을 모두 입력해주세요')
+        //     // dispatch(Product_options_REQUEST(options))
+        // }else{
+        //     alert("확인되었습니다")
+        // }
     }
 
     //여기 인자는 bigcate code
     const handleCategory =(code)=>{
-        console.log(code,bigcate)
+        // console.log("handle category"+code,bigcate)
         setBigcate(code)
         setMiddlecate(category.filter(v=>v.code==code)[0].list[0].code)
     }
@@ -84,6 +90,9 @@ const ProductOption =
     //여기 인자는 middlecate code
     const handleMiddleCategory =(code)=>{
         setMiddlecate(code)
+    } 
+    const handleSeason =(code)=>{
+        setSeason(code)
     } 
     //나중에 back에 내가 현재 고른 카테고리 보낼 때 middlecate 만 보내면 됨! 
 
@@ -98,6 +107,7 @@ const ProductOption =
                 <div className="select_box">
                     <OptionBox list={category} onClick={handleCategory} now={bigcate}/>
                     <OptionBox list={category.filter(v=>v.code==bigcate)[0].list} onClick={handleMiddleCategory} now={middlecate}/>
+                    <OptionBox list={seasons} onClick={handleSeason} now={season}/>
                 </div>
             </div>
             <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요. 
@@ -107,7 +117,7 @@ const ProductOption =
                 <div className="select_option">
                     <span><p>색상 :</p>
                     <input type="text" 
-                    defaultValue={optionColor}
+                    defaultValue={colors}
                     onChange={(e)=>{setColorInput(e.target.value)}}
                     placeholder="색상 옵션을 입력하세요 ex) 검정,아이보리,회색"
                     />
@@ -115,7 +125,7 @@ const ProductOption =
                     <span><p>사이즈 :</p>
                     <input 
                     type="text"
-                    defaultValue={optionSize}
+                    defaultValue={size}
                     onChange={(e)=>{setSizeInput(e.target.value)}}
                     placeholder="사이즈 옵션을 입력하세요 ex) free"
                     />
@@ -123,7 +133,24 @@ const ProductOption =
                 </div>
             </>
                 :
-            <AucOption renderOptions={renderOptions}/>
+            <AucOption 
+            renderOptions={renderOptions}
+            season={season}
+            seasons={seasons}
+            handleSeason={handleSeason}
+            colors={colors}
+            setColors={setColors}
+            colorInput={colorInput}
+            setColorInput={setColorInput}
+            size={size}
+            setSize={setSize}
+            sizeInput={sizeInput}
+            setSizeInput={setSizeInput}
+            qty={qty}
+            setQty={setQty}
+            price={price}
+            setPrice={setPrice}
+            />
             }
             <div className="option_btn">
             <Button value="옵션 선택 완료" func={optionCheck}/>

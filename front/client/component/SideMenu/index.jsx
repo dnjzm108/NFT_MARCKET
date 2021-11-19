@@ -34,7 +34,7 @@ const SideMenu = () => {
           <MenuItem value='판매(경매) 내역' url='/user/list/auctionsell'/>
           <MenuItem value='구매 내역' url='/user/list/buy'/>
           <MenuItem value='경매 내역' url='/user/list/auction'/>
-          <MenuItem value='관심 상품' url='/user/list/favorite'/>
+          {/* <MenuItem value='관심 상품' url='/user/list/favorite'/> */}
       </div>
 
        

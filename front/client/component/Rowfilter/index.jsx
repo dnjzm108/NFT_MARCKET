@@ -18,10 +18,10 @@ const sortList = [
 
 
 
-const Rowfilter = () => {
+const Rowfilter = ({children}) => {
   const dispatch= useDispatch()
   const router = useRouter()
-  const [search, setSearch] = useState()
+  const [search, setSearch] = useState("")
 
     //정렬기준이 바뀔때.
     const handleSort = (code) => {
@@ -48,6 +48,7 @@ const Rowfilter = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
+      if(search=='') return;
       let data = {...router.query}
         data["search"]=search; 
       
@@ -85,7 +86,7 @@ const Rowfilter = () => {
             <OptionBox list={sortList}  onClick={handleSort} now={router.query.sort==undefined? 'new' : router.query.sort }/>
           </div>
         </div>
-       <SearchView/>
+        {children!==undefined && children}
     </StyledRowFilter>
   );
 }

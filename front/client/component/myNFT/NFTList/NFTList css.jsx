@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const NFTListContainer = styled.div`
-width:calc(100vw - 360px);
+/* width:calc(100vw - 360px); */
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
@@ -217,6 +217,10 @@ export const ImmySellTable = styled.table`
       }
     }
   }
+`
+
+export const FavoriteTable = styled.div`
+
 `
 
 

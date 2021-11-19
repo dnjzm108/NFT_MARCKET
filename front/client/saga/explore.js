@@ -42,6 +42,7 @@ function* updateLike(action){
 
 }
 async function exploreAPI(data){
+    
     let {params,nickname} = data
     const config = {
         params,

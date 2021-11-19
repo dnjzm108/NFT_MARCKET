@@ -12,18 +12,18 @@ import { UserJoin_REQUEST } from '../../reducers/user.js';
 import Router from "next/router"
 import axios from 'axios'
 import { url } from '../../saga/url.js';
+import {Name_Check} from '../../reducers/product'
 
 
 
 const Join = (data) => {
-
-    const [check, setCheck] = useState('')
     const [checkBox1, setCheckBox1] = useState(false)
     const [checkBox2, setCheckBox2] = useState(false)
     const [checkBox3, setCheckBox3] = useState(false)
     const [images, setImages] = useState();
     const dispatch = useDispatch()
-    // const state_data = useSelector(state => state.user)
+    const state_data = useSelector(state => state.product)
+    const {name_check} = state_data
 
     const nickname = useInput('');
     const email = useInput('');
@@ -40,23 +40,12 @@ const Join = (data) => {
         Router.push('/')
     }
 
-    const checking = async () => {
+    const checking = async (e) => {
         let name = {
-            name: nickname.value
+            name : e
         }
-        if (nickname.value !== '') {
-            let result = await axios.post(`${url}/user/name_check`,name)
-            if (result.data.response) {
-                setCheck(result.data.response)
-            } else {
-                setCheck(result.data.response)
-            }
-        } else {
-            setCheck('')
-        }
-
+            dispatch(Name_Check(name))
     }
-
     const hadleCheck1 = () => {
         setCheckBox1(!checkBox1)
     }
@@ -104,12 +93,12 @@ const Join = (data) => {
                     <Small_Contain>
                         <label htmlFor="nickname" >닉네임</label>
                         <span>* 5~20자의 한글, 영문 대소문자, 숫자, 특수기호(_),(-),(.)만 사용 가능합니다.</span>
-                        <CustomInput {...nickname} func={checking} msg="닉네임을 입력해 주세요" type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
+                        <CustomInput {...nickname} length="20" func={checking} msg="닉네임을 입력해 주세요" type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
                     </Small_Contain>
-                    {check !== '' ? check == true ? <span style={{ color: 'blue' }}>사용할수있는 닉네임 입니다.</span> : <span style={{ color: "red" }}>사용할수없는 닉네임 입니다.</span> : ''}
+                    {name_check !== '' ? name_check == true ? <span style={{ color: 'blue' }}>사용할수있는 닉네임 입니다.</span> : <span style={{ color: "red" }}>사용할수없는 닉네임 입니다.</span> : ''}
                     <Small_Contain>
                         <label htmlFor="email_address">이메일 주소</label>
-                        <CustomInput {...email} msg="이메일을 입력해 주세요" id="email_address" placeholder="이메일을 입력해주세요" />
+                        <CustomInput {...email} length="30" msg="이메일을 입력해 주세요" id="email_address" placeholder="이메일을 입력해주세요" />
 
 
                     </Small_Contain>
