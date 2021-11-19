@@ -49,8 +49,8 @@ const FileInformation = (props) => {
                     {/* title */}
                     <p>이름</p>
                     <input type="text" 
-                    defaultValue={props.title}
-                    onChange={(e)=>{props.setTitle(e)}}
+                    defaultValue={props.name}
+                    onChange={(e)=>{props.setName(e)}}
                     className="name_input" 
                     placeholder="이름을 입력해주세요. (최대 50자까지)" />
 
@@ -66,8 +66,8 @@ const FileInformation = (props) => {
                     <p>설명</p>
                     <textarea 
                     rows="6" 
-                    defaultValue ={props.description}
-                    onChange={(e)=>{props.setDescription(e)}}
+                    defaultValue ={props.explain}
+                    onChange={(e)=>{props.setExplain(e)}}
                     className="explain_box" 
                     placeholder="설명을 입력해주세요"></textarea>
                     {/* <input type="text" className="explain_box" placeholder="설명을 입력해주세요." /> */}

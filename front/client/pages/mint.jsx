@@ -5,6 +5,7 @@ import wrapper from '../store/configureStore'
 import {Mint_MainCate_Request , Mint_MiddleCate_Request, Getcategory_REQUEST} from '../reducers/mint'
 
 
+
 const mint = () => {
   return (
     <div>

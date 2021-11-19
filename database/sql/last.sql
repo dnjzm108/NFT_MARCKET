@@ -396,7 +396,7 @@ INSERT INTO `product_detail` (`product_id`, `product_no`, `color`, `size`, `qty`
 -- 테이블 nft_market.product_image 구조 내보내기
 CREATE TABLE IF NOT EXISTS `product_image` (
   `product_no` varchar(10) DEFAULT NULL,
-  `img` varchar(50) DEFAULT NULL,
+  `img` varchar(100) DEFAULT NULL,
   KEY `FK__product` (`product_no`),
   CONSTRAINT `FK_product_image_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
