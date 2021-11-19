@@ -61,6 +61,6 @@ console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
 //   console.log(receipt)
 }
 
-KIP7token();
+// KIP7token();c
 
 

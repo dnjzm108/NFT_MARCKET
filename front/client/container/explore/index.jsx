@@ -8,28 +8,32 @@ import { useDispatch, useSelector,} from 'react-redux'
 import { useRouter } from "next/router";
 import { ExploreRequest } from '../../reducers/explore'
 import Rowfilter from "../../component/Rowfilter";
+import SearchView from "../../component/SearchView"
 const Explore = () => {
   const dispatch = useDispatch();
   const router = useRouter()
   const {user_info} = useSelector(state=>state.user);
   const {isError,skip} = useSelector(state=>state.explore)
-  const [fetch,setFetch] = useState(false);
-
-
+  
+  
   useEffect(()=>{
     const data = {
       params:router.query,
-      nickname:user_info.nickname
+      nickname:user_info.nickname,
+      auth:user_info.auth,
     }
     dispatch(ExploreRequest(data))
   },[router.query])
+  
+  const [fetch,setFetch] = useState(false);
+
 
   const fetchMoreNFT = async () => {
     setFetch(true);
     const data = {
       params:{...router.query,skip},
-      wallet:user_info.wallet,
-      skip,
+      nickname:user_info.nickname,
+      auth:user_info.auth,
     }
     dispatch(ExploreRequest(data));
     setFetch(false);
@@ -68,7 +72,9 @@ const Explore = () => {
           <div className='content-box'>
             <Filter />
             <div className='content-right'>
-              <Rowfilter/>
+              <Rowfilter>
+                <SearchView/>
+              </Rowfilter>
               <Gallery />
             </div>
           </div>

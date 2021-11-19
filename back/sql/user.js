@@ -12,6 +12,8 @@ const login_sql = () => {
     )
 }
 
+
+
 //닉네임 체크 구문
 //필요값 체크할 닉네임
 const name_check_sql = () => {
