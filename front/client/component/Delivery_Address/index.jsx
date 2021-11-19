@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import CloseIcon from '@mui/icons-material/Close';
 import { Icon_Close } from '../Login/Login.css'
 import { Popup_background } from "../Wrap/Popup_Background";
@@ -11,8 +10,6 @@ import PopupDom from './PopupDom';
 import PopupPostCode from './PopupPostCode';
 import { useState } from 'react';
 import useInput from '../../hooks/useInput';
-import axios from 'axios';
-import { url } from '../../saga/url'
 import Router from "next/router"
 import {useDispatch} from 'react-redux'
 import {Apply_Immy} from '../../reducers/product'
@@ -115,13 +112,13 @@ const Delivery_Address_Component = (props) => {
                         <tr>
                             <td>수령인</td>
                             <td>
-                                <CustomInput {...Recipient} placeholder="수령인을 적어주세요" msg="수령인을 적어주세요" />
+                                <CustomInput {...Recipient} length="20" placeholder="수령인을 적어주세요" msg="수령인을 적어주세요" />
                             </td>
                         </tr>
                         <tr>
                             <td>요청 사항</td>
                             <td>
-                                <CustomInput {...requirement} placeholder="요청 사항을 적어주세요" />
+                                <CustomInput {...requirement} length="20" placeholder="요청 사항을 적어주세요" />
                             </td>
                         </tr>
                         <tr>
@@ -130,7 +127,7 @@ const Delivery_Address_Component = (props) => {
                                 <input type="radio" name="receive" onClick={receive} value="문앞" /> 문앞
                                 <input type="radio" name="receive" onClick={receive} value="경비실" /> 경비실
                                 <input type="radio" name="receive" onClick={receive} value="택배함" /> 택배함
-                                <input type="radio" name="receive" onClick={receive} value="기타" /> 기타   <CustomInput {...other} />
+                                <input type="radio" name="receive" onClick={receive} value="기타" /> 기타   <CustomInput length="20"{...other} />
                             </td>
                         </tr>
                         <tr>
@@ -141,7 +138,7 @@ const Delivery_Address_Component = (props) => {
                                 {address !== '' ? <h3>우편번호</h3> : ''}
                                 <div>{postNumber}</div>
                                 {address}
-                                {address !== '' ? <CustomInput {...address_detail} placeholder="상세주소를 입력해 주세요" /> : ''}
+                                {address !== '' ? <CustomInput {...address_detail} length="20" placeholder="상세주소를 입력해 주세요" /> : ''}
                                 <AddressFind type='button' onClick={openPostCode}>주소 찾기</AddressFind>
                                 <div id='popupDom'>
                                     {isPopupOpen && (
@@ -155,7 +152,7 @@ const Delivery_Address_Component = (props) => {
                         </tr>
                         <tr>
                             <td>전화번호</td>
-                            <td><CustomInput {...Ponenumber} placeholder=" - 빼고 입력해 주세요" /></td>
+                            <td><CustomInput {...Ponenumber}  length="12" placeholder=" - 빼고 입력해 주세요" /></td>
                         </tr>
                         </tbody>
                     </Table>
