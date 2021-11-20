@@ -28,21 +28,8 @@ const BuyItem = (
     handleShipPopUp,
     handleShipTarget,
 }) => {
-  console.log(
-    color,
-    creater,
-    img,
-    name,
-    order_date,
-    order_id,
-    order_price,
-    product_no,
-    qty,
-    size,
-    dlvy_status,
-    selltype,
-  )
-
+  
+  const {user_info} = useSelector(state=>state.user)
   const dispatch = useDispatch();  
 
   const handleShipAddress = ()=>{
@@ -56,7 +43,9 @@ const BuyItem = (
     ////// 거래하는 솔리디티 //////
     //////////////////////////////
     const data={
-      order_id
+      order_id,
+      nickname:user_info.nickname,
+      auth:user_info.auth,
     }
     dispatch(UpdateDeliveryRequest(data))
   }

@@ -11,12 +11,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {UpdateInvoiceRequest} from '../../reducers/mylist'
 const Invoice = (props) => {
     const dispatch=useDispatch()
+    const {user_info} = useSelector(state=>state.user)
     const {list} = useSelector(state=>state.mylist);
     const target = list.filter(v=>v.order_id==props.order_id)[0]
     const invoice_number = useInput('')
     const dlvyCompany = useInput('')
     const handleInvoiceInfo = () =>{
         const data={
+            nickname:user_info.nickname,
+            auth:user_info.auth,
             invoice:invoice_number.value,
             delivery_company:dlvyCompany.value,
             order_id:props.order_id,
