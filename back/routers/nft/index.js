@@ -13,8 +13,9 @@ const itemController = require('./item.controller')
 
 router.post('/mint',upload.array('image'),mintController.mint_nft);
 
-router.post('/auctioninfo',mintController.auction_info);
+
 router.get('/category',mintController.getCategory);
+
 
 router.post('/sell',sellController.immediatelySell);
 

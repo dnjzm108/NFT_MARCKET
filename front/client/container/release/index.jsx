@@ -13,21 +13,43 @@ import { Mint_REQUEST } from '../../reducers/mint';
 import Router from "next/router";
 
 
-const Release = ({mint}) => {
-    const {isLoading} = useSelector(state=>state.mint)
+const Release = () => {
+    const seasons=[
+        {name:'봄', code:'P'},
+        {name:'여름', code:'V'},
+        {name:'가을', code:'O'},
+        {name:'겨울', code:'I'},
+        {name:'기타', code:'E'},
+    ]
+
+    const {isLoading,category} = useSelector(state=>state.mint)
+
     const {user_info} = useSelector(state=>state.user)
+    
     const dispatch = useDispatch()
-    const title = useInput();
+    const name = useInput();
     const symbol = useInput();
-    const description = useInput();
-    const optionColor = useInput();
-    const optionSize = useInput();
-    const optionEtc = useInput();
+    const explain = useInput();
+    const bid = useInput();
+
+    const [startDate, setStartDate] = useState(new Date())
+    const [extension,setExtension] = useState('0')
     const [images, setImages] = useState();
     const [agree,setAgree]=useState([false,false]);
     const [isNow,setIsNow] = useState(true);
     const [isClick,setIsClick]=useState([false,false])
-    
+
+    const [colors,setColors]=useState([])
+    const [colorInput,setColorInput] = useState("")
+    const [size,setSize]=useState([])
+    const [sizeInput,setSizeInput] = useState("")
+    const [qty,setQty] = useState([]);
+    const [price,setPrice] = useState([]);
+
+    const [bigcate,setBigcate]=useState(category[0].code)
+    const [middlecate,setMiddlecate]=useState(category[0].list[0].code)
+    const [season,setSeason] = useState(seasons[0].code)
+
     // 즉시구매를 선택한 경우
     const handleNow = () => {
         setIsNow(true);
@@ -38,6 +60,15 @@ const Release = ({mint}) => {
         setIsNow(false);
     }
     
+    // datepicker 설정 - 오늘 이전 날짜는 선택 못하게
+    const isPossibleDay = (date) => {
+        const currentDate = new Date();
+        const selectedDate = new Date(date);
+        return currentDate.getDate() <= selectedDate.getDate();
+      };
+
+
+    // 파일 최대 10개만 고를수 있게
     const fileSelected = event => {
         let {files} = event.target
         if (files.length > 10) {
@@ -52,44 +83,74 @@ const Release = ({mint}) => {
     }
 
     // 정보들 formData에 담는 코드
-    const handleData = async ()=> {
-            const formData = new FormData();
-            for (let i = 0; i < images.length; i++) {
-                formData.append("image", images[i])
-            }
-            formData.append("description", description.value)
-            formData.append("title", title.value)
-            formData.append("symbol", symbol.value)
-            formData.append("optionColor", optionColor.value)
-            formData.append("optionSize", optionSize.value)
-            formData.append("optionEtc", optionEtc.value)
-            formData.append("creater",user_info.nickname)
-            console.log(formData)
-            dispatch(Mint_REQUEST(formData))
-    }
+    const handleData = async () => {
+        const slength = size.length;
+        const options = [];
+        const formData = new FormData();
+        const deadline = new Date(+startDate + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, '');
+        const files = [];
+        colors.forEach((c, i) => {
+            size.forEach((s, j) => {
+                const option = {
+                    color: c,
+                    size: s,
+                    qty: qty[i * slength + j],
+                    price: price[i * slength + j],
+                }
+                formData.append("options",JSON.stringify(option))
+            });
+        })
 
+        for (let i = 0; i < images.length; i++) {
+            files.push(images[i])
+            formData.append("image", images[i] )
+        }
+        formData.append("explain", explain.value)
+        formData.append("name", name.value)
+        formData.append("symbol", symbol.value)
+        formData.append("creater", user_info.nickname)
+        // formData.append("creater", user_info.nickname)
+
+        formData.append("type", isNow)
+        formData.append("bid", bid.value)
+        formData.append("deadline", deadline)
+        formData.append("extension", extension)
+        
+        
+        formData.append("category", middlecate)
+        
+        formData.append("season", season)
+
+        dispatch(Mint_REQUEST(formData))
+        Router.push('/')
+    }
+    
+
+
+
+    // 동의 1,2 모두 했는지 확인
     const handleAgree = (num)=>{
         let newAgree = [...agree];
         newAgree[num] = !newAgree[num]
         setAgree(newAgree);
     }
 
+
+    // 입력정보 모두 받았는지 프론트 체크
     const handleSubmit =()=>{
-        if(agree[0]===false ||agree[1]===false){
-            alert("개인정보제공 및 유의사항 확인에 동의해주세요")
-            return ;
-        // }
-        // else if(title.value==null || description.value==null || images==null){ 
-        //     alert("이미지, 텍스트를 모두 입력해주세요.")
-        //     return;
-        }else if(isClick==false ){
-            alert("옵션 선택 완료 버튼을 눌러주세요")
-            return;
-        }else{
-            // alert("상품등록이 완료되었습니다.")
+        // if(agree[0]===false ||agree[1]===false){
+        //     return alert("개인정보제공 및 유의사항 확인에 동의해주세요")
+        // }else if(isClick==false ){
+        //     return alert("옵션 선택 완료 버튼을 눌러주세요")
+        // }else if (images == undefined) {
+        //    return alert('이미지를 선택해주세요')
+        // } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
+        //     return alert("상품 정보를 입력해주세요")
+        // } else{
+            alert("상품등록이 완료되었습니다.")
             handleData();
-        }
-        Router.push('/')
+        // }
+        // Router.push('/')
     }
     
 
@@ -108,27 +169,49 @@ const Release = ({mint}) => {
                     handleNow={handleNow}
                     handleAuc={handleAuc}
                     isNow={isNow}
+                    bid={bid}
+                    extension={extension}
+                    setExtension={setExtension}
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    isPossibleDay={isPossibleDay}
                     />
-                        <FileInformation
-                            title={title.value}
-                            setTitle={title.onChange}
-                            symbol = {symbol.value}
-                            setSymbol = {symbol.onChange}
-                            description={description.value}
-                            setDescription={description.onChange}
-                            handleImg={fileSelected}
-                        />
+                    <FileInformation
+                    name={name.value}
+                    setName={name.onChange}
+                    symbol = {symbol.value}
+                    setSymbol = {symbol.onChange}
+                    explain={explain.value}
+                    setExplain={explain.onChange}
+                    handleImg={fileSelected}
+                    />
                     </div>
-                    <Thumbnail />
+                    {/* <Thumbnail /> */}
                 </div>
                 <ProductOption 
                 isNow={isNow} 
-                isClick={isClick} 
-                setIsClick={setIsClick}
-                optionColor={optionColor.value}
-                setOptionColor={optionColor.onChange}
-                optionSize={optionSize.value}
-                setOptionSize={optionSize.onChange}
+                isClick={isClick}
+
+                colors={colors}
+                setColors={setColors}
+                colorInput={colorInput}
+                setColorInput={setColorInput}
+
+                size={size}
+                setSize={setSize}
+                sizeInput={sizeInput}
+                setSizeInput={setSizeInput}
+                
+                qty={qty} setQty={setQty}
+                price={price} setPrice={setPrice}
+
+                bigcate={bigcate}
+                setBigcate={setBigcate}
+                middlecate={middlecate}
+                setMiddlecate={setMiddlecate}
+                seasons={seasons}
+                season={season}
+                setSeason={setSeason}
                 />
                 
                 <AgreeInfo 

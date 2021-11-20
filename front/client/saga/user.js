@@ -12,6 +12,8 @@ function* join(action){
     
     let result = yield call(joinAPI,action.data)
     let {response} = result.data
+    const {data} = result;
+
     if (response !== null) {
         yield put({
             type: 'USER_JOIN_SUCCESS',
@@ -46,12 +48,35 @@ function* login(action){
     }
     
 }
+function sellerAPI(data){
+    return axios.post(`${url}/user/applyseller`,data)
+}
 
+function* seller(action){
+    let result = yield call(sellerAPI,action.data)
+    console.log(result);
+    let {success,error} = result.data
+
+    if (success == true) {
+        yield put({
+            type: 'SELLER_APPLY_SUCCESS'
+        })
+        alert('정상정으로 신청되었습니다.')
+    } else {
+        yield put({
+            type: 'SELLER_APPLY_ERROR'
+        })
+        alert(error.message)
+    }
+    
+}
 
 
 function* watchUser(){
     yield takeLatest('USER_LOGIN_REQUEST',login)
     yield takeLatest('USER_JOIN_REQUEST',join)
+    yield takeLatest('SELLER_APPLY',seller)
+    
 }
 
 export default function* userSaga(){

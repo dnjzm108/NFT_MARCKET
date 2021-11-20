@@ -7,23 +7,32 @@ const initalState = {
         email:null,
         seller:null,
         status:null
-    },
-    name_check:'',
+    }
 }
 
 const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST"
 const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS"
 const USER_LOGIN_ERROR = "USER_LOGIN_ERROR"
 
-export const USER_LOGOUT = "USER_LOGOUT"
+const USER_LOGOUT = "USER_LOGOUT"
 
 const USER_JOIN_REQUEST = "USER_JOIN_REQUEST"
 const USER_JOIN_SUCCESS = "USER_JOIN_SUCCESS"
 const USER_JOIN_ERROR = "USER_JOIN_ERROR"
 
+const SELLER_APPLY = "SELLER_APPLY"
+const SELLER_APPLY_SUCCESS = "SELLER_APPLY_SUCCESS"
+const SELLER_APPLY_ERROR = "SELLER_APPLY_ERROR"
 
 
 
+export const Seller_Apply_Request = (data) =>{
+    return{
+        type:SELLER_APPLY,
+        data
+    }
+ }
+ 
 export const User_Logout = () =>{
     return{
         type:USER_LOGOUT
@@ -102,18 +111,34 @@ const reducer = (state = initalState,action) => {
                 loadding: false,
             }
             
-        case USER_LOGOUT:
-            return {
-                ...state,
-                IsLogin: false,
-                user_info:{
-                    nickname:null,
-                    wallet:null,
-                    email:null,
-                    seller:null,
-                    status:null
-                }
-            } 
+            case USER_LOGOUT:
+                return {
+                    ...state,
+                    IsLogin: false,
+                    user_info:{
+                        nickname:null,
+                        wallet:null,
+                        email:null,
+                        seller:null,
+                        status:null
+                    }
+                } 
+                
+                case SELLER_APPLY:
+                    return {
+                        ...state,
+                        loadding: true,
+                    }
+                case SELLER_APPLY_SUCCESS:
+                    return {
+                        ...state,
+                        loadding: false,
+                    }
+                case SELLER_APPLY_ERROR:
+                    return {
+                        ...state,
+                        loadding: false,
+                    }
 
         default:
             return state

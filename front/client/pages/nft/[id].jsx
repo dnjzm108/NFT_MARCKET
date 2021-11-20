@@ -18,9 +18,10 @@ const Product_Detail = () => {
     )
 }
 
-    // export const getServerSideProps = wrapper.getServerSideProps( (Store)=> async (req,res)=> {
+    // export const getServerSideProps = wrapper.getServerSideProps( (Store)=> async (ctx)=> {
+    //     console.log("rwerwerwerwrwer",ctx);
     //     // 첫번쨰는 dispatch 써서 API 요청을 보냅니다. 그리고 상태를 변경시킵니다.
-    //     Store.dispatch(Product_Page_Request()
+    //     Store.dispatch(Product_Page_Request(ctx.query))
     //     Store.dispatch(END)
     //     await Store.sagaTask.toPromise()
     //   })

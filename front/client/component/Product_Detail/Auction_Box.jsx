@@ -15,7 +15,6 @@ useEffect(()=>{
 if(auction_info[0] !== undefined){
     setIsLoading(false)
 }
-console.log(auction_info);
 },[auction_info])
 
 if(isLoading){

@@ -11,6 +11,8 @@ const {
   deleteLikeSql,
 } = require('../../sql/main')
 
+const {createHash} = require('../../auth')
+
 const {
   loginWithWalletSql
 } = require('../../sql/user') 
@@ -58,10 +60,12 @@ const getMainInit = async(req,res) => {
 
 const getMain = async(req,res)=>{
   let nickname = req.get('nickname')
-  if(nickname=='null'){
+  let auth=req.get('auth');
+  let identify = createHash(nickname)
+
+  if(nickname=='null'||auth!=identify){
     nickname=''
-  };
-  
+  }
 
   let params = req.query;
   params.skip = params.skip==undefined ? 0 : params.skip

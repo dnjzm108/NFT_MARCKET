@@ -52,7 +52,9 @@ const initalState = {
         color:null,
         size:null,
         name:null,
-    }
+    },
+    name_check:'',
+    error_msg:null
 }
 
 const PRODUCT_PAGE_REQUEST = "PRODUCT_PAGE_REQUEST"
@@ -70,6 +72,17 @@ const IMMY_ERROR = "IMMY_ERROR"
 const NOTICE_INFO = "NOTICE_INFO"
 const NOTICE_INFO_SUCCESS = "NOTICE_INFO_SUCCESS"
 const NOTICE_INFO_ERROR = "NOTICE_INFO_ERROR"
+
+const USER_NAME_CHECK = "USER_NAME_CHECK"
+const USER_NAME_ERROR = "USER_NAME_ERROR"
+const USER_NAME_SUCCESS = "USER_NAME_SUCCESS"
+
+export const Name_Check = (data) =>{
+    return{
+        type:USER_NAME_CHECK,
+        data
+    }
+ }
 
 export const Notice_Info = (data) => {
     return {
@@ -148,7 +161,8 @@ const reducer = (state = initalState, action) => {
             return {
                 ...state,
                 loadding: false,
-                auctions: false
+                auctions: false,
+                error_msg:action.msg
             }
 
         case APPLY_IMMY:
@@ -190,7 +204,25 @@ const reducer = (state = initalState, action) => {
                 loadding: false
             }
 
+            case USER_NAME_CHECK:
+                return{
+                    ...state,
+                    loadding: true
+                }
 
+            case USER_NAME_ERROR:
+                return{
+                    ...state,
+                    loadding: false,
+                    name_check:''
+                }
+                
+            case USER_NAME_SUCCESS:
+                return{
+                    ...state,
+                    loadding: false,
+                    name_check:action.check
+                }
 
 
         default:

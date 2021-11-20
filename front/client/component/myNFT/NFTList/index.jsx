@@ -1,4 +1,4 @@
-import { NFTListContainer, Header, BuyTable,ImmySellTable, AuctionTable, AuctionSellTable } from "./NFTList css";
+import { NFTListContainer, Header, BuyTable,ImmySellTable, AuctionTable, AuctionSellTable,FavoriteTable } from "./NFTList css";
 import { useDispatch, useSelector } from "react-redux";
 import { ListUpdateRequest } from '../../../reducers/mylist'
 import { BiSearch } from 'react-icons/bi'
@@ -11,6 +11,7 @@ import OptionBox from '../../OptionBox/OptionBox'
 import {statusList,sortList,typeList} from './list.js'
 import { useRouter } from "next/router";
 import Invoice from '../../Invoice'
+import Gallary from '../../Gallery'
 import ShipAddress from "../../Popup/ShipAddress";
 const NFTList = () => {
   const dispatch = useDispatch();
@@ -88,7 +89,7 @@ const NFTList = () => {
           product_no={v.product_no}
           qty={v.qty}
           size={v.size}
-          status={v.dlvy_status}
+          dlvy_status={v.dlvy_status}
           selltype={v.selltype}
           likes={v.likes}
           handleShipTarget ={setShip}
@@ -180,6 +181,30 @@ const NFTList = () => {
     }
   }
 
+  const renderFavorite = () => {
+    if (list.length == 0) {
+      return <tr><td>검색결과가 없습니다.</td></tr>
+    } else {
+      return list.map((v, i) => {
+        return <ImmySellItem
+        type={v.type}
+        product_no={v.product_no}
+        price={v.price}
+        name={v.name}
+        creater={v.creater}
+        likes={v.likes}
+        img={v.img}
+        isLike={v.isLike}
+        />
+      })
+    }
+  }
+
+
+
+
+ 
+
 
   if(type==null) return <span>로딩중입니다.</span>
   return (
@@ -270,6 +295,12 @@ const NFTList = () => {
               {renderAuctionSellItem()}
             </tbody>
           </AuctionSellTable>
+      )}
+
+      {type === 'favorite' && (
+          <FavoriteTable>
+              {renderFavorite()}
+          </FavoriteTable>
       )}
     </NFTListContainer>
   );
