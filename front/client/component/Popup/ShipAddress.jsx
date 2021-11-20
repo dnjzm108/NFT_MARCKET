@@ -42,6 +42,8 @@ const ShipAddress = ({handleShipPopUp}) => {
         alert('빈칸을 확인해주세요')
       } else {
         const ship_info = {
+            nickname:user_info.nickname,
+            auth:user_info.auth,
           reciever: Recipient.value,
           recieve_type: recieveType,
           phone_number: Phonenumber.value,
