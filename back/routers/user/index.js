@@ -4,7 +4,7 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const controller = require('./user.controller')
 const listController = require('./list.controller')
-const {checking} = require('../../auth')
+const {checking,checkHeader} = require('../../auth')
 
 
 router.post('/join',upload.single('image'),controller.join)
@@ -14,10 +14,10 @@ router.post('/admin',controller.admin)
 router.post('/checkseller',controller.checkseller)
 router.post('/applyseller',controller.applyseller)
 
-router.get('/buy',checking,listController.getMyBuy);
-router.get('/auction',checking,listController.getMyAuction);
-router.get('/immysell',checking,listController.getMyImmySell);
-router.get('/auctionsell',checking,listController.getMyAuctionSell);
+router.get('/buy',checkHeader,listController.getMyBuy);
+router.get('/auction',checkHeader,listController.getMyAuction);
+router.get('/immysell',checkHeader,listController.getMyImmySell);
+router.get('/auctionsell',checkHeader,listController.getMyAuctionSell);
 router.post('/ship',checking,listController.updateShipInfo);
 router.put('/invoice',checking,listController.updateInvoiceInfo);
 router.put('/delivery',checking,listController.completeDelivery);

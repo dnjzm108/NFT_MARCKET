@@ -25,7 +25,20 @@ function checking(req, res, next){
    }
 }
 
+function checkHeader(req,res,next){
+    let nickname = req.get('nickname')
+    let auth=req.get('auth');
+    let identify = createHash(nickname)
+    if(auth == identify){
+        next()
+    }else{
+        res.json(error403())
+    }
+}
+
+
 module.exports ={
     createHash,
-    checking
+    checking,
+    checkHeader
 }

@@ -17,8 +17,13 @@ import {LIST_UPDATE_REQUEST,
 import {url} from './url'
 
 async function myListAPI(data){
+    let {params,nickname,auth} = data
     const config = {
-        params:data,
+        params,
+        headers:{
+            'nickname':nickname,
+            'auth':auth,
+          },
     }
       return await axios.get(`${url}/user/${data.type}`,config)
   }
