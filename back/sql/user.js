@@ -8,7 +8,7 @@ const join_sql = () => {
 //로그인 구문
 //필요값 지갑주소
 const login_sql = () => {
-    return (`SELECT * FROM user WHERE wallet = ?`
+    return (`select A.nickname,A.wallet,A.email,A.picture,B.seller_no,B.status from user as A left join seller as B on A.nickname = B.nickname WHERE A.wallet = ?`
     )
 }
 
