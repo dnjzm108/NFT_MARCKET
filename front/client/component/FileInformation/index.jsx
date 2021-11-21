@@ -7,6 +7,8 @@ const FileInformation = (props) => {
     const handleForm =(e)=>{
         e.preventDefault();
     }
+
+    
     return(
         <StyledFileInformation>
             <StyledNewRelease>
@@ -35,14 +37,9 @@ const FileInformation = (props) => {
                     id="click_submit"
                     >
                     </input>
-                    {/* <div className="imagecon">
-                        <img src={myImage}/>
-                        {images.map(image => (
-                            <div key={image}>
-                                <img src={image}></img>
-                            </div>
-                        ))}
-                    </div> */}
+                    <div className="imagecon">
+                    
+                    </div>
                 </div>
                 <div className="information_input">
 
@@ -56,6 +53,7 @@ const FileInformation = (props) => {
 
                     {/* 심볼 */}
                     <p>SYMBOL</p>
+                    <h3>* 해당 nft를 줄여 부를 때 사용됩니다. ex ) eth , klay (최대 10자까지) </h3>
                     <input type="text" 
                     defaultValue={props.symbol}
                     onChange={(e)=>{props.setSymbol(e)}}
