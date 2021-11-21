@@ -3,25 +3,41 @@ import { Container } from "../Form/Container";
 import { Icon_Close } from "../Login/Login.css";
 import CloseIcon from '@mui/icons-material/Close';
 import { Underline, Table, Btn_Box } from './seller_apply.css'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Link from "next/link";
 import CustomInput from "../CustomInput";
 import Button from '../Button';
 import useInput from "../../hooks/useInput";
+import { Seller_Apply_Request } from "../../reducers/user"
 
-const Seller_Apply = () => {
+const Seller_Apply = (props) => {
+    const dispatch = useDispatch()
     const data = useSelector(state => state.user)
+    const { nickname, auth } = data.user_info
     const info = data.user_info
 
     const sell_number = useInput()
+
+    const handleapply = () => {
+        if (sell_number.value == undefined) {
+            alert('사업자 번호를 입력해 주세요')
+        } else {
+            let info = {
+                nickname,
+                auth,
+                seller_no: sell_number.value
+            }
+            dispatch(Seller_Apply_Request(info))
+        }
+
+    }
+
     return (
         <>
             <Popup_background>
                 <Container>
-                    <Icon_Close>
-                        <Link href="/">
-                            <CloseIcon color="disabled" sx={{ fontSize: 55 }} />
-                        </Link>
+                    <Icon_Close onClick={props.close}>
+                        <CloseIcon color="disabled" sx={{ fontSize: 55 }} />
                     </Icon_Close>
 
                     <div>
@@ -51,7 +67,7 @@ const Seller_Apply = () => {
                         <Underline />
                         <CustomInput {...sell_number} />
                         <Btn_Box>
-                            <Button value="신청하기" url="/" />
+                            <Button value="신청하기" func={handleapply} />
                         </Btn_Box>
 
                     </from>

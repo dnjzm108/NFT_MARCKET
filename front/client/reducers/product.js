@@ -54,6 +54,7 @@ const initalState = {
         name:null,
     },
     name_check:'',
+    error_msg:null
 }
 
 const PRODUCT_PAGE_REQUEST = "PRODUCT_PAGE_REQUEST"
@@ -160,7 +161,8 @@ const reducer = (state = initalState, action) => {
             return {
                 ...state,
                 loadding: false,
-                auctions: false
+                auctions: false,
+                error_msg:action.msg
             }
 
         case APPLY_IMMY:

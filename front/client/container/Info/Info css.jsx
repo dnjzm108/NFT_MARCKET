@@ -5,4 +5,9 @@ import styled from "styled-components";
  justify-content: flex-start;
  align-items: flex-start;
  padding-right: 20px;
+
+
+ .contenet_box{
+   flex: 1;
+ }
 `

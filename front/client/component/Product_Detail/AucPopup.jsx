@@ -5,16 +5,15 @@ import Button from "../Button"
 import CustomInput from "../CustomInput"
 import useInput from "../../hooks/useInput";
 import { useDispatch, useSelector } from 'react-redux';
-import axios from "axios";
-import { url } from "../../saga/url";
 import Router from "next/router";
 import {Apply_Auction} from '../../reducers/product'
+
 
 const AucPopup = (props) => {
     const state_data = useSelector(state => state.user)
     const {user_info} = state_data
     const product_state = useSelector(state => state.product)
-    const {auction_info,product_info} = product_state;
+    const {auction_info,product_info,error_msg} = product_state;
     const bid_price = useInput()
     const dispatch = useDispatch()
 
@@ -22,11 +21,15 @@ const AucPopup = (props) => {
     const applyAuction = async () => {
 
         const histoty_data = {
+            product_no: product_info[0].product_no,
             auction_id: auction_info[0].auction_id,
             bider: user_info.nickname,
             bid: bid_price.value,
+            option:auction_info[0].option,
+            deadline:auction_info[0].deadline,
             auction_history_id:auction_info[0].auction_history_id,
-            auth:user_info.auth
+            auth:user_info.auth,
+            nickname:user_info.nickname
         }
         if (user_info.nickname == undefined) {
             return alert("로그인을 진행해 주세요")

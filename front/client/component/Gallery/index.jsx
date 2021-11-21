@@ -3,6 +3,7 @@ import { StyledGallery } from "./Gallery.css";
 import {useSelector} from 'react-redux'
 const Gallery = () => {
   const {list} = useSelector((state)=>state.explore);
+  
 
   const renderNFTItem = ()=>{
 

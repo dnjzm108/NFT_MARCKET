@@ -1,8 +1,8 @@
 
 import Link from 'next/link'
 import CloseIcon from '@mui/icons-material/Close';
-import { Content, Logo, Copyed, Icon_Close } from './Login.css.jsx'
-import { Wrap } from '../Wrap/Popup_Back.jsx';
+import { Content, Logo, Copyed, Icon_Close,Container } from './Login.css.jsx'
+import { Wrap_vh } from '../Wrap/Popup_Back.jsx';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { UserLogin_REQUEST, User_Join_Check } from '../../reducers/user'
@@ -52,14 +52,14 @@ const Login = () => {
 
     return (
         <>
-            <Wrap>
+            <Wrap_vh>
                 <Link href='/'>
                     <a>
                         <Logo>
                             <img src="/logo.png" alt="" /></Logo>
                     </a>
                 </Link>
-                <div>
+                <Container>
                     <Icon_Close>
                         <Link href="/">
                             <CloseIcon color="disabled" sx={{ fontSize: 55 }} />
@@ -76,11 +76,11 @@ const Login = () => {
                             </Link>
                         </span>
                     </Content>
-                </div>
+                </Container>
                 <Copyed>Copyright © 2021 GroundX.All rights reserved.</Copyed>
 
 
-            </Wrap>
+            </Wrap_vh>
 
 
         </>

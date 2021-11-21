@@ -3,8 +3,8 @@ const util = require('util')
 const unlinkFile = util.promisify(fs.unlink)
 const { query,execute } = require("../../pool")
 const {uploadProfile} = require("../../s3")
-const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_seller,seller_info_sql} =require("../../sql/user")
-const { successData,error403 } = require("../../returnData");
+const {join_sql,login_sql,name_check_sql,admin_login,check_seller_sql,update_seller,seller_info_sql,apply_seller} =require("../../sql/user")
+const { successData,error403,errorData } = require("../../returnData");
 const {createHash} = require('../../auth')
 
 let join = async (req,res) =>{
@@ -47,29 +47,16 @@ let login = async (req,res) =>{
 
     const [result] = await execute(login_sql(),params)
     if(result !== undefined){
-        let user_params = [result.nickname]
-        const [seller_info] = await execute(seller_info_sql(),user_params)
-        if(seller_info !== undefined){
             let info = {
                 nickname:result.nickname,
                 wallet:result.wallet,
                 email:result.email,
                 picrure:result.picture,
-                seller_no:seller_info.seller_no,
-                status:seller_info.status,
+                status:result.status,
                 auth:createHash(result.nickname)
-            }
+            } 
             res.json(successData(info))
-        }else{
-            let info = {
-                nickname:result.nickname,
-                wallet:result.wallet,
-                email:result.email,
-                picrure:result.picture,
-                auth:createHash(result.nickname)
-            }
-            res.json(successData(info))
-        }
+        
     }else{
         res.json(false)
     }
@@ -118,11 +105,24 @@ let chageseller = async(req,res) =>{
 
     res.json(successData(result))
 }
+
+let applyseller = async(req,res) =>{
+    let {nickname,seller_no}=req.body
+    console.log(nickname,seller_no);
+    if(nickname && seller_no == undefined){
+        res.json(errorData('0','요청하신 값이 잘못되었습니다.'))
+    }else{
+        let params=[nickname,seller_no]
+        const result = await execute(apply_seller(),params)
+        res.json(successData(true))
+    }
+}
 module.exports={
     join,
     login,
     name_check,
     admin,
     checkseller,
-    chageseller
+    chageseller,
+    applyseller
 }

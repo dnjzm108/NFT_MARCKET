@@ -12,6 +12,8 @@ const login_sql = () => {
     )
 }
 
+
+
 //닉네임 체크 구문
 //필요값 체크할 닉네임
 const name_check_sql = () => {
@@ -55,7 +57,7 @@ seller [  0 : 구매자
     3 : 인증 ]*/
 const apply_seller = () => {
     return (
-        `INSERT INTO seller(user_id, seller_no, status) VALUES(?,?,"2")`
+        `INSERT INTO seller(nickname, seller_no, status) VALUES(?,?,"2")`
     )
 }
 

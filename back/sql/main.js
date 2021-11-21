@@ -362,7 +362,7 @@ module.exports = {
 
 
 function makeWhereVerse(params) {
-      const { category, designer, search, priceMax, priceMin } = params;
+      const { category, designer, search, priceMax, priceMin,isMine } = params;
       let where = ``
       if (designer != undefined && designer.length > 0) {
             where += ' AND ' + makeSignVerse('creater', '=', designer);
@@ -378,6 +378,9 @@ function makeWhereVerse(params) {
       }
       if (search != undefined) {
             where += ` AND (creater like '%${search}%' OR name like '%${search}%')`;
+      }
+      if(isMine !=undefined){
+            where += ` AND isLike='${isMine}' `
       }
       return where;
 }

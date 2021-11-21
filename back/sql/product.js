@@ -115,7 +115,7 @@ const update_detail_sql = () =>{
 // 경매 아이디,입찰자,입찰가격
 const bid_auction_sql = () => {
     return (
-        `INSERT INTO auction_history (auction_id,bidder,bid,status) VALUES(?,?,?,"bid")`
+        `INSERT INTO auction_history (auction_id,bidder,bid,status,date) VALUES(?,?,?,"bid",?)`
     )
 }
 

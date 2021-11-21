@@ -12,7 +12,7 @@ const sell_type={
 
 
 const BuyItem = (
-  {type,
+  {
     color,
     creater,
     img,
@@ -23,12 +23,13 @@ const BuyItem = (
     product_no,
     qty,
     size,
-    status,
+    dlvy_status,
     selltype,
     handleShipPopUp,
     handleShipTarget,
 }) => {
-
+  
+  const {user_info} = useSelector(state=>state.user)
   const dispatch = useDispatch();  
 
   const handleShipAddress = ()=>{
@@ -42,7 +43,9 @@ const BuyItem = (
     ////// 거래하는 솔리디티 //////
     //////////////////////////////
     const data={
-      order_id
+      order_id,
+      nickname:user_info.nickname,
+      auth:user_info.auth,
     }
     dispatch(UpdateDeliveryRequest(data))
   }
@@ -50,13 +53,7 @@ const BuyItem = (
 
   const renderStatus = (type)=>{
     switch(type){
-      case 'wait':
-        return(
-          <>
-           <div>배송지 미입력</div>
-           <button className='order_action_btn wait' onClick={()=>handleShipAddress(order_id)}>배송지 입력</button>
-          </>
-          )
+      
       case 'ready':
         return(
           <>
@@ -77,6 +74,13 @@ const BuyItem = (
            <button className='order_action_btn completed'>영수증</button>
           </>
           )
+          case 'wait': default:
+            return(
+              <>
+               <div>배송지 미입력</div>
+               <button className='order_action_btn wait' onClick={()=>handleShipAddress(order_id)}>배송지 입력</button>
+              </>
+              )
         
     }
   } 
@@ -108,7 +112,7 @@ const BuyItem = (
         <button className='order_action_btn order'>
             주문서 보기
         </button></td>
-      <td>{renderStatus(status)}</td>
+      <td>{renderStatus(dlvy_status)}</td>
     </StyledMyNFT>
     );
  

@@ -17,8 +17,13 @@ import {LIST_UPDATE_REQUEST,
 import {url} from './url'
 
 async function myListAPI(data){
+    let {params,nickname,auth} = data
     const config = {
-        params:data,
+        params,
+        headers:{
+            'nickname':nickname,
+            'auth':auth,
+          },
     }
       return await axios.get(`${url}/user/${data.type}`,config)
   }
@@ -50,7 +55,7 @@ function* getMyList(action){
     }else{
         yield put({
         type:LIST_UPDATE_ERROR,
-        data,
+        data:data.error,
     })
 
     }
