@@ -11,7 +11,8 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Mint_REQUEST } from '../../reducers/mint';
 import Router from "next/router";
-
+import Loadding from "../../component/Loadding"
+import { useEffect } from "react";
 
 const Release = () => {
     const seasons=[
@@ -91,9 +92,11 @@ const Release = () => {
         }
     }
     
+    
+
     // 정보들 formData에 담는 코드
     const handleData = async () => {
-        
+        console.log(isNow)
         const slength = size.length;
         const options = [];
         const formData = new FormData();
@@ -158,14 +161,25 @@ const Release = () => {
         } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
             return alert("상품 정보를 입력해주세요")
         } else{
+            infoCheck();
+        }
+    }
+
+    // 글자수 체크
+    const infoCheck = ()=>{
+        if(name.value.length>50){
+            alert('상품 이름 글자수는 최대 50자까지 입니다')
+        }else if(symbol.value.length>10){
+            alert('symbol 글자수는 최대 10자까지 입니다.')
+        }else{
             handleData();
         }
     }
-    
 
-    if(isLoading){
-        return <span>로딩중</span>
+    if(isLoading==true){
+        return <Loadding/>
     }
+
 
     return (
         <>

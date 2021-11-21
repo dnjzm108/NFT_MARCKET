@@ -28,19 +28,18 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 
 // 상품 등록정보 넣기
 const mint_nft = async(req,res)=>{
+  
   const {name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
-
   let sell_type;
 
-  if(type=="true" || type==true || type){
+  if(type=="true" || type==true){
     sell_type = "buy"
-  }
-  if(type=="false" || type==false || !type){
+  }else if(type=="false" || type==false){
     sell_type = "auction"
   }
 
 
-  //현재 날짜,시간 형식에 맞춰 가져오기
+  // //현재 날짜,시간 형식에 맞춰 가져오기
   const date =new Date().toLocaleString().replace('.','-').replace('.','-').replace('.','').replace('오후','').replace('오전','').replace(' ','').replace(' ','').replace(' ','')
   const year = new Date().getFullYear(); // 년도 가져오기
   const yearCode = String.fromCharCode(year-1956); // 년도를 코드로
@@ -50,7 +49,7 @@ const mint_nft = async(req,res)=>{
   let getLastProductNo; 
   let optionSql=''; 
 
-  // 상품 상세코드 얻기
+  // // 상품 상세코드 얻기
   const getLastProduct = await query(productNum_sql(category))// 같은 카테고리 내에서 맨 마지막 로우 가져옴
   if(getLastProduct[0]==undefined){ // 해당 카테고리 로우가 없으면 
     getLastProductNo = productCode+'0000';
@@ -60,7 +59,7 @@ const mint_nft = async(req,res)=>{
     productNo = getLastProductNo.substr(0,6)+(Number('0x'+getLastProductNo.substr(6,4))+1).toString(16);
   }
 
-  // product 테이블 
+  // // product 테이블 
   let getOption = req.body['options'];
   let total_qty = 0; 
   getOption.forEach(v=>{
@@ -75,8 +74,8 @@ const mint_nft = async(req,res)=>{
   const productInsert = await execute(productInfo_sql(),productParams)
   
   // product_detail 테이블
-  if(type=="true" || type==true || type){ // 일반 상품. (경매상품의 경우 수량과 가격이 없으므로 확인해줌)
-    console.log("product_detail- type: buy")
+  if(type=="true" || type==true){ // 일반 상품. (경매상품의 경우 수량과 가격이 없으므로 확인해줌)
+    console.log("product_detail- type: buy inserted")
     getOption.forEach(v=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
@@ -85,8 +84,8 @@ const mint_nft = async(req,res)=>{
     })
   }
 
-  if(type=="false" || type==false || !type){ // 경매 상품
-    console.log("product_detail- type: auction")
+  if(type=="false" || type==false ){ // 경매 상품
+    console.log("product_detail- type: auction inserted")
     optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}",NULL,NULL,NULL,NULL,NULL);\n`
   }
   const product_detail = await query(optionSql)
@@ -120,11 +119,11 @@ const mint_nft = async(req,res)=>{
     
     await query(imageSql);
 
-    // 프론트에서 발행하면 생산자를 넣어줄 필요가 없지만. 모든 발행을 서버에서 개발자 privateKey로 진행해서 
-    // 블록체인 네트워크 상에서 토큰 생산자가 상품제작자가 아닌 개발자가 되므로.. 토큰 정보 안에 넣어준다. 사실 안 넣어줘도 됨. 
-    // 닉네임을 넣어줄지 말지는 회의 후 결정.
-    // const metadata = await uploadNFT(tokenId,name,explain,creater,files); 
-    // const tokenURI = metadata.Location;  
+  //   // 프론트에서 발행하면 생산자를 넣어줄 필요가 없지만. 모든 발행을 서버에서 개발자 privateKey로 진행해서 
+  //   // 블록체인 네트워크 상에서 토큰 생산자가 상품제작자가 아닌 개발자가 되므로.. 토큰 정보 안에 넣어준다. 사실 안 넣어줘도 됨. 
+  //   // 닉네임을 넣어줄지 말지는 회의 후 결정.
+  //   // const metadata = await uploadNFT(tokenId,name,explain,creater,files); 
+  //   // const tokenURI = metadata.Location;  
 
   const data = {
     // success:true,
