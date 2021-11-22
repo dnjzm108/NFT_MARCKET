@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Slider from "react-slick";
 
 export const StyledFileInformation = styled.div`
 margin-top: 20%;
@@ -107,4 +108,35 @@ export const StyledNewRelease = styled.div`
       line-height: 26px;
       color: #8C8C8C;
   }
+`
+
+export const Styled_Slide = styled(Slider)`
+.slick-slide > div {
+    width: 640px;
+    height: 640px;
+    overflow: hidden;
+  
+}
+.slick-slide{
+    border:0;
+    outline: 0;
+}
+.slick-slide > div > div> h3 > img{
+    width: 640px;
+    height: 640px;
+} 
+.slick-prev:before, .slick-next:before{
+    font-family: 'slick';
+    font-size: 40px;
+    line-height: 1;
+    opacity: .75;
+    color: #000000;
+    -webkit-font-smoothing: antialiased;
+}
+
+.slick-prev:before{
+    position: relative;
+    left: -20px;
+}
+
 `
