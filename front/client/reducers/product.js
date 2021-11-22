@@ -21,11 +21,13 @@ const initalState = {
         product_no:null,
         img:null
     }],
-    auction_info: [{
+    auction_info:{
         auction_id: null,
         product_id: null,
         deadline: null,
-        option: null,
+        option: null
+    },
+    auction_history:[{
         auction_history_id: null,
         bidder: null,
         bid: null,
@@ -120,14 +122,14 @@ const reducer = (state = initalState, action) => {
             }
         case PRODUCT_PAGE_SUCCESS:
             let { product_info } = action
-            if (product_info.length == 4) {
-
+            if (product_info.length == 5) {
                 return {
                     ...state,
                     product_img: product_info[0],
                     product_info: product_info[1],
                     other_product: product_info[2],
                     auction_info: product_info[3],
+                    auction_history:product_info[4],
                     loadding: false
                 }
             } else {

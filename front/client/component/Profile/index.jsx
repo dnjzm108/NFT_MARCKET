@@ -38,7 +38,7 @@ const Profile = () => {
             <ProfileStyled>
                 <div>
                     <h1>나의 프로필</h1>
-                    <img src="/쉽독.jpg" alt="" />
+                    <img src={user.user_info.picrure} alt="" />
                     <StyleTd />
                     <div className="seller_title">
                         <h2>{user.user_info.nickname} </h2>
