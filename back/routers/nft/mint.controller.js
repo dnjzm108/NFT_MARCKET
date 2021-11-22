@@ -25,14 +25,13 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 
 // 상품 등록정보 넣기
 const mint_nft = async(req,res)=>{
+  
   const {name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
-
   let sell_type;
 
-  if(type=="true" || type==true || type){
+  if(type=="true" || type==true){
     sell_type = "buy"
-  }
-  if(type=="false" || type==false || !type){
+  }else if(type=="false" || type==false){
     sell_type = "auction"
   }
 
@@ -46,7 +45,7 @@ const mint_nft = async(req,res)=>{
   let getLastProductNo; 
   let optionSql=''; 
 
-  // 상품 상세코드 얻기
+  // // 상품 상세코드 얻기
   const getLastProduct = await query(productNum_sql(category))// 같은 카테고리 내에서 맨 마지막 로우 가져옴
   if(getLastProduct[0]==undefined){ // 해당 카테고리 로우가 없으면 
     getLastProductNo = productCode+'0000';
@@ -58,12 +57,12 @@ const mint_nft = async(req,res)=>{
   console.log('상품번호')
   console.log(productNo)
 
-  const contract_address = deployNFT(name,symbol);
+  const contract_address = await deployNFT(name,symbol);
   console.log('컨트랙트 주소')
   console.log(contract_address)
   
 
-  // product 테이블 
+  // // product 테이블 
   let getOption = req.body['options'];
   let total_qty = 0; 
   getOption.forEach(v=>{
@@ -80,7 +79,8 @@ const mint_nft = async(req,res)=>{
   console.log(productInsert)
 
   // product_detail 테이블
-  if(type=="true" || type==true || type){ // 일반 상품. (경매상품의 경우 수량과 가격이 없으므로 확인해줌)
+  if(type=="true" || type==true){ // 일반 상품. (경매상품의 경우 수량과 가격이 없으므로 확인해줌)
+    console.log("product_detail- type: buy inserted")
     getOption.forEach(v=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
@@ -89,8 +89,9 @@ const mint_nft = async(req,res)=>{
     })
   }
 
-  if(type=="false" || type==false || !type){ // 경매 상품
-    optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}",${qty},${qty},${price});\n`
+  if(type=="false" || type==false ){ // 경매 상품
+    console.log("product_detail- type: auction inserted")
+    optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}",NULL,NULL,NULL,NULL,NULL);\n`
   }
   const product_detail = await query(optionSql)
 

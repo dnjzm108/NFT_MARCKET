@@ -57,7 +57,7 @@ seller [  0 : 구매자
     3 : 인증 ]*/
 const apply_seller = () => {
     return (
-        `INSERT INTO seller(user_id, seller_no, status) VALUES(?,?,"2")`
+        `INSERT INTO seller(nickname, seller_no, status) VALUES(?,?,"2")`
     )
 }
 

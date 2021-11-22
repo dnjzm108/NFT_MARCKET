@@ -52,6 +52,13 @@ margin-top: 20%;
     font-weight: bold;
 }
 
+.information_input>h3{
+    font-size: 14px;
+    font-weight: lighter;
+    margin-bottom: 10px;
+    color: gray;
+}
+
 .information_input> input,textarea{
     border: 1px solid #d5d5d5;
     border-radius: 3px;

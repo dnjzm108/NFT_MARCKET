@@ -6,14 +6,14 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { VscSmiley, VscCheck, VscWarning } from "react-icons/vsc";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-
+import Seller_apply from '../Seller_apply'
 
 
 
 const Profile = () => {
     const dispatch = useDispatch()
     // const user = useSelector((state:persistReducer)=> state.user)
-
+     const [apply,setApply] =useState(false)
     const user = useSelector(state => state.user)
 
     const renderAuth = () => {
@@ -27,6 +27,10 @@ const Profile = () => {
             case 3:
                 return <h5><VscCheck />인증 완료👍</h5>
         }
+    }
+
+    const handlepopup = () =>{
+        setApply(!apply)
     }
 
     return (
@@ -62,8 +66,9 @@ const Profile = () => {
                     <h4>{user.user_info.email}</h4>
                     <StyleTd />
                     <div className="btn">
-                        {user.user_info.status < 2 && <Button value='판매자 등록신청' url='/' color="sky" size='small' />}
+                        {user.user_info.status < 2 && <Button value='판매자 등록신청' func={handlepopup} color="sky" size='small' />}
                         <Button value='프로필 수정' url='/user/edit' ml={80} color="" size='small' />
+                      {apply ? <Seller_apply close={handlepopup}/>:''}  
                     </div>
                 </div>
             </ProfileStyled>
