@@ -26,7 +26,8 @@ function checking(req, res, next){
 }
 
 function checkHeader(req,res,next){
-    let nickname = req.get('nickname')
+    let _nickname = req.get('nickname')
+    const nickname = decodeURIComponent(atob(_nickname)); 
     let auth=req.get('auth');
     let identify = createHash(nickname)
     if(auth == identify){
