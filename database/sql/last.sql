@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `auction` (
   PRIMARY KEY (`auction_id`) USING BTREE,
   KEY `FK_auction_product_detail` (`product_id`),
   CONSTRAINT `FK_auction_product_detail` FOREIGN KEY (`product_id`) REFERENCES `product_detail` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -59,16 +59,16 @@ DROP TABLE IF EXISTS `auction_history`;
 CREATE TABLE IF NOT EXISTS `auction_history` (
   `auction_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `auction_id` int(11) DEFAULT NULL,
-  `bidder` varchar(20) DEFAULT NULL,
+  `bider` varchar(20) DEFAULT NULL,
   `bid` float DEFAULT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `status` varchar(10) DEFAULT 'bid',
   PRIMARY KEY (`auction_history_id`) USING BTREE,
   KEY `FK__auction` (`auction_id`),
-  KEY `FK_auction_history_user` (`bidder`) USING BTREE,
+  KEY `FK_auction_history_user` (`bider`) USING BTREE,
   CONSTRAINT `FK_auction_history_auction` FOREIGN KEY (`auction_id`) REFERENCES `auction` (`auction_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_auction_history_user` FOREIGN KEY (`bidder`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_auction_history_user` FOREIGN KEY (`bider`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `price` float NOT NULL DEFAULT 0,
   `buyer` varchar(20) NOT NULL,
   `date` datetime DEFAULT current_timestamp(),
-  `qty` int(11) NOT NULL,
+  `qty` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`order_id`) USING BTREE,
   KEY `FK_orders_user` (`buyer`),
   KEY `FK_orders_product_detail` (`product_id`),
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `product_detail` (
   PRIMARY KEY (`product_id`) USING BTREE,
   KEY `product_no` (`product_no`),
   CONSTRAINT `FK_product_detail_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 

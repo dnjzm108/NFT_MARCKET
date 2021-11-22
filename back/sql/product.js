@@ -59,7 +59,7 @@ const auction_detail_sql = () =>{
         `SELECT 
         auction_id,
         product_id,
-        date_format(deadline,'%y-%m-%d %h:%i')as deadline,
+        date_format(deadline,'%y-%m-%d %h:%i:%s')as deadline,
         option
         FROM auction 
         WHERE product_id = ?`

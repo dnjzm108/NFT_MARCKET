@@ -1,6 +1,7 @@
 const { query, execute } = require("../../pool")
 const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,auction_history_sql,notice_order_sql } = require("../../sql/product")
 const { successData } = require("../../returnData");
+const {updateDeadline} = require('../../auction')
 const socket = require('../../socket'); 
 
 let product_detail = async (req, res) => {
@@ -120,21 +121,18 @@ let order = async (req,res) =>{
 // 
 let applyauction = async (req,res) =>{
     let {product_no,option,deadline,auction_id,bider,bid,auction_history_id} = req.body
-    const nowTime = new Date();
-    console.log('현재 데드라인')
-    let newDeadline = new Date(deadline);
 
-    console.log('옵션확인');
-    console.log(option);
-    console.log(option==true)
+    const nowTime = new Date();
+    let newDeadline = deadline;
     if(option){
-        const originDeadline = new Date(deadline)
-        newDeadline = new Date( originDeadline.setMinutes(originDeadline.getMinutes()+5));
-        console.log('업데이트된 데드라인'+newDeadline);
-        const deadlineSql = `UPDATE auction SET deadline='${newDeadline}' where auction_id='${auction_id}';`
-        await query(deadlineSql);
+        const deadlineUpdateSql = `UPDATE auction SET deadline=DATE_ADD(deadline, INTERVAL 5 MINUTE) where auction_id='${auction_id}';`
+        await query(deadlineUpdateSql);
+        const findDeadLineSql = `SELECT date_format(deadline,'%y-%m-%d %h:%i:%s') as deadline from auction where auction_id='${auction_id}';`
+        const [newAuction] = await query(findDeadLineSql);
+        newDeadline = newAuction.deadline;
         ///////////////////////////////////
         //// 셋타임아웃 조정하는 하는 함수 추가 
+        updateDeadline(auction_id,newDeadline);
         ///////////////////////////////////
     }
 
@@ -153,6 +151,7 @@ let applyauction = async (req,res) =>{
             bider,
             bid,
             deadline:newDeadline,
+            status:'bid',
             auction_history_id:inserted_bid,
             bid_date:nowTime.toLocaleString(),
         }
