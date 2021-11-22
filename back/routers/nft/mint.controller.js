@@ -52,7 +52,8 @@ const mint_nft = async(req,res)=>{
     productNo = getLastProductNo
   }else{// 해당 카테고리 로우가 있으면
     getLastProductNo = getLastProduct[0].product_no;
-    productNo = getLastProductNo.substr(0,6)+(Number('0x'+getLastProductNo.substr(6,4))+1).toString(16);
+    const nextProductNo = String(Number('0x'+getLastProductNo.substr(6,4))+1).toString(16).padStart(4,'0')
+    productNo = getLastProductNo.substr(0,6)+nextProductNo;
   }
   console.log('상품번호')
   console.log(productNo)
@@ -64,12 +65,17 @@ const mint_nft = async(req,res)=>{
 
   // // product 테이블 
   let getOption = req.body.options;
+  if(typeof getOption=='stirng'){
+    getOption=[getOption]
+  }
   console.log(getOption);
   let total_qty = 0; 
-  getOption.forEach(v=>{
-    const {qty} = JSON.parse(v)
-    total_qty+=Number(qty);
-  })
+
+    getOption.forEach(v=>{
+      const {qty} = JSON.parse(v)
+      total_qty+=Number(qty);
+    })
+  
 
   const leftover = total_qty;
   const made_from = creater;
@@ -120,13 +126,13 @@ const mint_nft = async(req,res)=>{
     await query(imageSql);
     const metadata = await uploadMetaData(productNo,name,explain,creater,images); 
     const tokenURI = metadata.Location;  
-    const updateTokenURI = `UPDATE product SET tokenURI=${tokenURI} WHERE product_no=${productNo}`
+    const updateTokenURI = `UPDATE product SET tokenURI='${tokenURI}' WHERE product_no='${productNo}'`
     await query(updateTokenURI);
 
   const data = {
     productNo,
-    tokenId,
-    tokenURI
+    tokenURI,
+    contract_address
   }
 
   res.json(successData(data))
