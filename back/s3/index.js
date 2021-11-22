@@ -17,11 +17,11 @@ const s3 = new S3({
 // 얘는 이미지 올리는거 file 에 image 넣어주면 됨 (req.files)
 // tokenID는 숫자만 가능? - 상품 상세코드로 받는다고 함
 // num 은 10번 실행하면서 차례대로 들어가는 숫자
-const uploadFile = (file,tokenId,num) =>{
+const uploadFile = (file,productNo,num) =>{
   const fileStream = fs.createReadStream(file.path)
   const mimetype = file.mimetype.split('/')[1];
   if(+num<10) num = '0'+num;
-  const uri = `image${tokenId}-${num}.${mimetype}`;
+  const uri = `image${productNo}-${num}.${mimetype}`;
 
   const uploadParams = {
     Bucket: bucketName,
@@ -48,12 +48,11 @@ const uploadProfile = (file,nick) =>{
 }
 
 
-// 얘는 하면 안됨
-const uploadNFT = (tokenId,name,explain,creater,files)=>{
+const uploadMetaData = (productNo,name,explain,creater,files)=>{
   const uploadParams = {
     Bucket: bucketName,
     Body: JSON.stringify({name,explain,files,creater}),
-    Key: `metadata${tokenId}.json`
+    Key: `metadata${productNo}.json`
   }
   return s3.upload(uploadParams).promise()
 }
@@ -61,7 +60,7 @@ const uploadNFT = (tokenId,name,explain,creater,files)=>{
 
 module.exports={
   uploadFile,
-  uploadNFT,
+  uploadMetaData,
   uploadProfile
 }
 
