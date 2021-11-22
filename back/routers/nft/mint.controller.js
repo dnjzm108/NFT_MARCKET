@@ -25,7 +25,7 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 
 // 상품 등록정보 넣기
 const mint_nft = async(req,res)=>{
-  
+  console.log(req.body)
   const {name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
   let sell_type;
 
@@ -63,7 +63,7 @@ const mint_nft = async(req,res)=>{
   
 
   // // product 테이블 
-  let getOption = req.body['options'];
+  let getOption = req.body.options;
   console.log(getOption);
   let total_qty = 0; 
   getOption.forEach(v=>{
@@ -74,14 +74,12 @@ const mint_nft = async(req,res)=>{
   const leftover = total_qty;
   const made_from = creater;
 
-  let productParams =[productNo,name, explain, made_from,date,sell_type,total_qty,leftover,symbol,contract_address]
+  let productParams =[productNo,name, explain, made_from,sell_type,total_qty,leftover,symbol,contract_address]
   const productInsert = await execute(productInfo_sql(),productParams)
-  console.log('프로덕트 인설트 되었는지')
-  console.log(productInsert)
+
 
   // product_detail 테이블
   if(type=="true" || type==true){ // 일반 상품. (경매상품의 경우 수량과 가격이 없으므로 확인해줌)
-    console.log("product_detail- type: buy inserted")
     getOption.forEach(v=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
@@ -91,7 +89,6 @@ const mint_nft = async(req,res)=>{
   }
 
   if(type=="false" || type==false ){ // 경매 상품
-    console.log("product_detail- type: auction inserted")
     optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}",NULL,NULL,NULL,NULL,NULL);\n`
   }
   const product_detail = await query(optionSql)
@@ -102,10 +99,7 @@ const mint_nft = async(req,res)=>{
 
   // auction 테이블
   if(sell_type=="auction"){ // 경매상품인 경우에만 auction 테이블에 넣어줌
-    console.log("auction_table_inserted")
     const auctionParams = [product_id,deadline,extension];
-    console.log('옥션 파라미터 확인')
-    console.log(auctionParams)
     const auctionOption = await execute(auction_option_info(),auctionParams)
   }
 
@@ -126,15 +120,16 @@ const mint_nft = async(req,res)=>{
     await query(imageSql);
     const metadata = await uploadMetaData(productNo,name,explain,creater,images); 
     const tokenURI = metadata.Location;  
-    console.log('토큰URI 잘 나오는지 확인')
-    console.log(tokenURI)
+    const updateTokenURI = `UPDATE product SET tokenURI=${tokenURI} WHERE product_no=${productNo}`
+    await query(updateTokenURI);
 
   const data = {
-    // success:true,
-    // tokenId,
-    // tokenURI
+    productNo,
+    tokenId,
+    tokenURI
   }
-  // res.json(successData(data))
+
+  res.json(successData(data))
 }
 
 // 카테고리 가져오기
