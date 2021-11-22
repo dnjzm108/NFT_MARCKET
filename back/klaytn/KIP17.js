@@ -15,18 +15,22 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 }
 
 
-const deployTest = async ()=>{
+const deployNFT = async (name,symbol)=>{
   const kip17 = await caver.kct.kip17.deploy(
     {
-      name: 'TEST',
-      symbol: 'TDP'
+      name: name,
+      symbol: symbol
     },
     keyring.address
   );
-  console.log(kip17.options.address);
+  return kip17.options.address
 }
+
 const kip17 = new caver.kct.kip17('0xe7aB6CD5318F26f1610c21Fa49742451E51789B3')
 
+module.exports={
+  deployNFT,
+}
 
 // deployTest();
 //0xe7aB6CD5318F26f1610c21Fa49742451E51789B3

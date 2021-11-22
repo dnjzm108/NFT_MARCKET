@@ -96,7 +96,6 @@ const Release = () => {
 
     // 정보들 formData에 담는 코드
     const handleData = async () => {
-        console.log(isNow)
         const slength = size.length;
         const options = [];
         const formData = new FormData();
