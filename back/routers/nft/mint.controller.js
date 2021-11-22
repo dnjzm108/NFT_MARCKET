@@ -30,6 +30,11 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 const mint_nft = async(req,res)=>{
   
   const {name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
+  console.log(name,explain,creater,symbol,type,category,season,
+    "img",image,
+    "options",options,
+   "deadline", deadline,
+  "extension",extension);
   let sell_type;
 
   if(type=="true" || type==true){
@@ -61,7 +66,6 @@ const mint_nft = async(req,res)=>{
 
   // // product 테이블 
   let getOption = req.body['options'];
-  console.log(getOption);
   let total_qty = 0; 
   getOption.forEach(v=>{
     const {qty} = JSON.parse(v)

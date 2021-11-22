@@ -96,24 +96,33 @@ const Release = () => {
 
     // 정보들 formData에 담는 코드
     const handleData = async () => {
-        console.log(isNow)
         const slength = size.length;
         const options = [];
         const formData = new FormData();
         const deadline = new Date(+startDate + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, '');
         const files = [];
 
-        colors.forEach((c, i) => {
-            size.forEach((s, j) => {
-                const option = {
-                    color: c,
-                    size: s,
-                    qty: qty[i * slength + j],
-                    price: price[i * slength + j],
-                }
-                formData.append("options",JSON.stringify(option))
-            });
-        })
+        if(isNow ){
+            colors.forEach((c, i) => {
+                size.forEach((s, j) => {
+                    let option = {
+                        color: c,
+                        size: s,
+                        qty: qty[i * slength + j],
+                        price: price[i * slength + j],
+                    }
+                    formData.append("options",JSON.stringify(option))
+                });
+            })
+        }else{
+            let option ={
+                color:colorInput,
+                size:sizeInput
+            }
+            formData.append("options",JSON.stringify(option))
+        }
+
+       
 
         for (let i = 0; i < images.length; i++) {
             files.push(images[i])
@@ -123,7 +132,7 @@ const Release = () => {
         formData.append("name", name.value)
         formData.append("symbol", symbol.value)
         formData.append("creater", user_info.nickname)
-        // formData.append("creater", user_info.nickname)
+
 
         formData.append("type", isNow)
         formData.append("bid", bid.value)
@@ -132,11 +141,10 @@ const Release = () => {
         
         
         formData.append("category", middlecate)
-        
         formData.append("season", season)
 
         dispatch(Mint_REQUEST(formData))
-        Router.push('/')
+        // Router.push('/')
     }
     
 
