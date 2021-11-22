@@ -18,10 +18,11 @@ import {url} from './url'
 
 async function myListAPI(data){
     let {params,nickname,auth} = data
+    const _nickname = btoa(encodeURIComponent(nickname));
     const config = {
         params,
         headers:{
-            'nickname':nickname,
+            'nickname':_nickname,
             'auth':auth,
           },
     }

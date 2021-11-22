@@ -1,6 +1,7 @@
 import { all, call, takeLatest,fork,put} from "redux-saga/effects";
 import { url } from './url'
 import axios from "axios";
+
 import {
     INIT_EXPLORE_REQUEST,
     GET_EXPLORE_REQUEST,
@@ -39,12 +40,12 @@ function* updateLike(action){
 
 }
 async function exploreAPI(data){
-    
     let {params,nickname,auth} = data
+    const _nickname = btoa(encodeURIComponent(nickname));
     const config = {
         params,
         headers:{
-            'nickname':nickname,
+            'nickname':_nickname,
             'auth':auth,
           },
     }

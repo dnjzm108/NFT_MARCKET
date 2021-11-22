@@ -1,22 +1,19 @@
 const fs = require('fs')
 const util = require('util')
 const unlinkFile = util.promisify(fs.unlink)
-const { uploadFile, uploadNFT } = require('../../s3')
+const { uploadFile, uploadMetaData } = require('../../s3')
 const { query,execute } = require("../../pool");
 const { productInfo_sql,prdctDetail_sql,productNum_sql,nftInsert_sql,auction_option_info } = require('../../sql/mint')
 const {successData,errorData} = require('../../returnData');
 const { getCategorySql} = require('../../sql/main')
+const { deployNFT } = require('../../klaytn/KIP17');
 
-// const INSERT = `INSERT INTO nft (${x}) VALUES(${x});`  
-// const SELECT = `SELECT * FROM table WHERE ?=${x}`
 
-const CONTRACT_ADDRESS = '0xe7aB6CD5318F26f1610c21Fa49742451E51789B3'
+
+
 const config = require('../../klaytn/config');
 const caver = config.caver;
 const developerKey = config.developerKey;
-const tokenURI = 'tokenURI'
-const kip17 = new caver.kct.kip17(CONTRACT_ADDRESS);
-// const toAddress='0x25390A007D19Ce6014F47ce4b79FaAffbf3Df3D3'
 
 const keyring = caver.wallet.keyring.createFromPrivateKey(developerKey);
 if (!caver.wallet.getKeyring(keyring.address)) {
@@ -44,8 +41,7 @@ const mint_nft = async(req,res)=>{
   }
 
 
-  // //현재 날짜,시간 형식에 맞춰 가져오기
-  const date =new Date().toLocaleString().replace('.','-').replace('.','-').replace('.','').replace('오후','').replace('오전','').replace(' ','').replace(' ','').replace(' ','')
+  //현재 날짜,시간 형식에 맞춰 가져오기
   const year = new Date().getFullYear(); // 년도 가져오기
   const yearCode = String.fromCharCode(year-1956); // 년도를 코드로
 
@@ -63,9 +59,17 @@ const mint_nft = async(req,res)=>{
     getLastProductNo = getLastProduct[0].product_no;
     productNo = getLastProductNo.substr(0,6)+(Number('0x'+getLastProductNo.substr(6,4))+1).toString(16);
   }
+  console.log('상품번호')
+  console.log(productNo)
+
+  const contract_address = await deployNFT(name,symbol);
+  console.log('컨트랙트 주소')
+  console.log(contract_address)
+  
 
   // // product 테이블 
-  let getOption = req.body['options'];
+  let getOption = req.body.options;
+  console.log(getOption);
   let total_qty = 0; 
   getOption.forEach(v=>{
     const {qty} = JSON.parse(v)
@@ -75,12 +79,12 @@ const mint_nft = async(req,res)=>{
   const leftover = total_qty;
   const made_from = creater;
 
-  productParams =[productNo,name, explain, made_from,date,sell_type,total_qty,leftover,symbol]
+  let productParams =[productNo,name, explain, made_from,sell_type,total_qty,leftover,symbol,contract_address]
   const productInsert = await execute(productInfo_sql(),productParams)
-  
+
+
   // product_detail 테이블
   if(type=="true" || type==true){ // 일반 상품. (경매상품의 경우 수량과 가격이 없으므로 확인해줌)
-    console.log("product_detail- type: buy inserted")
     getOption.forEach(v=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
@@ -90,7 +94,6 @@ const mint_nft = async(req,res)=>{
   }
 
   if(type=="false" || type==false ){ // 경매 상품
-    console.log("product_detail- type: auction inserted")
     optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}",NULL,NULL,NULL,NULL,NULL);\n`
   }
   const product_detail = await query(optionSql)
@@ -101,18 +104,16 @@ const mint_nft = async(req,res)=>{
 
   // auction 테이블
   if(sell_type=="auction"){ // 경매상품인 경우에만 auction 테이블에 넣어줌
-    console.log("auction_table_inserted")
-    auctionParams = [product_id,deadline,extension];
+    const auctionParams = [product_id,deadline,extension];
     const auctionOption = await execute(auction_option_info(),auctionParams)
   }
 
   
   // image upload s3
-  const tokenId = productNo;
   const images = [];  //이미지 uri를 담을 배열
     for(let i = 0; i<req.files.length; i++){
         const v = req.files[i];
-        const image =await uploadFile(v,tokenId,i+1);  //S3업로드
+        const image =await uploadFile(v,productNo,i+1);  //S3업로드
         images.push(image.Location)
         await unlinkFile(v.path) //upload에 있는 img파일 지우기
       }
@@ -121,20 +122,18 @@ const mint_nft = async(req,res)=>{
     images.forEach(v=>{
       imageSql+=`INSERT INTO product_image (product_no,img) VALUES("${productNo}","${v}");\n`
     }) 
-    
     await query(imageSql);
-
-  //   // 프론트에서 발행하면 생산자를 넣어줄 필요가 없지만. 모든 발행을 서버에서 개발자 privateKey로 진행해서 
-  //   // 블록체인 네트워크 상에서 토큰 생산자가 상품제작자가 아닌 개발자가 되므로.. 토큰 정보 안에 넣어준다. 사실 안 넣어줘도 됨. 
-  //   // 닉네임을 넣어줄지 말지는 회의 후 결정.
-  //   // const metadata = await uploadNFT(tokenId,name,explain,creater,files); 
-  //   // const tokenURI = metadata.Location;  
+    const metadata = await uploadMetaData(productNo,name,explain,creater,images); 
+    const tokenURI = metadata.Location;  
+    const updateTokenURI = `UPDATE product SET tokenURI=${tokenURI} WHERE product_no=${productNo}`
+    await query(updateTokenURI);
 
   const data = {
-    // success:true,
-    // tokenId,
-    // tokenURI
+    productNo,
+    tokenId,
+    tokenURI
   }
+
   res.json(successData(data))
 }
 
