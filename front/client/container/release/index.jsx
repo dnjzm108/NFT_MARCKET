@@ -36,6 +36,7 @@ const Release = () => {
     const [startDate, setStartDate] = useState(new Date())
     const [extension,setExtension] = useState('0')
     const [images, setImages] = useState([]);
+    const [test, setTest] = useState([]);
     const [agree,setAgree]=useState([false,false]);
     const [isNow,setIsNow] = useState(true);
     const [isClick,setIsClick]=useState([false,false])
@@ -74,6 +75,17 @@ const Release = () => {
 
     // 이미지 추가 탐색기 닫았다 열어도 그대로 추가 되게
     const fileSelected = event => {
+        const imageFile = event.target.files;
+        let arr =[]
+        console.log(imageFile);
+        for(let i =0; i<imageFile.length; i++){
+            console.log(imageFile[i]);
+            const imageUrl = URL.createObjectURL(imageFile[i]);
+            arr.push(imageUrl)
+            setTest(arr)
+        }
+        console.log(test);
+
         let { files } = event.target
         if (files.length > 10 || images.length + files.length > 10) {    // 파일갯수 10개까지
             alert('최대 선택할 수 있는 파일 개수는 10개입니다.')
@@ -135,7 +147,7 @@ const Release = () => {
 
 
         formData.append("type", isNow)
-        formData.append("bid", bid.value)
+        formData.append("start_price", bid.value)
         formData.append("deadline", deadline)
         formData.append("extension", extension)
         
@@ -164,7 +176,7 @@ const Release = () => {
             return alert("개인정보제공 및 유의사항 확인에 동의해주세요")
         }else if(isClick==false ){
             return alert("옵션 선택 완료 버튼을 눌러주세요")
-        }else if (images == undefined) {
+        }else if (images.length == 0) {
            return alert('이미지를 선택해주세요')
         } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
             return alert("상품 정보를 입력해주세요")
@@ -215,6 +227,8 @@ const Release = () => {
                     explain={explain.value}
                     setExplain={explain.onChange}
                     handleImg={fileSelected}
+                    images={images}
+                    test={test}
                     />
                     </div>
                     {/* <Thumbnail /> */}

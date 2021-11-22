@@ -25,9 +25,9 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 
 // 상품 등록정보 넣기
 const mint_nft = async(req,res)=>{
-  console.log(req.body)
-  const {name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
-  console.log(name,explain,creater,symbol,type,category,season,
+  
+  const {start_price,name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
+  console.log(start_price,name,explain,creater,symbol,type,category,season,
     "img",image,
     "options",options,
    "deadline", deadline,

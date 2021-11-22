@@ -173,10 +173,9 @@ const product_detail = () => {
                                     </div>
                                 )
                             })}
-
-
                         </Styled_Slide>
                     </div>
+                    
                     <Middle_container>
                         <div>
                             <h1>{product_info[0].name}</h1>

@@ -1,15 +1,22 @@
 import { useEffect } from "react";
-import { StyledFileInformation, StyledNewRelease } from "./FileInformation.css.jsx";
+import { StyledFileInformation, StyledNewRelease, Styled_Slide } from "./FileInformation.css.jsx";
 
 
 const FileInformation = (props) => {
 
-    const handleForm =(e)=>{
+    const handleForm = (e) => {
         e.preventDefault();
     }
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    }
 
-    
-    return(
+
+    return (
         <StyledFileInformation>
             <StyledNewRelease>
                 <div className="subject">
@@ -26,51 +33,68 @@ const FileInformation = (props) => {
                 <div className="img_box">
                     <p> 이미지 / 영상 파일을 드래그하여 업로드하거나 </p>
                     <button><label htmlFor="click_submit">파일선택</label></button>
-                    
+
                     {/* image */}
                     <input
-                    accept='image/*'
-                    type="file"
-                    className="file_select_input"
-                    multiple
-                    onChange={(e)=>{props.handleImg(e)}}
-                    id="click_submit"
+                        accept='image/*'
+                        type="file"
+                        className="file_select_input"
+                        multiple
+                        onChange={(e) => { props.handleImg(e) }}
+                        id="click_submit"
                     >
                     </input>
                     <div className="imagecon">
-                    
+
                     </div>
                 </div>
-                <div className="information_input">
 
+                {/* <div>
+                    <Styled_Slide {...settings}>
+
+                        {props.test.map((v, i) => {
+                            return (
+                                <div key={i}>
+                                    <h3><img src={v} /></h3>
+                                </div>
+                            )
+                        })}
+
+                    </Styled_Slide>
+                </div>
+
+ */}
+
+                <div className="information_input">
                     {/* title */}
                     <p>이름</p>
-                    <input type="text" 
-                    defaultValue={props.name}
-                    onChange={(e)=>{props.setName(e)}}
-                    className="name_input" 
-                    placeholder="이름을 입력해주세요. (최대 50자까지)" />
+                    <input type="text"
+                        defaultValue={props.name}
+                        onChange={(e) => { props.setName(e) }}
+                        className="name_input"
+                        placeholder="이름을 입력해주세요. (최대 50자까지)" />
 
                     {/* 심볼 */}
                     <p>SYMBOL</p>
                     <h3>* 해당 nft를 줄여 부를 때 사용됩니다. ex ) eth , klay (최대 10자까지) </h3>
-                    <input type="text" 
-                    defaultValue={props.symbol}
-                    onChange={(e)=>{props.setSymbol(e)}}
-                    className="symbol_input" 
-                    placeholder="심볼을 입력해주세요" />
+                    <input type="text"
+                        defaultValue={props.symbol}
+                        onChange={(e) => { props.setSymbol(e) }}
+                        className="symbol_input"
+                        placeholder="심볼을 입력해주세요" />
 
                     {/* description */}
                     <p>설명</p>
-                    <textarea 
-                    rows="6" 
-                    defaultValue ={props.explain}
-                    onChange={(e)=>{props.setExplain(e)}}
-                    className="explain_box" 
-                    placeholder="설명을 입력해주세요"></textarea>
+                    <textarea
+                        rows="6"
+                        defaultValue={props.explain}
+                        onChange={(e) => { props.setExplain(e) }}
+                        className="explain_box"
+                        placeholder="설명을 입력해주세요"></textarea>
                     {/* <input type="text" className="explain_box" placeholder="설명을 입력해주세요." /> */}
                 </div>
             </form>
+
         </StyledFileInformation>
     )
 }
