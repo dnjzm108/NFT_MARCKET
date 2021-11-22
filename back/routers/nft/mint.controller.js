@@ -62,6 +62,7 @@ const mint_nft = async(req,res)=>{
 
   // product 테이블 
   let getOption = req.body['options'];
+  console.log(getOption);
   let total_qty = 0; 
   getOption.forEach(v=>{
     const {qty} = JSON.parse(v)

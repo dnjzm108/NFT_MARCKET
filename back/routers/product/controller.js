@@ -1,5 +1,5 @@
 const { query, execute } = require("../../pool")
-const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,chage_product_likes,notice_order_sql } = require("../../sql/product")
+const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,auction_history_sql,notice_order_sql } = require("../../sql/product")
 const { successData } = require("../../returnData");
 const socket = require('../../socket'); 
 
@@ -56,7 +56,12 @@ let auction_info = async (req,res) =>{
     let {product_id} = req.body;
     let params = [product_id]
  
-    let result = await execute(auction_detail_sql(),params)
+    let info = await execute(auction_detail_sql(),params)
+    let history = await execute(auction_history_sql(),params)
+    let result = {
+        info,history
+    }
+    console.log(result);
  
     if(result == ''){
      res.json(successData(false))

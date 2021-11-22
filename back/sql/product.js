@@ -56,7 +56,24 @@ const check_like_sql = () =>{
 //상품 디테일 아이디
 const auction_detail_sql = () =>{
     return(
-        `SELECT A.auction_id,A.product_id,date_format(A.deadline,'%y-%m-%d %h:%i')as deadline,A.option,B.auction_history_id,B.bidder,B.bid,B.status,date_format(B.date,'%y-%m-%d %h:%i')as date FROM auction as A 
+        `SELECT 
+        auction_id,
+        product_id,
+        date_format(deadline,'%y-%m-%d %h:%i')as deadline,
+        option
+        FROM auction 
+        WHERE product_id = ?`
+    )
+}
+
+const auction_history_sql = () =>{
+    return(
+        `SELECT 
+        B.auction_history_id,
+        B.bidder,
+        B.bid,
+        B.status,
+        date_format(B.date,'%y-%m-%d %h:%i')as date FROM auction as A 
         LEFT JOIN auction_history as B
         ON B.auction_id = A.auction_id
         WHERE A.product_id = ?
@@ -168,5 +185,6 @@ module.exports = {
     bid_auction_sql,
     chage_history_sql,
     chage_product_likes,
-    notice_order_sql
+    notice_order_sql,
+    auction_history_sql
 }
