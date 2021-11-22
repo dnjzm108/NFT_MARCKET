@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { ExploreRequest } from '../../reducers/explore'
 import Rowfilter from "../../component/Rowfilter";
 import SearchView from "../../component/SearchView"
+
 const Explore = () => {
   const dispatch = useDispatch();
   const router = useRouter()
