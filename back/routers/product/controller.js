@@ -56,7 +56,7 @@ let auction_info = async (req,res) =>{
     let {product_id} = req.body;
     let params = [product_id]
  
-    let info = await execute(auction_detail_sql(),params)
+    let [info] = await execute(auction_detail_sql(),params)
     let history = await execute(auction_history_sql(),params)
     let result = {
         info,history

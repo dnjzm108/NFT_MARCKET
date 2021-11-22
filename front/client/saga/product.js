@@ -24,7 +24,8 @@ async function poductAPI(data) {
             product_id
         }
         let auction = await axios.post(`${url}/product/auction_info`, autcion_info)
-        info.push(auction.data.response)
+        info.push(auction.data.response.info)
+        info.push(auction.data.response.history)
     }
     
     return info

@@ -122,7 +122,7 @@ const reducer = (state = initalState, action) => {
             }
         case PRODUCT_PAGE_SUCCESS:
             let { product_info } = action
-            if (product_info.length == 4) {
+            if (product_info.length == 5) {
                 return {
                     ...state,
                     product_img: product_info[0],

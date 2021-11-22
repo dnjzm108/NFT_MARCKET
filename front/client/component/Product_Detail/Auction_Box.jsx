@@ -7,12 +7,12 @@ import Loadding from '../Loadding'
 
 export const Auction = (props) => {
     const product_state = useSelector(state => state.product)
-const {auction_info} = product_state;
+const {auction_info,auction_history} = product_state;
     const [isLoading, setIsLoading] = useState(true)
 
 
 useEffect(()=>{
-if(auction_info[0] !== undefined){
+if(auction_info !== undefined){
     setIsLoading(false)
 }
 },[auction_info])
@@ -26,11 +26,11 @@ if(isLoading){
         <>
             <Auction_Wrap>
                 <div>
-                    <h3>마감 시간 : {auction_info[0].deadline} </h3>
+                    <h3>마감 시간 : {auction_info.deadline} </h3>
                     <h3>현재 최고가</h3>
-                    <h2><img src="/klay.png" alt="" />{auction_info[0].bid}</h2>
+                    <h2><img src="/klay.png"/>{auction_history[0].bid}</h2>
                     <h4>현재 낙찰받을수있는 사람</h4>
-                    <h5> {auction_info[0].bidder} </h5>
+                    <h5> {auction_history[0].bidder} </h5>
                 </div>
                 <div>
                     <Button value="경매 참여하기" color="sky" func={props.handlePopup}/>
@@ -44,14 +44,14 @@ if(isLoading){
 
 export const Auction_History = (props) => {
     const product_state = useSelector(state => state.product)
-const {auction_info} = product_state;
+const {auction_info,auction_history} = product_state;
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(()=>{
-    if(auction_info[0] !== undefined){
+    if(auction_history[0] !== undefined){
         setIsLoading(false)
     }
-    },[auction_info])
+    },[auction_history])
     
 
     if(isLoading){
@@ -69,7 +69,7 @@ const {auction_info} = product_state;
                     <th>입찰한 사람</th>
                 </tr>
                 {
-                    auction_info.map((v,i)=>{
+                    auction_history.map((v,i)=>{
                         return(
                             <tr key={i}>
                             <td>{v.date}</td>
