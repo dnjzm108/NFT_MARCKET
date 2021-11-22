@@ -39,12 +39,10 @@ let login = async (req,res) =>{
     
     let {wallet} = req.body
     if(wallet==undefined){
-        console.log(req.body)
         res.json(error403())
         return;
     }
     let params = [wallet]
-
     const [result] = await execute(login_sql(),params)
     if(result !== undefined){
             let info = {
@@ -108,7 +106,6 @@ let chageseller = async(req,res) =>{
 
 let applyseller = async(req,res) =>{
     let {nickname,seller_no}=req.body
-    console.log(nickname,seller_no);
     if(nickname && seller_no == undefined){
         res.json(errorData('0','요청하신 값이 잘못되었습니다.'))
     }else{

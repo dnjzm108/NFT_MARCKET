@@ -35,6 +35,7 @@ function loginAPI(data){
 
 function* login(action){
     let result = yield call(loginAPI,action.data)
+    console.log(result);
     let {response} = result.data
     if (response !== undefined) {
         yield put({

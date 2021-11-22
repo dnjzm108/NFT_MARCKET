@@ -22,6 +22,7 @@ const List = () => {
  
       if(type=='favorite'){
         let data ={
+          auth:user_info.auth,
           nickname:user_info.nickname,
           params:{skip:0,
           status:'all',
