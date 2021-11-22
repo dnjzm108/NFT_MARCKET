@@ -27,13 +27,7 @@ const initalState = {
         deadline: null,
         option: null
     },
-    auction_history:[{
-        auction_history_id: null,
-        bidder: null,
-        bid: null,
-        status: null,
-        date: null
-    }],
+    auction_history:[],
     product_img: [
         {img:null}
     ],
@@ -261,7 +255,7 @@ const reducer = (state = initalState, action) => {
             const prevHistory = [...state.auction_history].map(v=>{v.status='burial'; return v})
             const newBid = {
                 auction_history_id: action.data.auction_history_id,
-                bidder: action.data.bider,
+                bider: action.data.bider,
                 bid: action.data.bid,
                 status: 'bid',
                 date: action.data.bid_date,

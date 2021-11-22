@@ -127,12 +127,10 @@ let applyauction = async (req,res) =>{
     if(option){
         const deadlineUpdateSql = `UPDATE auction SET deadline=DATE_ADD(deadline, INTERVAL 5 MINUTE) where auction_id='${auction_id}';`
         await query(deadlineUpdateSql);
-        const findDeadLineSql = `SELECT date_format(deadline,'%y-%m-%d %h:%i:%s') as deadline from auction where auction_id='${auction_id}';`
+        const findDeadLineSql = `SELECT deadline from auction where auction_id='${auction_id}';`
         const [newAuction] = await query(findDeadLineSql);
-        newDeadline = newAuction.deadline;
-        ///////////////////////////////////
-        //// 셋타임아웃 조정하는 하는 함수 추가 
-        updateDeadline(auction_id,newDeadline);
+        newDeadline = new Date(newAuction.deadline).toLocaleString();
+        updateDeadline(auction_id,newAuction.deadline);
         ///////////////////////////////////
     }
 

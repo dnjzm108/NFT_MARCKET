@@ -7,7 +7,7 @@ const { productInfo_sql,prdctDetail_sql,productNum_sql,nftInsert_sql,auction_opt
 const {successData,errorData} = require('../../returnData');
 const { getCategorySql} = require('../../sql/main')
 const { deployNFT } = require('../../klaytn/KIP17');
-const {startDeadline,testDeadline} = require('../../auction'); 
+const {startDeadline,} = require('../../auction'); 
 
 
 
@@ -27,7 +27,7 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 const mint_nft = async(req,res)=>{
   
   const {start_price,name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
-  
+
   let sell_type;
 
   if(type=="true" || type==true){
@@ -105,8 +105,7 @@ const mint_nft = async(req,res)=>{
     const auctionParams = [product_id,deadline,extension];
     const auctionOption = await execute(auction_option_info(),auctionParams)
     const auction_id = auctionOption.insertId;
-    startDeadline(auction_id);
-    testDeadline();
+    startDeadline(auction_id,deadline);
   }
 
   
