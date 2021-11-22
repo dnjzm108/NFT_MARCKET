@@ -25,13 +25,7 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 
 // 상품 등록정보 넣기
 const mint_nft = async(req,res)=>{
-  console.log(req.body)
   const {name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
-  console.log(name,explain,creater,symbol,type,category,season,
-    "img",image,
-    "options",options,
-   "deadline", deadline,
-  "extension",extension);
   let sell_type;
 
   if(type=="true" || type==true){
@@ -60,32 +54,26 @@ const mint_nft = async(req,res)=>{
     const nextProductNo = String(Number('0x'+getLastProductNo.substr(6,4))+1).toString(16).padStart(4,'0')
     productNo = getLastProductNo.substr(0,6)+nextProductNo;
   }
-  console.log('상품번호')
-  console.log(productNo)
 
   const contract_address = await deployNFT(name,symbol);
-  console.log('컨트랙트 주소')
-  console.log(contract_address)
+
   
 
   // // product 테이블 
-  let getOption = req.body.options;
-  if(typeof getOption=='stirng'){
-    getOption=[getOption]
-  }
-  console.log(getOption);
   let total_qty = 0; 
-
+  let getOption = req.body.options;
+  if(typeof getOption=='string'){
+    getOption=[JSON.parse(getOption)]
+    total_qty=1;
+  }else{ 
     getOption.forEach(v=>{
       const {qty} = JSON.parse(v)
       total_qty+=Number(qty);
     })
-  
-
-  const leftover = total_qty;
+  }
   const made_from = creater;
 
-  let productParams =[productNo,name, explain, made_from,sell_type,total_qty,leftover,symbol,contract_address]
+  let productParams =[productNo,name, explain, made_from,sell_type,total_qty,total_qty,symbol,contract_address]
   const productInsert = await execute(productInfo_sql(),productParams)
 
 
@@ -94,13 +82,17 @@ const mint_nft = async(req,res)=>{
     getOption.forEach(v=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
+
       optionSql+=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}",${qty},${qty},${price});\n`
     
     })
   }
 
   if(type=="false" || type==false ){ // 경매 상품
-    optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}",NULL,NULL,NULL,NULL,NULL);\n`
+    console.log('옵션~~~~~~~~~~~~')
+    console.log(getOption);
+    const {color,size} = getOption[0]; 
+    optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}","1","1","100");\n`
   }
   const product_detail = await query(optionSql)
 
@@ -153,6 +145,7 @@ const getCategory =async(req,res)=>{
   }
   res.json(successData(data))
 }
+
 function clearCategory(category){
   let categoryTemp = {};
   const bigCategory = new Set(category.map(v=>{ 

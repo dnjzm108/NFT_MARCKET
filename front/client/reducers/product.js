@@ -79,6 +79,9 @@ const USER_NAME_CHECK = "USER_NAME_CHECK"
 const USER_NAME_ERROR = "USER_NAME_ERROR"
 const USER_NAME_SUCCESS = "USER_NAME_SUCCESS"
 
+const UPDATE_BID = 'UPDATE_BID'
+const UPDATE_REST = 'UPDATE_REST'
+
 export const Name_Check = (data) =>{
     return{
         type:USER_NAME_CHECK,
@@ -111,6 +114,21 @@ export const Product_Page_Request = (data) => {
         data
     }
 }
+
+export const UpdateBid = (data)=>{
+    return{
+        type: UPDATE_BID,
+        data
+    }
+}
+
+export const UpdateRest = (data)=>{
+    return{
+        type: UPDATE_REST,
+        data
+    }
+}
+
 
 const reducer = (state = initalState, action) => {
     switch (action.type) {
@@ -226,6 +244,36 @@ const reducer = (state = initalState, action) => {
                     name_check:action.check
                 }
 
+        case UPDATE_REST:{
+            let newProducts = [...state.product_info];
+            newProducts.forEach((v,i)=>{
+                if(v.product_no==action.data.product_no){
+                    newProducts[i].rest  = action.data.rest
+                }
+            })
+            return{
+                ...state, 
+                product_info:newProducts
+            }
+        }
+        case UPDATE_BID:
+
+            const prevHistory = [...state.auction_history].map(v=>{v.status='burial'; return v})
+            const newBid = {
+                auction_history_id: action.data.auction_history_id,
+                bidder: action.data.bider,
+                bid: action.data.bid,
+                status: 'bid',
+                date: action.data.bid_date,
+            }
+            return{
+                ...state,
+                auction_info:{
+                    ...state.auction_info,
+                    deadline:action.data.deadline,
+                },
+                auction_history:[newBid,...prevHistory]
+            }
 
         default:
             return state

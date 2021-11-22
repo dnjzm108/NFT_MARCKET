@@ -121,8 +121,26 @@ let order = async (req,res) =>{
 let applyauction = async (req,res) =>{
     let {product_no,option,deadline,auction_id,bider,bid,auction_history_id} = req.body
     const nowTime = new Date();
+    console.log('현재 데드라인')
+    let newDeadline = new Date(deadline);
+
+    console.log('옵션확인');
+    console.log(option);
+    console.log(option==true)
+    if(option){
+        const originDeadline = new Date(deadline)
+        newDeadline = new Date( originDeadline.setMinutes(originDeadline.getMinutes()+5));
+        console.log('업데이트된 데드라인'+newDeadline);
+        const deadlineSql = `UPDATE auction SET deadline='${newDeadline}' where auction_id='${auction_id}';`
+        await query(deadlineSql);
+        ///////////////////////////////////
+        //// 셋타임아웃 조정하는 하는 함수 추가 
+        ///////////////////////////////////
+    }
+
     let history_parms=[auction_id,bider,bid,nowTime]
     let update_detail = await execute(bid_auction_sql(),history_parms)
+    const inserted_bid = update_detail.insertId
     //이전 기록이 있을경우 유찰로 바꿔주기
     if(auction_history_id !== null){
         let chage_parms = [auction_history_id]
@@ -134,7 +152,8 @@ let applyauction = async (req,res) =>{
             type:'auction',
             bider,
             bid,
-            deadline,
+            deadline:newDeadline,
+            auction_history_id:inserted_bid,
             bid_date:nowTime.toLocaleString(),
         }
         socket.broadcast(socketMessage)

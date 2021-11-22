@@ -22,12 +22,12 @@ const AucPopup = (props) => {
 
         const histoty_data = {
             product_no: product_info[0].product_no,
-            auction_id: auction_info[0].auction_id,
+            auction_id: auction_info.auction_id,
             bider: user_info.nickname,
             bid: bid_price.value,
-            option:auction_info[0].option,
-            deadline:auction_info[0].deadline,
-            auction_history_id:auction_info[0].auction_history_id,
+            option:auction_info.option,
+            deadline:auction_info.deadline,
+            auction_history_id:auction_history[0].auction_history_id,
             auth:user_info.auth,
             nickname:user_info.nickname
         }
