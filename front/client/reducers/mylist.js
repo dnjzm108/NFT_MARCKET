@@ -91,12 +91,12 @@ const reducer = (state = initialState,action) => {
               isLoading:true,
               searchData:{
                 ...state.searchData,
-                type:action.data.type,
-                status:action.data.status,
-                search:action.data.search,
-                sort:action.data.sort,
-                page:action.data.page,
-                rows:action.data.rows,
+                type:action.data.params.type,
+                status:action.data.params.status,
+                search:action.data.params.search,
+                sort:action.data.params.sort,
+                page:action.data.params.page,
+                rows:action.data.params.rows,
               },
           }
 

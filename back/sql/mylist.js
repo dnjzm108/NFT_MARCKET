@@ -578,6 +578,7 @@ function myImmySellListQuery(query,type){
   P.product_no,
   P.name,
   P.likes,
+  I.img,
   date_format(P.date,'%y-%m-%d %h:%i') as reg_date,   
   ifnull(V.status,'wait')as dlvy_status,
   V.reciever,
@@ -609,14 +610,26 @@ function myImmySellListQuery(query,type){
                   delivery AS V
             ON 
                   V.order_id=O.order_id
-            NATURAL JOIN
+            LEFT JOIN
                   product_detail AS D
+            ON 
+              D.product_id=O.product_id
             LEFT JOIN 
                   product AS P
             ON
               P.product_no=D.product_no
+            LEFT JOIN
+                  (SELECT
+                          *
+                  FROM 
+                        product_image 
+                  GROUP BY 
+                        product_no  
+                  )as I
+            ON 
+              I.product_no=P.product_no
             WHERE 
-                 P.creater='${nickname}'`
+                 P.creater='${nickname}' AND type='buy'`
   
   /////// 나중에 상품 타입에 판매 중지 값을 넣어줄 수도 있음. 
     switch(status){

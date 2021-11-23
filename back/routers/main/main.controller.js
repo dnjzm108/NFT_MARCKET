@@ -60,7 +60,7 @@ const getMainInit = async(req,res) => {
 
 const getMain = async(req,res)=>{
   const _nickname = req.get('nickname')
-  let nickname = Buffer.from(_nickname, 'base64').toString(); 
+  const nickname = decodeURIComponent(atob(_nickname)); 
   const auth=req.get('auth');
   const identify = createHash(nickname)
 
