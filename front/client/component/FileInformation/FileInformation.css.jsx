@@ -18,7 +18,7 @@ margin-top: 20%;
     font-size: 20px;
 }
 
-.img_box> button{
+.img_box> label>div{
     display: inline-block;
     background: #1d5ddf;
     color: white;
@@ -30,9 +30,12 @@ margin-top: 20%;
     text-align: center;
     margin-top: 30px;
     transition: .1s ease-in-out;
+    line-height: 300%;
+    /* justify-content: center;
+    align-items: center; */
 }
 
-.img_box> button:hover{
+.img_box>label> div:hover{
     cursor: pointer;
     background: white;
     border: .5px solid #1d5ddf;

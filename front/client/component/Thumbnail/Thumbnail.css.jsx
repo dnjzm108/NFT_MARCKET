@@ -28,10 +28,11 @@ export const StyledThumbnail = styled.div`
 export const Styled_Slide = styled(Slider)`
 
 .slick-list {
-    width: 300px;
+    width: 320px;
     height: 400px;
     margin: 0 auto;
     background-color: #f0f9ff;
+    box-sizing: content-box;
   }
 
 .slick-prev:before, .slick-next:before{
@@ -60,4 +61,13 @@ div>button{
     cursor: pointer;
 }
 
+div>div{
+    display: inline-block;
+    width: 100%;
+}
+
+div>div>img{
+    width: 100%;
+    /* height: auto; */
+}
 `

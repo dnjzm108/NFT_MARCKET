@@ -23,8 +23,8 @@ const FileInformation = (props) => {
             </StyledNewRelease>
             <form onSubmit={handleForm}>
                 <div className="img_box">
-                    <p> 이미지 / 영상 파일을 드래그하여 업로드하거나 </p>
-                    <button><label htmlFor="click_submit">파일선택</label></button>
+                    <p> 이미지 / 영상 파일을 업로드 </p>
+                    <label htmlFor="click_submit"><div>파일선택</div></label>
 
                     {/* image */}
                     <input
@@ -36,9 +36,6 @@ const FileInformation = (props) => {
                         id="click_submit"
                     >
                     </input>
-                    <div className="imagecon">
-
-                    </div>
                 </div>
 
                
