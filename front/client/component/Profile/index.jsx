@@ -1,5 +1,4 @@
 import { ProfileStyled, StyleTd } from "./Profile.css";
-import { Circle } from "../Join/Join.css"
 import Link from "next/link";
 import Button from "../Button"
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -9,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Seller_apply from '../Seller_apply'
 import { useEffect } from "react";
 import Router from "next/router"
+import {UserLogin_REQUEST} from '../../reducers/user'
 
 
 
@@ -39,6 +39,10 @@ const Profile = () => {
         }
     },[IsLogin])
     
+    useEffect(()=>{
+        dispatch(UserLogin_REQUEST({wallet}))
+        console.log('실행');
+    },[])
     const handlepopup = () => {
         setApply(!apply)
     }

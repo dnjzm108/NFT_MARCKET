@@ -67,7 +67,7 @@ const Seller_Apply = (props) => {
                     <from>
                         <h1>사업자 등록 번호</h1>
                         <Underline />
-                        <CustomInput {...sell_number} />
+                        <CustomInput {...sell_number} length="45"/>
                         <Btn_Box>
                             <Button value="신청하기" func={handleapply} />
                         </Btn_Box>
