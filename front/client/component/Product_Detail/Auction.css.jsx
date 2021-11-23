@@ -14,6 +14,7 @@ export const Auction_Wrap = styled.div`
 }
 & > div >h3{
     padding: 8px;
+    text-align: center;
 }
 & > div >h2{
      text-align: center;
@@ -26,6 +27,7 @@ export const Auction_Wrap = styled.div`
     left: -10px;
 }
 & > div >h4{
+    text-align: center;
     border-top: 1px solid #000000;
     margin-top: 10px;
     padding: 10px;
@@ -37,6 +39,11 @@ export const Auction_Wrap = styled.div`
 & > div:nth-child(2){
     display: flex;
     justify-content: center;
+}
+& > h3{
+    padding: 10%;
+    box-sizing: border-box;
+
 }
 `
 export const Auction_History_Wrap = styled.div`

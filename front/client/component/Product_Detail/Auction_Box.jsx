@@ -7,7 +7,7 @@ import Loadding from '../Loadding'
 
 export const Auction = (props) => {
     const product_state = useSelector(state => state.product)
-const {auction_info,auction_history, product_info} = product_state;
+const {auction_info,auction_history,product_info} = product_state;
     const [isLoading, setIsLoading] = useState(true)
 
 
@@ -27,14 +27,19 @@ if(isLoading){
             <Auction_Wrap>
                 <div>
                     <h3>마감 시간 : {auction_info.deadline} </h3>
-                    <h3>현재 최고가</h3>
-                    <h2><img src="/klay.png"/>{auction_history.length>0 ? auction_history[0].bid : product_info['0'].price}</h2>
-                    <h4>현재 낙찰받을수있는 사람</h4>
+                    <h3>최고가</h3>
+                    <h2><img src="/klay.png"/>{auction_history.length>0 ? auction_history[0].bid : product_info[0].price}</h2>
+                    <h4>낙찰받을수있는 사람</h4>
                     <h5> {auction_history.length>0 ?auction_history[0].bider : '-'} </h5>
                 </div>
+                {product_info[0].type == 'auction' ? 
                 <div>
                     <Button value="경매 참여하기" color="sky" func={props.handlePopup}/>
                 </div>
+                :
+                <h3>경매가 종료된 상품입니다.</h3>
+                
+                }
             </Auction_Wrap>
         </>
     )

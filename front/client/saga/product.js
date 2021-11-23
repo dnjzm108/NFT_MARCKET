@@ -19,7 +19,7 @@ async function poductAPI(data) {
     let other_product = await axios.post(`${url}/product/other_product`, code_data)
     info.push(other_product.data.response)
     
-    if (result.data.response.product[0].type == "auction") {
+    if (result.data.response.product[0].type !== "buy") {
         let autcion_info = {
             product_id
         }

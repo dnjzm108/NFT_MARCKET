@@ -8,7 +8,7 @@ const { successData, error403, errorData } = require("../../returnData");
 const { createHash } = require('../../auth')
 
 let join = async (req, res) => {
-    let { nickname, wallet, email, picture } = req.body
+    let { nickname, wallet, email } = req.body
     let { file } = req;
     let params = [nickname, wallet, email]
     if (file !== undefined) {
@@ -21,7 +21,7 @@ let join = async (req, res) => {
     try {
         const result = await execute(join_sql(), params)
         let user_info = {
-            nickname, wallet, email, picture, status: 0, auth: createHash(nickname)
+            nickname, wallet, email, picture:params[params.length-1], status: 0, auth: createHash(nickname)
         }
 
         res.json(successData(user_info))
