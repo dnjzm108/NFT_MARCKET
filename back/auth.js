@@ -14,9 +14,7 @@ function createHash(name){
  
 function checking(req, res, next){
    let {auth,nickname} = req.body
-   console.log(auth,nickname);
    let identify = createHash(nickname)
-   console.log(auth,identify);
 
    if(auth == identify){
        next()
@@ -30,7 +28,6 @@ function checkHeader(req,res,next){
     const nickname = decodeURIComponent(atob(_nickname)); 
     let auth=req.get('auth');
     let identify = createHash(nickname)
-    console.log(auth,identify);
     if(auth == identify){
         next()
     }else{
