@@ -342,7 +342,6 @@ DELETE FROM `receipt`;
 CREATE TABLE IF NOT EXISTS `seller` (
   `nickname` varchar(30) NOT NULL,
   `seller_no` varchar(50) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`nickname`),
   KEY `FK_seller_user` (`nickname`) USING BTREE,
   CONSTRAINT `FK_seller_user` FOREIGN KEY (`nickname`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -359,6 +358,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `wallet` varchar(50) NOT NULL,
   `email` varchar(40) NOT NULL,
   `picture` varchar(250) DEFAULT NULL,
+    `status` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
