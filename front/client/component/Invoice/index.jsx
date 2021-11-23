@@ -107,9 +107,9 @@ const Invoice = (props) => {
 
                     <Input_Invoice>
                         <h2>송장 번호</h2>
-                        <CustomInput {...invoice_number} placeholder='송장번호를 입력해주세요.' width="80%"/>
+                        <CustomInput {...invoice_number} length="50" placeholder='송장번호를 입력해주세요.' width="80%"/>
                         <h2>배송사</h2>
-                        <CustomInput {...dlvyCompany} placeholder='배송사를 입력해주세요.' width="80%"/>
+                        <CustomInput {...dlvyCompany} length="20" placeholder='배송사를 입력해주세요.' width="80%"/>
 
                         <Button value="송장 입력" func={handleInvoiceInfo} />
                     </Input_Invoice>
