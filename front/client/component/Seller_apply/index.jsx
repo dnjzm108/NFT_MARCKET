@@ -25,9 +25,11 @@ const Seller_Apply = (props) => {
             let info = {
                 nickname,
                 auth,
-                seller_no: sell_number.value
+                seller_no: sell_number.value,
+
             }
             dispatch(Seller_Apply_Request(info))
+            props.close()
         }
 
     }

@@ -73,14 +73,20 @@ box-sizing: border-box;
 
 export const Table = styled.table`
   &{
-      display: flex;
+      /* display: flex;
+       flex-direction: column;
+      justify-content: space-between;
+      padding: 5px ; */
+  }
+  & >tbody{
+    display: flex;
        flex-direction: column;
       justify-content: space-between;
       padding: 5px ;
-  }
-  &>tr>th{
-      display: inline-block;
-      width: 25%;
+      &>tr>th{
+          display: inline-block;
+          width: 25%;
+      }
   }
 
 `

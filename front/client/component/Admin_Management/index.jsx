@@ -6,26 +6,20 @@ import { Management_Wrap, Right, Side_bar, Line, Container, Content_Box, Table, 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Router from "next/router"
-import { Get_Seller_Info , Admin_Logout , Change_Seller_REQUEST} from "../../reducers/admin"
+import { Get_Seller_Info, Admin_Logout, Change_Seller_REQUEST } from "../../reducers/admin"
 
 const Management = () => {
 
     const dispatch = useDispatch();
     const state_data = useSelector(state => state.admin)
-    const { seller_info,logdding } = state_data
+    const { seller_info, loadding } = state_data
     const [menu, setMenu] = useState("2");
-    
+
     useEffect(() => {
         let data = menu
         let send = { data }
         dispatch(Get_Seller_Info(send))
     }, [])
-
-    useEffect(() => {
-        if(logdding == false){
-            console.log("화면",seller_info);
-        }
-    }, [state_data])
 
     const ChageMenu = async (e) => {
         let { id } = e.target;
@@ -45,11 +39,12 @@ const Management = () => {
     }
 
     const update_seller = async (e, v) => {
-        let data = {
+        let info = {
             status: v,
             nickname: e
         }
-dispatch(Change_Seller_REQUEST(data))
+        dispatch(Change_Seller_REQUEST(info))
+        Router.push('/admin/login')
     }
 
     const logOut_func = () => {
@@ -91,35 +86,39 @@ dispatch(Change_Seller_REQUEST(data))
 
 
                     {menu == "2" ?
-                    seller_info[0] == undefined ?
-                    <span>데이터가 없습니다.</span>
-                    :
-                        <>
-                            {seller_info.map((v) => {
-                                return (
-                                    <Content_Box>
-                                        <Table>
-                                            <tr>
-                                                <th>회원 닉네임</th>
-                                                <th>이메일</th>
-                                                <th>사업자 번호</th>
-                                                <th> <Button value="판매자 승인" func={() => { update_seller(v.nickname, "3") }} size="small" color="sky" ml={100} /> </th>
-                                            </tr>
-                                        </Table>
-                                        <Table>
-                                            <tr>
-                                                <th>{v.nickname}</th>
-                                                <th>{v.email}</th>
-                                                <th>{v.seller_no}</th>
-                                                <th><Button value="판매자 반려" func={() => { update_seller(v.nickname, "1") }} size="small" mt={5} ml={100} /></th>
-                                            </tr>
-                                            <Btn_Box>
-                                            </Btn_Box>
-                                        </Table>
-                                    </Content_Box>
-                                )
-                            })}
-                        </>
+                        seller_info[0] == undefined ?
+                            <span>데이터가 없습니다.</span>
+                            :
+                            <>
+                                {seller_info.map((v) => {
+                                    return (
+                                        <Content_Box>
+                                            <Table>
+                                                <tbody>
+                                                <tr>
+                                                    <th>회원 닉네임</th>
+                                                    <th>이메일</th>
+                                                    <th>사업자 번호</th>
+                                                    <th> <Button value="판매자 승인" func={() => { update_seller(v.nickname, 3) }} size="small" color="sky" ml={100} /> </th>
+                                                </tr>
+                                                </tbody>
+                                            </Table>
+                                            <Table>
+                                                <tbody>
+                                                <tr>
+                                                    <th>{v.nickname}</th>
+                                                    <th>{v.email}</th>
+                                                    <th>{v.seller_no}</th>
+                                                    <th><Button value="판매자 반려" func={() => { update_seller(v.nickname, 1) }} size="small" mt={5} ml={100} /></th>
+                                                </tr>
+                                                </tbody>
+                                                <Btn_Box>
+                                                </Btn_Box>
+                                            </Table>
+                                        </Content_Box>
+                                    )
+                                })}
+                            </>
                         : ''}
 
                     {menu == "3" ?
@@ -131,18 +130,22 @@ dispatch(Change_Seller_REQUEST(data))
                                     return (
                                         <Content_Box>
                                             <Table>
+                                                <tbody>
                                                 <tr>
                                                     <th>회원 닉네임</th>
                                                     <th>이메일</th>
                                                     <th>사업자 번호</th>
                                                 </tr>
+                                                </tbody>
                                             </Table>
                                             <Table>
+                                                <tbody>
                                                 <tr>
                                                     <th>{v.nickname}</th>
                                                     <th>{v.email}</th>
                                                     <th>{v.seller_no}</th>
                                                 </tr>
+                                                </tbody>
                                                 <Btn_Box>
                                                 </Btn_Box>
                                             </Table>
@@ -155,34 +158,38 @@ dispatch(Change_Seller_REQUEST(data))
                     }
 
                     {menu == "1" ?
-                    seller_info[0] == undefined ?
-                    <span>데이터가 없습니다.</span>
-                    :
-                        <>
-                            {seller_info.map((v) => {
-                                return (
-                                    <Content_Box>
-                                        <Table>
-                                            <tr>
-                                                <th>회원 닉네임</th>
-                                                <th>이메일</th>
-                                                <th>사업자 번호</th>
-                                                <th> <Button value="판매자 승인" func={() => { update_seller(v.nickname, "3") }} size="small" color="sky" ml={100} /> </th>
-                                            </tr>
-                                        </Table>
-                                        <Table>
-                                            <tr>
-                                                <th>{v.nickname}</th>
-                                                <th>{v.email}</th>
-                                                <th>{v.seller_no}</th>
-                                            </tr>
-                                            <Btn_Box>
-                                            </Btn_Box>
-                                        </Table>
-                                    </Content_Box>
-                                )
-                            })}
-                        </> : ''}
+                        seller_info[0] == undefined ?
+                            <span>데이터가 없습니다.</span>
+                            :
+                            <>
+                                {seller_info.map((v) => {
+                                    return (
+                                        <Content_Box>
+                                            <Table>
+                                                <tbody>
+                                                <tr>
+                                                    <th>회원 닉네임</th>
+                                                    <th>이메일</th>
+                                                    <th>사업자 번호</th>
+                                                    <th> <Button value="판매자 승인" func={() => { update_seller(v.nickname, 3) }} size="small" color="sky" ml={100} /> </th>
+                                                </tr>
+                                                </tbody>
+                                            </Table>
+                                            <Table>
+                                                <tbody>
+                                                <tr>
+                                                    <th>{v.nickname}</th>
+                                                    <th>{v.email}</th>
+                                                    <th>{v.seller_no}</th>
+                                                </tr>
+                                                </tbody>
+                                                <Btn_Box>
+                                                </Btn_Box>
+                                            </Table>
+                                        </Content_Box>
+                                    )
+                                })}
+                            </> : ''}
 
                 </Container>
 

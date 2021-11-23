@@ -10,8 +10,6 @@ import Button from '../Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserJoin_REQUEST } from '../../reducers/user.js';
 import Router from "next/router"
-import axios from 'axios'
-import { url } from '../../saga/url.js';
 import {Name_Check} from '../../reducers/product'
 
 
