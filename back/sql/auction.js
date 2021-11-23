@@ -60,13 +60,17 @@ const addOrderSql = ()=>{
 }
 
 
-const stopAuctionSQL=(auction_id)=>{
+const stopAuctionSQL=(auction_id,isSoldout)=>{
+
+  const leftover =isSoldout ? `leftover=0,`: ''
+  const rest =isSoldout ? `rest=0,`: ''
+
   return`
   UPDATE
 	      product
   SET 
-	      type='stop',
-        leftover=0
+        ${leftover}
+        type='stop'
   WHERE 
       product_no = (SELECT 
 	                        D.product_no
@@ -82,7 +86,8 @@ const stopAuctionSQL=(auction_id)=>{
   UPDATE
 	      product_detail
   SET 
-	      rest=1
+	      ${rest}
+        type='stop'
   WHERE 
       product_no = (SELECT 
 	                        D.product_no

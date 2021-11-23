@@ -130,7 +130,7 @@ let applyauction = async (req,res) =>{
         const findDeadLineSql = `SELECT deadline from auction where auction_id='${auction_id}';`
         const [newAuction] = await query(findDeadLineSql);
         newDeadline = new Date(newAuction.deadline).toLocaleString();
-        updateDeadline(auction_id,newAuction.deadline);
+        updateDeadline(auction_id,product_no,newAuction.deadline);
         ///////////////////////////////////
     }
 

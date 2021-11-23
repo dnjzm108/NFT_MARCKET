@@ -13,12 +13,10 @@
 
 
 -- nft_market 데이터베이스 구조 내보내기
-DROP DATABASE IF EXISTS `nft_market`;
 CREATE DATABASE IF NOT EXISTS `nft_market` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `nft_market`;
 
 -- 테이블 nft_market.address 구조 내보내기
-DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `address` varchar(256) NOT NULL,
@@ -27,12 +25,11 @@ CREATE TABLE IF NOT EXISTS `address` (
   PRIMARY KEY (`id`),
   KEY `FK_address_user` (`nickname`),
   CONSTRAINT `FK_address_user` FOREIGN KEY (`nickname`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.admin 구조 내보내기
-DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id` varchar(20) NOT NULL,
   `pw` varchar(20) NOT NULL
@@ -41,7 +38,6 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.auction 구조 내보내기
-DROP TABLE IF EXISTS `auction`;
 CREATE TABLE IF NOT EXISTS `auction` (
   `auction_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
@@ -50,12 +46,11 @@ CREATE TABLE IF NOT EXISTS `auction` (
   PRIMARY KEY (`auction_id`) USING BTREE,
   KEY `FK_auction_product_detail` (`product_id`),
   CONSTRAINT `FK_auction_product_detail` FOREIGN KEY (`product_id`) REFERENCES `product_detail` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.auction_history 구조 내보내기
-DROP TABLE IF EXISTS `auction_history`;
 CREATE TABLE IF NOT EXISTS `auction_history` (
   `auction_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `auction_id` int(11) DEFAULT NULL,
@@ -68,12 +63,11 @@ CREATE TABLE IF NOT EXISTS `auction_history` (
   KEY `FK_auction_history_user` (`bider`) USING BTREE,
   CONSTRAINT `FK_auction_history_auction` FOREIGN KEY (`auction_id`) REFERENCES `auction` (`auction_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_auction_history_user` FOREIGN KEY (`bider`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.bigcategory 구조 내보내기
-DROP TABLE IF EXISTS `bigcategory`;
 CREATE TABLE IF NOT EXISTS `bigcategory` (
   `code` varchar(20) NOT NULL,
   `value` varchar(20) NOT NULL,
@@ -83,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `bigcategory` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.delivery 구조 내보내기
-DROP TABLE IF EXISTS `delivery`;
 CREATE TABLE IF NOT EXISTS `delivery` (
   `dlvy_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
@@ -107,7 +100,6 @@ CREATE TABLE IF NOT EXISTS `delivery` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.likes 구조 내보내기
-DROP TABLE IF EXISTS `likes`;
 CREATE TABLE IF NOT EXISTS `likes` (
   `product_no` varchar(10) NOT NULL,
   `nickname` varchar(20) NOT NULL,
@@ -120,7 +112,6 @@ CREATE TABLE IF NOT EXISTS `likes` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.middlecategory 구조 내보내기
-DROP TABLE IF EXISTS `middlecategory`;
 CREATE TABLE IF NOT EXISTS `middlecategory` (
   `code` varchar(5) NOT NULL,
   `value` varchar(20) DEFAULT NULL,
@@ -133,7 +124,6 @@ CREATE TABLE IF NOT EXISTS `middlecategory` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.orders 구조 내보내기
-DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -146,12 +136,11 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `FK_orders_product_detail` (`product_id`),
   CONSTRAINT `FK_orders_product_detail` FOREIGN KEY (`product_id`) REFERENCES `product_detail` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_orders_user` FOREIGN KEY (`buyer`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.product 구조 내보내기
-DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
   `product_no` varchar(10) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -172,8 +161,20 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
+-- 테이블 nft_market.product_count 구조 내보내기
+CREATE TABLE IF NOT EXISTS `product_count` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_no` varchar(10) NOT NULL DEFAULT '',
+  `num` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_product_cnt_product_detail` (`product_no`) USING BTREE,
+  CONSTRAINT `FK_product_count_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
 -- 테이블 nft_market.product_detail 구조 내보내기
-DROP TABLE IF EXISTS `product_detail`;
 CREATE TABLE IF NOT EXISTS `product_detail` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_no` varchar(10) DEFAULT NULL,
@@ -185,15 +186,14 @@ CREATE TABLE IF NOT EXISTS `product_detail` (
   PRIMARY KEY (`product_id`) USING BTREE,
   KEY `product_no` (`product_no`),
   CONSTRAINT `FK_product_detail_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.product_image 구조 내보내기
-DROP TABLE IF EXISTS `product_image`;
 CREATE TABLE IF NOT EXISTS `product_image` (
   `product_no` varchar(10) DEFAULT NULL,
-  `img` varchar(256) DEFAULT NULL,
+  `img` varchar(100) DEFAULT NULL,
   KEY `FK__product` (`product_no`),
   CONSTRAINT `FK_product_image_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -201,7 +201,6 @@ CREATE TABLE IF NOT EXISTS `product_image` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.receipt 구조 내보내기
-DROP TABLE IF EXISTS `receipt`;
 CREATE TABLE IF NOT EXISTS `receipt` (
   `receipt_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
@@ -213,7 +212,6 @@ CREATE TABLE IF NOT EXISTS `receipt` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.seller 구조 내보내기
-DROP TABLE IF EXISTS `seller`;
 CREATE TABLE IF NOT EXISTS `seller` (
   `nickname` varchar(20) NOT NULL,
   `seller_no` varchar(50) NOT NULL,
@@ -224,7 +222,6 @@ CREATE TABLE IF NOT EXISTS `seller` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 nft_market.user 구조 내보내기
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `nickname` varchar(20) NOT NULL,
   `wallet` varchar(50) NOT NULL,
@@ -235,17 +232,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
-
-CREATE TABLE `product_count` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`product_no` VARCHAR(10) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
-	`num` INT(11) NOT NULL,
-	`order_id` INT(11) NULL,
-	PRIMARY KEY (`id`) USING BTREE,
-	INDEX `FK_product_cnt_product_detail` (`product_no`) USING BTREE,
-	CONSTRAINT `FK_product_count_product` FOREIGN KEY (`product_no`) REFERENCES `nft_market`.`product` (`product_no`) ON UPDATE RESTRICT ON DELETE RESTRICT
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 INSERT INTO `bigcategory` (`code`, `value`) VALUES
@@ -353,7 +339,6 @@ INSERT INTO `bigcategory` (`code`, `value`) VALUES
 	('root', 'root');
 
 -- 트리거 nft_market.likes_after_delete 구조 내보내기
-DROP TRIGGER IF EXISTS `likes_after_delete`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `likes_after_delete` AFTER DELETE ON `likes` FOR EACH ROW BEGIN
@@ -365,7 +350,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- 트리거 nft_market.likes_after_insert 구조 내보내기
-DROP TRIGGER IF EXISTS `likes_after_insert`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `likes_after_insert` AFTER INSERT ON `likes` FOR EACH ROW BEGIN
