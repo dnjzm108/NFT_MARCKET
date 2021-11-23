@@ -75,6 +75,7 @@ const USER_NAME_SUCCESS = "USER_NAME_SUCCESS"
 
 const UPDATE_BID = 'UPDATE_BID'
 const UPDATE_REST = 'UPDATE_REST'
+const UPDATE_STOP ='UPDATE_STOP'
 
 export const Name_Check = (data) =>{
     return{
@@ -119,6 +120,12 @@ export const UpdateBid = (data)=>{
 export const UpdateRest = (data)=>{
     return{
         type: UPDATE_REST,
+        data
+    }
+}
+export const UpdateStop = (data)=>{
+    return{
+        type: UPDATE_STOP,
         data
     }
 }
@@ -268,6 +275,15 @@ const reducer = (state = initalState, action) => {
                 },
                 auction_history:[newBid,...prevHistory]
             }
+
+        case UPDATE_STOP:{
+            let new_product_info = [...state.product_info].map(v=>{return {...v,type:'stop'}});
+            console.log(new_product_info);
+            return{
+                ...state,
+                product_info:new_product_info
+            }
+        }
 
         default:
             return state

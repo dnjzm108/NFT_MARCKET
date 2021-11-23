@@ -44,6 +44,7 @@ const getAllListSql = (params, nickname) => {
           P.type,
           P.date,
           ifnull(D.bid,D.price) AS price,
+          D.deadline,
           P.isLike,
           P.img
   FROM(
@@ -85,7 +86,10 @@ const getAllListSql = (params, nickname) => {
             SELECT 
                   Q.product_id,
                   Q.product_no,
-                  Q.price,A.bid
+                  Q.price,
+                  A.bid,
+                  A.deadline
+
             FROM( 
                   SELECT 
                           product_no,product_id,price
@@ -94,10 +98,11 @@ const getAllListSql = (params, nickname) => {
                   GROUP BY 
                           product_no
                 )AS Q
-            LEFT JOIN (
+            NATURAL JOIN (
                         SELECT 
                                 auction.auction_id AS auction_id,
                                 auction.product_id,
+                                auction.deadline,
                                 L.bid
                         FROM 
                                 auction
@@ -125,13 +130,13 @@ const getAllListSql = (params, nickname) => {
                                   GROUP BY 
                                         auction_id
                                   )AS L
-                        ON auction.auction_id=L.auction_id
+                        ON 
+                              auction.auction_id=L.auction_id
                 )AS A
-            ON Q.product_id=A.product_id
   ) AS D
 
   WHERE 
-        leftover>0 ${where} 
+        leftover>0 AND type!='stop' ${where} 
   ${order}
   LIMIT 
         ${params.skip},16;
@@ -201,7 +206,7 @@ NATURAL JOIN
               ) AS I
   
       WHERE 
-              leftover>0 ${where}
+              leftover>0 AND type!='stop' ${where}
   ${order}
   LIMIT 
       ${params.skip},16;
@@ -315,7 +320,7 @@ const getAuctionListSql = (params, nickname) => {
   ) AS D
 
   WHERE 
-        leftover>0 ${where} 
+        leftover>0 AND type!='stop' ${where} 
   ${order}
   LIMIT 
         ${params.skip},16;
