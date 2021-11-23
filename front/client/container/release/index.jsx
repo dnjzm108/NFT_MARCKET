@@ -36,7 +36,7 @@ const Release = () => {
     const [startDate, setStartDate] = useState(new Date())
     const [extension, setExtension] = useState('0')
     const [images, setImages] = useState([]);
-    const [test, setTest] = useState([]);
+    const [imageBundle, setImageBundle] = useState([]);
     const [agree, setAgree] = useState([false, false]);
     const [isNow, setIsNow] = useState(true);
     const [isClick, setIsClick] = useState([false, false])
@@ -52,8 +52,6 @@ const Release = () => {
     const [middlecate, setMiddlecate] = useState(category[0].list[0].code)
     const [season, setSeason] = useState(seasons[0].code)
 
-
-    const [fileBase, setFileBase] = useState([]);
 
     // 즉시구매를 선택한 경우
     const handleNow = () => {
@@ -73,19 +71,20 @@ const Release = () => {
     };
 
 
-    // 이미지 추가 탐색기 닫았다 열어도 그대로 추가 되게
+    
     const fileSelected = event => {
-        const imageFile = event.target.files;
-        let arr = []
-        console.log(imageFile);
+        // 미리보기 이미지 보이게
+        const imageFile = event.target.files; //내가 올린 파일들을 target으로 가져오고
+        let arr = [] 
         for (let i = 0; i < imageFile.length; i++) {
-            console.log(imageFile[i]);
-            const imageUrl = URL.createObjectURL(imageFile[i]);
-            arr.push(imageUrl)
-            setTest(arr)
+            const imageUrl = URL.createObjectURL(imageFile[i]); // i번째 이미지를 하나하나 url로 만들어서 변수에 담아줌
+            arr.push(imageUrl) // url 하나하나 배열에다가 담아줌
+            setImageBundle(arr) // url 배열을 상태로 담음
         }
-        console.log(test);
+        
 
+
+        // 이미지 추가 탐색기 닫았다 열어도 그대로 추가 되게
         let { files } = event.target
         if (files.length > 10 || images.length + files.length > 10) {    // 파일갯수 10개까지
             alert('최대 선택할 수 있는 파일 개수는 10개입니다.')
@@ -98,8 +97,6 @@ const Release = () => {
                     }
                     setImages(newFile => [...newFile, files[i]])
                 }
-                // const imgBox = document.querySelector('.imgcon')
-                // console.log(imgBox)
             }
         }
     }
@@ -211,11 +208,9 @@ const Release = () => {
         <>
             <Navigation />
             <StyledRelease>
-
-                <Slide_Wrap>
+                {/* <Slide_Wrap>
                     <Styled_Slide {...settings}>
-
-                        {test.map((v, i) => {
+                        {imageBundle.map((v, i) => {
                             return (
                                 <div key={i}>
                                     <h3><img src={v} /></h3>
@@ -224,11 +219,9 @@ const Release = () => {
                         })}
                     </Styled_Slide>
                 </Slide_Wrap>
-
+                 */}
                 <div className="flex_contain">
-
                     <div>
-
                         <h2>새로운 상품 등록하기</h2>
                         <Sell
                             handleNow={handleNow}
@@ -241,7 +234,6 @@ const Release = () => {
                             setStartDate={setStartDate}
                             isPossibleDay={isPossibleDay}
                         />
-
                         <FileInformation
                             name={name.value}
                             setName={name.onChange}
@@ -251,10 +243,14 @@ const Release = () => {
                             setExplain={explain.onChange}
                             handleImg={fileSelected}
                             images={images}
-                            test={test}
+                            imageBundle={imageBundle}
                         />
                     </div>
-                    {/* <Thumbnail /> */}
+                    <Thumbnail 
+                    imageBundle={imageBundle}
+                    fileSelected={fileSelected}
+                    
+                    />
                 </div>
                 <ProductOption
                     isNow={isNow}
