@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const Content = styled.div`
+export const Content = styled.div`
 & > span {
     display: block;
     margin: 15px;
@@ -12,7 +12,7 @@ const Content = styled.div`
 }
 `
 
-const Logo = styled.span`
+export const Logo = styled.span`
 &{
 width: 330px;
 height: 100px;
@@ -31,10 +31,10 @@ overflow: hidden;
 `
 
 
-const Copyed = styled.span`
+export const Copyed = styled.span`
  color:#6c757d;
 `
-const Icon_Close = styled.div`
+export const Icon_Close = styled.div`
      &{ position: absolute;
       right: 20px;
       top:20px;
@@ -44,6 +44,16 @@ const Icon_Close = styled.div`
        cursor:pointer;
      }
 `
+export const Container = styled.div`
+&{
+    width: 720px;
+    padding: 50px;
+    box-sizing:border-box;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 8%);
+    border-radius: 16px;
+    position: relative;
+    margin: 5vh auto;
+}
 
-
-module.exports={Content,Logo,Copyed,Icon_Close}
+`

@@ -18,6 +18,7 @@ function* admin(action) {
         yield put({
             type: 'ADMIN_ERROR'
         })
+        alert('아이디와 비번을 확인해주세요')
     }
 }
 

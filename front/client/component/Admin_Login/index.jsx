@@ -1,10 +1,10 @@
 
 import Link from 'next/link'
 import CloseIcon from '@mui/icons-material/Close';
-import {Content,Logo,Copyed,Icon_Close} from './Admin_Login.css'
+import {Content,Logo,Copyed,Icon_Close,Container} from './Admin_Login.css'
 import {Small_Contain} from '../Join/Join.css'
 import { Middle_btn} from '../../component/Btn.jsx';
-import { Wrap } from "../Wrap/Popup_Back"
+import { Wrap_vh } from '../Wrap/Popup_Back.jsx';
 import CustomInput from "../CustomInput"
 import useInput from '../../hooks/useInput';
 import Button from '../Button';
@@ -28,14 +28,14 @@ const Admin_Login = () => {
 
     return (
         <>
-            <Wrap>
+            <Wrap_vh>
             <Link href='/'>
                     <a>
                         <Logo>
                             <img src="/logo.png" alt="" /></Logo>
                     </a>
                 </Link>
-                <div>
+                <Container>
                     <Icon_Close>
                         <Link href="/">
                             <CloseIcon color="disabled" sx={{ fontSize: 55 }} />
@@ -57,11 +57,11 @@ const Admin_Login = () => {
                     
                     </Content>
 
-                </div>
+                </Container>
                 <Copyed>Copyright © 2021 GroundX.All rights reserved.</Copyed>
 
 
-            </Wrap>
+            </Wrap_vh>
 
         </>
     )
