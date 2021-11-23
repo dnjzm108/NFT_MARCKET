@@ -1,18 +1,10 @@
 import { useEffect } from "react";
 import { StyledFileInformation, StyledNewRelease, Styled_Slide } from "./FileInformation.css.jsx";
 
-
 const FileInformation = (props) => {
 
     const handleForm = (e) => {
         e.preventDefault();
-    }
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
     }
 
 
@@ -49,22 +41,7 @@ const FileInformation = (props) => {
                     </div>
                 </div>
 
-                {/* <div>
-                    <Styled_Slide {...settings}>
-
-                        {props.test.map((v, i) => {
-                            return (
-                                <div key={i}>
-                                    <h3><img src={v} /></h3>
-                                </div>
-                            )
-                        })}
-
-                    </Styled_Slide>
-                </div>
-
- */}
-
+               
                 <div className="information_input">
                     {/* title */}
                     <p>이름</p>
