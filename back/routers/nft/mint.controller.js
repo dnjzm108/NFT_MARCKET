@@ -25,7 +25,6 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 
 // 상품 등록정보 넣기
 const mint_nft = async(req,res)=>{
-  
   const {start_price,name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
 
   let sell_type;
@@ -44,7 +43,8 @@ const mint_nft = async(req,res)=>{
   const productCode = category+yearCode+season; // 상품 상세코드 앞 6자리
   
   let getLastProductNo; 
-  let optionSql=''; 
+  let optionSql='';
+  let productNo='';
 
   // // 상품 상세코드 얻기
   const getLastProduct = await query(productNum_sql(category))// 같은 카테고리 내에서 맨 마지막 로우 가져옴
@@ -53,20 +53,22 @@ const mint_nft = async(req,res)=>{
     productNo = getLastProductNo
   }else{// 해당 카테고리 로우가 있으면
     getLastProductNo = getLastProduct[0].product_no;
-    const nextProductNo = String(Number('0x'+getLastProductNo.substr(6,4))+1).toString(16).padStart(4,'0')
+    const nextProductNo = (Number('0x'+getLastProductNo.substr(6,4))+1).toString(16).toUpperCase().padStart(4,'0');
     productNo = getLastProductNo.substr(0,6)+nextProductNo;
   }
 
   const contract_address = await deployNFT(name,symbol);
 
-  
-
   // // product 테이블 
   let total_qty = 0; 
   let getOption = req.body.options;
   if(typeof getOption=='string'){
-    getOption=[JSON.parse(getOption)]
-    total_qty=1;
+    getOption=[getOption]
+    if(sell_type=='buy'){
+      total_qty=JSON.parse(getOption[0]).qty
+    }else{
+      total_qty=1;
+    }
   }else{ 
     getOption.forEach(v=>{
       const {qty} = JSON.parse(v)
@@ -84,20 +86,26 @@ const mint_nft = async(req,res)=>{
     getOption.forEach(v=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
-
       optionSql+=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}",${qty},${qty},${price});\n`
-    
     })
+      optionSql+='INSERT INTO product_count (product_no,num) VALUES '
+    for(let i = 1; i<=total_qty; i++){
+      optionSql+=`("${productNo}",${i})`
+      if(i<total_qty){
+        optionSql+=',\n'
+      }else{
+        optionSql+=';'
+      }
+    }
   }
 
   if(type=="false" || type==false ){ // 경매 상품
     const {color,size} = getOption[0]; 
     optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}","1","1","${start_price}");\n`
+    optionSql+=`INSERT INTO product_count (product_no,num) VALUES("${productNo}",1);\n`
   }
   const product_detail = await query(optionSql)
-
-  
-  const product_id = product_detail.insertId; //auction 테이블에서 참조하기 위함
+  const product_id = product_detail[0].insertId; //auction 테이블에서 참조하기 위함
   
 
   // auction 테이블
@@ -105,7 +113,7 @@ const mint_nft = async(req,res)=>{
     const auctionParams = [product_id,deadline,extension];
     const auctionOption = await execute(auction_option_info(),auctionParams)
     const auction_id = auctionOption.insertId;
-    startDeadline(auction_id,deadline);
+    startDeadline(auction_id,productNo,deadline);
   }
 
   
