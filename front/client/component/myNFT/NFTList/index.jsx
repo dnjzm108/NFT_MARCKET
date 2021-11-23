@@ -24,10 +24,6 @@ const NFTList = () => {
   const [shipPopUp,setShipPopUp] = useState(false)
   const [invoice,setInvoice] = useState("");
   const [ship,setShip] = useState("");
-
-
-
-
   const handleSort = (code)=>{
     const data = {
       ...searchData,

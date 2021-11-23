@@ -10,8 +10,6 @@ import { StyledSelectBox,SelectHeader,SelectBody,SelectItem} from "./OptionBox.c
 
 const OptionBox = ({list,onClick,now,width}) => {
   const [open,setOpen] = useState(false);
-
-
   const box_width = () =>{
     if(width){
       return `${width}`

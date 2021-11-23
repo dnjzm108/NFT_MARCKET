@@ -11,7 +11,7 @@ const {successData,errorData,error400} = require('../../returnData')
 
 
 const getMyBuy = async(req,res)=>{
-  const cntsql = myBuyListQuery({...req.query,nickname:'jin'},'cnt');
+  const cntsql = myBuyListQuery(req.query,'cnt');
   const [cntResult] = await query(cntsql);
   const cnt = cntResult.cnt;
   // 요청한 값이 없을 떄. 
@@ -42,7 +42,7 @@ const getMyBuy = async(req,res)=>{
 
 
 const getMyAuction = async(req,res)=>{
-  const cntsql = myAuctionListQuery({...req.query},'cnt');
+  const cntsql = myAuctionListQuery(req.query,'cnt');
   const [cntResult] = await query(cntsql);
   const cnt = cntResult.cnt;
   // 요청한 값이 없을 떄. 
@@ -88,7 +88,7 @@ const getMyImmySellALL = async(req,res)=>{
     return
   }
 
-  const {page,rows, pageblock, totalPage} =makePageBlock(cnt,req.query.page,req.query.rows)
+  const {page,rows, pageblock, totalPage} = makePageBlock(cnt,req.query.page,req.query.rows)
   const params = {...req.query,page,rows}
   const sql = myImmySellAllListQuery(params);
   const result = await query(sql);
@@ -105,7 +105,6 @@ const getMyImmySell = async(req,res)=>{
   const cntsql = myImmySellListQuery(req.query,'cnt');
   const [cntResult] = await query(cntsql);
   const cnt = cntResult.cnt;
-  
   // 요청한 값이 없을 떄. 
   if(cnt==0){
     const data={
@@ -132,6 +131,8 @@ const getMyImmySell = async(req,res)=>{
 }
 
 const getMyAuctionSell = async(req,res)=>{
+  const _nickname = req.get('nickname')
+  const nickname = decodeURIComponent(atob(_nickname)); 
   const cntsql = myAuctionSellListQuery(req.query,'cnt');
   const [cntResult] = await query(cntsql);
   const cnt = cntResult.cnt;
@@ -148,7 +149,7 @@ const getMyAuctionSell = async(req,res)=>{
     return
   }
 
-  const {page,rows, pageblock, totalPage} =makePageBlock(cnt,req.query.page,req.query.rows)
+  const {page,rows, pageblock, totalPage} = makePageBlock(cnt,req.query.page,req.query.rows)
   const params = {...req.query,page,rows}
   const sql = myAuctionSellListQuery(params);
   const result = await query(sql);
