@@ -236,6 +236,18 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
+CREATE TABLE `product_count` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`product_no` VARCHAR(10) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	`num` INT(11) NOT NULL,
+	`order_id` INT(11) NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `FK_product_cnt_product_detail` (`product_no`) USING BTREE,
+	CONSTRAINT `FK_product_count_product` FOREIGN KEY (`product_no`) REFERENCES `nft_market`.`product` (`product_no`) ON UPDATE RESTRICT ON DELETE RESTRICT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 INSERT INTO `bigcategory` (`code`, `value`) VALUES
 	('A1', '남여공용'),
 	('B1', '남자 의류'),
