@@ -34,12 +34,16 @@ const List = () => {
         let data ={
           auth:user_info.auth,
           nickname:user_info.nickname,
-          page:1,
-          rows:10,
-          status:'all',
-          sort:'new',
-          type:type,
+          params:{
+            nickname:user_info.nickname,
+            page:1,
+            rows:10,
+            status:'all',
+            sort:'new',
+            type:type,
+          }
         }
+        console.log(data);
         dispatch(ListUpdateRequest(data))
       }
     }

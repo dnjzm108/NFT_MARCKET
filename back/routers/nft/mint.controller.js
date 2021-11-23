@@ -100,7 +100,7 @@ const mint_nft = async(req,res)=>{
   }
 
   if(type=="false" || type==false ){ // 경매 상품
-    const {color,size} = getOption[0]; 
+    const {color,size} = JSON.parse(getOption[0]); 
     optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}","1","1","${start_price}");\n`
     optionSql+=`INSERT INTO product_count (product_no,num) VALUES("${productNo}",1);\n`
   }
