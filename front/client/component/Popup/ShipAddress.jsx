@@ -97,13 +97,13 @@ const ShipAddress = ({handleShipPopUp}) => {
                       <tr>
                           <td>수령인</td>
                           <td>
-                              <CustomInput {...Recipient} placeholder="수령인을 적어주세요" msg="수령인을 적어주세요" />
+                              <CustomInput {...Recipient} placeholder="수령인을 적어주세요" msg="수령인을 적어주세요"  length={"30"}/>
                           </td>
                       </tr>
                       <tr>
                           <td>요청 사항</td>
                           <td>
-                              <CustomInput {...requirement} placeholder="요청 사항을 적어주세요" />
+                              <CustomInput {...requirement} placeholder="요청 사항을 적어주세요" length={"256"}/>
                           </td>
                       </tr>
                       <tr>
@@ -112,7 +112,7 @@ const ShipAddress = ({handleShipPopUp}) => {
                               <input type="radio" name="receive" onClick={receive} value="문앞" /> 문앞
                               <input type="radio" name="receive" onClick={receive} value="경비실" /> 경비실
                               <input type="radio" name="receive" onClick={receive} value="택배함" /> 택배함
-                              <input type="radio" name="receive" onClick={receive} value="기타" /> 기타   <CustomInput {...other} />
+                              <input type="radio" name="receive" onClick={receive} value="기타" /> 기타   <CustomInput {...other} length={"20"}/>
                           </td>
                       </tr>
                       <tr>
@@ -123,7 +123,7 @@ const ShipAddress = ({handleShipPopUp}) => {
                               {address !== '' ? <h3>우편번호</h3> : ''}
                               <div>{postNumber}</div>
                               {address}
-                              {address !== '' ? <CustomInput {...address_detail} placeholder="상세주소를 입력해 주세요" /> : ''}
+                              {address !== '' ? <CustomInput {...address_detail} length={"200"} placeholder="상세주소를 입력해 주세요" /> : ''}
                               <AddressFind type='button' onClick={openPostCode}>주소 찾기</AddressFind>
                               <div id='popupDom'>
                                   {isPopupOpen && (
@@ -137,7 +137,7 @@ const ShipAddress = ({handleShipPopUp}) => {
                       </tr>
                       <tr>
                           <td>전화번호</td>
-                          <td><CustomInput {...Phonenumber} placeholder=" - 빼고 입력해 주세요" /></td>
+                          <td><CustomInput {...Phonenumber} length={"20"} placeholder=" - 빼고 입력해 주세요" /></td>
                       </tr>
                       </tbody>
                   </Table>
