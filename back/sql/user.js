@@ -2,7 +2,7 @@
 //필요값 닉네임,지갑주소,이메일,사진주소
 const join_sql = () => {
     return (
-        `insert into user (nickname,wallet,email,picture) values (?,?,?,?)`
+        `insert into user (nickname,wallet,email,picture,status) values (?,?,?,?,'0')`
     )
 }
 //로그인 구문
@@ -65,16 +65,16 @@ seller [  0 : 구매자
     3 : 인증 ]*/
 const apply_seller = () => {
     return (
-        `INSERT INTO seller(nickname, seller_no, status) VALUES(?,?,"2")`
+        `INSERT INTO seller(nickname, seller_no) VALUES(?,?)`
     )
 }
 
 
 //판매자 승인
 //필요값 닉네임 , 상태값
-const update_seller = () => {
+const change_status = () => {
     return (
-        `UPDATE seller set status =  ? WHERE nickname =  ? `
+        `UPDATE user set status =  ? WHERE nickname =  ? `
     )
 }
 
@@ -124,7 +124,7 @@ module.exports = {
     update_profile,
     admin_login,
     apply_seller,
-    update_seller,
+    change_status,
     check_seller_sql,
     seller_info_sql
 }
