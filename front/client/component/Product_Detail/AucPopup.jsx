@@ -22,12 +22,12 @@ const AucPopup = (props) => {
 
         const histoty_data = {
             product_no: product_info[0].product_no,
-            auction_id: auction_info[0].auction_id,
+            auction_id: auction_info.auction_id,
             bider: user_info.nickname,
             bid: bid_price.value,
-            option:auction_info[0].option,
-            deadline:auction_info[0].deadline,
-            auction_history_id:auction_info[0].auction_history_id,
+            option:auction_info.option,
+            deadline:auction_info.deadline,
+            auction_history_id:auction_history[0].auction_history_id,
             auth:user_info.auth,
             nickname:user_info.nickname
         }
@@ -70,8 +70,8 @@ const AucPopup = (props) => {
                         <li>사이즈 <span>{product_info[0].size}</span></li>
                         <li>최소 입찰가  <span>
                             {
-                                auction_history[0].bid !== null ?
-                                auction_history[0].bid : product_info.price
+                                auction_history.lenght>0 ?
+                                auction_history[0].bid : product_info['0'].price
                             }
                         </span> 이상으로 입력해주세요</li>
                         <li> 입찰금액 <span><CustomInput {...bid_price} type="number" msg="입찰가를 입력해 주세요" /></span></li>

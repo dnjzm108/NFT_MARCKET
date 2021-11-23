@@ -59,7 +59,7 @@ const auction_detail_sql = () =>{
         `SELECT 
         auction_id,
         product_id,
-        date_format(deadline,'%y-%m-%d %h:%i')as deadline,
+        date_format(deadline,'%y-%m-%d %h:%i:%s')as deadline,
         option
         FROM auction 
         WHERE product_id = ?`
@@ -70,7 +70,7 @@ const auction_history_sql = () =>{
     return(
         `SELECT 
         B.auction_history_id,
-        B.bidder,
+        B.bider,
         B.bid,
         B.status,
         date_format(B.date,'%y-%m-%d %h:%i')as date FROM auction as A 
@@ -132,7 +132,7 @@ const update_detail_sql = () =>{
 // 경매 아이디,입찰자,입찰가격
 const bid_auction_sql = () => {
     return (
-        `INSERT INTO auction_history (auction_id,bidder,bid,status,date) VALUES(?,?,?,"bid",?)`
+        `INSERT INTO auction_history (auction_id,bider,bid,status,date) VALUES(?,?,?,"bid",?)`
     )
 }
 

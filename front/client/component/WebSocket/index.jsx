@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { useSelector, useDispatch } from "react-redux";
-
+import { UpdateBid,UpdateRest } from "../../reducers/product";
 
 const WebSocket = ({ children }) => {
   const dispatch = useDispatch();
@@ -20,7 +20,11 @@ const WebSocket = ({ children }) => {
     if (lastJsonMessage != null) {
       console.log("JsonMessage", lastJsonMessage); 
       if(lastJsonMessage.product_no==product_info[0].product_no){
-        ///// 
+        if(lastJsonMessage.type=='buy'){
+          dispatch(UpdateRest(lastJsonMessage))
+        }else{
+          dispatch(UpdateBid(lastJsonMessage))
+        }
       }
     }
   }, [lastJsonMessage]);

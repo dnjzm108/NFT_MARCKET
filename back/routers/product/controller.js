@@ -1,6 +1,7 @@
 const { query, execute } = require("../../pool")
 const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,auction_history_sql,notice_order_sql } = require("../../sql/product")
 const { successData } = require("../../returnData");
+const {updateDeadline} = require('../../auction')
 const socket = require('../../socket'); 
 
 let product_detail = async (req, res) => {
@@ -120,9 +121,22 @@ let order = async (req,res) =>{
 // 
 let applyauction = async (req,res) =>{
     let {product_no,option,deadline,auction_id,bider,bid,auction_history_id} = req.body
+
     const nowTime = new Date();
+    let newDeadline = deadline;
+    if(option){
+        const deadlineUpdateSql = `UPDATE auction SET deadline=DATE_ADD(deadline, INTERVAL 5 MINUTE) where auction_id='${auction_id}';`
+        await query(deadlineUpdateSql);
+        const findDeadLineSql = `SELECT deadline from auction where auction_id='${auction_id}';`
+        const [newAuction] = await query(findDeadLineSql);
+        newDeadline = new Date(newAuction.deadline).toLocaleString();
+        updateDeadline(auction_id,newAuction.deadline);
+        ///////////////////////////////////
+    }
+
     let history_parms=[auction_id,bider,bid,nowTime]
     let update_detail = await execute(bid_auction_sql(),history_parms)
+    const inserted_bid = update_detail.insertId
     //이전 기록이 있을경우 유찰로 바꿔주기
     if(auction_history_id !== null){
         let chage_parms = [auction_history_id]
@@ -134,7 +148,9 @@ let applyauction = async (req,res) =>{
             type:'auction',
             bider,
             bid,
-            deadline,
+            deadline:newDeadline,
+            status:'bid',
+            auction_history_id:inserted_bid,
             bid_date:nowTime.toLocaleString(),
         }
         socket.broadcast(socketMessage)

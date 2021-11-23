@@ -7,7 +7,7 @@ const { productInfo_sql,prdctDetail_sql,productNum_sql,nftInsert_sql,auction_opt
 const {successData,errorData} = require('../../returnData');
 const { getCategorySql} = require('../../sql/main')
 const { deployNFT } = require('../../klaytn/KIP17');
-
+const {startDeadline,} = require('../../auction'); 
 
 
 
@@ -27,11 +27,7 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 const mint_nft = async(req,res)=>{
   
   const {start_price,name,explain,creater,symbol,type,category,season,image,options,deadline,extension} = req.body
-  console.log(start_price,name,explain,creater,symbol,type,category,season,
-    "img",image,
-    "options",options,
-   "deadline", deadline,
-  "extension",extension);
+
   let sell_type;
 
   if(type=="true" || type==true){
@@ -57,29 +53,29 @@ const mint_nft = async(req,res)=>{
     productNo = getLastProductNo
   }else{// 해당 카테고리 로우가 있으면
     getLastProductNo = getLastProduct[0].product_no;
-    productNo = getLastProductNo.substr(0,6)+(Number('0x'+getLastProductNo.substr(6,4))+1).toString(16);
+    const nextProductNo = String(Number('0x'+getLastProductNo.substr(6,4))+1).toString(16).padStart(4,'0')
+    productNo = getLastProductNo.substr(0,6)+nextProductNo;
   }
-  console.log('상품번호')
-  console.log(productNo)
 
   const contract_address = await deployNFT(name,symbol);
-  console.log('컨트랙트 주소')
-  console.log(contract_address)
+
   
 
   // // product 테이블 
-  let getOption = req.body.options;
-  console.log(getOption);
   let total_qty = 0; 
-  getOption.forEach(v=>{
-    const {qty} = JSON.parse(v)
-    total_qty+=Number(qty);
-  })
-
-  const leftover = total_qty;
+  let getOption = req.body.options;
+  if(typeof getOption=='string'){
+    getOption=[JSON.parse(getOption)]
+    total_qty=1;
+  }else{ 
+    getOption.forEach(v=>{
+      const {qty} = JSON.parse(v)
+      total_qty+=Number(qty);
+    })
+  }
   const made_from = creater;
 
-  let productParams =[productNo,name, explain, made_from,sell_type,total_qty,leftover,symbol,contract_address]
+  let productParams =[productNo,name, explain, made_from,sell_type,total_qty,total_qty,symbol,contract_address]
   const productInsert = await execute(productInfo_sql(),productParams)
 
 
@@ -88,13 +84,15 @@ const mint_nft = async(req,res)=>{
     getOption.forEach(v=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
+
       optionSql+=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}",${qty},${qty},${price});\n`
     
     })
   }
 
   if(type=="false" || type==false ){ // 경매 상품
-    optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}",NULL,NULL,NULL,NULL,NULL);\n`
+    const {color,size} = getOption[0]; 
+    optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}","1","1","${start_price}");\n`
   }
   const product_detail = await query(optionSql)
 
@@ -106,6 +104,8 @@ const mint_nft = async(req,res)=>{
   if(sell_type=="auction"){ // 경매상품인 경우에만 auction 테이블에 넣어줌
     const auctionParams = [product_id,deadline,extension];
     const auctionOption = await execute(auction_option_info(),auctionParams)
+    const auction_id = auctionOption.insertId;
+    startDeadline(auction_id,deadline);
   }
 
   
@@ -115,7 +115,7 @@ const mint_nft = async(req,res)=>{
         const v = req.files[i];
         const image =await uploadFile(v,productNo,i+1);  //S3업로드
         images.push(image.Location)
-        await unlinkFile(v.path) //upload에 있는 img파일 지우기
+         await unlinkFile(v.path) //upload에 있는 img파일 지우기
       }
 
     let imageSql ='' 
@@ -125,17 +125,20 @@ const mint_nft = async(req,res)=>{
     await query(imageSql);
     const metadata = await uploadMetaData(productNo,name,explain,creater,images); 
     const tokenURI = metadata.Location;  
-    const updateTokenURI = `UPDATE product SET tokenURI=${tokenURI} WHERE product_no=${productNo}`
+    const updateTokenURI = `UPDATE product SET tokenURI='${tokenURI}' WHERE product_no='${productNo}'`
     await query(updateTokenURI);
 
-  const data = {
-    productNo,
-    tokenId,
-    tokenURI
-  }
+
+    const data = {
+      productNo,
+      tokenURI,
+      contract_address
+    }
 
   res.json(successData(data))
 }
+
+
 
 // 카테고리 가져오기
 const getCategory =async(req,res)=>{
@@ -147,6 +150,7 @@ const getCategory =async(req,res)=>{
   }
   res.json(successData(data))
 }
+
 function clearCategory(category){
   let categoryTemp = {};
   const bigCategory = new Set(category.map(v=>{ 

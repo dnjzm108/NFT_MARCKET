@@ -202,7 +202,7 @@ function myAuctionListQuery(query,type){
         FROM
               auction_history
         WHERE
-              bidder='${nickname}'
+              bider='${nickname}'
       )	as H
   LEFT JOIN (
             SELECT 
