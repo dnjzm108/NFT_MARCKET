@@ -18,7 +18,7 @@ const List = () => {
   const router = useRouter()
   const {type} = router.query;
   useEffect(()=>{
-    if(type!=undefined){
+    if(type!=undefined && type!=null){
  
       if(type=='favorite'){
         let data ={
@@ -43,7 +43,6 @@ const List = () => {
             type:type,
           }
         }
-        console.log(data);
         dispatch(ListUpdateRequest(data))
       }
     }
