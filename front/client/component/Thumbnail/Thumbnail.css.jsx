@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Slider from "react-slick";
 
 export const StyledThumbnail = styled.div`
-
+margin-top: ${p=>p.isNow ? "40%":"66%"};
 .thumbnail{
     width: auto;
     display: flex;
@@ -12,8 +12,10 @@ export const StyledThumbnail = styled.div`
 }
 
 .thumbnail>h3{
+    font-size: 20px;
     width: 300px;
-    padding: 8%;
+    display: flex;
+    justify-content: center;
 }
 
 .thumbnail>p{
@@ -28,11 +30,11 @@ export const StyledThumbnail = styled.div`
 export const Styled_Slide = styled(Slider)`
 
 .slick-list {
+    
     width: 320px;
     height: 400px;
     margin: 0 auto;
-    background-color: #f0f9ff;
-    box-sizing: content-box;
+    background-color: ${p=>p.imageBundle.length==0 ? "#f0f9ff":"none"};
   }
 
 .slick-prev:before, .slick-next:before{
@@ -62,12 +64,14 @@ div>button{
 }
 
 div>div{
-    display: inline-block;
+    display:flex;
+    align-items: center;
     width: 100%;
+    padding: 8px;
 }
 
 div>div>img{
     width: 100%;
-    /* height: auto; */
+    height: auto;
 }
 `
