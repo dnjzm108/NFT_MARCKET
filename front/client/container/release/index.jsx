@@ -92,7 +92,6 @@ const Release = () => {
     }
 
     const imageClick = (e) => {
-        console.log(imageBundle)
         for (let i = 0; i < imageBundle.length; i++) {
             if (imageBundle[i] == e.target.currentSrc) {
                 return changeArrayOrder(imageBundle,i,-i)
@@ -105,7 +104,7 @@ const Release = () => {
         const temp = list;
         const target = temp.splice(targetidx,1)[0]
         temp.splice(newPosi,0,target)
-        return temp;
+        return temp
     }
 
 
