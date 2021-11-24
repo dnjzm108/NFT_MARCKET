@@ -69,7 +69,7 @@ startDate,setStartDate}) =>{
                 onChange={(date) => setStartDate(date)}
                 showTimeSelect
                 timeFormat="HH:mm"
-                timeIntervals={15}
+                timeIntervals={5}
                 timeCaption="time"
                 dateFormat="MMMM d, yyyy h:mm aa"
                 filterDate={isPossibleDay}

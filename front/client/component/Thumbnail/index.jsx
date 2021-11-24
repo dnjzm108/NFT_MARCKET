@@ -24,30 +24,9 @@ const Thumbnail = ({imageBundle,isNow,imageClick})=>{
         slidesToScroll: 1
     }
 
-    const handleThumbnail = (e)=>{
-        imageBundle.map((v,i)=>{
-            if(imageBundle[i]==e.target.currentSrc){
-                return changeArrayOrder(imageBundle,i,-i)
-            }
-        })
-    }
-
-    const changeArrayOrder=(list,targetidx,moveValue)=>{
-        const newPosi = targetidx+moveValue;
-        const temp = JSON.parse(JSON.stringify(list))
-        const target = temp.splice(targetidx,1)[0]
-        temp.splice(newPosi,0,target)
-        return temp;
-    }
-
     const checking =()=>{
         console.log("22",imageBundle)
     }
-
-    const check1= ()=>{
-        console.log(imageBundle)
-    }
-
 
     return(
         <StyledThumbnail isNow={isNow} >
@@ -57,8 +36,10 @@ const Thumbnail = ({imageBundle,isNow,imageClick})=>{
                     <Styled_Slide {...settings} imageBundle={imageBundle}>
                         {imageBundle.map((v, i) => {
                             return (
-                                <div key={i} onClick={(e)=>imageClick(e)} >
-                                    <img src={v} />
+                                <div>
+                                    <div key={i} >
+                                    <img src={v} onClick={(e) => imageClick(e)}/>
+                                    </div>
                                 </div>
                             )
                         })
@@ -66,8 +47,8 @@ const Thumbnail = ({imageBundle,isNow,imageClick})=>{
                     </Styled_Slide>
                 </div>
                 
-                <p>* 선택하지 않으면 가장 앞의 사진이 대표사진으로 올라갑니다</p>
-                {/* <div onClick={checking}>선택되었습니다</div> */}
+                <p onClick={checking}>* 선택하지 않으면 가장 앞의 사진이 대표사진으로 올라갑니다</p>
+                
             </div>
         </StyledThumbnail>
     )

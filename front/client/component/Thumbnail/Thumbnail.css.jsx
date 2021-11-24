@@ -18,21 +18,24 @@ margin-top: ${p=>p.isNow ? "40%":"66%"};
     justify-content: center;
 }
 
+
 .thumbnail>p{
     width: 280px;
     margin-top: 20%;
     text-align: center;
     font-weight: bold;
     color: #222;
+    background-color: #f0f9ff;
+    padding:8px;
+    box-sizing: content-box;
 }
 `
 
 export const Styled_Slide = styled(Slider)`
 
 .slick-list {
-    
-    width: 320px;
-    height: 400px;
+    width: 360px;
+    height: 440px;
     margin: 0 auto;
     background-color: ${p=>p.imageBundle.length==0 ? "#f0f9ff":"none"};
   }
@@ -63,11 +66,22 @@ div>button{
     cursor: pointer;
 }
 
+
+div>span{
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+}
+div>span>input{
+    margin-left: 10px;
+}
 div>div{
     display:flex;
     align-items: center;
     width: 100%;
-    padding: 8px;
+    padding: 1.5%;
 }
 
 div>div>img{
