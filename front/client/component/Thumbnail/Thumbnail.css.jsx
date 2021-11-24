@@ -8,12 +8,10 @@ margin-top: ${p=>p.isNow ? "40%":"66%"};
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4%;
 }
 
 .thumbnail>h3{
-    font-size: 20px;
-    width: 300px;
+    font-size: 22px;
     display: flex;
     justify-content: center;
 }
@@ -21,11 +19,10 @@ margin-top: ${p=>p.isNow ? "40%":"66%"};
 
 .thumbnail>p{
     width: 280px;
-    margin-top: 20%;
+    margin-top: 20px;
     text-align: center;
     font-weight: bold;
     color: #222;
-    background-color: #f0f9ff;
     padding:8px;
     box-sizing: content-box;
 }
@@ -34,8 +31,8 @@ margin-top: ${p=>p.isNow ? "40%":"66%"};
 export const Styled_Slide = styled(Slider)`
 
 .slick-list {
-    width: 360px;
-    height: 440px;
+    width: 400px;
+    height: 480px;
     margin: 0 auto;
     background-color: ${p=>p.imageBundle.length==0 ? "#f0f9ff":"none"};
   }
@@ -47,6 +44,10 @@ export const Styled_Slide = styled(Slider)`
     opacity: .75;
     color: #000000;
     -webkit-font-smoothing: antialiased;
+}
+
+.slick-slide{
+    margin-top: -20px;
 }
 
 .slick-prev:before{
@@ -66,26 +67,21 @@ div>button{
     cursor: pointer;
 }
 
-
-div>span{
-    width: 100%;
-    display: flex;
-    margin-top: 10px;
-    justify-content: center;
-    align-items: center;
-}
 div>span>input{
     margin-left: 10px;
 }
+
 div>div{
     display:flex;
     align-items: center;
     width: 100%;
-    padding: 1.5%;
+    padding: 1.2%;
 }
 
 div>div>img{
     width: 100%;
     height: auto;
 }
+
+
 `
