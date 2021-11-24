@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import {Styled_Slide} from "./Thumbnail.css"
 
 
-const Thumbnail = ({imageBundle})=>{
+const Thumbnail = ({imageBundle,isNow,imageClick})=>{
     const [ isSelect , setIsSelect ] = useState(true);
 
     const handleSelect = ()=>{
@@ -24,11 +24,12 @@ const Thumbnail = ({imageBundle})=>{
         slidesToScroll: 1
     }
 
-    const handleThumbnail = (e,i)=>{
-        // console.log(i)
-        // console.log(imageBundle[i])
-        // console.log("11",imageBundle)
-        // changeArrayOrder(imageBundle,2,-2)
+    const handleThumbnail = (e)=>{
+        imageBundle.map((v,i)=>{
+            if(imageBundle[i]==e.target.currentSrc){
+                return changeArrayOrder(imageBundle,i,-i)
+            }
+        })
     }
 
     const changeArrayOrder=(list,targetidx,moveValue)=>{
@@ -43,17 +44,21 @@ const Thumbnail = ({imageBundle})=>{
         console.log("22",imageBundle)
     }
 
+    const check1= ()=>{
+        console.log(imageBundle)
+    }
+
 
     return(
-        <StyledThumbnail>
+        <StyledThumbnail isNow={isNow} >
             <div className="thumbnail">
-                <h3>대표 이미지를 선택해주세요</h3>
+                <h3>대표 이미지로 보일<br/> 사진을 클릭하세요</h3>
                 <div className="flex_contain">
-                    <Styled_Slide {...settings} isSelect={isSelect}>
+                    <Styled_Slide {...settings} imageBundle={imageBundle}>
                         {imageBundle.map((v, i) => {
                             return (
-                                <div key={i}>
-                                    <img src={v} onClick={(e,i)=>handleThumbnail(e,i)}/>
+                                <div key={i} onClick={(e)=>imageClick(e)} >
+                                    <img src={v} />
                                 </div>
                             )
                         })
@@ -62,7 +67,7 @@ const Thumbnail = ({imageBundle})=>{
                 </div>
                 
                 <p>* 선택하지 않으면 가장 앞의 사진이 대표사진으로 올라갑니다</p>
-                <div onClick={checking}>대표사진으로 선택</div>
+                {/* <div onClick={checking}>선택되었습니다</div> */}
             </div>
         </StyledThumbnail>
     )

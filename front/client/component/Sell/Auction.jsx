@@ -13,7 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const Auction = 
 ({bid,setBid,
 extension,setExtension,
-startDate,setStartDate,isPossibleDay}) =>{
+startDate,setStartDate}) =>{
     
 
     const handleExtension =()=>{
@@ -23,6 +23,25 @@ startDate,setStartDate,isPossibleDay}) =>{
             setExtension(0)
         }
     }
+
+    // datepicker 설정 - 오늘 이전 날짜는 선택 못하게
+    const isPossibleDay = (date) => {
+        const currentDate = new Date();
+        const selectedDate = new Date(date);
+        return currentDate.getDate() <= selectedDate.getDate();
+    };
+
+
+    const filterPassedTime =(time)=>{
+        const currentDate = new Date()
+        const selectedDate = new Date(time)
+
+        return currentDate.getTime() < selectedDate.getTime()
+    }
+
+    // const checking =()=>{
+    //     console.log("hey")
+    // }
 
     return(
         <>
@@ -54,14 +73,17 @@ startDate,setStartDate,isPossibleDay}) =>{
                 timeCaption="time"
                 dateFormat="MMMM d, yyyy h:mm aa"
                 filterDate={isPossibleDay}
+                filterTime={filterPassedTime}
+                // minDate={new Date()} // 과거 날짜 disable
+                // onClick ={checking}
                 />
             </div>
             
           
         </div>
         <div className="extension_box">
-            <input type="checkbox" name="extension" onClick={()=>handleExtension()} />
-            <p>새로운 입찰 발생시 경매 시간 5분 연장</p>
+            <input type="checkbox" name="extension" id="extension" onClick={()=>handleExtension()} />
+            <p><label htmlFor="extension">새로운 입찰 발생시 경매 시간 5분 연장</label></p>
         </div>
         <div className="auction_btn">
         {/* <Button value="입력완료" func={AuctionSubmit}/> */}
