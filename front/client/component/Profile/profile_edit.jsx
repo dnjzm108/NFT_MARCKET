@@ -79,7 +79,7 @@ const Profile_edit = () => {
 
                     <Contain>
                         <label htmlFor="email_address">이메일 주소</label>&nbsp;
-                        <CustomInput {...email_change} msg={"이메일을 입력해주세요."} type="text" id="email_address" placeholder="이메일을 입력해주세요" />
+                        <CustomInput {...email_change} msg={"이메일을 입력해주세요."} type="text" id="email_address" placeholder="이메일을 입력해주세요" length="28" />
 
                     </Contain>
                     <div className="btn_edit">
