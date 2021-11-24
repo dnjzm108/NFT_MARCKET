@@ -53,7 +53,7 @@ const AucPopup = (props) => {
             }
         }
     }
-
+    console.log(auction_history[0].bid);
     return (
         <Popup_background>
             <StyledNowPopup>
@@ -70,8 +70,8 @@ const AucPopup = (props) => {
                         <li>사이즈 <span>{product_info[0].size}</span></li>
                         <li>최소 입찰가  <span>
                             {
-                                auction_history.lenght>0 ?
-                                auction_history[0].bid : product_info['0'].price
+                                auction_history[0].bid !== null ?
+                                auction_history[0].bid : product_info[0].price
                             }
                         </span> 이상으로 입력해주세요</li>
                         <li> 입찰금액 <span><CustomInput {...bid_price} type="number" msg="입찰가를 입력해 주세요" /></span></li>

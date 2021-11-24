@@ -15,7 +15,7 @@ import {
 
 // mint 상품 등록 정보 api
 async function mintAPI(data){
-    console.log(data)
+
   return  await axios.post(`${url}/nft/mint`, data, { headers: {'Content-Type': 'multipart/form-data'}})
 }
 

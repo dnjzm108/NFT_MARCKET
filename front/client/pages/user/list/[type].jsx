@@ -43,7 +43,6 @@ const List = () => {
             type:type,
           }
         }
-        console.log(data);
         dispatch(ListUpdateRequest(data))
       }
     }

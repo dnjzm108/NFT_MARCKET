@@ -44,7 +44,6 @@ const Profile_edit = () => {
     }
 
     const handleImg = async (e) => {
-        console.log(e.target.files[0]);
         const img = e.target.files[0];
         setimages(img)
     }
