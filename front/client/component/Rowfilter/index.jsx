@@ -87,8 +87,10 @@ const Rowfilter = ({children}) => {
               <BiSearch size={24} color={'#888'}/>
              <input id='search-input' type="text" placeholder='상품명/디자이너 검색' onChange={(e) => handleSearch(e)} />
            </form>
-          <div>
-            <OptionBox list={sortList}  onClick={handleSort} now={router.query.sort==undefined? 'new' : router.query.sort }/>
+          <div className='sort_relative'>
+            <div className='sort_absolute'>
+              <OptionBox list={sortList}  onClick={handleSort} now={router.query.sort==undefined? 'new' : router.query.sort }/>
+            </div>
           </div>
         </div>
         {children!==undefined && children}

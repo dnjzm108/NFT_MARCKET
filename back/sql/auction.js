@@ -63,7 +63,6 @@ const addOrderSql = ()=>{
 const stopAuctionSQL=(auction_id,isSoldout)=>{
 
   const leftover =isSoldout ? `leftover=0,`: ''
-  const rest =isSoldout ? `rest=0,`: ''
 
   return`
   UPDATE
@@ -86,8 +85,7 @@ const stopAuctionSQL=(auction_id,isSoldout)=>{
   UPDATE
 	      product_detail
   SET 
-	      ${rest}
-        type='stop'
+        rest=0
   WHERE 
       product_no = (SELECT 
 	                        D.product_no

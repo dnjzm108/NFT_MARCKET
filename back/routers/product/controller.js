@@ -122,6 +122,7 @@ let order = async (req,res) =>{
 let applyauction = async (req,res) =>{
     let {product_no,option,deadline,auction_id,bider,bid,auction_history_id} = req.body
 
+    
     const nowTime = new Date();
     let newDeadline = deadline;
     if(option){
