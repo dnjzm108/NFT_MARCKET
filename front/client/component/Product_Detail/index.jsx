@@ -204,7 +204,7 @@ const product_detail = () => {
                     </Seller_contain>
 
                     <Center_contain >
-                        {product_info[0].type !== "auction" ?
+                        {product_info[0].type == "buy" ?
                             <>
                                 <h1>남은수량 : {product_info[`${option}`].rest} 개</h1>
                                 <SelectBox {...category} />
@@ -224,7 +224,7 @@ const product_detail = () => {
                         }
                     </Center_contain>
 
-                    {product_info[0].type !== "auction" ?
+                    {product_info[0].type == "buy" ?
                         <Price_contain>
                             <h2> <img src="/klay.png" alt="" /> {product_info[`${option}`].price}</h2>
                             <Button value="즉시 구매" color="sky" func={handlePopupImmy} />
@@ -241,7 +241,7 @@ const product_detail = () => {
                         <Deleivery_address handlePopup={handlePopupImmy} option={option} select_qty={select_qty}/> : ""}
                     {isAuc ? <AucPopup handlePopup={handlePopupAuc} product={product_info} auction_info={auction_info} /> : ""}
 
-                    {product_info[0].type == "auction" ?
+                    {product_info[0].type !== "buy" ?
                         <Auction_contain>
                             <ul>
                                 {auction ? <li onClick={changeAuction} style={{ color: "blue" }}>경매 하기</li> : <li onClick={changeAuction}>경매 하기</li>}

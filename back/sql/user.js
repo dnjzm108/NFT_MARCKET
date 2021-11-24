@@ -20,6 +20,18 @@ const login_sql = () => {
     )
 }
 
+const login_info_sql = () => {
+    return (`select 
+                    A.nickname,
+                    A.wallet,
+                    A.email,
+                    A.picture,
+                    A.status 
+            from 
+                    user as A 
+            WHERE A.nickname = ?`
+    )
+}
 
 
 //닉네임 체크 구문
@@ -32,20 +44,19 @@ const name_check_sql = () => {
 
 //회원정보 수정 구문
 //필요값 변경할 이메일 또는 사진
-const update_profile = (email, picture) => {
-    let info = ''
-    if (email != undefined) {
-        info += `email = ${email}`
-    }
-    if (picture != undefined) {
-        if (email != undefined) {
-            info += `, picture = ${picture}`
-        } else {
-            info += `picture = ${picture}`
-        }
-    }
-    return (`UPDATE user set ${info} WHERE nickname = ?
-    `)
+const update_profile_sql = () => {
+    // let info = ''
+    // if (email != undefined) {
+    //     info += `email = ${email}`
+    // }
+    // if (picture != undefined) {
+    //     if (email != undefined) {
+    //         info += `, picture = ${picture}`
+    //     } else {
+    //         info += `picture = ${picture}`
+    //     }
+    // }
+    return (`UPDATE user set email = ? , picture = ? WHERE nickname = ?`)
 }
 
 //관리자 로그인
@@ -85,7 +96,7 @@ const check_seller_sql = () => {
     return (
         `SELECT A.seller_no,B.nickname,B.email FROM seller as A
         LEFT JOIN user as B
-        ON A.nickname = B.nickname WHERE status = ? `
+        ON A.nickname = B.nickname WHERE B.status = ? `
     )
 }
 
@@ -121,10 +132,11 @@ module.exports = {
     join_sql,
     login_sql,
     name_check_sql,
-    update_profile,
+    update_profile_sql,
     admin_login,
     apply_seller,
     change_status,
     check_seller_sql,
-    seller_info_sql
+    seller_info_sql,
+    login_info_sql
 }

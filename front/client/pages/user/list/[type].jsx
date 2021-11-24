@@ -18,7 +18,7 @@ const List = () => {
   const router = useRouter()
   const {type} = router.query;
   useEffect(()=>{
-    if(type!=undefined){
+    if(type!=undefined && type!=null){
  
       if(type=='favorite'){
         let data ={
@@ -34,11 +34,14 @@ const List = () => {
         let data ={
           auth:user_info.auth,
           nickname:user_info.nickname,
-          page:1,
-          rows:10,
-          status:'all',
-          sort:'new',
-          type:type,
+          params:{
+            nickname:user_info.nickname,
+            page:1,
+            rows:10,
+            status:'all',
+            sort:'new',
+            type:type,
+          }
         }
         dispatch(ListUpdateRequest(data))
       }

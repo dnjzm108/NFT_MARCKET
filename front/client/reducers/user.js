@@ -5,6 +5,7 @@ const initalState = {
         nickname:null,
         wallet:null,
         email:null,
+        picture:null,
         seller:null,
         status:null
     }
@@ -24,7 +25,18 @@ const SELLER_APPLY = "SELLER_APPLY"
 const SELLER_APPLY_SUCCESS = "SELLER_APPLY_SUCCESS"
 const SELLER_APPLY_ERROR = "SELLER_APPLY_ERROR"
 
+const PROFILE_UPDATE = "PROFILE_UPDATE"
+const PROFILE_UPDATE_SUCCESS = "PROFILE_UPDATE_SUCCESS"
+const PROFILE_UPDATE_ERROR = "PROFILE_UPDATE_ERROR"
 
+
+
+export const UserUpdate_REQUEST = (data) =>{
+    return{
+        type:PROFILE_UPDATE,
+        data
+    }
+ }
 
 export const Seller_Apply_Request = (data) =>{
     return{
@@ -133,11 +145,30 @@ const reducer = (state = initalState,action) => {
                     return {
                         ...state,
                         loadding: false,
+                        user_info:action.info
                     }
                 case SELLER_APPLY_ERROR:
                     return {
                         ...state,
+                        loadding: false
+                    }
+
+
+                case PROFILE_UPDATE:
+                    return {
+                        ...state,
+                        loadding: true
+                    }
+                case PROFILE_UPDATE_SUCCESS:
+                    return {
+                        ...state,
                         loadding: false,
+                        user_info:action.info
+                    }
+                case PROFILE_UPDATE_ERROR:
+                    return {
+                        ...state,
+                        loadding: false
                     }
 
         default:

@@ -36,110 +36,103 @@ const getAllListSql = (params, nickname) => {
       const where = makeWhereVerse(params);
       const order = makeOrderVerse(params.sort);
       return `
-  SELECT 
-          P.product_no,
-          P.name,
-          P.creater,
-          P.likes,
-          P.type,
-          P.date,
-          ifnull(D.bid,D.price) AS price,
-          D.deadline,
-          P.isLike,
-          P.img
-  FROM(
-          SELECT
-                  A.name,
-                  A.creater,
-                  A.likes,
-                  A.type,
-                  A.product_no,
-                  A.date,
-                  A.leftover,
-                  B.img,
-                  L.nickname AS isLike
-          FROM
-                  product AS A
-        
-          NATURAL JOIN ( 
-                          SELECT
-                                img, 
-                                product_no
-                          FROM
-                                product_image
-                          GROUP BY
-                                product_no
-                ) AS B
-
-            LEFT JOIN (
-                  SELECT 
-                         * 
-                  FROM 
-                        likes 
-                  WHERE 
-                        nickname='${_nickname}'
-                  ) AS L 
-        ON 
-            A.product_no=L.product_no
-      )AS P
-  NATURAL JOIN(
-            SELECT 
-                  Q.product_id,
-                  Q.product_no,
-                  Q.price,
-                  A.bid,
-                  A.deadline
-
-            FROM( 
-                  SELECT 
-                          product_no,product_id,price
-                  FROM 
-                          product_detail 
-                  GROUP BY 
-                          product_no
-                )AS Q
-            NATURAL JOIN (
-                        SELECT 
-                                auction.auction_id AS auction_id,
-                                auction.product_id,
-                                auction.deadline,
-                                L.bid
-                        FROM 
-                                auction
-                        LEFT JOIN( 
-                                  SELECT 
-                                          *
-                                  FROM(
-                                          SELECT 
-                                                  *
-                                          FROM
-                                                  auction_history
-                                          WHERE
-                                                  (auction_id,bid) IN (
-                                                                    SELECT 
-                                                                          auction_id, 
-                                                                          max(bid) AS bid
-                                                                    FROM 
-                                                                          auction_history
-                                                                    GROUP BY 
-                                                                          auction_id
-                                                                      )
-                                            ORDER BY 
-                                                  bid DESC
-                                        ) AS H
-                                  GROUP BY 
-                                        auction_id
-                                  )AS L
-                        ON 
-                              auction.auction_id=L.auction_id
-                )AS A
-  ) AS D
-
-  WHERE 
-        leftover>0 AND type!='stop' ${where} 
-  ${order}
-  LIMIT 
-        ${params.skip},16;
+      SELECT 
+      P.product_no,
+      P.name,
+      P.creater,
+      P.likes,
+      P.type,
+      P.date,
+      ifnull(D.bid,D.price) AS price,
+      P.isLike,
+      P.img
+FROM(
+      SELECT
+              A.name,
+              A.creater,
+              A.likes,
+              A.type,
+              A.product_no,
+              A.date,
+              A.leftover,
+              B.img,
+              L.nickname AS isLike
+      FROM
+              product AS A
+    
+      NATURAL JOIN ( 
+                      SELECT
+                            img, 
+                            product_no
+                      FROM
+                            product_image
+                      GROUP BY
+                            product_no
+            ) AS B
+        LEFT JOIN (
+              SELECT 
+                     * 
+              FROM 
+                    likes 
+              WHERE 
+                    nickname='${_nickname}'
+              ) AS L 
+    ON 
+        A.product_no=L.product_no
+  )AS P
+NATURAL JOIN(
+        SELECT 
+              Q.product_id,
+              Q.product_no,
+              Q.price,A.bid
+        FROM( 
+              SELECT 
+                      product_no,product_id,price
+              FROM 
+                      product_detail 
+              GROUP BY 
+                      product_no
+            )AS Q
+        LEFT JOIN (
+                    SELECT 
+                            auction.auction_id AS auction_id,
+                            auction.product_id,
+                            L.bid
+                    FROM 
+                            auction
+                    LEFT JOIN( 
+                              SELECT 
+                                      *
+                              FROM(
+                                      SELECT 
+                                              *
+                                      FROM
+                                              auction_history
+                                      WHERE
+                                              (auction_id,bid) IN (
+                                                                SELECT 
+                                                                      auction_id, 
+                                                                      max(bid) AS bid
+                                                                FROM 
+                                                                      auction_history
+                                                                GROUP BY 
+                                                                      auction_id
+                                                                  )
+                                        ORDER BY 
+                                              bid DESC
+                                    ) AS H
+                              GROUP BY 
+                                    auction_id
+                              )AS L
+                    ON auction.auction_id=L.auction_id
+            )AS A
+        ON Q.product_id=A.product_id
+) AS D
+WHERE 
+    leftover>0 AND type!='stop' ${where} 
+${order}
+LIMIT 
+    ${params.skip},16;
   `
 }
 

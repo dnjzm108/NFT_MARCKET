@@ -35,7 +35,6 @@ function loginAPI(data){
 
 function* login(action){
     let result = yield call(loginAPI,action.data)
-    console.log(result);
     let {response} = result.data
     if (response !== undefined) {
         yield put({
@@ -55,12 +54,13 @@ function sellerAPI(data){
 
 function* seller(action){
     let result = yield call(sellerAPI,action.data)
-    console.log(result);
-    let {success,error} = result.data
+
+    let {success,error,response} = result.data
 
     if (success == true) {
         yield put({
-            type: 'SELLER_APPLY_SUCCESS'
+            type: 'SELLER_APPLY_SUCCESS',
+            info:response
         })
         alert('정상정으로 신청되었습니다.')
     } else {
@@ -72,11 +72,35 @@ function* seller(action){
     
 }
 
+function profileAPI(data){
+    return axios.post(`${url}/user/update_profile`,data)
+}
+
+function* profile(action){
+    let result = yield call(profileAPI,action.data)
+    let {success,error,response} = result.data
+
+    if (success == true) {
+        yield put({
+            type: 'PROFILE_UPDATE_SUCCESS',
+            info:response
+        })
+        alert('정상정으로 변경되었습니다.')
+    } else {
+        yield put({
+            type: 'PROFILE_UPDATE_ERROR'
+        })
+        alert(error.message)
+    }
+    
+}
+
 
 function* watchUser(){
     yield takeLatest('USER_LOGIN_REQUEST',login)
     yield takeLatest('USER_JOIN_REQUEST',join)
     yield takeLatest('SELLER_APPLY',seller)
+    yield takeLatest('PROFILE_UPDATE',profile)
     
 }
 

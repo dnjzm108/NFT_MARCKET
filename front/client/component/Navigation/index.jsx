@@ -11,7 +11,7 @@ import Button from "../Button";
 import { useState } from "react";
 import useInput from "../../hooks/useInput";
 import { BiLogOut, BiUserCircle } from "react-icons/bi";
-import  { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import CustomInput from '../CustomInput'
 import { useDispatch, useSelector } from "react-redux";
 import { ExploreRequest } from '../../reducers/explore';
@@ -25,11 +25,6 @@ const Navigation = () => {
   const { IsLogin, user_info } = useSelector(state => state.user);
   const [nowItem, setNowItem] = useState(null);
   
-  const test = useSelector(state => state.user);
-  const router = useRouter()
- 
-
-
   const logOut = () => {
     dispatch(User_Logout())
   }
@@ -54,18 +49,25 @@ const Navigation = () => {
               <a>탐색하기</a>
             </Link>
           </NavItem>
-          <NavItem
-            onClick={() => setNowItem(2)}
-            isClicked={nowItem == 2 ? true : false}
-          >
-            <Link href="/mint">
-              <a>발행하기</a>
-            </Link>
-          </NavItem>
+
+
+          {user_info.status == 3 ?
+            <NavItem
+              onClick={() => setNowItem(2)}
+              isClicked={nowItem == 2 ? true : false}
+            >
+              <Link href="/mint">
+                <a>발행하기</a>
+              </Link>
+            </NavItem>
+            : ''}
+
+
           <NavItem
             onClick={() => setNowItem(3)}
             isClicked={nowItem == 3 ? true : false}
           >
+
             <Link href="/swap">
               <a>토큰 교환</a>
             </Link>

@@ -1,91 +1,69 @@
 import Button from "../Button"
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import {Circle} from "../Join/Join.css"
-import { ProfileStyled,StyleTd,Contain } from "./Profile.css";
+import { Circle } from "../Join/Join.css"
+import { ProfileStyled, StyleTd, Contain } from "./Profile.css";
 import { useState } from "react";
 import CustomInput from "../CustomInput"
 import axios from "axios";
 import { UserUpdate_REQUEST } from "../../reducers/user";
 import { useSelector, useDispatch } from "react-redux";
 import Router from "next/router";
+import useInput from '../../hooks/useInput.jsx';
 
 
 const Profile_edit = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
-    // const [check_id, setCheck_id] = useState('')
-    const [Email, setEmail] = useState();
+    const {nickname,auth,email,picture} = user.user_info
     const [images, setimages] = useState();
 
-    const currentemail = user.user_info.email
-    // const currentpicture = user.user_info.picture
+    const email_change = useInput()
 
-    const handleSumit = () =>{
-        const formData = new FormData();
-        formData.append("image",images)
+    const handleSumit = () => {
+        if(email_change.value == undefined && images == undefined){
+            alert('변경하실 이메일 또는 사진을 첨부해주세요')
+        }else{
+        
+            const formData = new FormData();
+            formData.append("nickname", nickname)
+            formData.append("auth", auth)
 
-        dispatch(UserUpdate_REQUEST(formData))
-        Router.push('/user/profile')
-
+            if(email_change.value == undefined){
+                formData.append("email", email)
+            }else{
+                formData.append("email", email_change.value)
+            }
+            if(images == undefined){
+                formData.append("picture", picture)
+            }else{
+                formData.append("image", images)
+            }
+            dispatch(UserUpdate_REQUEST(formData))
+            Router.push('/user/profile')
+        }
     }
-    
-    const handleImg = async(e)=>{
+
+    const handleImg = async (e) => {
         const img = e.target.files[0];
         setimages(img)
-    }   
-
-    const handlemail = async()=>{
-        const mail = currentemail;
-        setEmail(mail)
     }
-    // const handleimage = (e) => {
-    //     const img = e.target.files[0];
-    //     setimages(img)
-    // }
 
-    // const handlemail = ()=>{
-    //     const mail = currentemail
-    //     console.log(mail)
-    //     setEmail(mail)
-    // }
-
-    // const editPage = () => {
-    //     dispatch(UserUpdate_REQUEST(user.user_info))
-    //     alert('수정되었습니다!')
-    //     Router.push('/user/profile')
-    // }
-    // const overlap = async ()=>{
-    //     const nick = {
-    //         nick : nickname.value
-    //     }
-    //     if(nickname.value !==''){
-    //         let result = await axios.post(`${url}/user/name_check`,nick)
-    //         if(result){
-    //             setCheck_id(result.data)
-    //         } else{
-    //             setCheck_id(result.data)
-    //         }
-    //     }else{
-    //         setCheck_id('')
-    //     }
-    // }
 
     return (
         <>
+            <ProfileStyled>
+                <div>
+                    <h1>프로필 편집</h1>
+                    <StyleTd />
+                    <Circle>
+                        {images !== undefined ?
+                            <label htmlFor="profile" style={{ background: "green" }} >
+                                <CameraAltIcon />
+                            </label> :
+                            <label htmlFor="profile" >
+                                <CameraAltIcon />
+                            </label>}
 
-        <ProfileStyled>
-        <div>
-        <h1>프로필 편집</h1>
-        <StyleTd/>
-        <Circle> 
-        {images !==undefined? 
-        <label htmlFor="profile" style={{background:"green"}} >
-                              <CameraAltIcon />
-                              </label> : 
-                              <label htmlFor="profile" >
-                              <CameraAltIcon />
-                              </label>}
-                        
                         <input
                             accept='image/*'
                             type="file"
@@ -93,27 +71,22 @@ const Profile_edit = () => {
                             multiple
                             onChange={handleImg}
                             id="profile"
-                            style={{display:"none"}}
-                       / >
-                           </Circle>
-        <StyleTd/>
-        /* <Contain>
-        {/* <label htmlFor="nickname">닉네임</label>
-        <td>* 5~20자의 한글, 영문 대소문자, 숫자, 특수기호(_),(-),(.)만 사용 가능합니다.</td>
-        <CustomInput {...Nickname} func={overlap} msg={"닉네임을 입력해주세요."} type="text" id="nickname" placeholder="닉네임을 입력해주세요" /> */}
+                            style={{ display: "none" }}
+                        />
+                    </Circle>
+                    <StyleTd />
 
-        </Contain>
-        <Contain>
-        <label htmlFor="email_address">이메일 주소</label>&nbsp;
-        <CustomInput {...Email} msg={"이메일을 입력해주세요."}type="text" id="email_address" placeholder="이메일을 입력해주세요" />
-    
-        </Contain>
-            <div className="btn_edit">
-                <Button value='변경사항 저장' func={handleSumit} color="sky" size='small' />
-                <Button value='취소' url='/user/profile' ml={20} size='small' />
-            </div>
-        </div>
-        </ProfileStyled>
+                    <Contain>
+                        <label htmlFor="email_address">이메일 주소</label>&nbsp;
+                        <CustomInput {...email_change} msg={"이메일을 입력해주세요."} type="text" id="email_address" placeholder="이메일을 입력해주세요" length="28" />
+
+                    </Contain>
+                    <div className="btn_edit">
+                        <Button value='변경사항 저장' func={handleSumit} color="sky" size='small' />
+                        <Button value='취소' url='/user/profile' ml={20} size='small' />
+                    </div>
+                </div>
+            </ProfileStyled>
         </>
     );
 }

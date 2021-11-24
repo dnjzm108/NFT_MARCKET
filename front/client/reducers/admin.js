@@ -1,5 +1,5 @@
 const initalState = {
-    logdding: false,
+    loadding: false,
     IsLogin: false,
     seller_info: [
         {

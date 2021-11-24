@@ -51,7 +51,6 @@ const SwapToken = () => {
             sendKlay=String(p2k);
             perroAmount = String(perr);
         }
-        console.log(perroAmount)
         window.caver.klay
         .sendTransaction({
             type: 'VALUE_TRANSFER',

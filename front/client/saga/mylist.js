@@ -20,13 +20,13 @@ async function myListAPI(data){
     let {params,nickname,auth} = data
     const _nickname = btoa(encodeURIComponent(nickname));
     const config = {
-        params,
+        params:params,
         headers:{
             'nickname':_nickname,
             'auth':auth,
           },
     }
-      return await axios.get(`${url}/user/${data.type}`,config)
+      return await axios.get(`${url}/user/${params.type}`,config)
   }
  
  
