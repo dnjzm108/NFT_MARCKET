@@ -70,7 +70,7 @@ async function immyAPI(data){
 
 function* apply_immy(action){
     let result = yield call(immyAPI, action.data)
-    console.log(result);
+
 
     if(result.data.error == null){
         yield put({

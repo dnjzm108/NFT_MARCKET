@@ -34,14 +34,12 @@ const Profile = () => {
     }
     useEffect(() => {
         if (!IsLogin) {
-            console.log('dddddd');
             Router.push('/user/login')
         }
     },[IsLogin])
     
     useEffect(()=>{
         dispatch(UserLogin_REQUEST({wallet}))
-        console.log('실행');
     },[])
     const handlepopup = () => {
         setApply(!apply)
