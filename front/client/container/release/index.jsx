@@ -104,7 +104,7 @@ const Release = () => {
         const temp = list;
         const target = temp.splice(targetidx,1)[0]
         temp.splice(newPosi,0,target)
-        return temp
+        return temp ,alert("선택되었습니다")
     }
 
 

@@ -31,7 +31,8 @@ const Thumbnail = ({imageBundle,isNow,imageClick})=>{
     return(
         <StyledThumbnail isNow={isNow} >
             <div className="thumbnail">
-                <h3>대표 이미지로 보일<br/> 사진을 클릭하세요</h3>
+                <h3> &lt; 대표 이미지로 보일 사진을 클릭하세요 &gt;</h3>
+                <p onClick={checking}>* 선택하지 않으면 가장 앞의 사진이 대표사진으로 올라갑니다</p>
                 <div className="flex_contain">
                     <Styled_Slide {...settings} imageBundle={imageBundle}>
                         {imageBundle.map((v, i) => {
@@ -46,9 +47,7 @@ const Thumbnail = ({imageBundle,isNow,imageClick})=>{
                         }
                     </Styled_Slide>
                 </div>
-                
-                <p onClick={checking}>* 선택하지 않으면 가장 앞의 사진이 대표사진으로 올라갑니다</p>
-                
+                {/* <button>선택 완료</button> */}
             </div>
         </StyledThumbnail>
     )
