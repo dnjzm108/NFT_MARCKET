@@ -52,6 +52,7 @@ const SwapToken = () => {
             sendKlay=String(p2k);
             perroAmount = String(perr);
         }
+
         console.log(perroAmount)
         console.log(window.klaytn)
         if(window.klaytn.selectedAddress===undefined){
@@ -59,7 +60,7 @@ const SwapToken = () => {
             console.log(window.klaytn.selectedAddress)
         }
         
-        await window.caver.klay
+
         .sendTransaction({
             type: 'VALUE_TRANSFER',
             from: window.klaytn.selectedAddress,

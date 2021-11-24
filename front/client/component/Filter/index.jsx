@@ -50,8 +50,7 @@ const Filter = () => {
       data["priceMin"] =Min.value; 
       data["priceMax"] =Max.value; 
     }
-    
-    console.log(data)
+
     router.push({
       pathname: '/',
       query: data,

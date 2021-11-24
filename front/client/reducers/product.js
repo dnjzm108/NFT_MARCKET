@@ -278,7 +278,7 @@ const reducer = (state = initalState, action) => {
 
         case UPDATE_STOP:{
             let new_product_info = [...state.product_info].map(v=>{return {...v,type:'stop'}});
-            console.log(new_product_info);
+
             return{
                 ...state,
                 product_info:new_product_info

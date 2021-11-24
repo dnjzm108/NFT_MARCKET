@@ -35,7 +35,6 @@ function loginAPI(data){
 
 function* login(action){
     let result = yield call(loginAPI,action.data)
-    console.log(result);
     let {response} = result.data
     if (response !== undefined) {
         yield put({
@@ -55,9 +54,8 @@ function sellerAPI(data){
 
 function* seller(action){
     let result = yield call(sellerAPI,action.data)
-    console.log(result);
+
     let {success,error,response} = result.data
-    console.log(result.data);
 
     if (success == true) {
         yield put({
@@ -80,9 +78,7 @@ function profileAPI(data){
 
 function* profile(action){
     let result = yield call(profileAPI,action.data)
-    console.log(result);
     let {success,error,response} = result.data
-    console.log(result.data);
 
     if (success == true) {
         yield put({
