@@ -37,10 +37,11 @@ const SwapToken = () => {
             setKlay(perr/10)
     },[perr])
 
-    const SwapPerro = () =>{
+    const SwapPerro = async() =>{
         // if(window.klaytn.selectedAddress){
         //     alert('로그인해주세요.')
         // }
+        console.log('xxxxxxxxxxxxx')
 
         let sendKlay = 0;
         let perroAmount = 0; 
@@ -52,26 +53,31 @@ const SwapToken = () => {
             perroAmount = String(perr);
         }
         console.log(perroAmount)
-        window.caver.klay
+        console.log(window.klaytn)
+        if(window.klaytn.selectedAddress===undefined){
+            await window.klaytn.enable()
+            console.log(window.klaytn.selectedAddress)
+        }
+        
+        await window.caver.klay
         .sendTransaction({
             type: 'VALUE_TRANSFER',
             from: window.klaytn.selectedAddress,
-            to: '0x22CA3559D885CFb99b48CfF8AA3E38Ed8C4d0A4f',
+            to: '0xC04a226684ED39C0341071af53f34E98aFA06156', // 관리자 공개키 
             value: caver.utils.toPeb(sendKlay, 'KLAY'),
             gas: 8000000
         })
         .once('transactionHash', transactionHash => {
-            // console.log('txHash', transactionHash)
+            console.log('txHash', transactionHash)
         })
         .once('receipt', receipt => {
             console.log('receipt', receipt)
             const recipientAddress  = receipt.from;
-            
             const data = {
                 recipientAddress,
                 perroAmount,
             }
-            dispatch(Swap_REQUEST(data))
+            // dispatch(Swap_REQUEST(data))
         })
         .once('error', error => {
             console.log('error', error)
@@ -102,7 +108,7 @@ const SwapToken = () => {
             {/* <input type="number"  defaultValue={klay} min="1" className="perr" placeholder="0.0"/> */}
             <span className="klayspan" >{k2p}</span>
         </div>
-        <div className="swap_btn" onClick={SwapPerro}>Click</div>
+        <div className="swap_btn" onClick={()=>SwapPerro()}>Click</div>
         </div>)
         :(
         <div className="Wbox2">

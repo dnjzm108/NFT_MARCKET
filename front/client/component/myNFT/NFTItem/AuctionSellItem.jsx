@@ -31,7 +31,6 @@ const AuctionSellItem = (
   const handleInvoice = (data) =>{
     handleInvoiceTarget(data)
       handleInvoicePopUp(true)
-
   }
 
 
@@ -72,10 +71,6 @@ const AuctionSellItem = (
         
     }
   } 
-
-  const sample = () =>{
-    alert('함수 샘플')
-  }
 
     return (
       <StyledMyNFT>

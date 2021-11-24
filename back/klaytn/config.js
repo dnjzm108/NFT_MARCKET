@@ -3,7 +3,7 @@ require('dotenv').config();
 const accessKeyId = process.env.KAS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.KAC_SECRET_ACCESS_KEY; 
 const authorization = "Basic " + Buffer.from(accessKeyId + ":" + secretAccessKey).toString("base64");
-const developerKey = process.env.DEVELOPER_KEY;
+const developerKey =`${process.env.DEVELOPER_KEY}`;
 
 const option = {
   headers: [

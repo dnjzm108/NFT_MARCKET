@@ -45,6 +45,19 @@ export const StyledRowFilter = styled.div`
     outline: none;
   }
 
+  .sort_relative{
+    position:relative;
+    width: 240px;
+    height: 50px;
+
+  }
+
+  .sort_absolute{
+    position:absolute;
+    top:-6px;
+    z-index: 100;
+  }
+
 
 
 `
