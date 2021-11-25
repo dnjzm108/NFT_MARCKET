@@ -20,6 +20,7 @@ router.get('/buy',checkHeader,listController.getMyBuy);
 router.get('/auction',checkHeader,listController.getMyAuction);
 router.get('/immysell',checkHeader,listController.getMyImmySell);
 router.get('/auctionsell',checkHeader,listController.getMyAuctionSell);
+router.get('/sell',checkHeader,listController.getMySell);
 router.post('/ship',checking,listController.updateShipInfo);
 router.put('/invoice',checking,listController.updateInvoiceInfo);
 router.put('/delivery',checking,listController.completeDelivery);

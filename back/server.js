@@ -20,7 +20,7 @@ const socket = require('./socket.js');
 
 app.use(cors({
     "Access-Control-Allow-Headers":"Authorization",
-    "Access-Control-Allow-Origin": "http://localhost:3000"
+    "Access-Control-Allow-Origin": "http://localhost"
   }));
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended:false}))

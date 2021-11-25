@@ -53,7 +53,6 @@ const AucPopup = (props) => {
             }
         }
     }
-    console.log(auction_history[0].bid);
     return (
         <Popup_background>
             <StyledNowPopup>

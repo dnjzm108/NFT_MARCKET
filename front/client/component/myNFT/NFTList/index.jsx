@@ -1,4 +1,4 @@
-import { NFTListContainer, Header, BuyTable,ImmySellTable, AuctionTable, AuctionSellTable,FavoriteTable } from "./NFTList css";
+import { NFTListContainer, Header, BuyTable,ImmySellTable,SellTable, AuctionTable, AuctionSellTable,FavoriteTable } from "./NFTList css";
 import { useDispatch, useSelector } from "react-redux";
 import { ListUpdateRequest } from '../../../reducers/mylist'
 import { BiSearch } from 'react-icons/bi'
@@ -7,6 +7,7 @@ import BuyItem from "../NFTItem/BuyItem";
 import AuctionItem from "../NFTItem/AuctionItem";
 import AuctionSellItem from "../NFTItem/AuctionSellItem"
 import ImmySellItem from "../NFTItem/ImmySellItem";
+import SellItem from "../NFTItem/SellItem";
 import OptionBox from '../../OptionBox/OptionBox'
 import {statusList,sortList,typeList} from './list.js'
 import { useRouter } from "next/router";
@@ -24,6 +25,7 @@ const NFTList = () => {
   const [shipPopUp,setShipPopUp] = useState(false)
   const [invoice,setInvoice] = useState("");
   const [ship,setShip] = useState("");
+
   const handleSort = (code)=>{
     const data = {
       ...searchData,
@@ -59,7 +61,20 @@ const NFTList = () => {
 
 
 
-
+const renderSellItem = () =>{
+  if(list.length == 0){
+    return <tr><td>검색결과가 없습니다.</td></tr>
+  }else{
+    return list.map((v, i) => {
+      return <SellItem
+        key={i}
+        index={i}
+        handleShipTarget ={setShip}
+        handleShipPopUp={setShipPopUp}
+      />
+    })
+  }
+}
 
 
 
@@ -255,6 +270,23 @@ const NFTList = () => {
               {renderAuctionItem()}
             </tbody>
           </AuctionTable>
+      )}
+      {type === 'sell' && (
+          <SellTable>
+            <thead>
+              <tr>
+                <th>상품정보</th>
+                <th>등록일자</th>
+                <th>전체 수량</th>
+                <th>남은 수량</th>
+                <th>가격/입찰가</th>
+                <th>판매 상세</th>
+              </tr>
+            </thead>
+            <tbody>
+              {renderSellItem()}
+            </tbody>
+          </SellTable>
       )}
       {type === 'immysell' && (
           <ImmySellTable>
