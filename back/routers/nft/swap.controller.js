@@ -1,3 +1,5 @@
+const {send_Token,send_Klay} = require('../../klaytn/KIP7_deploy')
+
 const authorization = "Basic " + Buffer.from("KASK11R9S7LO3L180GXU0TKN" + ":" + "C2FZEXjlPlR7_V7-aa2r7mIUtnA04UUdSWnPchL8").toString("base64")
 
 const option = {
@@ -77,26 +79,20 @@ let KIP7Token_transfer = async () => {
 
 const creator = "0x637e352fed89ae10d1875e96ef19b9f328f1e4dc58572a64cc46351bfac53e0c"
 
-let KIP7token_swap = async () => {
-  const keyring = caver.wallet.keyring.createFromPrivateKey(creator);
-  // wallet에 keyring이 추가되지 않은 경우에만 keyring을 추가합니다.
-  // 자기 것의 개인키를 keyring 시키고
-  if (!caver.wallet.getKeyring(keyring.address)) {
-    const singleKeyRing = caver.wallet.keyring.createFromPrivateKey(
-      creator
-    );
-    caver.wallet.add(singleKeyRing);
-  }
 
-  const kip7Instance = new caver.kct.kip7('0x04feb1c6d54c38c4e0c5af14d11e12f3eb2ad32e')
-  const opts = { from: keyring.address }
-  //보낼 account 주소를 입력 시키기
-  const recipientAddress = '0x544C995914d37f4300b375073A9EFCABb8e6d881'
-  // 로그인한 계정으로 보내야되는데 어떻게 해야되지?
-  // from으로 요청한 주소로 보내야 되지 않나?
-  const value = 1000000000
-  const receipt = await kip7Instance.transfer(recipientAddress, value, opts)
-  console.log(receipt)
+let KIP7token_swap = async (req,res) => {
+  let {recipientAddress,perroAmount,chage} = req.body
+
+  if(chage){
+    //클레이를 토큰으로 바꿀때
+    let result = await send_Token(recipientAddress,perroAmount)
+    console.log(result);
+  }else if(!chage){
+    //토큰을 클레이로 바꿀때
+    let result =await send_Klay(recipientAddress,perroAmount)
+    console.log(result);
+  }
+  
 }
 
 

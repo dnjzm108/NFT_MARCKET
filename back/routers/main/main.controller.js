@@ -60,7 +60,7 @@ const getMainInit = async(req,res) => {
 
 const getMain = async(req,res)=>{
   const _nickname = req.get('nickname')
-  const nickname = decodeURIComponent(atob(_nickname)); 
+  let nickname = decodeURIComponent(atob(_nickname)); 
   const auth=req.get('auth');
   const identify = createHash(nickname)
 

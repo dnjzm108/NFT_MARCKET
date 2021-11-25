@@ -6,7 +6,6 @@ async function tokenSwapAPI(data){
     return  await axios.post(`${url}/nft/swap`, data)
   }
 
-
 function* swapSaga(action){
     let result = yield call(tokenSwapAPI,action.data)
     const {data} = result; 

@@ -16,7 +16,6 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 
 
 const KIP7token = async() => {
-
 const kip7 = await caver.kct.kip7.deploy(
   {
     name: 'Perro',
@@ -26,7 +25,7 @@ const kip7 = await caver.kct.kip7.deploy(
   },
   keyring.address
 );
-console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
+// console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
 
 // console.log(`Token name: ${await kip7.name()}`);
 // console.log(`Token symbol: ${await kip7.symbol()}`);
@@ -36,27 +35,27 @@ console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
 
 }
 
-const tranferAll = async() =>{
-  const kip7Instance = new caver.kct.kip7('0x4f6BA898732BF37d9df22F3e2dDe496bB7654f01')
-  
+const send_Token = async(recipient,amount) =>{
+  const kip7Instance = new caver.kct.kip7(process.env.token_address)
   const opts = { from: keyring.address }
   //보낼 account 주소를 입력 시키기
-  const recipientAddress = '0xC04a226684ED39C0341071af53f34E98aFA06156'
-  const value = '80000000000000000000000000';
-  const receipt = await kip7Instance.transfer(recipientAddress,value, opts)
-  console.log(receipt)
+  const num = "1000000000000000000"
+  const value = `${Number(amount) * Number(num)}`;
+  const receipt = await kip7Instance.transfer(recipient,value, opts)
+
+ return receipt
 }
 
 // KIP7token();
-// tranferAll();
 
 
-const transferKlay = async()=>{
-  
+
+
+const send_Klay = async(recipient,amount)=>{
   const lt = await caver.transaction.legacyTransaction.create({
-    to: '0xC04a226684ED39C0341071af53f34E98aFA06156',
     from:  keyring.address,
-    value: caver.utils.toPeb(1, 'KLAY'),
+    to: recipient,
+    value: caver.utils.toPeb(amount,'KLAY'),
     gas: 25000,
 })
 
@@ -65,19 +64,20 @@ const transferKlay = async()=>{
   const receipt = await caver.rpc.klay.sendRawTransaction(signed);
   console.log(receipt)
 
-console.log(receipt)
+return receipt
+
 }
 
-
-
-// transferKlay()
-
-const x = '0xde0b6b3a7640000'
-const base = '0xde0b6b3a7640000'
-const y  ='1000000000000000000'
-console.log(Number(x)/Number(y));
+// const x = '0xde0b6b3a7640000'
+// const base = '0xde0b6b3a7640000'
+// const y  ='1000000000000000000'
+// console.log(Number(x)/Number(y));
 
 
 
 
+module.exports = {
+  send_Token,
+  send_Klay
+}
 
