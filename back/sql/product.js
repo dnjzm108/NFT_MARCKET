@@ -144,6 +144,21 @@ const chage_history_sql = () =>{
     )
 }
 
+//입찰 가능한지 확인하기
+const checkLastBid = () => {
+    return(
+        `SELECT bid FROM auction_history WHERE auction_id=? ORDER BY DATE DESC LIMIT 1;`
+    )
+}
+
+//이전 입찰 죽이기
+const killPrevBidSql = () =>{
+    return`
+        UPDATE auction_history SET status='burial' WHERE auction_id=?;
+    `
+}
+
+
 //상품 좋아요 수정해주기 
 
 const chage_product_likes = () =>{
@@ -151,6 +166,7 @@ const chage_product_likes = () =>{
     `UPDATE product SET likes = ? WHERE product_no = ?`
     )
 }
+
 
 
 //주문 배송 정보
@@ -186,5 +202,6 @@ module.exports = {
     chage_history_sql,
     chage_product_likes,
     notice_order_sql,
-    auction_history_sql
+    auction_history_sql,
+    killPrevBidSql
 }

@@ -24,9 +24,16 @@ const ImmySellItem = (
     likes,
     dlvy_status,
     order_id,
-    buyer
+    buyer,
+    handleInvoiceTarget,
+    handleInvoicePopUp
+
 }) => {
 
+  const handleInvoice = (data) =>{
+    handleInvoiceTarget(data)
+      handleInvoicePopUp(true)
+  }
 
   const renderStatus = (type)=>{
     switch(type){
@@ -40,7 +47,7 @@ const ImmySellItem = (
         return(
           <>
            <div>상품준비중</div>
-           <button className='order_action_btn invoice'>송장 입력</button>
+           <button className='order_action_btn invoice' onClikc={()=>handleInvoice}>송장 입력</button>
           </>
           )
       case 'delivery':
@@ -58,13 +65,6 @@ const ImmySellItem = (
           )
     }
   } 
-  
- 
-  const sample = () =>{
-    alert('함수 샘플')
-  }
-  
-
 
 
     return (

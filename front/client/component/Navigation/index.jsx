@@ -24,12 +24,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const { IsLogin, user_info } = useSelector(state => state.user);
   const [nowItem, setNowItem] = useState(null);
-
-  const test = useSelector(state => state.user);
-  const router = useRouter()
-
-
-
+  
   const logOut = () => {
     dispatch(User_Logout())
   }

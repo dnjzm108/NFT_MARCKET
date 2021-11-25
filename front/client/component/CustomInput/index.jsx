@@ -80,17 +80,21 @@ if(func !== undefined){
     }
   }
 
+ 
+    const randomId = String(Math.floor(Math.random()*1000));
+  
+
 return (
   <InputWrap width={width} height={handleHeight(height)}>
     <StyledInput require={require}>
       {search &&
-        <label htmlFor="inpput">
+        <label htmlFor={randomId}>
           <i>
             <BiSearch size={24} color={'#888'} />
           </i>
         </label>
       }
-         <input type={handleType()} id="inpput" maxLength={length} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} />
+         <input type={handleType()} id={randomId} maxLength={length} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} />
       {require &&
         (<i>
           <BsFillExclamationCircleFill size={24} color={'#dc3545'} />

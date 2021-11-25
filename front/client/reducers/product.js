@@ -248,7 +248,7 @@ const reducer = (state = initalState, action) => {
         case UPDATE_REST:{
             let newProducts = [...state.product_info];
             newProducts.forEach((v,i)=>{
-                if(v.product_no==action.data.product_no){
+                if(v.product_id==action.data.product_id){
                     newProducts[i].rest  = action.data.rest
                 }
             })

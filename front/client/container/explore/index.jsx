@@ -18,10 +18,13 @@ const Explore = () => {
   
   
   useEffect(()=>{
+    
+    const _nickname = user_info==undefined ? '': user_info.nickname;
+    const _auth = user_info==undefined ? '': user_info.auth;
     const data = {
       params:router.query,
-      nickname:user_info.nickname,
-      auth:user_info.auth,
+      nickname:_nickname,
+      auth:_auth,
     }
     dispatch(ExploreRequest(data))
   },[router.query])
