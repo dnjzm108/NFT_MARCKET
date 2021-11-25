@@ -192,19 +192,21 @@ export const SellTable = styled.table`
       }
 
       &>th:nth-child(2){
-        width: 12%;
+        width: 20%;
       }
       &>th:nth-child(3){
-        width: 12%;
+        width: 10%;
 
       }
       &>th:nth-child(4){
-        width: 12%;
+        width: 10%;
 
       }
       &>th:nth-child(5){
-        width: 12%;
-
+        width: 10%;
+      }
+      &>th:nth-child(6){
+        width: 10%;
       }
 
     }

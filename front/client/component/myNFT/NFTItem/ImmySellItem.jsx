@@ -47,7 +47,7 @@ const ImmySellItem = (
         return(
           <>
            <div>상품준비중</div>
-           <button className='order_action_btn invoice' onClikc={()=>handleInvoice}>송장 입력</button>
+           <button className='list_btn invoice' onClick={()=>handleInvoice(order_id)}>송장 입력</button>
           </>
           )
       case 'delivery':
@@ -60,7 +60,7 @@ const ImmySellItem = (
         return(
           <>
            <div>구매완료</div>
-           <button className='order_action_btn completed'>영수증</button>
+           <button className='list_btn completed'>영수증</button>
           </>
           )
     }
@@ -91,7 +91,7 @@ const ImmySellItem = (
         <div>
         {order_id}
         </div>
-        <button className='order_action_btn order'>
+        <button className='list_btn order'>
             주문서 보기
         </button>
       </td>

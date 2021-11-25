@@ -169,6 +169,7 @@ const getMySell = async(req,res)=>{
   const _nickname = req.get('nickname')
   const nickname = decodeURIComponent(atob(_nickname)); 
   const cntsql = mySellListQuery(req.query,'cnt');
+  
   const [cntResult] = await query(cntsql);
   const cnt = cntResult.cnt;
   // 요청한 값이 없을 떄. 
@@ -186,6 +187,7 @@ const getMySell = async(req,res)=>{
   const {page,rows, pageblock, totalPage} = makePageBlock(cnt,req.query.page,req.query.rows)
   const params = {...req.query,page,rows}
   const sql = mySellListQuery(params);
+  console.log(sql)
   const result = await query(sql);
   const clearResult = [...new Set(result
                             .map(v=>{return JSON.stringify({
@@ -234,11 +236,11 @@ const getMySell = async(req,res)=>{
             auction:{
               deadline:s.deadline,
               option:s.option,
-              start_price:s.price
+              start_price:s.startprice
             },
             history:[]
           })
-          if(s.auction_history_id){
+          if(s.bid_date){
             c.list[0].history.push({
               bid:s.bid,
               bider:s.bider,
@@ -247,7 +249,7 @@ const getMySell = async(req,res)=>{
             })
           }
         }else if(c.product_no==s.product_no && c.list.length>0){
-          if(s.auction_history_id){
+          if(s.bid_date){
             c.list[0].history.push({
               bid:s.bid,
               bider:s.bider,
@@ -259,7 +261,8 @@ const getMySell = async(req,res)=>{
       }
     }
   })
- 
+  console.log(result)
+  console.log(clearResult)
   const data = {
     list:clearResult,
     page,

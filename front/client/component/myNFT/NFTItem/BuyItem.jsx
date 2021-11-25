@@ -64,21 +64,21 @@ const BuyItem = (
         return(
           <>
            <div>배송중</div>
-           <button className='order_action_btn delivery' onClick={()=>handleCompleted(order_id)}>구매 확정</button>
+           <button className='list_btn delivery' onClick={()=>handleCompleted(order_id)}>구매 확정</button>
           </>
           )
       case 'completed':
         return(
           <>
            <div>구매완료</div>
-           <button className='order_action_btn completed'>영수증</button>
+           <button className='list_btn completed'>영수증</button>
           </>
           )
           case 'wait': default:
             return(
               <>
                <div>배송지 미입력</div>
-               <button className='order_action_btn wait' onClick={()=>handleShipAddress(order_id)}>배송지 입력</button>
+               <button className='list_btn wait' onClick={()=>handleShipAddress(order_id)}>배송지 입력</button>
               </>
               )
         
@@ -109,7 +109,7 @@ const BuyItem = (
       <td> <div>
         {order_id}
         </div>
-        <button className='order_action_btn order'>
+        <button className='list_btn order'>
             주문서 보기
         </button></td>
       <td>{renderStatus(dlvy_status)}</td>

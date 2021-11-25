@@ -694,83 +694,119 @@ function mySellListQuery(query,type){
   }else{
     return `
     SELECT 
-    *,
-  IFNULL(max,mainprice)AS lastprice
-FROM (
-    SELECT
-          *
-    FROM
-          product
-    NATURAL JOIN (
-            SELECT 
-                product_no, price AS mainprice
-            FROM(
-                SELECT 
-                    * 
-                FROM
-                    product_detail
-                ORDER BY price DESC
-                ) AS X
-            GROUP BY product_no
-    ) AS M
-    WHERE 
-              creater='${nickname}' ${statusCheck(status)} ${searchCheck(search)}
-          ORDER BY ${sortCheck(sort)}
-		      LIMIT ${(page-1)*rows},${rows}
-)AS P
+		P.product_no,
+		P.name,
+		P.creater,
+		P.likes,
+		P.type,
+		P.date,
+		P.leftover,
+		P.total_qty,
+		P.img,
+		P.startprice,
+		P.lastprice,
+		P.deadline,
+    P.option,
+		H.auction_id,
+		H.bid,
+		H.bider,
+		H.status,
+		H.bid_date,
+		D.product_id,
+		D.color,
+		D.size,
+		D.qty,
+		D.rest,
+    D.price
+FROM(
+	      SELECT 
+    	*,
+      IFNULL(D.bid,D.startprice) AS lastprice
+      
+FROM(
+      SELECT
+              A.name,
+              A.creater,
+              A.likes,
+              A.type,
+              A.product_no,
+              A.date,
+              A.total_qty,
+              A.leftover,
+              B.img
+      FROM
+              product AS A
+    
+      NATURAL JOIN ( 
+                      SELECT
+                            img, 
+                            product_no
+                      FROM
+                            product_image
+                      GROUP BY
+                            product_no
+            ) AS B
+
+  )AS P
 NATURAL JOIN(
-            SELECT
-                  *
-            FROM
-                  product_detail as D
-            ORDER BY 
-                  product_id ASC
-)AS D
-NATURAL JOIN(
-          SELECT
-                *
-          FROM
-              product_image
-          GROUP by 
-              product_no
-)as I
-LEFT JOIN (
+        SELECT 
+              Q.product_id,
+              Q.product_no,
+              A.auction_id,
+              A.deadline,
+              A.option,
+              Q.price AS startprice
+				  ,A.bid
+        FROM( 
               SELECT 
-                      auction.auction_id AS auction_id,
-                      auction.product_id,
-                      auction.deadline,
-                      auction.option,
-                      L.bid AS max
+                      product_no,product_id,price
               FROM 
-                      auction
-              LEFT JOIN( 
-                        SELECT 
-                                *
-                        FROM(
-                                SELECT 
-                                        *
-                                FROM
-                                        auction_history
-                                WHERE
-                                        (auction_id,bid) IN (
-                                                          SELECT 
-                                                                auction_id, 
-                                                                max(bid) AS bid
-                                                          FROM 
-                                                                auction_history
-                                                          GROUP BY 
-                                                                auction_id
-                                                            )
-                                  ORDER BY 
-                                        bid DESC
-                              ) AS H
-                        GROUP BY 
-                              auction_id
-                        )AS L
-              ON auction.auction_id=L.auction_id
-      )AS A
-ON
-A.product_id=D.product_id
+                      product_detail 
+              GROUP BY 
+                      product_no
+            )AS Q
+        LEFT JOIN (
+                    SELECT 
+                            auction.auction_id,
+                            auction.deadline,
+                            auction.product_id,
+                            auction.option,
+                            L.bid
+                    FROM 
+                            auction
+                    LEFT JOIN( 
+                              SELECT 
+                                      *
+                              FROM(
+                                      SELECT 
+                                              *
+                                      FROM
+                                              auction_history
+                                      WHERE
+                                              (auction_id,bid) IN (
+                                                                SELECT 
+                                                                      auction_id, 
+                                                                      max(bid) AS bid
+                                                                FROM 
+                                                                      auction_history
+                                                                GROUP BY 
+                                                                      auction_id
+                                                                  )
+                                        ORDER BY 
+                                              bid DESC
+                                    ) AS H
+                              GROUP BY 
+                                    auction_id
+                              )AS L
+                    ON auction.auction_id=L.auction_id
+            )AS A
+        ON Q.product_id=A.product_id
+) AS D
+WHERE 
+creater='${nickname}' ${statusCheck(status)} ${searchCheck(search)}
+ORDER BY ${sortCheck(sort)}
+LIMIT ${(page-1)*rows},${rows}
+)AS P
 LEFT JOIN(
           SELECT 
                 auction_id,auction_history_id,bid,bider,status, date AS bid_date
@@ -779,8 +815,14 @@ LEFT JOIN(
           ORDER BY date DESC 
         )AS H
 ON
-A.auction_id=H.auction_id
-  ;`}
+P.auction_id=H.auction_id
+LEFT JOIN
+		product_detail AS D
+ON
+P.product_no=D.product_no
+
+
+;`}
   
   function statusCheck(status){
     switch(status){
@@ -799,7 +841,7 @@ A.auction_id=H.auction_id
 
   function searchCheck(search){
     if(search!=undefined){
-      return` AND (name like '%${search}%' OR product_no like '%${search}%')`
+      return` AND (name like '%${search}%' OR product_id like '%${search}')`
     }
     return ''
   }
@@ -808,10 +850,10 @@ A.auction_id=H.auction_id
     switch(sort){
       case 'like':
         return 'likes DESC';
-      case 'low':
-        return 'mainprice ASC';
       case 'high':
-        return 'mainprice DESC';
+          return 'lastprice DESC';
+      case 'low':
+          return 'lastprice ASC';
       case 'old':
         return 'date ASC';
       case 'new': default:

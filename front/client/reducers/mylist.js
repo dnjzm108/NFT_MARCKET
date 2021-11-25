@@ -86,6 +86,7 @@ const reducer = (state = initialState,action) => {
   switch (action.type) {
 
     case LIST_UPDATE_REQUEST:
+      console.log(action.data)
           return {
               ...state,
               isLoading:true,

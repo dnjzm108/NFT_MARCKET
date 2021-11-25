@@ -70,8 +70,6 @@ export const sortList = {
   'sell':[
     {name:'최신 등록일 순',code:'new'},
     {name:'오래된 등록일 순',code:'old'},
-    {name:'높은 가격 순',code:'high'},
-    {name:'낮은 가격 순',code:'low'},
     {name:'좋아요 순',code:'like'},
   ]
 }
@@ -81,6 +79,7 @@ export const typeList = {
  'auction':'경매 내역',
  'immysell':'즉시판매 내역',
  'auctionsell':'경매판매 내역',
+ 'sell':'판매 상품'
 
 }
 

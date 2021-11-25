@@ -95,10 +95,11 @@ const mint_nft = async(req,res)=>{
 
   // product_detail 테이블
   if(type=="true" || type==true){ // 일반 상품. (경매상품의 경우 수량과 가격이 없으므로 확인해줌)
-    getOption.forEach(v=>{
+    getOption.forEach((v,i)=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
-      optionSql+=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}",${qty},${qty},${price});\n`
+      const product_id = `${i+1}`.padStart(3,"0")
+      optionSql+=`INSERT INTO product_detail (product_id,product_no,color,size,qty,rest,price) VALUES("${product_id}","${productNo}","${color}","${size}",${qty},${qty},${price});\n`
     })
       optionSql+='INSERT INTO product_count (product_no,num) VALUES '
     for(let i = 1; i<=total_qty; i++){
@@ -114,7 +115,7 @@ const mint_nft = async(req,res)=>{
   
   if(type=="false" || type==false ){ // 경매 상품
     const {color,size} = JSON.parse(getOption[0]); 
-    optionSql=`INSERT INTO product_detail (product_no,color,size,qty,rest,price) VALUES("${productNo}","${color}","${size}","1","1","${start_price}");\n`
+    optionSql=`INSERT INTO product_detail (product_id,product_no,color,size,qty,rest,price) VALUES("${productNo}000","${productNo}","${color}","${size}","1","1","${start_price}");\n`
     optionSql+=`INSERT INTO product_count (product_no,num) VALUES("${productNo}",1);\n`
   }
   const product_detail = await query(optionSql)

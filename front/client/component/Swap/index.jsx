@@ -95,10 +95,11 @@ const SwapToken = () => {
             
 
             const kip7 =new window.caver.klay.KIP7('0x1bfbc74191486a98a5abd8749c17fa0496c3d765')
-            const exchangeToken = await kip7.transfer('0xB3064FA7E7F47A14E2e9F268799B99a9ce038826','10000000000000000000',{
-                from:window.klaytn.selectedAddress
-            })
-            console.log(exchangeToken);
+            console.log(kip7)
+            // const exchangeToken = await kip7.transfer('0xB3064FA7E7F47A14E2e9F268799B99a9ce038826','10000000000000000000',{
+            //     from:window.klaytn.selectedAddress
+            // })
+            // console.log(exchangeToken);
            
         }
 
