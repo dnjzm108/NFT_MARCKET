@@ -51,7 +51,7 @@ const tranferAll = async() =>{
 // tranferAll();
 
 
-const transferKlay = async()=>{
+const transferKlay = async(price, toAddress)=>{
   
   const lt = await caver.transaction.legacyTransaction.create({
     to: '0xC04a226684ED39C0341071af53f34E98aFA06156',

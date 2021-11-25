@@ -59,30 +59,33 @@ const SwapToken = () => {
             console.log(window.klaytn.selectedAddress)
         }
         
-        await window.caver.klay
-        .sendTransaction({
-            type: 'VALUE_TRANSFER',
-            from: window.klaytn.selectedAddress,
-            to: '0xC04a226684ED39C0341071af53f34E98aFA06156', // 관리자 공개키 
-            value: caver.utils.toPeb(sendKlay, 'KLAY'),
-            gas: 8000000
-        })
-        .once('transactionHash', transactionHash => {
-            console.log('txHash', transactionHash)
-        })
-        .once('receipt', receipt => {
-            console.log('receipt', receipt)
-            const recipientAddress  = receipt.from;
-            const data = {
-                recipientAddress,
-                perroAmount,
-            }
-            // dispatch(Swap_REQUEST(data))
-        })
-        .once('error', error => {
-            console.log('error', error)
-            alert('거절.')
-        })
+        window.caver.klay.kip7('address')
+
+
+        // await window.caver.klay
+        // .sendTransaction({
+        //     type: 'VALUE_TRANSFER',
+        //     from: window.klaytn.selectedAddress,
+        //     to: '0xC04a226684ED39C0341071af53f34E98aFA06156', // 관리자 공개키 
+        //     value: caver.utils.toPeb(sendKlay, 'KLAY'),
+        //     gas: 8000000
+        // })
+        // .once('transactionHash', transactionHash => {
+        //     console.log('txHash', transactionHash)
+        // })
+        // .once('receipt', receipt => {
+        //     console.log('receipt', receipt)
+        //     const recipientAddress  = receipt.from;
+        //     const data = {
+        //         recipientAddress,
+        //         perroAmount,
+        //     }
+        //     // dispatch(Swap_REQUEST(data))
+        // })
+        // .once('error', error => {
+        //     console.log('error', error)
+        //     alert('거절.')
+        // })
         
     }
 

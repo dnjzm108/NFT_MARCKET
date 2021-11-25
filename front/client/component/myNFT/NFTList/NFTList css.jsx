@@ -176,6 +176,41 @@ export const AuctionSellTable = styled.table`
   }
 `
 
+export const SellTable = styled.table`
+  width: 100%;
+  padding: 28px;
+
+  &>thead{
+    width: 100%;
+    height: 2vh;
+
+    &>tr{
+      width: 100%;
+
+      &>th:nth-child(1){
+        width: 40%;
+      }
+
+      &>th:nth-child(2){
+        width: 12%;
+      }
+      &>th:nth-child(3){
+        width: 12%;
+
+      }
+      &>th:nth-child(4){
+        width: 12%;
+
+      }
+      &>th:nth-child(5){
+        width: 12%;
+
+      }
+
+    }
+  }
+`
+
 export const ImmySellTable = styled.table`
   width: 100%;
   padding: 28px;

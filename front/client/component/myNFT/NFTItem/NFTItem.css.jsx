@@ -125,6 +125,79 @@ export const StyledMyNFT = styled.tr`
  .success{
    color:green;
  }
+`
+
+export const StyledSellBuyDetail = styled.tr`
 
 
+  &>td>table{
+    margin: 0 auto;
+    width: 80%;
+    thead>tr{
+      &>th{
+        padding: 4px;
+      }
+      &>th:nth-child(1){
+        width: 20%;
+      }
+      &>th:nth-child(2){
+        width: 20%;
+      }
+      &>th:nth-child(3){
+        width: 20%;
+      }
+      &>th:nth-child(4){
+        width: 20%;
+      }
+      &>th:nth-child(5){
+        width: 20%;
+      }
+    }
+
+    td{
+      text-align: center;
+      padding: 4px;
+      border-bottom: 1px solid black;
+    }
+
+  }
+
+
+`
+
+export const StyledSellAuctionDetail = styled.tr`
+  .product_detail_table{
+    margin: 0 auto;
+    width: 80%;
+
+    thead>tr{
+      &>th{
+        padding: 4px;
+      }
+      &>th:nth-child(1){
+        width: 20%;
+      }
+      &>th:nth-child(2){
+        width: 20%;
+      }
+      &>th:nth-child(3){
+        width: 20%;
+      }
+      &>th:nth-child(4){
+        width: 20%;
+      }
+      &>th:nth-child(5){
+        width: 20%;
+      }
+    }
+
+    td{
+      text-align: center;
+      padding: 4px;
+    }
+
+  }
+
+  
+ 
 `
