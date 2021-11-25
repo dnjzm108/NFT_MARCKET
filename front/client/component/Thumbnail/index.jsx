@@ -25,7 +25,7 @@ const Thumbnail = ({imageBundle,isNow,imageClick,images})=>{
     }
 
     const checking =()=>{
-        console.log("22",images)
+        // console.log("22",images)
     }
 
     return(

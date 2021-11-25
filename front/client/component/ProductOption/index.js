@@ -38,6 +38,11 @@ const ProductOption =
         }
 
         const handleQty = (e, x) => {
+            const quantity = e.target.value
+            if(quantity== String){
+                // quantity = '';
+                return alert("숫자만 입력 가능합니다")
+            }
             let newQty = [...qty];
             newQty[x] = e.target.value;
             setQty(newQty);
