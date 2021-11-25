@@ -63,15 +63,6 @@ const Release = () => {
         setIsNow(false);
     }
 
-    // datepicker 설정 - 오늘 이전 날짜는 선택 못하게
-    const isPossibleDay = (date) => {
-        const currentDate = new Date();
-        const selectedDate = new Date(date);
-        return currentDate.getDate() <= selectedDate.getDate();
-    };
-
-
-    
     const fileSelected = event => {
         // 미리보기 이미지 보이게
         const imageFile = event.target.files; //내가 올린 파일들을 target으로 가져오고
@@ -79,11 +70,9 @@ const Release = () => {
         for (let i = 0; i < imageFile.length; i++) {
             const imageUrl = URL.createObjectURL(imageFile[i]); // i번째 이미지를 하나하나 url로 만들어서 변수에 담아줌
             arr.push(imageUrl) // url 하나하나 배열에다가 담아줌
-            setImageBundle(arr) // url 배열을 상태로 담음
         }
+        setImageBundle(arr) // url 배열을 상태로 담음
         
-
-
         // 이미지 추가 탐색기 닫았다 열어도 그대로 추가 되게
         let { files } = event.target
         if (files.length > 10 || images.length + files.length > 10) {    // 파일갯수 10개까지
@@ -99,8 +88,24 @@ const Release = () => {
                 }
             }
         }
+        
     }
 
+    const imageClick = (e) => {
+        for (let i = 0; i < imageBundle.length; i++) {
+            if (imageBundle[i] == e.target.currentSrc) {
+                return changeArrayOrder(imageBundle,i,-i)
+            }
+        }
+    }
+        
+    const changeArrayOrder=(list,targetidx,moveValue)=>{
+        const newPosi = targetidx+moveValue;
+        const temp = list;
+        const target = temp.splice(targetidx,1)[0]
+        temp.splice(newPosi,0,target)
+        return temp ,alert("선택되었습니다")
+    }
 
 
     // 정보들 formData에 담는 코드
@@ -232,7 +237,6 @@ const Release = () => {
                             setExtension={setExtension}
                             startDate={startDate}
                             setStartDate={setStartDate}
-                            isPossibleDay={isPossibleDay}
                         />
                         <FileInformation
                             name={name.value}
@@ -249,7 +253,8 @@ const Release = () => {
                     <Thumbnail 
                     imageBundle={imageBundle}
                     fileSelected={fileSelected}
-                    
+                    isNow={isNow}
+                    imageClick={imageClick}
                     />
                 </div>
                 <ProductOption

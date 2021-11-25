@@ -1,138 +1,156 @@
 import { StyledSwap } from "./swap.css";
-import { BiDownArrowAlt, BiWindowOpen } from "react-icons/bi";
-import { useEffect,useState } from "react"
+
+import { useEffect, useState } from "react"
 import { Swap_REQUEST } from "../../reducers/token";
 import { useSelector, useDispatch } from 'react-redux'
 // import caver from "../../klaytn/caver"
+import Button from "../Button";
+import { Container_Klatn, Container_Perro } from "./container"
 
 
 const SwapToken = () => {
     const dispatch = useDispatch()
-    const [klay,setKlay] = useState("");
-    const [perr,setPerr] = useState("");
-    const [k2p,setK2P] = useState('')
-    const [p2k,setP2K] = useState('')
-    const [currency,setCurrency] = useState(true)  // true면 klay, false면 perro 
-    const [swap,setSwap] = useState(0)
+    const [klay, setKlay] = useState("");
+    const [perr, setPerr] = useState("");
+    const [k2p, setK2P] = useState('')
+    const [p2k, setP2K] = useState('')
+    const [currency, setCurrency] = useState(true)  // true면 klay, false면 perro 
+    const [change, setChange] = useState(true)  // true면 klay를 token으로 교환
+    const [swap, setSwap] = useState(0)
 
 
 
-    const handleKlay = (e) =>{
-            const klayInput = e.target.value;
-            setKlay(klayInput);
-            setK2P(klayInput*10)
+    const handleKlay = (e) => {
+        const klayInput = e.target.value;
+        setKlay(klayInput);
+        setK2P(klayInput * 10)
     }
 
-    const handlePerr = (e) =>{
-            const perrInput = e.target.value;
-            setPerr(perrInput);
-            setP2K(perrInput/10);
+    const handlePerr = (e) => {
+        const perrInput = e.target.value;
+        setPerr(perrInput);
+        setP2K(perrInput / 10);
     }
 
-    useEffect(()=>{
-            setPerr(klay*10)
-    },[klay])
+    useEffect(() => {
+        setPerr(klay * 10)
+    }, [klay])
 
-    useEffect(()=>{
-            setKlay(perr/10)
-    },[perr])
+    useEffect(() => {
+        setKlay(perr / 10)
+    }, [perr])
 
-    const SwapPerro = async() =>{
-        // if(window.klaytn.selectedAddress){
-        //     alert('로그인해주세요.')
-        // }
-        console.log('xxxxxxxxxxxxx')
 
-        let sendKlay = 0;
-        let perroAmount = 0; 
-        if(currency==true){
-            sendKlay=String(klay)
-            perroAmount=String(k2p);
-        }else{
-            sendKlay=String(p2k);
-            perroAmount = String(perr);
+    const SwapPerro = async () => {
+        if (window.klaytn.selectedAddress == undefined) {
+            alert('로그인을 진행해 해주세요.')
+            return;
         }
-        console.log(perroAmount)
-        console.log(window.klaytn)
-        if(window.klaytn.selectedAddress===undefined){
-            await window.klaytn.enable()
-            console.log(window.klaytn.selectedAddress)
+        if (change) { // klay -> perro
+
+            let sendKlay = 0;
+            let perroAmount = 0;
+            if (currency == true) {
+                sendKlay = String(klay)
+                perroAmount = String(k2p);
+            } else {
+                sendKlay = String(p2k);
+                perroAmount = String(perr);
+            }
+
+            console.log(perroAmount)
+            if (window.klaytn.selectedAddress === undefined) {
+                await window.klaytn.enable()
+                console.log(window.klaytn.selectedAddress)
+            }
+
+            window.caver.klay
+                .sendTransaction({
+                    type: 'VALUE_TRANSFER',
+                    from: window.klaytn.selectedAddress,
+                    to: '0xC04a226684ED39C0341071af53f34E98aFA06156', // 관리자 공개키 
+                    value: caver.utils.toPeb(sendKlay, 'KLAY'),
+                    gas: 8000000
+                })
+                .once('transactionHash', transactionHash => {
+                    console.log('txHash', transactionHash)
+                })
+                .once('receipt', receipt => {
+                    console.log('receipt', receipt)
+                    const recipientAddress = receipt.from;
+                    const data = {
+                        recipientAddress,
+                        perroAmount,
+                        change
+
+                    }
+                    console.log('data!!!!', data);
+                    dispatch(Swap_REQUEST(data))
+                })
+                .once('error', error => {
+                    console.log('error', error)
+                    alert('거절.')
+                })
+        } else { //  perro -> klay
+            
+
+            const kip7 =new window.caver.klay.KIP7('0x1bfbc74191486a98a5abd8749c17fa0496c3d765')
+            const exchangeToken = await kip7.transfer('0xB3064FA7E7F47A14E2e9F268799B99a9ce038826','10000000000000000000',{
+                from:window.klaytn.selectedAddress
+            })
+            console.log(exchangeToken);
+           
         }
-        
-        window.caver.klay.kip7('address')
 
-
-        // await window.caver.klay
-        // .sendTransaction({
-        //     type: 'VALUE_TRANSFER',
-        //     from: window.klaytn.selectedAddress,
-        //     to: '0xC04a226684ED39C0341071af53f34E98aFA06156', // 관리자 공개키 
-        //     value: caver.utils.toPeb(sendKlay, 'KLAY'),
-        //     gas: 8000000
-        // })
-        // .once('transactionHash', transactionHash => {
-        //     console.log('txHash', transactionHash)
-        // })
-        // .once('receipt', receipt => {
-        //     console.log('receipt', receipt)
-        //     const recipientAddress  = receipt.from;
-        //     const data = {
-        //         recipientAddress,
-        //         perroAmount,
-        //     }
-        //     // dispatch(Swap_REQUEST(data))
-        // })
-        // .once('error', error => {
-        //     console.log('error', error)
-        //     alert('거절.')
-        // })
-        
+    }
+    const change_state = () => {
+        setChange(!change)
     }
 
-  
+    const change_value = (values) => {
+        setCurrency(values)
+    }
+
     return (
         <>
-        <StyledSwap>
-        <div className="name">
-            Perro Swap
-        </div>
+            <StyledSwap>
+                {change ?
+                    <>
+                        <Button value="CHANGE KLAYTN" color="sky" func={change_state} />
+                        <Container_Perro
+                            currency={currency}
+                            k2p={k2p}
+                            p2k={p2k}
+                            klay={klay}
+                            perr={perr}
+                            change_value={change_value}
+                            handleKlay={handleKlay}
+                            handlePerr={handlePerr}
+                            SwapPerro={SwapPerro}
+                        />
 
-        {currency 
-        ?(<div className="Wbox">
-        <div className="From" >
-            <img className="klay_icon" src="/klay.png" alt="" />
-          <p className="klaytn">Klaytn</p>
-        <input type="number" defaultValue={klay} onChange={(e)=>{handleKlay(e)}}  min="1" className="klay" placeholder="0.0"/>
-        </div>
-        <BiDownArrowAlt className="icon"/>
-        <div className="To" onClick={()=>setCurrency(false)}>
-            <img className="Perr_icon" src="/쉽독.jpg" alt="" />
-            <p className="perro">Perro</p>
-            {/* <input type="number"  defaultValue={klay} min="1" className="perr" placeholder="0.0"/> */}
-            <span className="klayspan" >{k2p}</span>
-        </div>
-        <div className="swap_btn" onClick={()=>SwapPerro()}>Click</div>
-        </div>)
-        :(
-        <div className="Wbox2">
-        <div className="From" onClick={()=>setCurrency(true)}>
-            <img className="klay_icon" src="/klay.png" alt="" />
-          <p className="klaytn">Klaytn</p>
-            <span className="klayspan">{p2k}</span>
-        </div>
-        <BiDownArrowAlt className="icon"/>
-        <div className="To">
-            <img className="Perr_icon" src="/쉽독.jpg" alt="" />
-            <p className="perro">Perro</p>
-        <input type="number"  defaultValue={perr}  onChange={(e)=>{handlePerr(e)}} min="1" className="perr" placeholder="0.0"/>
-        <div className="swap_btn2" onClick={SwapPerro}>Click</div>
-        </div>
-    </div>)    
-        }
+                    </>
+                    :
+                    <>
+                        <Button value="CHANGE TOKEN" color="sky" func={change_state} />
+                        <Container_Klatn
+                            currency={currency}
+                            k2p={k2p}
+                            p2k={p2k}
+                            klay={klay}
+                            perr={perr}
+                            change_value={change_value}
+                            handleKlay={handleKlay}
+                            handlePerr={handlePerr}
+                            SwapPerro={SwapPerro}
+                        />
+                    </>
+                }
 
 
-        
-        </StyledSwap>
+
+
+            </StyledSwap>
         </>
     );
 }
