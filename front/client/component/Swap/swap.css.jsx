@@ -12,9 +12,11 @@ export const StyledSwap = styled.div`
     flex-direction: column;
     }
 
-    & > .name{
+    & > div > .name{
         font-size: 40px;
         font-weight: bold;
+        text-align: center;
+        margin: 40px;
     }
     
     .Wbox{
