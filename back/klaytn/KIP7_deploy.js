@@ -48,6 +48,8 @@ const send_Token = async(recipient,amount) =>{
 
 // KIP7token();
 
+send_Token('0x25390A007D19Ce6014F47ce4b79FaAffbf3Df3D3','10')
+
 
 
 

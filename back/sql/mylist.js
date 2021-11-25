@@ -681,6 +681,145 @@ function myImmySellListQuery(query,type){
 }
 
 
+function mySellListQuery(query,type){
+  const {nickname,page,rows,search, status,sort} = query;
+  if(type=='cnt'){
+   return`
+          SELECT
+                  COUNT(product_no) AS cnt 
+          FROM
+                product
+          WHERE 
+                creater='${nickname}' ${statusCheck(status)} ${searchCheck(search)};`
+  }else{
+    return `
+    SELECT 
+    *,
+  IFNULL(max,mainprice)AS lastprice
+FROM (
+    SELECT
+          *
+    FROM
+          product
+    NATURAL JOIN (
+            SELECT 
+                product_no, price AS mainprice
+            FROM(
+                SELECT 
+                    * 
+                FROM
+                    product_detail
+                ORDER BY price DESC
+                ) AS X
+            GROUP BY product_no
+    ) AS M
+    WHERE 
+              creater='${nickname}' ${statusCheck(status)} ${searchCheck(search)}
+          ORDER BY ${sortCheck(sort)}
+		      LIMIT ${(page-1)*rows},${rows}
+)AS P
+NATURAL JOIN(
+            SELECT
+                  *
+            FROM
+                  product_detail as D
+            ORDER BY 
+                  product_id ASC
+)AS D
+NATURAL JOIN(
+          SELECT
+                *
+          FROM
+              product_image
+          GROUP by 
+              product_no
+)as I
+LEFT JOIN (
+              SELECT 
+                      auction.auction_id AS auction_id,
+                      auction.product_id,
+                      auction.deadline,
+                      auction.option,
+                      L.bid AS max
+              FROM 
+                      auction
+              LEFT JOIN( 
+                        SELECT 
+                                *
+                        FROM(
+                                SELECT 
+                                        *
+                                FROM
+                                        auction_history
+                                WHERE
+                                        (auction_id,bid) IN (
+                                                          SELECT 
+                                                                auction_id, 
+                                                                max(bid) AS bid
+                                                          FROM 
+                                                                auction_history
+                                                          GROUP BY 
+                                                                auction_id
+                                                            )
+                                  ORDER BY 
+                                        bid DESC
+                              ) AS H
+                        GROUP BY 
+                              auction_id
+                        )AS L
+              ON auction.auction_id=L.auction_id
+      )AS A
+ON
+A.product_id=D.product_id
+LEFT JOIN(
+          SELECT 
+                auction_id,auction_history_id,bid,bider,status, date AS bid_date
+          FROM
+              auction_history
+          ORDER BY date DESC 
+        )AS H
+ON
+A.auction_id=H.auction_id
+  ;`}
+  
+  function statusCheck(status){
+    switch(status){
+      case "sale":
+        return ` AND (leftover>0 AND type='buy')`
+      case "soldout":
+        return ` AND leftover=0`
+      case "auction":
+        return ` AND type='auction'`
+      case "stop":
+        return ` AND type='stop'`
+      case "all": default:
+        return ``
+    }
+  }
+
+  function searchCheck(search){
+    if(search!=undefined){
+      return` AND (name like '%${search}%' OR product_no like '%${search}%')`
+    }
+    return ''
+  }
+
+  function sortCheck(sort){
+    switch(sort){
+      case 'like':
+        return 'likes DESC';
+      case 'low':
+        return 'mainprice ASC';
+      case 'high':
+        return 'mainprice DESC';
+      case 'old':
+        return 'date ASC';
+      case 'new': default:
+        return 'date DESC';
+    }
+  }
+}
+
 
 
 module.exports={
@@ -689,6 +828,7 @@ module.exports={
   myAuctionSellListQuery,
   myImmySellListQuery,
   myImmySellAllListQuery,
+  mySellListQuery,
   updateShipQuery,
   updateInvoiceQuery,
   completeDeliveryQuery

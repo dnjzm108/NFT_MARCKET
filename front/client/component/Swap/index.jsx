@@ -40,14 +40,13 @@ const SwapToken = () => {
         setKlay(perr / 10)
     }, [perr])
 
-    console.log(window.klaytn.selectedAddress);
 
     const SwapPerro = async () => {
         if (window.klaytn.selectedAddress == undefined) {
             alert('로그인을 진행해 해주세요.')
             return;
         }
-        if (change) {
+        if (change) { // klay -> perro
 
             let sendKlay = 0;
             let perroAmount = 0;
@@ -60,7 +59,6 @@ const SwapToken = () => {
             }
 
             console.log(perroAmount)
-            console.log(window.klaytn)
             if (window.klaytn.selectedAddress === undefined) {
                 await window.klaytn.enable()
                 console.log(window.klaytn.selectedAddress)
@@ -93,8 +91,15 @@ const SwapToken = () => {
                     console.log('error', error)
                     alert('거절.')
                 })
-        } else {
-            alert('아직 준비중인 서비스입니다.')
+        } else { //  perro -> klay
+            
+
+            const kip7 =new window.caver.klay.KIP7('0x1bfbc74191486a98a5abd8749c17fa0496c3d765')
+            const exchangeToken = await kip7.transfer('0xB3064FA7E7F47A14E2e9F268799B99a9ce038826','10000000000000000000',{
+                from:window.klaytn.selectedAddress
+            })
+            console.log(exchangeToken);
+           
         }
 
     }

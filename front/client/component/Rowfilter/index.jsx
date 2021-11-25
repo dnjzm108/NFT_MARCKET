@@ -28,20 +28,16 @@ const Rowfilter = ({children}) => {
     const handleSort = (code) => {
       let data = {
         ...router.query,
-        nickname:user_info.nickname,
-        auth:user_info.auth,
       }
       if(data["sort"]==code || code==null){
         delete data.sort; 
       }else{
           data["sort"]=code
       }
-  
       router.push({
         pathname: '/',
-        query: data,
+        query: {...data},
       })
-      dispatch(ExploreRequest({...router.query}));
     }
 
     //검색할때. 

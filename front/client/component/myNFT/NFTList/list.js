@@ -27,6 +27,13 @@ export const statusList = {
     {name:'배송중',code:'delivery'},
     {name:'구매완료',code:'completed'},
   ],
+  'sell':[
+    {name:'전체',code:'all'},
+    {name:'판매중',code:'sale'},
+    {name:'매진',code:'soldout'},
+    {name:'경매중',code:'auction'},
+    {name:'경매종료',code:'stop'},
+  ]
 }
 
 export const sortList = {
@@ -60,6 +67,13 @@ export const sortList = {
     {name:'낮은 입찰가 순',code:'low'},
     {name:'좋아요 순',code:'like'},
   ],
+  'sell':[
+    {name:'최신 등록일 순',code:'new'},
+    {name:'오래된 등록일 순',code:'old'},
+    {name:'높은 가격 순',code:'high'},
+    {name:'낮은 가격 순',code:'low'},
+    {name:'좋아요 순',code:'like'},
+  ]
 }
 
 export const typeList = {
