@@ -1,4 +1,4 @@
-import { StyledSwap } from "./swap.css";
+import { StyledSwap,PerroGuide } from "./swap.css";
 
 import { useEffect, useState } from "react"
 import { Swap_REQUEST } from "../../reducers/token";
@@ -17,7 +17,7 @@ const SwapToken = () => {
     const [currency, setCurrency] = useState(true)  // true면 klay, false면 perro 
     const [change, setChange] = useState(true)  // true면 klay를 token으로 교환
     const [swap, setSwap] = useState(0)
-
+    const [openGuide,setOpenGuide] = useState(false)
 
 
     const handleKlay = (e) => {
@@ -111,46 +111,57 @@ const SwapToken = () => {
         setCurrency(values)
     }
 
+    const handleGuide = ()=>{
+        return setOpenGuide(!openGuide)
+    }
+
     return (
         <>
-            <StyledSwap>
-                {change ?
-                    <>
-                        <Button value="CHANGE KLAYTN" color="sky" func={change_state} />
-                        <Container_Perro
-                            currency={currency}
-                            k2p={k2p}
-                            p2k={p2k}
-                            klay={klay}
-                            perr={perr}
-                            change_value={change_value}
-                            handleKlay={handleKlay}
-                            handlePerr={handlePerr}
-                            SwapPerro={SwapPerro}
-                        />
+            {/* <FlexContain> */}
+                <PerroGuide>
+                <div>
+                    <div className="get_perro_btn" onClick={handleGuide}>
+                        토큰 추가 가이드
+                    </div>  
+                    { openGuide ? <img src="https://i.ibb.co/vLQH92r/33.jpg" alt="33" border="0" />:''}
+                </div>
+                </PerroGuide>
+                <StyledSwap>
 
-                    </>
-                    :
-                    <>
-                        <Button value="CHANGE TOKEN" color="sky" func={change_state} />
-                        <Container_Klatn
-                            currency={currency}
-                            k2p={k2p}
-                            p2k={p2k}
-                            klay={klay}
-                            perr={perr}
-                            change_value={change_value}
-                            handleKlay={handleKlay}
-                            handlePerr={handlePerr}
-                            SwapPerro={SwapPerro}
-                        />
-                    </>
-                }
+                    {change ?
+                        <>
+                            <Button value="CHANGE KLAYTN" color="sky" func={change_state} />
+                            <Container_Perro
+                                currency={currency}
+                                k2p={k2p}
+                                p2k={p2k}
+                                klay={klay}
+                                perr={perr}
+                                change_value={change_value}
+                                handleKlay={handleKlay}
+                                handlePerr={handlePerr}
+                                SwapPerro={SwapPerro}
+                            />
 
-
-
-
-            </StyledSwap>
+                        </>
+                        :
+                        <>
+                            <Button value="CHANGE TOKEN" color="sky" func={change_state} />
+                            <Container_Klatn
+                                currency={currency}
+                                k2p={k2p}
+                                p2k={p2k}
+                                klay={klay}
+                                perr={perr}
+                                change_value={change_value}
+                                handleKlay={handleKlay}
+                                handlePerr={handlePerr}
+                                SwapPerro={SwapPerro}
+                            />
+                        </>
+                    }
+                </StyledSwap>
+            {/* </FlexContain> */}
         </>
     );
 }
