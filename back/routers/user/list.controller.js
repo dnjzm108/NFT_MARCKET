@@ -9,9 +9,10 @@ const {myBuyListQuery,
       mySellListQuery,
       getOrderInfoQuery,
     } = require('../../sql/mylist');
-
+const {send_Klay} = require('../../klaytn/KIP7_deploy')
 const {mintNFT} = require('../../klaytn/KIP17');     
 const {successData,errorData,error400} = require('../../returnData');
+const {multipFloat} = require('../../util')
 
 
 
@@ -76,35 +77,6 @@ const getMyAuction = async(req,res)=>{
 
 }
 
-const getMyImmySellALL = async(req,res)=>{
-  const cntsql = myImmySellAllListQuery(req.query,'cnt');
-  const [cntResult] = await query(cntsql);
-  const cnt = cntResult.cnt;
-  
-  // 요청한 값이 없을 떄. 
-  if(cnt==0){
-    const data={
-      page:1,
-      pageblock:[1],
-      totalPage:1,
-      list:[]
-    }
-    res.json(successData(data))
-    return
-  }
-
-  const {page,rows, pageblock, totalPage} = makePageBlock(cnt,req.query.page,req.query.rows)
-  const params = {...req.query,page,rows}
-  const sql = myImmySellAllListQuery(params);
-  const result = await query(sql);
-  const data = {
-    list:result,
-    page,
-    pageblock,
-    totalPage,
-  }
-  res.json(successData(data))
-}
 
 const getMyImmySell = async(req,res)=>{
   const cntsql = myImmySellListQuery(req.query,'cnt');
@@ -332,23 +304,37 @@ const updateInvoiceInfo = async(req,res)=>{
 /////////////////////////////////////////////////
 const completeDelivery = async(req,res)=>{
   const {order_id} = req.body;
-  const [order_info] =await execute(getOrderInfoQuery(),[order_id]);
+  const order_info =await execute(getOrderInfoQuery(),[order_id]);
+  
   const {price,
 		qty,
 		buyer_wallet,
 		contractAddr,
 		tokenURI,
-		seller_wallet,
-		tokenId} = order_info; 
+		seller_wallet} = order_info[0];
 
+    const tokenId = order_info.map(v=>v.tokenId);
+
+
+    const total_price = String(multipFloat([price,qty]))
     //판매자 주소로 pricd * qty 만큼 보내주기.
+      const klayReciept = await send_Klay(seller_wallet,total_price)
+      console.log('클레이보내기-=----------------------------')
+      console.log(klayReciept)
+      console.log('클레이보내기-=----------------------------')
 
-    //구매자한테 NFT 보내주기. 
-    
-     const nftReciept = await mintNFT(contractAddr,tokenId,tokenURI,buyer_wallet)
-     console.log(nftReciept)
 
+    //구매자한테 NFT 보내주기.
+    tokenId.forEach(async (tokenID)=>{
+      console.log('nft보내기')
+      const nftReciept = await mintNFT(contractAddr,tokenID,tokenURI,buyer_wallet)
+      console.log(nftReciept)
+      console.log('nft보내기')
+    })
 
+    ///https://baobab.scope.klaytn.com/nft/${contractAddr}/${tokenId}
+
+  
   const completeSql = completeDeliveryQuery();
   const params=[order_id]
   const result = await execute(completeSql,params)

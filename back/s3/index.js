@@ -48,10 +48,10 @@ const uploadProfile = (file,nick) =>{
 }
 
 
-const uploadMetaData = (productNo,name,explain,creater,files)=>{
+const uploadMetaData = (productNo,name,explain,creater,files,created_at)=>{
   const uploadParams = {
     Bucket: bucketName,
-    Body: JSON.stringify({name,explain,files,creater}),
+    Body: JSON.stringify({name,explain,files,creater,created_at}),
     Key: `metadata${productNo}.json`
   }
   return s3.upload(uploadParams).promise()

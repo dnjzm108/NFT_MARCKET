@@ -96,7 +96,12 @@ let order = async (req,res) =>{
    let create_delivery = await execute(create_delivery_sql(),delivery_parms)
 
    /// 토큰아이디 지정
-    await execute(update_cnt_sql(),[insertId,product_no]); 
+
+    let cntUpdateSql = ``
+    for(let i = 0; i<qty; i++){
+        cntUpdateSql+=update_cnt_sql(insertId,product_no);
+    }
+    await query(cntUpdateSql); 
 
 
    //상품 재고 수정

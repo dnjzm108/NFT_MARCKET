@@ -62,10 +62,7 @@ const send_Klay = async(recipient,amount)=>{
 })
 
   const signed = await caver.wallet.sign(keyring.address,lt)
-  console.log(signed)
   const receipt = await caver.rpc.klay.sendRawTransaction(signed);
-  console.log(receipt)
-
 return receipt
 
 }

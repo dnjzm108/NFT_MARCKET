@@ -187,20 +187,21 @@ const notice_order_sql = () =>{
 
 
 /// 프로덕트 카운트 업데이트
-const update_cnt_sql = () =>{
+const update_cnt_sql = (insertId,product_no) =>{
+
     return (
         `UPDATE 
                 product_count 
         SET 
-                order_id=? 
+                order_id=${insertId}
         WHERE 
-                id=(
+                id in(
                     SELECT 
                             id 
                     FROM 
                         product_count 
                     WHERE 
-                        product_no=? 
+                        product_no=${product_no}
                         AND order_id IS NULL 
                     ORDER BY 
                             id ASC 

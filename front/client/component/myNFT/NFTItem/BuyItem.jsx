@@ -3,7 +3,7 @@ import Button from '../../Button/index'
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/dist/client/link";
 import { UpdateDeliveryRequest,TransactionRequest } from "../../../reducers/mylist";
-
+import {multipFloat} from '../../../util/float'
 const sell_type={
   'buy':'즉시구매',
   'auction':'경매'
@@ -105,7 +105,7 @@ const BuyItem = (
       <td>{order_date}</td>
       <td>{qty}</td>
       <td>{order_price}</td>
-      <td>{qty*order_price}</td>
+      <td>{multipFloat([order_price,qty])}</td>
       <td> <div>
         {order_id}
         </div>

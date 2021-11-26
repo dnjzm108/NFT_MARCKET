@@ -12,6 +12,7 @@ import PopupPostCode from '../Delivery_Address/PopupPostCode';
 import { useState } from 'react';
 import useInput from '../../hooks/useInput';
 import {UpdateShipRequest} from '../../reducers/mylist'
+import { multipFloat } from '../../util/float';
 
 const ShipAddress = ({handleShipPopUp}) => {
   const dispatch = useDispatch()
@@ -87,7 +88,7 @@ const ShipAddress = ({handleShipPopUp}) => {
                       </tr>
                       <tr>
                           <td>결제금액</td>
-                          <td style={{display:'flex', alignItems:'center', justifyContent:'center'}}><img src="/klay.png" alt="" /> {order.order_price * order.qty}</td>
+                          <td style={{display:'flex', alignItems:'center', justifyContent:'center'}}><img src="/klay.png" alt="" /> { multipFloat([order.order_price,order.qty])}</td>
                       </tr>
 
                       <tr>

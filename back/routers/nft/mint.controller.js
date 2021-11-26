@@ -98,7 +98,7 @@ const mint_nft = async(req,res)=>{
     getOption.forEach((v,i)=>{
       const option = JSON.parse(v)
       const {color,size,qty,price}= option;
-      const product_id = `${i+1}`.padStart(3,"0")
+      const product_id = productNo+`${i+1}`.padStart(3,"0")
       optionSql+=`INSERT INTO product_detail (product_id,product_no,color,size,qty,rest,price) VALUES("${product_id}","${productNo}","${color}","${size}",${qty},${qty},${price});\n`
     })
       optionSql+='INSERT INTO product_count (product_no,num) VALUES '
@@ -165,8 +165,8 @@ const mint_nft = async(req,res)=>{
   const time9 = new Date().getTime();
   console.log('이미지 넣는 쿼리',time9-time8);
 
-  
-  const metadata = await uploadMetaData(productNo,name,explain,creater,images); 
+  const created_at = new Date().toString();
+  const metadata = await uploadMetaData(productNo,name,explain,creater,images,created_at); 
   const tokenURI = metadata.Location;  
   const updateTokenURI = `UPDATE product SET tokenURI='${tokenURI}' WHERE product_no='${productNo}'`
   await query(updateTokenURI);

@@ -3,6 +3,7 @@ import Button from '../../Button/index'
 import { useSelector } from "react-redux";
 import {dlvyList} from '../NFTList/list'
 import Link from "next/dist/client/link";
+import {multipFloat} from '../../../util/float'
 
 
 
@@ -86,7 +87,7 @@ const ImmySellItem = (
       <td>{buyer}</td>
       <td>{qty}</td>
       <td>{price}</td>
-      <td>{(+price)*(+qty)}</td>
+      <td>{multipFloat([price,qty])}</td>
       <td>
         <div>
         {order_id}
