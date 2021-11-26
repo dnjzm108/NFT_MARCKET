@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next dev -p 3",
+    "dev": "next dev -p 3000",
     "debug": "node --inspect-brk -p 3001 ./node_modules/next/dist/bin/next",
     "build": "next build",
     "start": "next start -p 3500",

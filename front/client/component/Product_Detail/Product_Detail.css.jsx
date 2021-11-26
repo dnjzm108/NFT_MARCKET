@@ -249,6 +249,32 @@ export const Center_contain = styled.div`
     box-sizing: border-box;
     text-align: center;
 }
+& > h1 {
+    padding: 10px;
+    box-sizing: border-box;
+}
+`
+
+export const FixBox = styled.div`
+&:nth-child(2){
+    position: relative;
+    height: 70px;
+    z-index:10;
+} 
+/* &:nth-child(2) >div{
+    position: absolute;
+    z-index:10;
+} */
+&:nth-child(3){
+    position: relative;
+    height: 70px;
+    z-index:2;
+}
+& > div {
+    position: absolute;
+    z-index:7;
+}
+
 `
 
 //---- 팝업 css 부분 ----
@@ -299,4 +325,5 @@ export const StyledNowPopup = styled.div`
         cursor: pointer;
     }
 `
+
 
