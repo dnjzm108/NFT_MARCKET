@@ -225,7 +225,7 @@ export const  PerroGuide = styled.div`
     }
     img{
         position: sticky;
-        width: 38vw;
+        width: 36vw;
         padding: 10%;
         z-index: 5;
     }
@@ -237,7 +237,7 @@ export const  PerroGuide = styled.div`
         /* border: 1px solid red; */
         border: none;
         border-bottom: 1px solid red;
-        transform: translate(620%,2325%);
+        transform: translate(600%,2200%);
         position: sticky;
         cursor: pointer;
         display: flex;
