@@ -143,7 +143,7 @@ const Release = () => {
         formData.append("name", name.value)
         formData.append("symbol", symbol.value)
         formData.append("creater", user_info.nickname)
-
+        formData.append("nickname",user_info.nickname)
 
         formData.append("type", isNow)
         formData.append("start_price", bid.value)
@@ -153,7 +153,7 @@ const Release = () => {
 
         formData.append("category", middlecate)
         formData.append("season", season)
-
+        formData.append("auth",user_info.auth)
         dispatch(Mint_REQUEST(formData))
         Router.push('/')
     }
