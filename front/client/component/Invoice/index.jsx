@@ -9,6 +9,7 @@ import Button from '../Button';
 import useInput from "../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import {UpdateInvoiceRequest} from '../../reducers/mylist'
+import {multipFloat} from '../../util/float'
 const Invoice = (props) => {
     const dispatch=useDispatch()
     const {user_info} = useSelector(state=>state.user)
@@ -68,6 +69,16 @@ const Invoice = (props) => {
                                     <td>가격</td>
                                     <td>|</td>
                                     <td>{target.price}</td>
+                                </tr>
+                                <tr>
+                                    <td>주문량</td>
+                                    <td>|</td>
+                                    <td>{target.qty}</td>
+                                </tr>
+                                <tr>
+                                    <td>가격*주문량</td>
+                                    <td>|</td>
+                                    <td>{multipFloat([target.qty,target.price])}</td>
                                 </tr>
                                 <tr>
                                     <td>주문자</td>

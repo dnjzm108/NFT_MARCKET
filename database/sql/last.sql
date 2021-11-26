@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   PRIMARY KEY (`id`),
   KEY `FK_address_user` (`nickname`),
   CONSTRAINT `FK_address_user` FOREIGN KEY (`nickname`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -44,13 +44,13 @@ CREATE TABLE IF NOT EXISTS `admin` (
 DROP TABLE IF EXISTS `auction`;
 CREATE TABLE IF NOT EXISTS `auction` (
   `auction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) DEFAULT NULL,
+  `product_id` varchar(13) NOT NULL,
   `deadline` datetime DEFAULT current_timestamp(),
   `option` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`auction_id`) USING BTREE,
   KEY `FK_auction_product_detail` (`product_id`),
   CONSTRAINT `FK_auction_product_detail` FOREIGN KEY (`product_id`) REFERENCES `product_detail` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `auction_history` (
   KEY `FK_auction_history_user` (`bider`) USING BTREE,
   CONSTRAINT `FK_auction_history_auction` FOREIGN KEY (`auction_id`) REFERENCES `auction` (`auction_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_auction_history_user` FOREIGN KEY (`bider`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `delivery` (
   PRIMARY KEY (`dlvy_id`),
   KEY `FK_delievery_orders` (`order_id`),
   CONSTRAINT `FK_delievery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -136,17 +136,18 @@ CREATE TABLE IF NOT EXISTS `middlecategory` (
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
+  `product_id` varchar(13) NOT NULL DEFAULT '',
   `price` float NOT NULL DEFAULT 0,
   `buyer` varchar(20) NOT NULL,
   `date` datetime DEFAULT current_timestamp(),
   `qty` int(11) NOT NULL DEFAULT 1,
+  `transactionHash` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`order_id`) USING BTREE,
   KEY `FK_orders_user` (`buyer`),
   KEY `FK_orders_product_detail` (`product_id`),
   CONSTRAINT `FK_orders_product_detail` FOREIGN KEY (`product_id`) REFERENCES `product_detail` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_orders_user` FOREIGN KEY (`buyer`) REFERENCES `user` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -172,10 +173,24 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
+-- 테이블 nft_market.product_count 구조 내보내기
+DROP TABLE IF EXISTS `product_count`;
+CREATE TABLE IF NOT EXISTS `product_count` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_no` varchar(10) NOT NULL DEFAULT '',
+  `num` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_product_cnt_product_detail` (`product_no`) USING BTREE,
+  CONSTRAINT `FK_product_count_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
 -- 테이블 nft_market.product_detail 구조 내보내기
 DROP TABLE IF EXISTS `product_detail`;
 CREATE TABLE IF NOT EXISTS `product_detail` (
-  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` varchar(13) NOT NULL,
   `product_no` varchar(10) DEFAULT NULL,
   `color` varchar(50) DEFAULT NULL,
   `size` varchar(10) DEFAULT NULL,
@@ -185,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `product_detail` (
   PRIMARY KEY (`product_id`) USING BTREE,
   KEY `product_no` (`product_no`),
   CONSTRAINT `FK_product_detail_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -193,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `product_detail` (
 DROP TABLE IF EXISTS `product_image`;
 CREATE TABLE IF NOT EXISTS `product_image` (
   `product_no` varchar(10) DEFAULT NULL,
-  `img` varchar(256) DEFAULT NULL,
+  `img` varchar(100) DEFAULT NULL,
   KEY `FK__product` (`product_no`),
   CONSTRAINT `FK_product_image_product` FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -205,8 +220,7 @@ DROP TABLE IF EXISTS `receipt`;
 CREATE TABLE IF NOT EXISTS `receipt` (
   `receipt_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
-  `temp1` int(11) DEFAULT NULL,
-  `temp2` int(11) DEFAULT NULL,
+  `token_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`receipt_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -92,11 +92,49 @@ console.log('klay',receipt);
 // const y  ='1000000000000000000'
 // console.log(Number(x)/Number(y));
 
+const sendKlay = async (recipient, amount) => {
+
+  let data = {
+    success:false,
+    receipt:null,
+    error:null
+  }
+
+  try{
+    const lt = await caver.transaction.legacyTransaction.create({
+      from: keyring.address,
+      to: recipient,
+      value: caver.utils.toPeb(amount, 'KLAY'),
+      gas: 25000,
+    })
+    try{
+      const signed = await caver.wallet.sign(keyring.address, lt)
+      try{
+        const receipt = await caver.rpc.klay.sendRawTransaction(signed)
+        data.success=true;
+      data.receipt=receipt;
+      return data;
+
+      }catch(e){
+        data.error=e;
+      return data;
+      }
+    }catch(e){
+      data.error=e;
+      return data;
+    }
+  }catch(e){
+    data.error=e;
+    return data;
+  }
+}
+
 
 
 
 module.exports = {
   send_Token,
-  send_Klay
+  send_Klay,
+  sendKlay
 }
 

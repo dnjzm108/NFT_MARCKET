@@ -19,9 +19,6 @@ const {
 
 
 const getMainInit = async(req,res) => {
-  console.log('=========init===============')
-  console.log(req.query);
-  console.log('========================')
 
   //필터 디자이너 목록 가져오기
   const designerSql = getDesignerSql();
@@ -62,9 +59,6 @@ const getMainInit = async(req,res) => {
 }
 
 const getMain = async(req,res)=>{
-  console.log('=======get==============')
-  console.log(req.query);
-  console.log('=======================')
   const _nickname = req.get('nickname')
   let nickname = decodeURIComponent(atob(_nickname)); 
   const auth=req.get('auth');
