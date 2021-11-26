@@ -69,7 +69,6 @@ const Delivery_Address_Component = (props) => {
                 auth: data.user_info.auth
             }
             let payment = await sendToken(product_info[option].price,logout)
-           console.log(payment);
             if (payment !== undefined) {
                 dispatch(Apply_Immy(order_info))
             }

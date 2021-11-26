@@ -38,13 +38,11 @@ let KIP7Token_transfer = async () => {
   }
 
   const kip7Instance = new caver.kct.kip7('0x04feb1c6d54c38c4e0c5af14d11e12f3eb2ad32e')
-  kip7Instance.name().then(console.log)
   const opts = { from: keyring.address }
   //보낼 account 주소를 입력 시키기
   const recipientAddress = '0x544C995914d37f4300b375073A9EFCABb8e6d881'
   const value = 1000000000
   const receipt = await kip7Instance.transfer(recipientAddress, value, opts)
-  console.log(receipt)
 
   // 구매 완료 후 nft transfer
 
