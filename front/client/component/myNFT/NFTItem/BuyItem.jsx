@@ -3,7 +3,8 @@ import Button from '../../Button/index'
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/dist/client/link";
 import { UpdateDeliveryRequest,TransactionRequest } from "../../../reducers/mylist";
-
+import {multipFloat} from '../../../util/float'
+import Loadding from '../../Loadding'
 const sell_type={
   'buy':'즉시구매',
   'auction':'경매'
@@ -30,6 +31,17 @@ const BuyItem = (
 }) => {
   
   const {user_info} = useSelector(state=>state.user)
+  const {  invoiceLoading,
+    shipLoading,
+    transactionLoading,} = useSelector(state=>state.mylist)
+
+  const loadingCheck= ()=>{
+    if(invoiceLoading||shipLoading||transactionLoading){
+      return true
+    }
+    return false;
+  }
+  
   const dispatch = useDispatch();  
 
   const handleShipAddress = ()=>{
@@ -64,27 +76,31 @@ const BuyItem = (
         return(
           <>
            <div>배송중</div>
-           <button className='order_action_btn delivery' onClick={()=>handleCompleted(order_id)}>구매 확정</button>
+           <button className='list_btn delivery' onClick={()=>handleCompleted(order_id)}>구매 확정</button>
           </>
           )
       case 'completed':
         return(
           <>
            <div>구매완료</div>
-           <button className='order_action_btn completed'>영수증</button>
+           <button className='list_btn completed'>영수증</button>
           </>
           )
           case 'wait': default:
             return(
               <>
                <div>배송지 미입력</div>
-               <button className='order_action_btn wait' onClick={()=>handleShipAddress(order_id)}>배송지 입력</button>
+               <button className='list_btn wait' onClick={()=>handleShipAddress(order_id)}>배송지 입력</button>
               </>
               )
         
     }
   } 
-
+  if(loadingCheck()){
+    return (
+      <Loadding/>
+    )
+  }
     return (
       
       <StyledMyNFT>
@@ -105,11 +121,11 @@ const BuyItem = (
       <td>{order_date}</td>
       <td>{qty}</td>
       <td>{order_price}</td>
-      <td>{qty*order_price}</td>
+      <td>{multipFloat([order_price,qty])}</td>
       <td> <div>
         {order_id}
         </div>
-        <button className='order_action_btn order'>
+        <button className='list_btn order'>
             주문서 보기
         </button></td>
       <td>{renderStatus(dlvy_status)}</td>

@@ -81,6 +81,7 @@ export const typeList = {
  'auction':'경매 내역',
  'immysell':'즉시판매 내역',
  'auctionsell':'경매판매 내역',
+ 'sell':'판매 상품'
 
 }
 

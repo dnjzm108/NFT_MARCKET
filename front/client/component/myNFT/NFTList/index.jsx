@@ -25,21 +25,28 @@ const NFTList = () => {
   const [shipPopUp,setShipPopUp] = useState(false)
   const [invoice,setInvoice] = useState("");
   const [ship,setShip] = useState("");
-
   const handleSort = (code)=>{
     const data = {
-      ...searchData,
       nickname:user_info.nickname,
-      sort:code
+      auth:user_info.auth,
+      params:{
+        ...searchData,
+        nickname:user_info.nickname,
+        sort:code
+      }
     };
     dispatch(ListUpdateRequest(data))
   }
    
   const handleStatus = (code)=>{
     const data = {
-      ...searchData,
       nickname:user_info.nickname,
-      status:code
+      auth:user_info.auth,
+      params:{
+        ...searchData,
+        nickname:user_info.nickname,
+        status:code
+      }
     };
     dispatch(ListUpdateRequest(data))
   }
@@ -47,9 +54,14 @@ const NFTList = () => {
   const handleSubmit = (e)=>{
     e.preventDefault();
     const data = {
-      ...searchData,
       nickname:user_info.nickname,
-      search:input
+      auth:user_info.auth,
+      params:{
+        ...searchData,
+        search:input,
+        nickname:user_info.nickname,
+        
+      }
     };
     dispatch(ListUpdateRequest(data))
   }
