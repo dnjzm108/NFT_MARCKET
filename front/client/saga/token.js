@@ -8,14 +8,18 @@ async function tokenSwapAPI(data){
 
 function* swapSaga(action){
     let result = yield call(tokenSwapAPI,action.data)
-    const {data} = result; 
-    if(data.success){
-      alert(`${data.amount}perro 발행되었습니다.`)
-      yield put({
-                type: 'TOKEN_SWAP_SUCCESS',
-            })
+    console.log('사가 결과',result.data);
+    const {success} = result.data; 
+    if(success){
+        yield put({
+            type: 'TOKEN_SWAP_SUCCESS',
+        })
+        alert('정상적으로 처리 되었습니다.')
     }else{
-
+        yield put({
+            type: 'TOKEN_SWAP_ERROR',
+        })
+        alert('정상적으로 처리 되지 않았습니다.')
     }
 
 }

@@ -1,11 +1,11 @@
-import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container, Styled_Slide, Price_contain, Auction_contain, Center_contain } from './Product_Detail.css'
+import { Product_Wrap, Middle_container, Seller_contain, Explain, Slide_container, Styled_Slide, Price_contain, Auction_contain, Center_contain, FixBox } from './Product_Detail.css'
 import Footter from '../../component/Footter'
 // import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
-import { useEffect, useState ,useRef} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Auction, Auction_History } from './Auction_Box';
 // import NowPopup from "./NowPopup"
@@ -26,14 +26,14 @@ import "slick-carousel/slick/slick-theme.css";
 
 const product_detail = () => {
     const user_state = useSelector(state => state.user)
-    const {user_info,IsLogin} = user_state
+    const { user_info, IsLogin } = user_state
     const product_state = useSelector(state => state.product)
-    const { loadding,auctions, product_img, product_info, auction_info, other_product } = product_state
+    const { loadding, auctions, product_img, product_info, auction_info, other_product } = product_state
     const dispatch = useDispatch();
     const router = useRouter()
     const { id } = router.query
 
-    const[auction,setAuction] =useState(true)
+    const [auction, setAuction] = useState(true)
     const [ispopup, setIsPopup] = useState(false)
     const [isAuc, setIsAuc] = useState(false)
     const [option, setOption] = useState(0)
@@ -45,7 +45,7 @@ const product_detail = () => {
         product_no: id
     }
     const info = {
-         product_no: id,
+        product_no: id,
         nickname: user_info.nickname,
     }
 
@@ -60,13 +60,13 @@ const product_detail = () => {
                 } else {
                     setLikes(true)
                 }
-            }else{
+            } else {
                 setLikes(false)
             }
         }
-    }, [id,likes,IsLogin,auctions])
+    }, [id, likes, IsLogin, auctions])
 
-    
+
 
     const list = []
     product_info.map((v, i) => {
@@ -175,7 +175,7 @@ const product_detail = () => {
                             })}
                         </Styled_Slide>
                     </div>
-                    
+
                     <Middle_container>
                         <div>
                             <h1>{product_info[0].name}</h1>
@@ -207,8 +207,16 @@ const product_detail = () => {
                         {product_info[0].type == "buy" ?
                             <>
                                 <h1>남은수량 : {product_info[`${option}`].rest} 개</h1>
-                                <SelectBox {...category} />
-                                <SelectBox {...qty} />
+                                <FixBox>
+                                    <div>
+                                        <SelectBox {...category} />
+                                    </div>
+                                </FixBox>
+                                <FixBox>
+                                    <div>
+                                        <SelectBox {...qty} />
+                                    </div>
+                                </FixBox>
                             </>
                             :
                             <div>
@@ -231,14 +239,14 @@ const product_detail = () => {
                         </Price_contain>
                         :
                         <Price_contain>
-                            <h2>경매 시작가 - <img src="/klay.png" alt="" /> {product_info[`${option}`].price}</h2>
+                            <h2>경매 시작가 - <img src="/klay.png" alt="" /> {parseFloat(product_info[`${option}`].price)}</h2>
 
                         </Price_contain>}
 
                     {/* 팝업부분 */}
 
                     {ispopup ?
-                        <Deleivery_address handlePopup={handlePopupImmy} option={option} select_qty={select_qty}/> : ""}
+                        <Deleivery_address handlePopup={handlePopupImmy} option={option} select_qty={select_qty} /> : ""}
                     {isAuc ? <AucPopup handlePopup={handlePopupAuc} product={product_info} auction_info={auction_info} /> : ""}
 
                     {product_info[0].type !== "buy" ?
