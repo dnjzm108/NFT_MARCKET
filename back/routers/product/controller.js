@@ -1,5 +1,5 @@
 const { query, execute } = require("../../pool")
-const { product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,auction_history_sql,notice_order_sql } = require("../../sql/product")
+const {update_cnt_sql, product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,auction_history_sql,notice_order_sql } = require("../../sql/product")
 const { successData } = require("../../returnData");
 const {updateDeadline} = require('../../auction')
 const socket = require('../../socket'); 
@@ -94,6 +94,9 @@ let order = async (req,res) =>{
     //배송정보 추가
     let delivery_parms=[insertId,reciever,request,recieve_type,phone_number,address]
    let create_delivery = await execute(create_delivery_sql(),delivery_parms)
+
+   /// 토큰아이디 지정
+    await execute(update_cnt_sql(),[insertId,product_no]); 
 
 
    //상품 재고 수정

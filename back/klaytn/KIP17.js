@@ -26,10 +26,29 @@ const deployNFT = async (name,symbol)=>{
   return kip17.options.address
 }
 
-const kip17 = new caver.kct.kip17('0xe7aB6CD5318F26f1610c21Fa49742451E51789B3')
+
+const mintNFT = async(contractAddr,tokenID,tokenURI,toAddr)=>{
+
+  const kip17 = new caver.kct.kip17(contractAddr);
+  
+  const mintResult = await kip17.mintWithTokenURI(
+    toAddr,
+    tokenID,
+    tokenURI,
+    { from: keyring.address }
+  )
+
+  return mintResult; 
+}
+
+
+
+
+
 
 module.exports={
   deployNFT,
+  mintNFT
 }
 
 // deployTest();

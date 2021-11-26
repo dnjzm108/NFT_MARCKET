@@ -20,17 +20,6 @@ const List = () => {
   useEffect(()=>{
     if(type!=undefined && type!=null){
  
-      if(type=='favorite'){
-        let data ={
-          auth:user_info.auth,
-          nickname:user_info.nickname,
-          params:{skip:0,
-          status:'all',
-          sort:'new',
-          isMine:user_info.nickname}
-        }
-        dispatch(ExploreRequest(data))
-      }else{
         let data ={
           auth:user_info.auth,
           nickname:user_info.nickname,
@@ -44,7 +33,6 @@ const List = () => {
           }
         }
         dispatch(ListUpdateRequest(data))
-      }
     }
   },[type])
 

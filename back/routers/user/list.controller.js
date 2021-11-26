@@ -7,9 +7,12 @@ const {myBuyListQuery,
       updateInvoiceQuery,
       completeDeliveryQuery,
       mySellListQuery,
+      getOrderInfoQuery,
     } = require('../../sql/mylist');
+
+const {mintNFT} = require('../../klaytn/KIP17');     
 const {successData,errorData,error400} = require('../../returnData');
-const { json } = require('body-parser');
+
 
 
 const getMyBuy = async(req,res)=>{
@@ -187,7 +190,6 @@ const getMySell = async(req,res)=>{
   const {page,rows, pageblock, totalPage} = makePageBlock(cnt,req.query.page,req.query.rows)
   const params = {...req.query,page,rows}
   const sql = mySellListQuery(params);
-  console.log(sql)
   const result = await query(sql);
   const clearResult = [...new Set(result
                             .map(v=>{return JSON.stringify({
@@ -261,8 +263,6 @@ const getMySell = async(req,res)=>{
       }
     }
   })
-  console.log(result)
-  console.log(clearResult)
   const data = {
     list:clearResult,
     page,
@@ -332,6 +332,23 @@ const updateInvoiceInfo = async(req,res)=>{
 /////////////////////////////////////////////////
 const completeDelivery = async(req,res)=>{
   const {order_id} = req.body;
+  const [order_info] =await execute(getOrderInfoQuery(),[order_id]);
+  const {price,
+		qty,
+		buyer_wallet,
+		contractAddr,
+		tokenURI,
+		seller_wallet,
+		tokenId} = order_info; 
+
+    //판매자 주소로 pricd * qty 만큼 보내주기.
+
+    //구매자한테 NFT 보내주기. 
+    
+     const nftReciept = await mintNFT(contractAddr,tokenId,tokenURI,buyer_wallet)
+     console.log(nftReciept)
+
+
   const completeSql = completeDeliveryQuery();
   const params=[order_id]
   const result = await execute(completeSql,params)
@@ -340,7 +357,7 @@ const completeDelivery = async(req,res)=>{
     return;
   }
   const data={
-    order_id,
+    
   }
   res.json(successData(data))
 }

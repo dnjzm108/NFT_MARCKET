@@ -185,6 +185,30 @@ const notice_order_sql = () =>{
     )
 }
 
+
+/// 프로덕트 카운트 업데이트
+const update_cnt_sql = () =>{
+    return (
+        `UPDATE 
+                product_count 
+        SET 
+                order_id=? 
+        WHERE 
+                id=(
+                    SELECT 
+                            id 
+                    FROM 
+                        product_count 
+                    WHERE 
+                        product_no=? 
+                        AND order_id IS NULL 
+                    ORDER BY 
+                            id ASC 
+                    LIMIT 1
+                );`
+    )
+}
+
 module.exports = {
     show_product_detail,
     product_img,
@@ -203,5 +227,6 @@ module.exports = {
     chage_product_likes,
     notice_order_sql,
     auction_history_sql,
-    killPrevBidSql
+    killPrevBidSql,
+    update_cnt_sql
 }

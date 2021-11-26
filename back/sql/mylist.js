@@ -685,7 +685,7 @@ function mySellListQuery(query,type){
   const {nickname,page,rows,search, status,sort} = query;
   if(type=='cnt'){
    return`
-          SELECT
+          SELECT  
                   COUNT(product_no) AS cnt 
           FROM
                 product
@@ -820,7 +820,7 @@ LEFT JOIN
 		product_detail AS D
 ON
 P.product_no=D.product_no
-
+ORDER BY ${sortCheck(sort)},bid_date DESC
 
 ;`}
   
@@ -841,7 +841,7 @@ P.product_no=D.product_no
 
   function searchCheck(search){
     if(search!=undefined){
-      return` AND (name like '%${search}%' OR product_id like '%${search}')`
+      return` AND (name like '%${search}%' OR product_no like '%${search}%')`
     }
     return ''
   }
@@ -863,6 +863,61 @@ P.product_no=D.product_no
 }
 
 
+function getOrderInfoQuery(){
+  return(
+    `
+    SELECT 
+		O.order_id,
+		O.price,
+		O.qty,
+		B.buyer_wallet,
+		P.contractAddr,
+		P.tokenURI,
+		S.seller_wallet,
+		C.num AS tokenId
+FROM (
+			SELECT 
+						*
+			FROM
+					orders 
+			WHERE 
+					order_id=?
+			)AS O
+LEFT JOIN(
+		SELECT
+				nickname,
+				wallet AS buyer_wallet
+		FROM
+				user
+)AS B
+ON O.buyer=B.nickname
+LEFT JOIN(
+			SELECT
+					*
+			FROM
+					product_detail
+)AS D
+ON O.product_id=D.product_id
+LEFT JOIN 
+			product AS P
+ON P.product_no=D.product_no
+LEFT JOIN
+		product_count AS C
+ON C.order_id=O.order_id
+LEFT JOIN(
+			SELECT
+					nickname,
+					wallet AS seller_wallet
+			FROM
+					user
+			)AS S
+ON
+	S.nickname=P.creater  
+ ;
+    `
+  )
+}
+
 
 module.exports={
   myBuyListQuery,
@@ -873,5 +928,6 @@ module.exports={
   mySellListQuery,
   updateShipQuery,
   updateInvoiceQuery,
-  completeDeliveryQuery
+  completeDeliveryQuery,
+  getOrderInfoQuery
 }
