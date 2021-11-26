@@ -224,7 +224,37 @@ export const  PerroGuide = styled.div`
         border: 1px solid #1e73fa;
     }
     img{
+        position: sticky;
         width: 38vw;
         padding: 10%;
+        z-index: 5;
+    }
+    .guideBtn{
+        z-index: 10;
+        width: 4vw;
+        height: 3vh;
+        /* border-radius: 10px; */
+        /* border: 1px solid red; */
+        border: none;
+        border-bottom: 1px solid red;
+        transform: translate(620%,2325%);
+        position: sticky;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        font-size: 14px;
+        color: red;
+        background-color: white;
+        font-weight: bold;
+    }
+
+
+    div>input{
+        z-index: 1;
+        float: left;
+        position: fixed;
+        top: 40%;
+        left: 10%;
     }
 `

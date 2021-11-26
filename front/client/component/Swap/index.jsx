@@ -1,12 +1,13 @@
 import { StyledSwap,PerroGuide } from "./swap.css";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Swap_REQUEST } from "../../reducers/token";
 import { useSelector, useDispatch } from 'react-redux'
 // import caver from "../../klaytn/caver"
 import Button from "../Button";
 import { Container_Klatn, Container_Perro } from "./container"
-
+import { HiOutlineClipboardCopy } from "react-icons/hi";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const SwapToken = () => {
     const dispatch = useDispatch()
@@ -130,6 +131,13 @@ const SwapToken = () => {
     const handleGuide = ()=>{
         return setOpenGuide(!openGuide)
     }
+    let copyTokenAddress = useRef();
+    const copy =()=>{
+        const temp = copyTokenAddress.current
+        temp.select()
+        document.execCommand("copy")
+        alert("copy!")
+    }
 
     return (
         <>
@@ -138,8 +146,16 @@ const SwapToken = () => {
                 <div>
                     <div className="get_perro_btn" onClick={handleGuide}>
                         토큰 추가 가이드
-                    </div>  
-                    { openGuide ? <img src="https://i.ibb.co/vLQH92r/33.jpg" alt="33" border="0" />:''}
+                    </div> 
+                    { openGuide ?
+                    <>
+                    <button className="guideBtn" onClick={copy}><HiOutlineClipboardCopy size="22"/> copy</button>
+                    {/* <CopyToClipboard text="0x1bfbc74191486a98a5abd8749c17fa0496c3d765"  onCopy={ alert("copy! ")}>
+                        <button>copy token address</button>
+                    </CopyToClipboard> */}
+                    <input type="text" value="0x1bfbc74191486a98a5abd8749c17fa0496c3d765" ref={copyTokenAddress}  readOnly/>
+                    <img src="https://i.ibb.co/vLQH92r/33.jpg" alt="33" border="0" /></>:''}
+                    
                 </div>
                 </PerroGuide>
                 <StyledSwap>
