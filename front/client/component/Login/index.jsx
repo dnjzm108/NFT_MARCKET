@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { UserLogin_REQUEST, User_Join_Check } from '../../reducers/user'
 import Router from "next/router"
 import { useState } from 'react';
-
+import Loadding from '../Loadding/index.jsx';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -48,8 +48,9 @@ const Login = () => {
             kaikasLogin()
         }
     }
-
-
+if(login){
+    return <Loadding/>
+}
     return (
         <>
             <Wrap_vh>

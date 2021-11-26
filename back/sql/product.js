@@ -143,6 +143,11 @@ const chage_history_sql = () =>{
         `UPDATE auction_history SET status = "burial" WHERE auction_history_id = ?`
     )
 }
+const history_info_sql = () =>{
+    return(
+        `SELECT A.bid,B.wallet FROM auction_history as A LEFT JOIN user as B ON A.bider = B.nickname WHERE A.auction_history_id = ?`
+    )
+}
 
 //입찰 가능한지 확인하기
 const checkLastBid = () => {
@@ -203,5 +208,6 @@ module.exports = {
     chage_product_likes,
     notice_order_sql,
     auction_history_sql,
-    killPrevBidSql
+    killPrevBidSql,
+    history_info_sql
 }

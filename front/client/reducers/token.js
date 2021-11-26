@@ -38,14 +38,12 @@ const reducer = (state = initialState,action) => {
                 isLoading:true
             }
         case TOKEN_SWAP_SUCCESS: 
-            alert('토큰스왑 성공!')
         return{
             ...state,
             isLoading:false
         }
 
         case TOKEN_SWAP_ERROR:
-            alert('토큰스왑실패')
         return{
             ...state,
             isLoading:false
