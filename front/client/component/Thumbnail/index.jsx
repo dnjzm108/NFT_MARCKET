@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import {Styled_Slide} from "./Thumbnail.css"
 
 
-const Thumbnail = ({imageBundle,isNow,imageClick})=>{
+const Thumbnail = ({imageBundle,isNow,imageClick,images})=>{
     const [ isSelect , setIsSelect ] = useState(true);
 
     const handleSelect = ()=>{
@@ -25,7 +25,7 @@ const Thumbnail = ({imageBundle,isNow,imageClick})=>{
     }
 
     const checking =()=>{
-        console.log("22",imageBundle)
+        // console.log("22",images)
     }
 
     return(
@@ -37,10 +37,8 @@ const Thumbnail = ({imageBundle,isNow,imageClick})=>{
                     <Styled_Slide {...settings} imageBundle={imageBundle}>
                         {imageBundle.map((v, i) => {
                             return (
-                                <div>
-                                    <div key={i} >
-                                    <img src={v} onClick={(e) => imageClick(e)}/>
-                                    </div>
+                                <div key={i} >
+                                    <img src={v} onClick={(e) => imageClick(e)} />
                                 </div>
                             )
                         })

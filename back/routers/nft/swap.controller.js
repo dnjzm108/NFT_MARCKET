@@ -1,4 +1,5 @@
 const {send_Token,send_Klay} = require('../../klaytn/KIP7_deploy')
+const {successData,errorData} = require('../../returnData')
 
 const authorization = "Basic " + Buffer.from("KASK11R9S7LO3L180GXU0TKN" + ":" + "C2FZEXjlPlR7_V7-aa2r7mIUtnA04UUdSWnPchL8").toString("base64")
 
@@ -45,8 +46,6 @@ let KIP7Token_transfer = async () => {
   const receipt = await kip7Instance.transfer(recipientAddress, value, opts)
   console.log(receipt)
 
-
-
   // 구매 완료 후 nft transfer
 
   let senderPrivateKey = "0x637e352fed89ae10d1875e96ef19b9f328f1e4dc58572a64cc46351bfac53e0c";
@@ -76,21 +75,27 @@ let KIP7Token_transfer = async () => {
 
 }
 
-
 const creator = "0x637e352fed89ae10d1875e96ef19b9f328f1e4dc58572a64cc46351bfac53e0c"
 
 
 let KIP7token_swap = async (req,res) => {
-  let {recipientAddress,perroAmount,chage} = req.body
-
-  if(chage){
+  let {recipientAddress,perroAmount,change} = req.body
+  if(change){
     //클레이를 토큰으로 바꿀때
     let result = await send_Token(recipientAddress,perroAmount)
-    console.log(result);
-  }else if(!chage){
+    if(result){
+     res.json(successData(result)) 
+    }else{
+      res.json(errorData(result))
+    }
+  }else if(!change){
     //토큰을 클레이로 바꿀때
     let result =await send_Klay(recipientAddress,perroAmount)
-    console.log(result);
+    if(result){
+      res.json(successData(result)) 
+     }else{
+       res.json(errorData(result))
+     }
   }
   
 }

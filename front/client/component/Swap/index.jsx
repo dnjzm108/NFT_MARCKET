@@ -1,4 +1,4 @@
-import { StyledSwap } from "./swap.css";
+import { StyledSwap,PerroGuide } from "./swap.css";
 
 import { useEffect, useState } from "react"
 import { Swap_REQUEST } from "../../reducers/token";
@@ -17,27 +17,31 @@ const SwapToken = () => {
     const [currency, setCurrency] = useState(true)  // true면 klay, false면 perro 
     const [change, setChange] = useState(true)  // true면 klay를 token으로 교환
     const [swap, setSwap] = useState(0)
-
+    const [openGuide,setOpenGuide] = useState(false)
 
 
     const handleKlay = (e) => {
         const klayInput = e.target.value;
         setKlay(klayInput);
-        setK2P(klayInput * 10)
+        setK2P(klayInput)
+        // setK2P(klayInput * 10)
     }
 
     const handlePerr = (e) => {
         const perrInput = e.target.value;
         setPerr(perrInput);
-        setP2K(perrInput / 10);
+        setP2K(perrInput);
+        // setP2K(perrInput / 10);
     }
 
     useEffect(() => {
-        setPerr(klay * 10)
+        // setPerr(klay * 10)
+        setPerr(klay)
     }, [klay])
 
     useEffect(() => {
-        setKlay(perr / 10)
+        // setKlay(perr / 10)
+        setKlay(perr)
     }, [perr])
 
 
@@ -58,10 +62,9 @@ const SwapToken = () => {
                 perroAmount = String(perr);
             }
 
-            console.log(perroAmount)
+
             if (window.klaytn.selectedAddress === undefined) {
                 await window.klaytn.enable()
-                console.log(window.klaytn.selectedAddress)
             }
 
             window.caver.klay
@@ -73,85 +76,108 @@ const SwapToken = () => {
                     gas: 8000000
                 })
                 .once('transactionHash', transactionHash => {
-                    console.log('txHash', transactionHash)
                 })
                 .once('receipt', receipt => {
-                    console.log('receipt', receipt)
                     const recipientAddress = receipt.from;
                     const data = {
                         recipientAddress,
                         perroAmount,
                         change
-
                     }
-                    console.log('data!!!!', data);
                     dispatch(Swap_REQUEST(data))
                 })
                 .once('error', error => {
-                    console.log('error', error)
-                    alert('거절.')
+                    alert('취소되었습니다.')
                 })
         } else { //  perro -> klay
-            
+            let standard = '1000000000000000000'
+            let send_Token = `${Number(p2k) * Number(standard)}`
+            const kip7 = new window.caver.klay.KIP7(process.env.NEXT_PUBLIC_TOKEN)
 
-            const kip7 =new window.caver.klay.KIP7('0x1bfbc74191486a98a5abd8749c17fa0496c3d765')
-            console.log(kip7)
-            // const exchangeToken = await kip7.transfer('0xB3064FA7E7F47A14E2e9F268799B99a9ce038826','10000000000000000000',{
-            //     from:window.klaytn.selectedAddress
-            // })
-            // console.log(exchangeToken);
-           
+            const exchangeToken = await kip7.transfer(
+                process.env.NEXT_PUBLIC_TOKEN,
+                send_Token,
+                {
+                    from: window.klaytn.selectedAddress
+                }).catch(() => {
+                    alert('취소 되었습니다.')
+                })
+            if (exchangeToken !== undefined) {
+                let { from, to, value } = exchangeToken.events.Transfer.returnValues;
+                let Amount = `${Number(value) / Number(standard)}`
+                const data = {
+                    recipientAddress:from,
+                    perroAmount:Amount,
+                    change
+                }
+                dispatch(Swap_REQUEST(data))
+            }
         }
 
     }
     const change_state = () => {
         setChange(!change)
+        setKlay('')
+        setPerr('')
+        setK2P('')
+        setP2K('')
     }
 
     const change_value = (values) => {
         setCurrency(values)
     }
 
+    const handleGuide = ()=>{
+        return setOpenGuide(!openGuide)
+    }
+
     return (
         <>
-            <StyledSwap>
-                {change ?
-                    <>
-                        <Button value="CHANGE KLAYTN" color="sky" func={change_state} />
-                        <Container_Perro
-                            currency={currency}
-                            k2p={k2p}
-                            p2k={p2k}
-                            klay={klay}
-                            perr={perr}
-                            change_value={change_value}
-                            handleKlay={handleKlay}
-                            handlePerr={handlePerr}
-                            SwapPerro={SwapPerro}
-                        />
+            {/* <FlexContain> */}
+                <PerroGuide>
+                <div>
+                    <div className="get_perro_btn" onClick={handleGuide}>
+                        토큰 추가 가이드
+                    </div>  
+                    { openGuide ? <img src="https://i.ibb.co/vLQH92r/33.jpg" alt="33" border="0" />:''}
+                </div>
+                </PerroGuide>
+                <StyledSwap>
 
-                    </>
-                    :
-                    <>
-                        <Button value="CHANGE TOKEN" color="sky" func={change_state} />
-                        <Container_Klatn
-                            currency={currency}
-                            k2p={k2p}
-                            p2k={p2k}
-                            klay={klay}
-                            perr={perr}
-                            change_value={change_value}
-                            handleKlay={handleKlay}
-                            handlePerr={handlePerr}
-                            SwapPerro={SwapPerro}
-                        />
-                    </>
-                }
+                    {change ?
+                        <>
+                            <Button value="CHANGE KLAYTN" color="sky" func={change_state} />
+                            <Container_Perro
+                                currency={currency}
+                                k2p={k2p}
+                                p2k={p2k}
+                                klay={klay}
+                                perr={perr}
+                                change_value={change_value}
+                                handleKlay={handleKlay}
+                                handlePerr={handlePerr}
+                                SwapPerro={SwapPerro}
+                            />
 
-
-
-
-            </StyledSwap>
+                        </>
+                        :
+                        <>
+                            <Button value="CHANGE TOKEN" color="sky" func={change_state} />
+                            <Container_Klatn
+                                currency={currency}
+                                k2p={k2p}
+                                p2k={p2k}
+                                klay={klay}
+                                perr={perr}
+                                change_value={change_value}
+                                handleKlay={handleKlay}
+                                handlePerr={handlePerr}
+                                SwapPerro={SwapPerro}
+                            />
+                        </>
+                    }
+                </StyledSwap>
+            {/* </FlexContain> */}
         </>
     );
 }

@@ -1,7 +1,7 @@
 
 import Link from 'next/link'
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { Logo, Circle, Copyed, Small_Contain, Check_Content, Line, Btn_Box,Container } from './Join.css.jsx'
+import { Logo, Circle, Copyed, Small_Contain, Check_Content, Line, Btn_Box, Container } from './Join.css.jsx'
 import { Wrap } from '../../component/Wrap/Popup_Back.jsx';
 import useInput from '../../hooks/useInput.jsx';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,7 @@ import Button from '../Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserJoin_REQUEST } from '../../reducers/user.js';
 import Router from "next/router"
-import {Name_Check} from '../../reducers/product'
+import { Name_Check } from '../../reducers/product'
 
 
 
@@ -21,28 +21,32 @@ const Join = (data) => {
     const [images, setImages] = useState();
     const dispatch = useDispatch()
     const state_data = useSelector(state => state.product)
-    const {name_check} = state_data
+    const { name_check } = state_data
 
     const nickname = useInput('');
     const email = useInput('');
     const handleSumit = () => {
-        const wallet = window.klaytn.selectedAddress
-        const formData = new FormData();
-        formData.append("image",images)
-        formData.append("nickname",nickname.value)
-        formData.append("email",email.value)
-        formData.append("wallet",wallet)
+        if (window.klaytn.selectedAddress == undefined) {
+            alert("새로고침 후 진행해 주세요")
+        } else {
+            const wallet = window.klaytn.selectedAddress
+            const formData = new FormData();
+            formData.append("image", images)
+            formData.append("nickname", nickname.value)
+            formData.append("email", email.value)
+            formData.append("wallet", wallet)
 
 
-        dispatch(UserJoin_REQUEST(formData))
-        Router.push('/')
+            dispatch(UserJoin_REQUEST(formData))
+            Router.push('/')
+        }
     }
 
     const checking = async (e) => {
         let name = {
-            name : e
+            name: e
         }
-            dispatch(Name_Check(name))
+        dispatch(Name_Check(name))
     }
     const hadleCheck1 = () => {
         setCheckBox1(!checkBox1)
@@ -53,7 +57,7 @@ const Join = (data) => {
     const hadleCheck3 = () => {
         setCheckBox3(!checkBox3)
     }
-    const handleImg = async (event) =>{
+    const handleImg = async (event) => {
         const img = event.target.files[0];
         setImages(img)
     }
@@ -70,13 +74,13 @@ const Join = (data) => {
 
                     <h1>회원가입</h1>
                     <Circle>
-                    {images !==undefined? <label htmlFor="profile" style={{background:"green"}} >
-                              <CameraAltIcon />
-                              </label> : 
-                              <label htmlFor="profile" >
-                              <CameraAltIcon />
-                              </label>}
-                        
+                        {images !== undefined ? <label htmlFor="profile" style={{ background: "green" }} >
+                            <CameraAltIcon />
+                        </label> :
+                            <label htmlFor="profile" >
+                                <CameraAltIcon />
+                            </label>}
+
                         <input
                             accept='image/*'
                             type="file"
@@ -84,8 +88,8 @@ const Join = (data) => {
                             multiple
                             onChange={handleImg}
                             id="profile"
-                            style={{display:"none"}}
-                       / >
+                            style={{ display: "none" }}
+                        />
                     </Circle>
 
                     <Small_Contain>

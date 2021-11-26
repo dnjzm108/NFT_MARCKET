@@ -9,7 +9,7 @@ const {myBuyListQuery,
       mySellListQuery,
       getOrderInfoQuery,
     } = require('../../sql/mylist');
-const {send_Klay} = require('../../klaytn/KIP7_deploy')
+const {sendKlay} = require('../../klaytn/KIP7_deploy')
 const {mintNFT} = require('../../klaytn/KIP17');     
 const {successData,errorData,error400} = require('../../returnData');
 const {multipFloat} = require('../../util')
@@ -276,6 +276,7 @@ const updateShipInfo = async(req,res)=>{
   res.json(successData(data))
 }
 
+
 const updateInvoiceInfo = async(req,res)=>{
   const {
     invoice,
@@ -312,43 +313,36 @@ const completeDelivery = async(req,res)=>{
 		contractAddr,
 		tokenURI,
 		seller_wallet} = order_info[0];
-
+    let transactionHash=''
     const tokenId = order_info.map(v=>v.tokenId);
+
+    //구매자한테 NFT 보내주기.
+    for(let i = 0; i<tokenId.length; i++){
+      const tokenID = tokenId[i]
+      await mintNFT(contractAddr,tokenID,tokenURI,buyer_wallet)
+    }
 
 
     const total_price = String(multipFloat([price,qty]))
     //판매자 주소로 pricd * qty 만큼 보내주기.
-      const klayReciept = await send_Klay(seller_wallet,total_price)
-      console.log('클레이보내기-=----------------------------')
-      console.log(klayReciept)
-      console.log('클레이보내기-=----------------------------')
-
-
-    //구매자한테 NFT 보내주기.
-    tokenId.forEach(async (tokenID)=>{
-      console.log('nft보내기')
-      const nftReciept = await mintNFT(contractAddr,tokenID,tokenURI,buyer_wallet)
-      console.log(nftReciept)
-      console.log('nft보내기')
-    })
-
-    ///https://baobab.scope.klaytn.com/nft/${contractAddr}/${tokenId}
-
-  
-  const completeSql = completeDeliveryQuery();
-  const params=[order_id]
-  const result = await execute(completeSql,params)
+      const klayReciept = await sendKlay(seller_wallet,total_price)
+      if(klayReciept.success){
+        transactionHash=klayReciept.receipt.transactionHash;
+      }else{
+        res.json(errorData({code:'fail send to seller klay'}))
+        return;
+      }
+    
+  const result = await query(completeDeliveryQuery(order_id,transactionHash))
   if(result==false){
     res.json(error400())
     return;
   }
   const data={
-    
+    tokenId,order_id
   }
   res.json(successData(data))
 }
-
-
 
 
 

@@ -31,7 +31,7 @@ margin-top: ${p=>p.isNow ? "40%":"66%"};
 export const Styled_Slide = styled(Slider)`
 
 .slick-list {
-    width: 400px;
+    width: 360px;
     height: 480px;
     margin: 0 auto;
     background-color: ${p=>p.imageBundle.length==0 ? "#f0f9ff":"none"};

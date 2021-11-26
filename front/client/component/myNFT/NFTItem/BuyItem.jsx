@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/dist/client/link";
 import { UpdateDeliveryRequest,TransactionRequest } from "../../../reducers/mylist";
 import {multipFloat} from '../../../util/float'
+import Loadding from '../../Loadding'
 const sell_type={
   'buy':'즉시구매',
   'auction':'경매'
@@ -30,6 +31,17 @@ const BuyItem = (
 }) => {
   
   const {user_info} = useSelector(state=>state.user)
+  const {  invoiceLoading,
+    shipLoading,
+    transactionLoading,} = useSelector(state=>state.mylist)
+
+  const loadingCheck= ()=>{
+    if(invoiceLoading||shipLoading||transactionLoading){
+      return true
+    }
+    return false;
+  }
+  
   const dispatch = useDispatch();  
 
   const handleShipAddress = ()=>{
@@ -84,7 +96,11 @@ const BuyItem = (
         
     }
   } 
-
+  if(loadingCheck()){
+    return (
+      <Loadding/>
+    )
+  }
     return (
       
       <StyledMyNFT>

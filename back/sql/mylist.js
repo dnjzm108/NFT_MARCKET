@@ -30,7 +30,7 @@ function updateInvoiceQuery(){
   `
 }
 
-function completeDeliveryQuery(){
+function completeDeliveryQuery(order_id,transactionHash){
   return`
     UPDATE
           delivery
@@ -38,7 +38,13 @@ function completeDeliveryQuery(){
         complete_date=NOW(),
         status='completed'
     WHERE
-        order_id=?;
+        order_id=${order_id};
+    UPDATE
+          orders
+    SET
+      transactionHash='${transactionHash}'
+    WHERE
+      order_id=${order_id};
   `
 }
 

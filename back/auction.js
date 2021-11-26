@@ -1,5 +1,6 @@
 const { query, execute } = require("./pool");
 const {isBidSql,newBidSql,addOrderSql,stopAuctionSQL} = require('./sql/auction')
+const {update_cnt_sql} = require('./sql/product');
 let auctions = {};
 const socket = require('./socket');
 
@@ -41,7 +42,9 @@ async function auctionSuccess(auction_id,product_no) {
     await query(newBidSql(auction_id));
 
     // 오더도 추가해준다. 
-    await execute(addOrderSql(),[product_id,bid,bider]);
+    const order =  await execute(addOrderSql(),[product_id,bid,bider]);
+    const order_id = order.insertId;
+    await query(update_cnt_sql(order_id,product_no))
   }
 
   // 그리고 경매 종료해준다!

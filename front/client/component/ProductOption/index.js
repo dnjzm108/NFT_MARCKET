@@ -38,6 +38,11 @@ const ProductOption =
         }
 
         const handleQty = (e, x) => {
+            const quantity = e.target.value
+            if(quantity== String){
+                // quantity = '';
+                return alert("숫자만 입력 가능합니다")
+            }
             let newQty = [...qty];
             newQty[x] = e.target.value;
             setQty(newQty);
@@ -114,6 +119,11 @@ const ProductOption =
                                 <p>예시 ) 색상 : black,white,beige,brown (O)
                                     사이즈 : S / M / L (X)  S,M,L (O)</p>
                             </h3>
+                            <h3> 색상 옵션 또는 사이즈 옵션 이외에 기타 옵션을 적으셔도 됩니다.
+                                <p>예시 ) 잠옷 세트 / 상의 / 하의를 따로 판매하고싶은 경우 , <br/>
+                                
+                                </p>
+                            </h3>
                             <div className="select_option">
                                 <span><p>색상 :</p>
                                     <input type="text"
@@ -189,24 +199,5 @@ const ProductOption =
             </>
         )
     }
-
-
-
-// export const getServerSideProps = wrapper.getServerSideProps( (Store)=> async (req,res)=> {
-//     // 첫번쨰는 dispatch 써서 API 요청을 보냅니다. 그리고 상태를 변경시킵니다.
-//     // Store.dispatch(GET_POST())
-//     console.log("text")
-//     const result = await axios.get('http://localhost:4000/nft/maincate')
-//     // console.log(result.data);
-//     const list1 = result.data;
-//     // console.log(result.data)
-//     let lists = list1.map((v)=>{
-//         return v.value
-//     })
-//     setMaincate(lists)
-//     Store.dispatch(END)
-//     await Store.sagaTask.toPromise()
-// })
-
 
 export default ProductOption;

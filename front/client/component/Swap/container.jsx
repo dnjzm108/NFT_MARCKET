@@ -5,7 +5,7 @@ export const Container_Perro = (props) => {
 
     return (
         <div>
-
+            
             <div className="name">
                 Perro Swap
             </div>
@@ -14,7 +14,7 @@ export const Container_Perro = (props) => {
                     <div className="From" >
                         <img className="klay_icon" src="/klay.png" alt="" />
                         <p className="klaytn">Klaytn</p>
-                        <input type="number" defaultValue={props.klay} onChange={(e) => { props.handleKlay(e) }} min="1" className="klay" placeholder="0.0" />
+                        <input type="number" defaultValue={props.klay} onChange={(e) => { props.handleKlay(e) }} min="1" className="klay"/>
                     </div>
 
                     <BiDownArrowAlt className="icon" />
@@ -32,7 +32,7 @@ export const Container_Perro = (props) => {
                         <div className="From" onClick={()=>{props.change_value(true)}}>
                             <img className="klay_icon" src="/klay.png" alt="" />
                             <p className="klaytn">Klaytn</p>
-                            <span className="klayspan">{props.p2k}</span>
+                            <span className="klayspan">{props.k2p}</span>
                         </div>
 
                         <BiDownArrowAlt className="icon" />
@@ -40,7 +40,7 @@ export const Container_Perro = (props) => {
                         <div className="To">
                             <img className="Perr_icon" src="/쉽독.jpg" alt="" />
                             <p className="perro">Perro</p>
-                            <input type="number" defaultValue={props.perr} onChange={(e) => { props.handlePerr(e) }} min="1" className="perr" placeholder="0.0" />
+                            <input type="number" defaultValue={props.perr} onChange={(e) => { props.handlePerr(e) }} min="1" className="perr" />
                             
                             <div className="swap_btn2" onClick={props.SwapPerro}>Click</div>
                         </div>
@@ -67,7 +67,7 @@ return(
                             <img className="Perr_icon" src="/쉽독.jpg" alt="" />
                             <p className="perro">Perro</p>
                             {/* <input type="number"  defaultValue={props.klay} min="1" className="perr" placeholder="0.0"/> */}
-                            <span className="klayspan" >{props.k2p}</span>
+                            <span className="klayspan" >{props.p2k}</span>
                         </div>
 
                         <BiDownArrowAlt className="icon" />
@@ -75,7 +75,7 @@ return(
                         <div className="To" >
                             <img className="klay_icon" src="/klay.png" alt="" />
                             <p className="klaytn">Klaytn</p>
-                            <input type="number" defaultValue={props.klay} onChange={(e) => { props.handleKlay(e) }} min="1" className="klay" placeholder="0.0" />
+                            <input type="number" defaultValue={props.klay} onChange={(e) => { props.handleKlay(e) }} min="1" className="klay"/>
                         </div>
                         <div className="swap_btn" onClick={props.SwapPerro}>Click</div>
                     </div>)
@@ -84,7 +84,7 @@ return(
                              <div className="From">
                                 <img className="Perr_icon" src="/쉽독.jpg" alt="" />
                                 <p className="perro">Perro</p>
-                                <input type="number" defaultValue={props.perr} onChange={(e) => {props.handlePerr(e) }} min="1" className="perr" placeholder="0.0" />
+                                <input type="number" defaultValue={props.perr} onChange={(e) => {props.handlePerr(e) }} min="1" className="perr" />
                             </div>
 
                             <BiDownArrowAlt className="icon" />

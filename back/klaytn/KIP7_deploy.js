@@ -15,68 +15,126 @@ if (!caver.wallet.getKeyring(keyring.address)) {
 }
 
 
-const KIP7token = async() => {
-const kip7 = await caver.kct.kip7.deploy(
-  {
-    name: 'Perro',
-    symbol: 'PRR',
-    decimals: 18,
-    initialSupply: '80000000000000000000000000',
-  },
-  keyring.address
-);
-// console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
+const KIP7token = async () => {
+  const kip7 = await caver.kct.kip7.deploy(
+    {
+      name: 'Perro',
+      symbol: 'PRR',
+      decimals: 18,
+      initialSupply: '80000000000000000000000000',
+    },
+    keyring.address
+  );
+  // console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
 
-// console.log(`Token name: ${await kip7.name()}`);
-// console.log(`Token symbol: ${await kip7.symbol()}`);
-// console.log(`Token decimals: ${await kip7.decimals()}`);
-// console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
+  // console.log(`Token name: ${await kip7.name()}`);
+  // console.log(`Token symbol: ${await kip7.symbol()}`);
+  // console.log(`Token decimals: ${await kip7.decimals()}`);
+  // console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
 
 
 }
 
-const send_Token = async(recipient,amount) =>{
+const send_Token = async (recipient, amount) => {
   const kip7Instance = new caver.kct.kip7(process.env.token_address)
   const opts = { from: keyring.address }
   //보낼 account 주소를 입력 시키기
   const num = "1000000000000000000"
   const value = `${Number(amount) * Number(num)}`;
-  const receipt = await kip7Instance.transfer(recipient,value, opts)
-
- return receipt
+  const receipt = await kip7Instance.transfer(recipient, value, opts)
+  .then(()=>{
+    return true
+  })
+  .catch(() => {
+    console.log('receipt_error')
+    return false
+  })
+console.log("Token",receipt);
+  return receipt
 }
 
 // KIP7token();
 
-send_Token('0x25390A007D19Ce6014F47ce4b79FaAffbf3Df3D3','10')
+//  send_Token('0x65Abe502eA9bcEC46ed174543df1537F5378eaAa','10')
 
 
 
 
-const send_Klay = async(recipient,amount)=>{
+const send_Klay = async (recipient, amount) => {
   const lt = await caver.transaction.legacyTransaction.create({
-    from:  keyring.address,
+    from: keyring.address,
     to: recipient,
-    value: caver.utils.toPeb(amount,'KLAY'),
+    value: caver.utils.toPeb(amount, 'KLAY'),
     gas: 25000,
-})
+  })
 
-  const signed = await caver.wallet.sign(keyring.address,lt)
-  const receipt = await caver.rpc.klay.sendRawTransaction(signed);
-return receipt
+  const signed = await caver.wallet.sign(keyring.address, lt)
+    .catch(() => {
+      console.log('sign_error')
+      return false
+    })
+  const receipt = await caver.rpc.klay.sendRawTransaction(signed)
+  .then(()=>{
+    return true
+  })  
+  .catch(() => {
+      console.log('traction_error')
+      return false
+    })
+console.log('klay',receipt);
+  return receipt
 
 }
+// send_Klay('0x65Abe502eA9bcEC46ed174543df1537F5378eaAa', '0.1')
 
 // const x = '0xde0b6b3a7640000'
 // const base = '0xde0b6b3a7640000'
 // const y  ='1000000000000000000'
 // console.log(Number(x)/Number(y));
 
+const sendKlay = async (recipient, amount) => {
+
+  let data = {
+    success:false,
+    receipt:null,
+    error:null
+  }
+
+  try{
+    const lt = await caver.transaction.legacyTransaction.create({
+      from: keyring.address,
+      to: recipient,
+      value: caver.utils.toPeb(amount, 'KLAY'),
+      gas: 25000,
+    })
+    try{
+      const signed = await caver.wallet.sign(keyring.address, lt)
+      try{
+        const receipt = await caver.rpc.klay.sendRawTransaction(signed)
+        data.success=true;
+      data.receipt=receipt;
+      return data;
+
+      }catch(e){
+        data.error=e;
+      return data;
+      }
+    }catch(e){
+      data.error=e;
+      return data;
+    }
+  }catch(e){
+    data.error=e;
+    return data;
+  }
+}
+
 
 
 
 module.exports = {
   send_Token,
-  send_Klay
+  send_Klay,
+  sendKlay
 }
 

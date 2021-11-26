@@ -7,7 +7,8 @@ import useInput from "../../hooks/useInput";
 import { useDispatch, useSelector } from 'react-redux';
 import Router from "next/router";
 import {Apply_Auction} from '../../reducers/product'
-
+import { User_Logout } from '../../reducers/user'
+import { sendToken } from '../../hook/sendToken'
 
 const AucPopup = (props) => {
     const state_data = useSelector(state => state.user)
@@ -17,6 +18,9 @@ const AucPopup = (props) => {
     const bid_price = useInput()
     const dispatch = useDispatch()
 
+    const logout = () =>{
+        dispatch(User_Logout())
+    }
 
     const applyAuction = async () => {
 
@@ -38,17 +42,23 @@ const AucPopup = (props) => {
                 if (bid_price.value <= product_info[0].price || bid_price.value == undefined) {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
-                    dispatch(Apply_Auction(histoty_data))
-            
-                    props.handlePopup()
+                    let payment = await sendToken(bid_price.value,logout)
+                    console.log(payment);
+                     if (payment !== undefined) {
+                         dispatch(Apply_Auction(histoty_data))
+                         props.handlePopup()
+                     }
                 }
             } else {
                 if (bid_price.value <= auction_history[0].bid || bid_price.value == undefined) {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
-                    dispatch(Apply_Auction(histoty_data))
-
-                    props.handlePopup()
+                    let payment = await sendToken(bid_price.value,logout)
+                    console.log(payment);
+                     if (payment !== undefined) {
+                         dispatch(Apply_Auction(histoty_data))
+                         props.handlePopup()
+                     }
                 }
             }
         }

@@ -11,7 +11,6 @@ const initialState = {
   list: [],
   invoiceLoading:false,
   shipLoading:false,
-  completeLoading:false,
   transactionLoading:false,
   searchData:{
     type: null,

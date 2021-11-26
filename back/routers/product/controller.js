@@ -1,8 +1,9 @@
 const { query, execute } = require("../../pool")
-const {update_cnt_sql, product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,auction_history_sql,notice_order_sql } = require("../../sql/product")
+const {update_cnt_sql,history_info_sql, product_img, show_product_detail, add_like_sql, delete_like_sql,check_like_sql,auction_detail_sql,other_product_sql,create_order_sql,create_delivery_sql,update_product_sql,update_detail_sql,bid_auction_sql,chage_history_sql,auction_history_sql,notice_order_sql } = require("../../sql/product")
 const { successData } = require("../../returnData");
 const {updateDeadline} = require('../../auction')
 const socket = require('../../socket'); 
+const {send_Token} = require('../../klaytn/KIP7_deploy')
 
 let product_detail = async (req, res) => {
     let { product_no } = req.body
@@ -150,6 +151,10 @@ let applyauction = async (req,res) =>{
     if(auction_history_id !== null){
         let chage_parms = [auction_history_id]
         let chage_history = await execute(chage_history_sql(),chage_parms)
+
+        let [history_info] = await execute(history_info_sql(),chage_parms)
+        let {bid,wallet} = history_info
+        send_Token(wallet,bid)
     } 
     if(auction_id !== undefined && bider !== undefined && bid !== undefined && auction_history_id !== undefined ){
         const socketMessage={

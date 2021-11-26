@@ -143,6 +143,11 @@ const chage_history_sql = () =>{
         `UPDATE auction_history SET status = "burial" WHERE auction_history_id = ?`
     )
 }
+const history_info_sql = () =>{
+    return(
+        `SELECT A.bid,B.wallet FROM auction_history as A LEFT JOIN user as B ON A.bider = B.nickname WHERE A.auction_history_id = ?`
+    )
+}
 
 //입찰 가능한지 확인하기
 const checkLastBid = () => {
@@ -195,13 +200,13 @@ const update_cnt_sql = (insertId,product_no) =>{
         SET 
                 order_id=${insertId}
         WHERE 
-                id in(
+                id=(
                     SELECT 
                             id 
                     FROM 
                         product_count 
                     WHERE 
-                        product_no=${product_no}
+                        product_no='${product_no}'
                         AND order_id IS NULL 
                     ORDER BY 
                             id ASC 
@@ -229,5 +234,6 @@ module.exports = {
     notice_order_sql,
     auction_history_sql,
     killPrevBidSql,
-    update_cnt_sql
+    update_cnt_sql,
+    history_info_sql
 }
