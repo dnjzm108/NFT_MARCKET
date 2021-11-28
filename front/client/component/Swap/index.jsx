@@ -134,7 +134,7 @@ const SwapToken = () => {
         const temp = copyTokenAddress.current
         temp.select()
         document.execCommand("copy")
-        alert("copy!")
+        alert("주소가 복사되었습니다")
     }
 
     return (
@@ -148,12 +148,8 @@ const SwapToken = () => {
                     { openGuide ?
                     <>
                     <button className="guideBtn" onClick={copy}><HiOutlineClipboardCopy size="22"/> copy</button>
-                    {/* <CopyToClipboard text="0x1bfbc74191486a98a5abd8749c17fa0496c3d765"  onCopy={ alert("copy! ")}>
-                        <button>copy token address</button>
-                    </CopyToClipboard> */}
                     <input type="text" value="0x1bfbc74191486a98a5abd8749c17fa0496c3d765" ref={copyTokenAddress}  readOnly/>
                     <img src="https://i.ibb.co/j3HbB69/444.jpg" alt="444" border="0"/></>:''}
-                    
                 </div>
                 </PerroGuide>
                 <StyledSwap>

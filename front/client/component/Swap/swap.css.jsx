@@ -231,13 +231,11 @@ export const  PerroGuide = styled.div`
     }
     .guideBtn{
         z-index: 10;
-        width: 4vw;
+        width: 3.5vw;
         height: 3vh;
-        /* border-radius: 10px; */
-        /* border: 1px solid red; */
         border: none;
         border-bottom: 1px solid red;
-        transform: translate(600%,2200%);
+        transform: translate(23.5vw,65.8vh);
         position: sticky;
         cursor: pointer;
         display: flex;
@@ -247,13 +245,14 @@ export const  PerroGuide = styled.div`
         color: red;
         background-color: white;
         font-weight: bold;
+        padding: 7px;
     }
 
 
     div>input{
         z-index: 1;
         float: left;
-        position: fixed;
+        position: absolute;
         top: 40%;
         left: 10%;
     }
