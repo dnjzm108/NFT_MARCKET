@@ -3,6 +3,7 @@ import {END} from 'redux-saga'
 import wrapper from '../../store/configureStore'
 import {Product_Page_Request} from '../../reducers/product'
 import { useRouter } from 'next/router'
+import WebSocket from "../../component/WebSocket"
 
 
 const Product_Detail = () => {
@@ -13,7 +14,9 @@ const Product_Detail = () => {
     // }
     return (
         <>
-        <Product_Detail_Component />
+        <WebSocket>
+            <Product_Detail_Component />
+        </WebSocket>
         </>
     )
 }

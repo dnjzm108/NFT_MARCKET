@@ -1,5 +1,5 @@
 import axios from "axios";
-import { all, call, takeLatest,fork,put} from "redux-saga/effects";
+import { all, call, takeLatest,fork,put,getContext} from "redux-saga/effects";
 import {url} from './url'
 import {
     MINT_REQUEST,
@@ -23,11 +23,12 @@ function* mint(action){
     let result = yield call(mintAPI,action.data)
     const {data} = result; 
     if(data.success){
-      alert(`토큰아이디${data.product_id}: 발행되었습니다.`)
       yield put({
                 type: MINT_SUCCESS,
                 data: data,
             })
+        const history = yield getContext('history');
+        history.push('/');
     }
 }
 

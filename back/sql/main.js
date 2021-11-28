@@ -36,6 +36,8 @@ const getAllListSql = (params, nickname) => {
       const where = makeWhereVerse(params);
       const order = makeOrderVerse(params.sort);
       return `
+      SELECT * FROM 
+      (
       SELECT 
       P.product_no,
       P.name,
@@ -129,7 +131,7 @@ NATURAL JOIN(
         ON Q.product_id=A.product_id
 ) AS D
 WHERE 
-    leftover>0 AND type!='stop' ${where} 
+    leftover>0 AND type!='stop' ${where} )
 ${order}
 LIMIT 
     ${params.skip},16;
@@ -211,6 +213,7 @@ const getAuctionListSql = (params, nickname) => {
       const where = makeWhereVerse(params);
       const order = makeOrderVerse(params.sort);
       return `
+      SELECT * FROM (
   SELECT 
           P.product_no,
           P.name,
@@ -311,9 +314,9 @@ const getAuctionListSql = (params, nickname) => {
                 )AS A
             ON Q.product_id=A.product_id
   ) AS D
-
   WHERE 
         leftover>0 AND type!='stop' ${where} 
+        )
   ${order}
   LIMIT 
         ${params.skip},16;

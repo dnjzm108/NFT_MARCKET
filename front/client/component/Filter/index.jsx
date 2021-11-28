@@ -36,7 +36,7 @@ const Filter = () => {
       return;
     }
 
-    if(Max.value!='' && ( +Min.value>+Max.value) ){
+    if(Max.value!='' && ( Number(Min.value)>+Number(Max.value)) ){
       alert('Max 값은 Min 값보다 크거나 같아야 합니다.')
       return;
     }
