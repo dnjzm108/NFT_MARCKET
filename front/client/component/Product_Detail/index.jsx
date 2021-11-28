@@ -71,7 +71,7 @@ const product_detail = () => {
     const list = []
     product_info.map((v, i) => {
         return (
-            list.push(`${v.color}(${v.size})(${product_info[i].price - product_info.price})`)
+            list.push(`${v.color}(${v.size})(${product_info[i].price - product_info[0].price})`)
         )
     })
     const category = useChangeValue(list)
@@ -234,7 +234,7 @@ const product_detail = () => {
 
                     {product_info[0].type == "buy" ?
                         <Price_contain>
-                            <h2> <img src="/klay.png" alt="" /> {product_info[`${option}`].price}</h2>
+                            <h2> <img src="/klay.png" alt="" /> {product_info[`${option}`].price.toFixed(1)}</h2>
                             <Button value="즉시 구매" color="sky" func={handlePopupImmy} />
                         </Price_contain>
                         :

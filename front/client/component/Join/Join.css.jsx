@@ -37,6 +37,15 @@ export const Circle = styled.div`
     background: rgb(20, 30, 40);
     color: white;
 }
+& > label > img{
+    width: 122px;
+    height: 122px;
+    border-radius: 100%;
+    position: relative;
+    border: 1px dashed gray;
+    top: -47px;
+    left: -47px;
+}
 
 `
 

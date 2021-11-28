@@ -62,11 +62,9 @@ const SwapToken = () => {
                 perroAmount = String(perr);
             }
 
-
             if (window.klaytn.selectedAddress === undefined) {
                 await window.klaytn.enable()
             }
-
             window.caver.klay
                 .sendTransaction({
                     type: 'VALUE_TRANSFER',

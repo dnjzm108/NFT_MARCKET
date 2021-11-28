@@ -13,9 +13,10 @@ import useInput from '../../hooks/useInput.jsx';
 
 const Profile_edit = () => {
     const dispatch = useDispatch()
+    const [imgUrl, setimgUrl] = useState();
     const user = useSelector(state => state.user)
     const {nickname,auth,email,picture} = user.user_info
-    const [images, setimages] = useState();
+    const [images, setImages] = useState();
 
     const email_change = useInput()
 
@@ -44,8 +45,14 @@ const Profile_edit = () => {
     }
 
     const handleImg = async (e) => {
-        const img = e.target.files[0];
-        setimages(img)
+        const img = event.target.files[0];
+        if(img !== undefined){
+            setImages(img)
+            const imageUrl = URL.createObjectURL(img)
+            console.log(imageUrl);
+            setimgUrl(imageUrl)
+            console.log(imgUrl);
+        }
     }
 
 
@@ -56,10 +63,11 @@ const Profile_edit = () => {
                     <h1>프로필 편집</h1>
                     <StyleTd />
                     <Circle>
-                        {images !== undefined ?
-                            <label htmlFor="profile" style={{ background: "green" }} >
-                                <CameraAltIcon />
-                            </label> :
+                    {images !== undefined ?
+                            <label htmlFor="profile">
+                                  <img src={imgUrl}/>
+                            </label>
+                            :
                             <label htmlFor="profile" >
                                 <CameraAltIcon />
                             </label>}

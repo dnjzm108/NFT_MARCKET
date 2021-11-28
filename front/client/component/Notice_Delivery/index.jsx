@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 import { url } from "../../saga/url"
-import {Notice_Info} from '../../reducers/product'
-import { useDispatch,useSelector } from "react-redux";
+import { Notice_Info } from '../../reducers/product'
+import { useDispatch, useSelector } from "react-redux";
 import Loadding from "../Loadding";
 
 
@@ -18,30 +18,31 @@ const Notice_Delivery = () => {
     const router = useRouter()
     const { id } = router.query
     const data = {
-        order_id : id
+        order_id: id
     }
     let status = '대기중'
-    if(notice_info !== undefined){
-        if(notice_info.status == 'wait'){
+    if (notice_info !== undefined) {
+        if (notice_info.status == 'wait') {
             status = '상품준비중'
-        }else if(notice_info.status == 'ready'){
+        } else if (notice_info.status == 'ready') {
             status = '상품준비중'
-        }else if(notice_info.status == 'ship'){
+        } else if (notice_info.status == 'ship') {
             status = '배송중'
-        }else if(notice_info.status == 'completed'){
+        } else if (notice_info.status == 'completed') {
             status = '구매완료'
         }
 
     }
-    
-    useEffect(async()=>{
+
+    useEffect(async () => {
         if (id != undefined) {
             dispatch(Notice_Info(data))
         }
-    },[id])
+    }, [id])
+    console.log(notice_info);
 
-    if(notice_info == undefined){
-        return(
+    if (notice_info == undefined) {
+        return (
             <Loadding />
         )
     }
@@ -58,23 +59,23 @@ const Notice_Delivery = () => {
                     <div>
                         <Table>
                             <tbody>
-                            <tr>
-                                <td>주문번호</td>
-                                <td>| </td>
-                                <td>{notice_info.dlvy_id}</td>
-                            </tr>
-                            <tr>
-                                <td>상태</td>
-                                <td>| </td>
-                                <td>{status}</td>
-                            </tr>
-                            <tr>
-                                <td>운송장</td>
-                                <td>| </td>
-                                <td>
-                                    {notice_info.invocie == undefined ? '배송준비 중입니다.' : 
-                                    notice_info.invocie +":"+ notice_info.delievry_compony}</td>
-                            </tr>
+                                <tr>
+                                    <td>주문번호</td>
+                                    <td>| </td>
+                                    <td>{notice_info.dlvy_id}</td>
+                                </tr>
+                                <tr>
+                                    <td>상태</td>
+                                    <td>| </td>
+                                    <td>{status}</td>
+                                </tr>
+                                <tr>
+                                    <td>운송장</td>
+                                    <td>| </td>
+                                    <td>
+                                        {notice_info.invocie == undefined ? '배송준비 중입니다.' :
+                                            notice_info.invocie + ":" + notice_info.delievry_compony}</td>
+                                </tr>
                             </tbody>
                         </Table>
                     </div>
@@ -86,22 +87,32 @@ const Notice_Delivery = () => {
                     <div>
                         <Table>
                             <tbody>
-                            <tr>
-                                <td>상품명</td>
-                                <td>| </td>
-                                <td>{notice_info.name}</td>
-                            </tr>
-                            <tr>
-                                <td>상품가격</td>
-                                <td>| </td>
-                                <td><img src="/klay.png" alt="" /> {notice_info.price}</td>
-                            </tr>
-                            <tr>
-                                <td>결제방법</td>
-                                <td>| </td>
-                                <td>kaikas</td>
-                            </tr>
-</tbody>
+                                <tr>
+                                    <td>상품명</td>
+                                    <td>| </td>
+                                    <td>{notice_info.name}</td>
+                                </tr>
+                                <tr>
+                                    <td>상품가격</td>
+                                    <td>| </td>
+                                    <td><img src="/klay.png" alt="" /> {notice_info.price.toFixed(1)}</td>
+                                </tr>
+                                <tr>
+                                    <td>수량</td>
+                                    <td>| </td>
+                                    <td>{notice_info.qty}</td>
+                                </tr>
+                                <tr>
+                                    <td>총 가격</td>
+                                    <td>| </td>
+                                    <td><img src="/klay.png" alt="" /> {notice_info.price.toFixed(1) * notice_info.qty}</td>
+                                </tr>
+                                <tr>
+                                    <td>결제방법</td>
+                                    <td>| </td>
+                                    <td>kaikas</td>
+                                </tr>
+                            </tbody>
                         </Table>
                     </div>
                 </div>
@@ -112,31 +123,31 @@ const Notice_Delivery = () => {
                     <div>
                         <Table>
                             <tbody>
-                            <tr>
-                                <td>주문자</td>
-                                <td>| </td>
-                                <td>{notice_info.buyer}</td>
-                            </tr>
-                            <tr>
-                                <td>수령인</td>
-                                <td>| </td>
-                                <td>{notice_info.reciever}</td>
-                            </tr>
-                            <tr>
-                                <td>주소</td>
-                                <td>| </td>
-                                <td>{notice_info.address}</td>
-                            </tr>
-                            <tr>
-                                <td>전화번호</td>
-                                <td>| </td>
-                                <td>{notice_info.phone_number}</td>
-                            </tr>
-                            <tr>
-                                <td>요청사항</td>
-                                <td>| </td>
-                                <td>{notice_info.request}</td>
-                            </tr>
+                                <tr>
+                                    <td>주문자</td>
+                                    <td>| </td>
+                                    <td>{notice_info.buyer}</td>
+                                </tr>
+                                <tr>
+                                    <td>수령인</td>
+                                    <td>| </td>
+                                    <td>{notice_info.reciever}</td>
+                                </tr>
+                                <tr>
+                                    <td>주소</td>
+                                    <td>| </td>
+                                    <td>{notice_info.address}</td>
+                                </tr>
+                                <tr>
+                                    <td>전화번호</td>
+                                    <td>| </td>
+                                    <td>{notice_info.phone_number}</td>
+                                </tr>
+                                <tr>
+                                    <td>요청사항</td>
+                                    <td>| </td>
+                                    <td>{notice_info.request}</td>
+                                </tr>
                             </tbody>
                         </Table>
                     </div>

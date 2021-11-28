@@ -259,7 +259,7 @@ export const FixBox = styled.div`
 &:nth-child(2){
     position: relative;
     height: 70px;
-    z-index:10;
+    z-index:3;
 } 
 /* &:nth-child(2) >div{
     position: absolute;
