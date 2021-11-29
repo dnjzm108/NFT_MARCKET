@@ -69,12 +69,8 @@ const Delivery_Address_Component = (props) => {
                 nickname: data.user_info.nickname,
                 auth: data.user_info.auth
             }
-<<<<<<< HEAD
-            let payment = await sendToken(product_info[option].price,logout)
-=======
             let payment = await sendToken(total_price, logout)
             console.log(payment);
->>>>>>> c27f842d3559a4d082f4e8c155f509f48a105787
             if (payment !== undefined) {
                 dispatch(Apply_Immy(order_info))
             }

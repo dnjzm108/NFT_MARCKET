@@ -24,6 +24,10 @@ const initialState = {
 
 
 
+export const LIST_ADD_REQUEST = 'LIST_ADD_REQUEST'; 
+export const LIST_ADD_SUCCESS = 'LIST_ADD_SUCCESS'; 
+export const LIST_ADD_ERROR = 'LIST_ADD_ERROR'; 
+
 export const LIST_UPDATE_REQUEST = 'LIST_UPDATE_REQUEST'; 
 export const LIST_UPDATE_SUCCESS = 'LIST_UPDATE_SUCCESS'; 
 export const LIST_UPDATE_ERROR = 'LIST_UPDATE_ERROR'; 
@@ -42,12 +46,30 @@ export const UPDATE_DELIVERY_REQUEST = 'UPDATE_COMPLETE_REQUEST';
 export const UPDATE_DELIVERY_SUCCESS = 'UPDATE_COMPLETE_SUCCESS'; 
 export const UPDATE_DELIVERY_ERROR = 'UPDATE_COMPLETE_ERROR'; 
 
+export const DELETE_FAVORITE_REQUST = 'DELETE_FAVORITE_REQUST';
+export const DELETE_FAVORITE_SUCCESS = 'DELETE_FAVORITE_SUCCESS';
+export const DELETE_FAVORITE_ERROR = 'DELETE_FAVORITE_ERROR';
+
+
+export const DeleteFavorite = data =>{
+  return{
+    type:DELETE_FAVORITE_REQUST,
+    data
+  }
+}
 
 
 
 export const ListUpdateRequest = data => {
   return{
     type:LIST_UPDATE_REQUEST,
+    data
+  }
+}
+
+export const ListAddRequest = data => {
+  return{
+    type:LIST_ADD_REQUEST,
     data
   }
 }
@@ -113,6 +135,37 @@ const reducer = (state = initialState,action) => {
           }
 
       case LIST_UPDATE_ERROR:
+          return{
+              ...state,
+              isLoading:false,
+              isError:true,
+              error:{
+                ...action.data,
+              }
+          }
+    case LIST_ADD_REQUEST:
+          return {
+              ...state,
+              isLoading:true,
+              searchData:{
+                ...state.searchData,
+                type:action.data.params.type,
+                status:action.data.params.status,
+                search:action.data.params.search,
+                sort:action.data.params.sort,
+                page:action.data.params.page,
+                rows:action.data.params.rows,
+              },
+          }
+
+      case LIST_ADD_SUCCESS:
+          return{
+              ...state,
+              list:[...state.list,action.data.list],
+              isLoading:false
+          }
+
+      case LIST_ADD_ERROR:
           return{
               ...state,
               isLoading:false,
@@ -215,6 +268,27 @@ const reducer = (state = initialState,action) => {
                 ...state,
                 transactionLoading:false,
             }
+
+      case DELETE_FAVORITE_REQUST:
+        return{
+          ...state,
+            isLoading:true
+        }
+      case DELETE_FAVORITE_SUCCESS:{
+        const product_no = action.data.product_no;
+        const newList = [...state.list].filter(v=>v.product_no!=product_no);
+        return{
+          ...state,
+          isLoading:false,
+          list:newList
+        }
+      }
+      case DELETE_FAVORITE_ERROR:{
+        return{
+          ...state,
+          isLoading:false,
+        }
+      }
       default:
           return state
   }

@@ -8,7 +8,7 @@ const FavoriteList = () => {
         나의 관심 목록
         </h3>
       </Header>
-      <Gallery/>
+      <FavoriteGallery/>
     </StyledFavoriteList>
   );
 }
