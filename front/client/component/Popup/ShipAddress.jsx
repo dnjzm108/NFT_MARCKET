@@ -87,7 +87,7 @@ const ShipAddress = ({handleShipPopUp}) => {
                       </tr>
                       <tr>
                           <td>결제금액</td>
-                          <td style={{display:'flex', alignItems:'center', justifyContent:'center'}}><img src="/klay.png" alt="" /> {order.order_price * order.qty}</td>
+                          <td style={{display:'flex', alignItems:'center', justifyContent:'center'}}><img src="/perro.png" alt="" /> {order.order_price * order.qty}</td>
                       </tr>
 
                       <tr>
