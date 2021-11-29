@@ -217,6 +217,10 @@ export const Price_contain = styled.div`
     position: relative;
     top:10px
 }
+& > h3 {
+    font-size: 2rem;
+    padding: 20px;
+}
 `
 export const Auction_contain = styled.div`
 &{
