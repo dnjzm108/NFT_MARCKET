@@ -2,6 +2,7 @@ const initalState = {
     isLoading: false,
     category:[],
     bid:{},
+    mintSuccess:false,
     extension:false,
     product_code:"",
 }
@@ -87,6 +88,7 @@ const reducer = (state = initalState,action) => {
         case MINT_SUCCESS:
             return{
                 ...state,
+                mintSuccess:true,
                 isLoading:false,
             }
         case AUCTION_REQUEST:
