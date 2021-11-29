@@ -53,12 +53,6 @@ const Release = () => {
     const [season, setSeason] = useState(seasons[0].code)
 
 
-    useEffect(()=>{
-        if(mintSuccess){
-            Router.push('/')
-        }
-    },[mintSuccess])
-
     // 즉시구매를 선택한 경우
     const handleNow = () => {
         setIsNow(true);
