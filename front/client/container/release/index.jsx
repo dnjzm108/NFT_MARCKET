@@ -13,7 +13,7 @@ import { Mint_REQUEST } from '../../reducers/mint';
 import Router from "next/router";
 import Loadding from "../../component/Loadding"
 import { useEffect } from "react";
-
+import {useRouter} from  'next/router'
 const Release = () => {
     const seasons = [
         { name: '봄', code: 'P' },
@@ -22,8 +22,14 @@ const Release = () => {
         { name: '겨울', code: 'I' },
         { name: '기타', code: 'E' },
     ]
+    
 
-    const { isLoading, category } = useSelector(state => state.mint)
+
+
+
+
+
+    const { isLoading, category, mintSuccess } = useSelector(state => state.mint)
 
     const { user_info } = useSelector(state => state.user)
 
@@ -51,6 +57,16 @@ const Release = () => {
     const [bigcate, setBigcate] = useState(category[0].code)
     const [middlecate, setMiddlecate] = useState(category[0].list[0].code)
     const [season, setSeason] = useState(seasons[0].code)
+    const router = useRouter();
+
+    useEffect(()=>{
+        if(mintSuccess){
+            router.push('/user/list/sell')
+        }
+    },[mintSuccess])
+
+
+
 
 
     // 즉시구매를 선택한 경우
