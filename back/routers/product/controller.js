@@ -63,7 +63,6 @@ let auction_info = async (req,res) =>{
     let result = {
         info,history
     }
-    console.log(result);
  
     if(result == ''){
      res.json(successData(false))

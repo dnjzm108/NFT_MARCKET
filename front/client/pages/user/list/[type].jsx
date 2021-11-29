@@ -2,7 +2,7 @@ import Navigation from "../../../component/Navigation";
 import Info from "../../../container/Info";
 import SideMenu from "../../../component/SideMenu";
 import NFTList from "../../../component/MyNFT/NFTList";
-import Gallery from "../../../component/Gallery";
+import FavoriteGallery from "../../../component/FavoriteGallery";
 import { useSelector,useDispatch } from "react-redux";
 import { useRouter } from 'next/router'
 import { Pageblock } from "../../../component/Pageblock";
@@ -56,8 +56,8 @@ const List = () => {
         <Info>
             <SideMenu/>
             <div className='contenet_box'>
-            <Rowfilter/>
-            <Gallery/>
+           
+            <FavoriteGallery/>
             </div>
         </Info>
         </>
