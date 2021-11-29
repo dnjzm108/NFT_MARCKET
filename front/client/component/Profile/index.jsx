@@ -59,7 +59,9 @@ const Profile = () => {
                     <StyleTd />
                     <h4>지갑 주소</h4>
                     <StyleTd />
+                    <CopyToClipboard text={wallet}>
                     <div className="URL" onClick={() => alert('주소가 복사되었습니다.')}>{wallet}</div>
+                    </CopyToClipboard>
                     <StyleTd />
                     <h4>이메일 주소</h4>
                     <StyleTd />

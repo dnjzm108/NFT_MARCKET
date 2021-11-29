@@ -15,12 +15,13 @@ import { useDispatch } from 'react-redux'
 import { Apply_Immy } from '../../reducers/product'
 import { User_Logout } from '../../reducers/user'
 import { useEffect } from 'react';
-import { sendToken } from '../../hook/sendToken'
+import { sendToken } from '../../hook/sendToken';
+import Loadding from '../Loadding';
 
 const Delivery_Address_Component = (props) => {
     const data = useSelector(state => state.user)
     const product_data = useSelector(state => state.product)
-    const { notice_page, product_info } = product_data
+    const { notice_page, product_info, loadding } = product_data
     const { select_qty, option } = props;
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [address, setaddress] = useState('')
@@ -34,7 +35,7 @@ const Delivery_Address_Component = (props) => {
     const requirement = useInput()
     const other = useInput()
 
-    const logout = () =>{
+    const logout = () => {
         dispatch(User_Logout())
     }
 
@@ -48,7 +49,7 @@ const Delivery_Address_Component = (props) => {
     const receive = (e) => {
         setRecieveType(e.target.value)
     }
-
+    const total_price = product_info[option].price.toFixed(1) * select_qty
     const handleOrder = async () => {
 
         if (Recipient.value !== undefined && recieveType !== undefined && Ponenumber.value !== undefined && address_detail.value !== undefined && address !== '') {
@@ -68,7 +69,12 @@ const Delivery_Address_Component = (props) => {
                 nickname: data.user_info.nickname,
                 auth: data.user_info.auth
             }
+<<<<<<< HEAD
             let payment = await sendToken(product_info[option].price,logout)
+=======
+            let payment = await sendToken(total_price, logout)
+            console.log(payment);
+>>>>>>> c27f842d3559a4d082f4e8c155f509f48a105787
             if (payment !== undefined) {
                 dispatch(Apply_Immy(order_info))
             }
@@ -85,9 +91,13 @@ const Delivery_Address_Component = (props) => {
 
     }, [notice_page])
 
+
     return (
         <>
             <Popup_background>
+                {product_info[option].name == undefined ? 
+                <Loadding />
+                : 
                 <Container>
                     <Icon_Close>
                         <CloseIcon color="disabled" sx={{ fontSize: 55 }} onClick={() => props.handlePopup()} />
@@ -114,7 +124,7 @@ const Delivery_Address_Component = (props) => {
                             </tr>
                             <tr>
                                 <td>결제금액</td>
-                                <td><img src="/klay.png" alt="" /> {product_info[option].price * select_qty}</td>
+                                <td><img src="/klay.png" alt="" /> {total_price}</td>
                             </tr>
 
                             <tr>
@@ -177,6 +187,7 @@ const Delivery_Address_Component = (props) => {
 
 
                 </Container>
+                }
             </Popup_background>
         </>
     )

@@ -99,7 +99,9 @@ const Release = () => {
     const imageClick = (e) => {
         for (let i = 0; i < imageBundle.length; i++) {
             if (imageBundle[i] == e.target.currentSrc) {
-                return changeArrayOrder(imageBundle,i,-i) , changeArrayOrder(images,i,-i)
+                return changeArrayOrder(imageBundle,i,-i)
+                ,changeArrayOrder(images,i,-i)
+                ,alert("선택되었습니다")
             }
         }
     }
@@ -109,7 +111,7 @@ const Release = () => {
         const temp = list;
         const target = temp.splice(targetidx,1)[0]
         temp.splice(newPosi,0,target)
-        return temp ,alert("선택되었습니다")
+        return temp
     }
 
 
