@@ -234,12 +234,12 @@ const product_detail = () => {
 
                     {product_info[0].type == "buy" ?
                         <Price_contain>
-                            <h2> <img src="/klay.png" alt="" /> {product_info[`${option}`].price.toFixed(1)}</h2>
+                            <h2> <img src="/perro.png" alt="" /> {product_info[`${option}`].price.toFixed(1)}</h2>
                             <Button value="즉시 구매" color="sky" func={handlePopupImmy} />
                         </Price_contain>
                         :
                         <Price_contain>
-                            <h2>경매 시작가 - <img src="/klay.png" alt="" /> {parseFloat(product_info[`${option}`].price)}</h2>
+                            <h2>경매 시작가 - <img src="/perro.png" alt="" /> {parseFloat(product_info[`${option}`].price)}</h2>
 
                         </Price_contain>}
 

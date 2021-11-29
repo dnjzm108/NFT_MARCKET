@@ -19,8 +19,10 @@ export const Table = styled.table`
 
 }
 & > tr > td > img{
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top:8px;
 }
 & > tr > td:nth-child(1){
     width: 30%;
