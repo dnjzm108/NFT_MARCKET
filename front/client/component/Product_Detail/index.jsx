@@ -19,6 +19,8 @@ import Deleivery_address from '../Delivery_Address'
 import { useDispatch } from 'react-redux'
 import { Product_Page_Request } from '../../reducers/product';
 import Loadding from '../Loadding'
+import { TiHeartFullOutline } from "react-icons/ti";
+
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
@@ -183,7 +185,7 @@ const product_detail = () => {
                         </div>
                         <div>
                             {likes ?
-                                <button style={{ background: "mediumpurple" }} onClick={onclickLike}> <FavoriteBorderIcon />{product_info[0].likes}</button>
+                                <button style={{ color: "red" }} onClick={onclickLike}> <TiHeartFullOutline size="25" />{product_info[0].likes}</button>
                                 :
                                 <button onClick={onclickLike}> <FavoriteBorderIcon />{product_info[0].likes}</button>
                             }

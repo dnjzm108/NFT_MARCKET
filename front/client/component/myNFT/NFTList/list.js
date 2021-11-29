@@ -33,6 +33,12 @@ export const statusList = {
     {name:'매진',code:'soldout'},
     {name:'경매중',code:'auction'},
     {name:'경매종료',code:'stop'},
+  ],
+  'favorite':[
+    {name:'전체',code:'all'},
+    {name:'즉시구매',code:'buy'},
+    {name:'경매',code:'auction'},
+    {name:'판매종료',code:'stop'},
   ]
 }
 
@@ -73,6 +79,13 @@ export const sortList = {
     {name:'높은 가격 순',code:'high'},
     {name:'낮은 가격 순',code:'low'},
     {name:'좋아요 순',code:'like'},
+  ],
+  'favorite':[
+    {name:'최신 등록일 순',code:'new'},
+    {name:'오래된 등록일 순',code:'old'},
+    {name:'높은 가격 순',code:'high'},
+    {name:'낮은 가격 순',code:'low'},
+    {name:'좋아요 순',code:'like'},
   ]
 }
 
@@ -81,8 +94,8 @@ export const typeList = {
  'auction':'경매 내역',
  'immysell':'즉시판매 내역',
  'auctionsell':'경매판매 내역',
- 'sell':'판매 상품'
-
+ 'sell':'판매 상품',
+ 'favorite':'관심 상품'
 }
 
 

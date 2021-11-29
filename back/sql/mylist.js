@@ -439,9 +439,9 @@ function myAuctionSellListQuery(query,type){
 
   if(search!=undefined){
     if(wherCnt){
-      sql+=` AND  (P.name like '%${search}%' OR P.product_no like '%${search}%')`
+      sql+=` AND  (P.name like '%${search}%' OR creater like '%${search}%' OR P.product_no like '%${search}%')`
     }else{
-      sql+=` WHERE (P.name like '%${search} OR P.product_no like '%${search}%')%'`
+      sql+=` WHERE (P.name like '%${search} OR creater like '%${search}%' OR P.product_no like '%${search}%')%'`
       wherCnt=true; 
     }
   }
@@ -869,6 +869,114 @@ ORDER BY ${sortCheck(sort)},bid_date DESC
 }
 
 
+function getMyFavoriteQuery(nickname,sort,status,skip,search){
+
+  let where='WHERE'
+  let order=`ORDER BY `
+
+  switch(sort){
+    case 'like':
+      order += 'likes DESC'
+      break;
+    case 'high':
+      order+='price DESC'
+      break; 
+    case 'low':
+      order+='price ASC'
+      break;
+    case 'old':
+      order+='date ASC'
+      break;
+    case 'new': default:
+      order+='date DESC'
+  }
+
+  switch(status){
+    case 'buy':
+      where+=` type='buy' AND leftover>0`
+      if(search!=undefined) where+=` AND  (creater like '%${search}%' OR product_no like '%${search}%' OR name like '%${search}%')`
+      break;
+    case 'auction':
+      where+=` type='auction'`
+      if(search!=undefined) where+=` AND  (creater like '%${search}%' OR product_no like '%${search}%' OR name like '%${search}%')`
+      break;
+    case 'stop':
+      where+=` type='stop' OR leftover=0`
+      if(search!=undefined) where+=` AND  (creater like '%${search}%' OR product_no like '%${search}%' OR name like '%${search}%')`
+      break;
+    default:
+      where=''
+      if(search!=undefined) where+=` WHERE (creater like '%${search}%' OR product_no like '%${search}%' OR name like '%${search}%')`
+      break;
+  }
+
+  
+
+
+  return`
+  SELECT * FROM
+  (SELECT product_no FROM likes WHERE nickname='${nickname}') AS L
+  NATURAL JOIN (
+					SELECT 
+							product_no,name,creater,date, likes,type,leftover
+					FROM
+							product )AS P
+NATURAL JOIN 
+(SELECT * FROM product_image GROUP BY product_no) AS I
+NATURAL JOIN 
+(
+SELECT 
+		product_no,
+		IFNULL(bid,price) AS price
+FROM  ( SELECT 
+					product_id,product_no,price
+			FROM 
+					product_detail 
+		)AS D 
+	        
+LEFT JOIN (SELECT 
+                            auction.auction_id AS auction_id,
+                            auction.product_id,
+                            L.bid
+                    FROM 
+                            auction
+                    LEFT JOIN( 
+                              SELECT 
+                                      *
+                              FROM(
+                                      SELECT 
+                                              *
+                                      FROM
+                                              auction_history
+                                      WHERE
+                                              (auction_id,bid) IN (
+                                                                SELECT 
+                                                                      auction_id, 
+                                                                      max(bid) AS bid
+                                                                FROM 
+                                                                      auction_history
+                                                                GROUP BY 
+                                                                      auction_id
+                                                                  )
+                                        ORDER BY 
+                                              bid DESC
+                                    ) AS H
+                              GROUP BY 
+                                    auction_id
+                              )AS L
+                    ON auction.auction_id=L.auction_id) AS A
+ON D.product_id=A.product_id
+GROUP BY product_no
+)AS Pr
+${where}
+${order}
+LIMIT ${skip},16;
+`
+}
+
+
+
+
 function getOrderInfoQuery(){
   return(
     `
@@ -935,5 +1043,6 @@ module.exports={
   updateShipQuery,
   updateInvoiceQuery,
   completeDeliveryQuery,
-  getOrderInfoQuery
+  getOrderInfoQuery,
+  getMyFavoriteQuery
 }

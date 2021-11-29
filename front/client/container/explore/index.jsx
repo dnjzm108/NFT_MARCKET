@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { ExploreRequest } from '../../reducers/explore'
 import Rowfilter from "../../component/Rowfilter";
 import SearchView from "../../component/SearchView"
+import Loadding from "../../component/Loadding";
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,11 @@ const Explore = () => {
 
 
 
+  if(user_info==undefined){
+    return (
+      <Loadding/>
+    )
+  }
 
 
   return (

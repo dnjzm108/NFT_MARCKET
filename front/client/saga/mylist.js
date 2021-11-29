@@ -12,6 +12,12 @@ import {LIST_UPDATE_REQUEST,
     UPDATE_DELIVERY_REQUEST,
     UPDATE_DELIVERY_SUCCESS,
     UPDATE_DELIVERY_ERROR,
+    DELETE_FAVORITE_REQUST,
+    DELETE_FAVORITE_SUCCESS,
+    DELETE_FAVORITE_ERROR,
+    LIST_ADD_REQUEST,
+    LIST_ADD_SUCCESS,
+    LIST_ADD_ERROR,
 } from '../reducers/mylist'
 
 import {url} from './url'
@@ -42,7 +48,9 @@ async function myListAPI(data){
     return await axios.put(`${url}/user/delivery`,{...data})
   }
 
-
+  async function updateLikeAPI(data){
+    return  await axios.put(`${url}/main/like`,data)
+}
 
 
 function* getMyList(action){
@@ -56,6 +64,23 @@ function* getMyList(action){
     }else{
         yield put({
         type:LIST_UPDATE_ERROR,
+        data:data.error,
+    })
+
+    }
+}
+
+function* getMyFavorite(action){
+    let result = yield call(myListAPI,action.data)
+    const {data} = result; 
+    if(data.success){
+      yield put({
+                type:LIST_ADD_SUCCESS,
+                data:data.response,
+            })
+    }else{
+        yield put({
+        type:LIST_ADD_ERROR,
         data:data.error,
     })
 
@@ -119,12 +144,33 @@ function* updateDelivery(action){
 
 
 
+function* deleteFavorite(action){
+    const result = yield call(updateLikeAPI,action.data)
+    const {data} = result; 
+    if(data.success){
+        yield put({
+                type:DELETE_FAVORITE_SUCCESS,
+                data:data.response,
+            })
+    }else{
+            yield put({
+                type:DELETE_FAVORITE_ERROR,
+                data,
+            })
+        }
+}
+
+
 
 
 
 
 function* watchMyList(){
     yield takeLatest(LIST_UPDATE_REQUEST,getMyList)
+}
+
+function* watchMyFavorite(){
+    yield takeLatest(LIST_ADD_REQUEST,getMyFavorite)
 }
 
 function* watchShip(){
@@ -139,6 +185,12 @@ function* watchDelivery(){
     yield takeLatest(UPDATE_DELIVERY_REQUEST,updateDelivery)
 }
 
+function* watchDeleteFavorite(){
+    yield takeLatest(DELETE_FAVORITE_REQUST,deleteFavorite)
+}
+
+
+
 
 export default function* MyListSaga(){
     yield all([
@@ -146,5 +198,7 @@ export default function* MyListSaga(){
         fork(watchShip),
         fork(watchInvoice),
         fork(watchDelivery),
+        fork(watchDeleteFavorite),
+        fork(watchMyFavorite),
     ])
 }

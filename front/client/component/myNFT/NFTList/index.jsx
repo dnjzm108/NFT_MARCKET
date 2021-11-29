@@ -12,7 +12,6 @@ import OptionBox from '../../OptionBox/OptionBox'
 import {statusList,sortList,typeList} from './list.js'
 import { useRouter } from "next/router";
 import Invoice from '../../Invoice'
-import Gallary from '../../Gallery'
 import ShipAddress from "../../Popup/ShipAddress";
 const NFTList = () => {
   const dispatch = useDispatch();
@@ -203,29 +202,6 @@ const renderSellItem = () =>{
       })
     }
   }
-
-  const renderFavorite = () => {
-    if (list.length == 0) {
-      return <tr><td>검색결과가 없습니다.</td></tr>
-    } else {
-      return list.map((v, i) => {
-        return <ImmySellItem
-        type={v.type}
-        product_no={v.product_no}
-        price={v.price}
-        name={v.name}
-        creater={v.creater}
-        likes={v.likes}
-        img={v.img}
-        isLike={v.isLike}
-        />
-      })
-    }
-  }
-
-
-
-
  
 
 
@@ -335,12 +311,6 @@ const renderSellItem = () =>{
               {renderAuctionSellItem()}
             </tbody>
           </AuctionSellTable>
-      )}
-
-      {type === 'favorite' && (
-          <FavoriteTable>
-              {renderFavorite()}
-          </FavoriteTable>
       )}
     </NFTListContainer>
   );
