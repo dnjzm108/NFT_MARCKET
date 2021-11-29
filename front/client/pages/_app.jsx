@@ -26,9 +26,7 @@ const App = ({ Component,pageProps}) => {
     return (
         <> 
             <PersistGate persistor={store.__persistor}>
-                <WebSocket>
                     <Component {...pageProps} />
-                </WebSocket>
             </PersistGate>
 
         </>
