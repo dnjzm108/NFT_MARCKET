@@ -7,11 +7,11 @@ const mintController = require('./mint.controller')
 const swapController = require('./swap.controller')
 const transferController = require('./transfer.controller')
 const itemController = require('./item.controller')
-// const { default: mint } = require('../../../front/client/pages/mint')
+const {checking} = require('../../auth')
 
 
 
-router.post('/mint',upload.array('image'),mintController.mint_nft);
+router.post('/mint',upload.array('image'),checking,mintController.mint_nft);
 
 
 router.get('/category',mintController.getCategory);

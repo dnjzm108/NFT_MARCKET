@@ -4,13 +4,20 @@ import Link from "next/dist/client/link";
 import { useState } from "react";
 
 
+const auctionStatusList={
+  'bid':'입찰',
+  'burial':'유찰',
+  'success':'낙찰'
+}
+
+
+
 const SellItem = ({ index }) => {
   const [open, setOpen] = useState(false)
   const { list } = useSelector(state => state.mylist);
   const nowProduct = list[index];
 
   const renderBuyDetail = () => {
-
     return (
       <StyledSellBuyDetail>
         <td colSpan='6'>
@@ -45,56 +52,36 @@ const SellItem = ({ index }) => {
     return (
       <StyledSellAuctionDetail>
         <td colSpan='6'>
-          <table className='product_detail_table'>
-            <thead>
-              <tr>
-                <th>색상</th>
-                <th>사이즈</th>
-                <th>경매 마감시간</th>
-                <th>옵션</th>
-                <th>시작가</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                <tr>
-                  <td>{nowProduct.list[0].color}</td>
-                  <td>{nowProduct.list[0].size}</td>
-                  <td>{new Date(nowProduct.list[0].auction.deadline).toLocaleString()}</td>
-                  <td>{nowProduct.list[0].auction.option ? '입찰시 마감시간 5분 연장' : '-'}</td>
-                  <td>{nowProduct.list[0].auction.start_price}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-          <div>
-          <span>경매기록</span>
+                  <div><strong>색상: </strong>{nowProduct.list[0].color}</div>
+                  <div><strong>사이즈: </strong>{nowProduct.list[0].size}</div>
+                  <div><strong>마감시간: </strong>{new Date(nowProduct.list[0].auction.deadline).toLocaleString()}</div>
+                  <div><strong>옵션: </strong>{nowProduct.list[0].auction.option ? '입찰시 마감시간 5분 연장' : '-'}</div>
+                  <div><strong>시작가: </strong>{nowProduct.list[0].auction.start_price}</div>
           {nowProduct.list[0].history.length === 0
-            ? <span>: 없음</span>
-            : <table className='history_table'>
-              <thead>
-                <tr>
-                  <th>입찰시간</th>
-                  <th>입찰자</th>
-                  <th>입찰가</th>
-                  <th>상태</th>
-                </tr>
-              </thead>
-              <tbody>
+            ? <div><strong>경매기록: </strong>없음</div>
+            : <>
+              <div><strong>경매기록: </strong></div>
+            <ul className='auction_history_table'>
+              <li className='auction_history_head'>
+                  <span className='bid_date'>입찰시간</span>
+                  <span className='bider'>입찰자</span>
+                  <span className='bid'>입찰가</span>
+                  <span className='auction_status'>상태</span>
+              </li>
+
                 {
                   nowProduct.list[0].history.map((v, i) => {
-                    return <tr key={v.bid + i}>
-                      <td>{new Date(v.bid_date).toLocaleString()}</td>
-                      <td>{v.bider}</td>
-                      <td>{v.bid}</td>
-                      <td>{v.status}</td>
-                    </tr>
+                    return <li key={v.bid + i}>
+                      <span className='bid_date'>{new Date(v.bid_date).toLocaleString()}</span>
+                      <span className='bider'>{v.bider}</span>
+                      <span className='bid'>{v.bid}</span>
+                      <span className={`auction_status _${v.status}`}>{auctionStatusList[v.status]}</span>
+                    </li>
                   })
                 }
-              </tbody>
-            </table>
+              </ul>
+            </>
           }
-        </div>
         </td>
       </StyledSellAuctionDetail>
 
@@ -137,8 +124,8 @@ const SellItem = ({ index }) => {
         <td>
           {
             !open
-              ? <button onClick={() => setOpen(true)}>상세 보기</button>
-              : <button onClick={() => setOpen(false)}>상세 숨기기</button>
+              ? <button className='list_btn ' onClick={() => setOpen(true)}>상세 보기</button>
+              : <button className='list_btn hide' onClick={() => setOpen(false)}>상세 숨기기</button>
           }
         </td>
       </StyledMyNFT>

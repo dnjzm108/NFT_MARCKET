@@ -12,6 +12,7 @@ import PopupPostCode from '../Delivery_Address/PopupPostCode';
 import { useState } from 'react';
 import useInput from '../../hooks/useInput';
 import {UpdateShipRequest} from '../../reducers/mylist'
+import { multipFloat } from '../../util/float';
 
 const ShipAddress = ({handleShipPopUp}) => {
   const dispatch = useDispatch()

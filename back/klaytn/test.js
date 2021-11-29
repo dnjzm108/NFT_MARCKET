@@ -7,4 +7,11 @@ const test = () =>{
     console.log(typeof(`${Number(v)*Number(x)}`));
 }
 
-test()
+// test()
+
+
+console.log(0.1*0.2)
+multipFloat([1,0.2])
+
+
+

@@ -17,13 +17,13 @@ const FileInformation = (props) => {
                         NFT에 넣을 이미지 파일을 업로드해주세요.
                         최대 10MB까지 업로드할 수 있으며, 지원하는 파일 포맷은 아래와 같습니다. <br />
                         -  PNG , JPG , JPEG , GIF , WEBP<br />
-                        {/* - 영상: MP4 (가로 세로 사이즈 600px 이상) */}
+                        -  3 x 4 비율을 권장합니다.
                     </span>
                 </div>
             </StyledNewRelease>
             <form onSubmit={handleForm}>
                 <div className="img_box">
-                    <p> 이미지 / 영상 파일을 업로드 </p>
+                    <p> 이미지 파일을 업로드 </p>
                     <label htmlFor="click_submit"><div>파일선택</div></label>
 
                     {/* image */}

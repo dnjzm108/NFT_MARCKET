@@ -11,6 +11,7 @@ import { ListUpdateRequest } from "../../../reducers/mylist";
 import { ExploreRequest } from "../../../reducers/explore";
 import {useState,useEffect} from 'react'
 import Rowfilter from '../../../component/Rowfilter'
+
 const List = () => {
   const {user_info} = useSelector(state => state.user)
   const {isError,error} = useSelector(state => state.mylist)
@@ -20,17 +21,6 @@ const List = () => {
   useEffect(()=>{
     if(type!=undefined && type!=null){
  
-      if(type=='favorite'){
-        let data ={
-          auth:user_info.auth,
-          nickname:user_info.nickname,
-          params:{skip:0,
-          status:'all',
-          sort:'new',
-          isMine:user_info.nickname}
-        }
-        dispatch(ExploreRequest(data))
-      }else{
         let data ={
           auth:user_info.auth,
           nickname:user_info.nickname,
@@ -44,7 +34,6 @@ const List = () => {
           }
         }
         dispatch(ListUpdateRequest(data))
-      }
     }
   },[type])
 

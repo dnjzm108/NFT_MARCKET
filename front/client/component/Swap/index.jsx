@@ -1,12 +1,13 @@
-import { StyledSwap } from "./swap.css";
+import { StyledSwap,PerroGuide } from "./swap.css";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Swap_REQUEST } from "../../reducers/token";
 import { useSelector, useDispatch } from 'react-redux'
 // import caver from "../../klaytn/caver"
 import Button from "../Button";
 import { Container_Klatn, Container_Perro } from "./container"
-
+import { HiOutlineClipboardCopy } from "react-icons/hi";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const SwapToken = () => {
     const dispatch = useDispatch()
@@ -17,7 +18,7 @@ const SwapToken = () => {
     const [currency, setCurrency] = useState(true)  // true면 klay, false면 perro 
     const [change, setChange] = useState(true)  // true면 klay를 token으로 교환
     const [swap, setSwap] = useState(0)
-
+    const [openGuide,setOpenGuide] = useState(false)
 
 
     const handleKlay = (e) => {
@@ -125,46 +126,68 @@ const SwapToken = () => {
         setCurrency(values)
     }
 
+    const handleGuide = ()=>{
+        return setOpenGuide(!openGuide)
+    }
+    let copyTokenAddress = useRef();
+    const copy =()=>{
+        const temp = copyTokenAddress.current
+        temp.select()
+        document.execCommand("copy")
+        alert("주소가 복사되었습니다")
+    }
+
     return (
         <>
-            <StyledSwap>
-                {change ?
+            {/* <FlexContain> */}
+                <PerroGuide>
+                <div>
+                    <div className="get_perro_btn" onClick={handleGuide}>
+                        토큰 추가 가이드
+                    </div> 
+                    { openGuide ?
                     <>
-                        <Button value="CHANGE KLAYTN" color="sky" func={change_state} />
-                        <Container_Perro
-                            currency={currency}
-                            k2p={k2p}
-                            p2k={p2k}
-                            klay={klay}
-                            perr={perr}
-                            change_value={change_value}
-                            handleKlay={handleKlay}
-                            handlePerr={handlePerr}
-                            SwapPerro={SwapPerro}
-                        />
+                    <button className="guideBtn" onClick={copy}><HiOutlineClipboardCopy size="22"/> copy</button>
+                    <input type="text" value="0x1bfbc74191486a98a5abd8749c17fa0496c3d765" ref={copyTokenAddress}  readOnly/>
+                    <img src="https://i.ibb.co/j3HbB69/444.jpg" alt="444" border="0"/></>:''}
+                </div>
+                </PerroGuide>
+                <StyledSwap>
 
-                    </>
-                    :
-                    <>
-                        <Button value="CHANGE TOKEN" color="sky" func={change_state} />
-                        <Container_Klatn
-                            currency={currency}
-                            k2p={k2p}
-                            p2k={p2k}
-                            klay={klay}
-                            perr={perr}
-                            change_value={change_value}
-                            handleKlay={handleKlay}
-                            handlePerr={handlePerr}
-                            SwapPerro={SwapPerro}
-                        />
-                    </>
-                }
+                    {change ?
+                        <>
+                            <Button value="CHANGE KLAYTN" color="sky" func={change_state} />
+                            <Container_Perro
+                                currency={currency}
+                                k2p={k2p}
+                                p2k={p2k}
+                                klay={klay}
+                                perr={perr}
+                                change_value={change_value}
+                                handleKlay={handleKlay}
+                                handlePerr={handlePerr}
+                                SwapPerro={SwapPerro}
+                            />
 
-
-
-
-            </StyledSwap>
+                        </>
+                        :
+                        <>
+                            <Button value="CHANGE TOKEN" color="sky" func={change_state} />
+                            <Container_Klatn
+                                currency={currency}
+                                k2p={k2p}
+                                p2k={p2k}
+                                klay={klay}
+                                perr={perr}
+                                change_value={change_value}
+                                handleKlay={handleKlay}
+                                handlePerr={handlePerr}
+                                SwapPerro={SwapPerro}
+                            />
+                        </>
+                    }
+                </StyledSwap>
+            {/* </FlexContain> */}
         </>
     );
 }

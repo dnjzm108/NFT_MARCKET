@@ -40,7 +40,7 @@ export const StyledMyNFT = styled.tr`
   }
 
 
- .order_action_btn{
+ .list_btn{
   margin-top  :10px ;
   padding: 0.3125rem 0.8125rem;
     font-size: 0.875rem;
@@ -73,6 +73,20 @@ export const StyledMyNFT = styled.tr`
       color:#fff;
     }
  }
+
+ .hide{
+   background-color: #FF4B45;
+   border-color: #FF4B45;
+   color:#fff;
+   
+   &:hover{
+     background-color: #FF312B;
+   border-color: #FF4B45;
+
+      color:#fff;
+    }
+ }
+
  .invoice{
    background-color: #e9207e;
    border-color: #e9207e;
@@ -131,11 +145,12 @@ export const StyledSellBuyDetail = styled.tr`
 
 
   &>td>table{
-    margin: 0 auto;
+    margin: 2rem auto;
     width: 80%;
     thead>tr{
       &>th{
         padding: 4px;
+        font-size: 1.5rem;
       }
       &>th:nth-child(1){
         width: 20%;
@@ -157,10 +172,14 @@ export const StyledSellBuyDetail = styled.tr`
     td{
       text-align: center;
       padding: 4px;
+      font-size: 1rem;
       border-bottom: 1px solid black;
     }
 
   }
+
+
+
 
 
 `
@@ -171,6 +190,7 @@ export const StyledSellAuctionDetail = styled.tr`
     width: 80%;
 
     thead>tr{
+      font-size: 1.5rem;
       &>th{
         padding: 4px;
       }
@@ -195,9 +215,64 @@ export const StyledSellAuctionDetail = styled.tr`
       text-align: center;
       padding: 4px;
     }
-
   }
 
   
- 
+
+  div{
+    width: 60%;
+    margin: 1rem auto;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  strong{
+    font-weight: 600;
+  }
+
+  ul{
+    width: 60%;
+    margin: 1rem auto 2rem;
+    
+    .auction_history_head{
+      font-size:1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    &>li{
+      margin-bottom: 0.5rem;
+    }
+
+    &>li>span{
+      display: inline-block;
+      text-align: center;
+    }
+    .bid_date{
+      width: 40%;
+    }
+    .bider{
+      width: 20%;
+    }
+    .bid{
+      width: 20%;
+    }
+    .auction_status{
+      width: 20%;
+    }
+
+    ._bid{
+      color:blue
+    }
+
+    ._burial{
+      color:grey
+    }
+    ._success{
+      color:green
+    }
+
+  }
+
 `

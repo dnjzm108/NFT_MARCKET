@@ -19,6 +19,8 @@ export const StyledSwap = styled.div`
         margin: 40px;
     }
     
+
+
     .Wbox{
         margin-top: 50px;
         width:500px;
@@ -192,3 +194,68 @@ export const StyledSwap = styled.div`
 `
 
 
+
+
+export const  PerroGuide = styled.div`
+    width: 34vw;
+    height: 100vh;
+    /* padding: 3%; */
+    position: absolute;
+    
+
+    .get_perro_btn{
+        
+        padding: 1%;
+        display: flex;
+        width: 10vw;
+        margin: 0 auto;
+        height: 5vh;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background-color: #1e73fa;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: .15s ease-in-out;
+        margin-top: 10%;
+    }
+    .get_perro_btn:hover{
+        background-color: white;
+        color: #1e73fa;
+        border: 1px solid #1e73fa;
+    }
+    img{
+        position: sticky;
+        width: 36vw;
+        padding: 10%;
+        z-index: 5;
+    }
+    .guideBtn{
+        z-index: 10;
+        width: 3.5vw;
+        height: 3vh;
+        border: none;
+        border-bottom: 1px solid red;
+        transform: translate(23.5vw,65.8vh);
+        position: sticky;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        font-size: 14px;
+        color: red;
+        background-color: white;
+        font-weight: bold;
+        padding: 7px;
+    }
+
+
+    div>input{
+        z-index: 1;
+        float: left;
+        position: absolute;
+        top: 40%;
+        left: 10%;
+    }
+`

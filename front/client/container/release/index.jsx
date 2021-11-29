@@ -88,13 +88,14 @@ const Release = () => {
                 }
             }
         }
-        
     }
-
+    
     const imageClick = (e) => {
         for (let i = 0; i < imageBundle.length; i++) {
             if (imageBundle[i] == e.target.currentSrc) {
                 return changeArrayOrder(imageBundle,i,-i)
+                ,changeArrayOrder(images,i,-i)
+                ,alert("선택되었습니다")
             }
         }
     }
@@ -104,7 +105,7 @@ const Release = () => {
         const temp = list;
         const target = temp.splice(targetidx,1)[0]
         temp.splice(newPosi,0,target)
-        return temp ,alert("선택되었습니다")
+        return temp
     }
 
 
@@ -116,7 +117,7 @@ const Release = () => {
         const deadline = new Date(+startDate + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, '');
         const files = [];
 
-        if (isNow) {
+        if (isNow==true) {
             colors.forEach((c, i) => {
                 size.forEach((s, j) => {
                     let option = {
@@ -136,8 +137,6 @@ const Release = () => {
             formData.append("options", JSON.stringify(option))
         }
 
-
-
         for (let i = 0; i < images.length; i++) {
             files.push(images[i])
             formData.append("image", images[i])
@@ -146,7 +145,7 @@ const Release = () => {
         formData.append("name", name.value)
         formData.append("symbol", symbol.value)
         formData.append("creater", user_info.nickname)
-
+        formData.append("nickname",user_info.nickname)
 
         formData.append("type", isNow)
         formData.append("start_price", bid.value)
@@ -156,9 +155,9 @@ const Release = () => {
 
         formData.append("category", middlecate)
         formData.append("season", season)
-
+        formData.append("auth",user_info.auth)
         dispatch(Mint_REQUEST(formData))
-        // Router.push('/')
+        Router.push('/')
     }
 
 
@@ -178,7 +177,7 @@ const Release = () => {
             return alert("개인정보제공 및 유의사항 확인에 동의해주세요")
         } else if (isClick == false) {
             return alert("옵션 선택 완료 버튼을 눌러주세요")
-        } else if (images.length == 0) {
+        } else if (imageBundle.length == 0) {
             return alert('이미지를 선택해주세요')
         } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
             return alert("상품 정보를 입력해주세요")
@@ -213,18 +212,6 @@ const Release = () => {
         <>
             <Navigation />
             <StyledRelease>
-                {/* <Slide_Wrap>
-                    <Styled_Slide {...settings}>
-                        {imageBundle.map((v, i) => {
-                            return (
-                                <div key={i}>
-                                    <h3><img src={v} /></h3>
-                                </div>
-                            )
-                        })}
-                    </Styled_Slide>
-                </Slide_Wrap>
-                 */}
                 <div className="flex_contain">
                     <div>
                         <h2>새로운 상품 등록하기</h2>
@@ -246,7 +233,6 @@ const Release = () => {
                             explain={explain.value}
                             setExplain={explain.onChange}
                             handleImg={fileSelected}
-                            images={images}
                             imageBundle={imageBundle}
                         />
                     </div>
@@ -255,6 +241,7 @@ const Release = () => {
                     fileSelected={fileSelected}
                     isNow={isNow}
                     imageClick={imageClick}
+                    images={images}
                     />
                 </div>
                 <ProductOption
