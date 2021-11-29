@@ -1,5 +1,7 @@
 import axios from "axios";
-import { all, call, takeLatest,fork,put} from "redux-saga/effects";
+import { all, call, takeLatest,fork,put,} from "redux-saga/effects";
+import { createBrowserHistory } from 'history';
+
 import {url} from './url'
 import {
     MINT_REQUEST,
@@ -21,15 +23,20 @@ async function mintAPI(data){
 
 function* mint(action){
     let result = yield call(mintAPI,action.data)
-    const {data} = result; 
+    const history = createBrowserHistory();
+    const {data} = result;
+    console.log(data);
     if(data.success){
-      alert(`토큰아이디${data.product_id}: 발행되었습니다.`)
       yield put({
                 type: MINT_SUCCESS,
-                data: data,
+                data: data.response,
             })
+    // history.push(`/user/list/sell`);
     }
 }
+
+
+
 
 
 // 카테고리 정보 가져오는 API
