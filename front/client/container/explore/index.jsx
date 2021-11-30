@@ -34,6 +34,7 @@ const Explore = () => {
 
 
   const fetchMoreNFT = async () => {
+    console.log('infinity scroll!')
     setFetch(true);
     const data = {
       params:{...router.query,skip},
@@ -51,6 +52,7 @@ const Explore = () => {
     if (
       scrollTop + clientHeight >= scrollHeight &&
       fetch === false) {
+        console.log('xxxxxxxx')
         fetchMoreNFT();
     }
   };
