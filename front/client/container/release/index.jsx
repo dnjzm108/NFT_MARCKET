@@ -67,6 +67,12 @@ const Release = () => {
 
 
 
+    const deadlineTest= (date)=>{
+        console.log(startDate)
+        console.log(date)
+        setStartDate(date)
+    }
+
 
 
     // 즉시구매를 선택한 경우
@@ -287,7 +293,7 @@ const Release = () => {
                             extension={extension}
                             setExtension={setExtension}
                             startDate={startDate}
-                            setStartDate={setStartDate}
+                            setStartDate={deadlineTest}
                         />
                         <FileInformation
                             name={name.value}
