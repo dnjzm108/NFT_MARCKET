@@ -69,6 +69,8 @@ const Release = () => {
 
 
 
+
+
     // 즉시구매를 선택한 경우
     const handleNow = () => {
         setIsNow(true);
