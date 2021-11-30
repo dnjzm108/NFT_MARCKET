@@ -1,4 +1,4 @@
-const { query, execute } = require("./pool");
+const { query, execute } = require("./pool.js");
 const {isBidSql,newBidSql,addOrderSql,stopAuctionSQL,findAuctionQuery} = require('./sql/auction')
 const {update_cnt_sql} = require('./sql/product');
 let auctions = {};
