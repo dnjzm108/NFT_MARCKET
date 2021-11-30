@@ -256,7 +256,7 @@ const Release = () => {
             }
         }
         if(colors.length*size.length!=price.length){
-            alert(`수량을 전부 입력해주세요`)
+            alert(`을 전부 입력해주세요`)
                 return true
         }
         return false;
