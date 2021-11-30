@@ -10,9 +10,12 @@ export const Pageblock = () => {
   const handlePage = (v) => {
   
       const data={
-        ...searchData,
-        page:v,
-        rows:10,
+        params:{
+          ...searchData,
+          page:v,
+          rows:10,
+          nickname:user_info.nickname,
+        },
         nickname:user_info.nickname,
         auth:user_info.auth,
       }
