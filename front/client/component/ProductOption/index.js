@@ -38,11 +38,6 @@ const ProductOption =
         }
 
         const handleQty = (e, x) => {
-            const quantity = e.target.value
-            if(quantity== String){
-                // quantity = '';
-                return alert("숫자만 입력 가능합니다")
-            }
             let newQty = [...qty];
             newQty[x] = e.target.value;
             setQty(newQty);
@@ -54,6 +49,27 @@ const ProductOption =
             setPrice(newPrice);
         }
 
+
+        const handleQtyCheck = (e,x)=>{
+            const s = e.target.value;
+            const pattern = /^[0-9]+$/
+            if(s=='')return;
+            if(!pattern.test(s)){  
+                alert('숫자만 입력해 주세요.')
+            }
+        }
+
+        const handlePriceCheck = (e,x)=>{
+            const s = e.target.value;
+            const pattern = /^[0-9]+(.[0-9]+)?$/;
+            if(s=='')return;
+            if(!pattern.test(s)){  
+                alert('정수 또는 실수 형태로 입력해 주세요.')
+            }
+        }
+
+
+
         const renderOptions = () => {
             const slength = size.length;
             return colors.map((c, i) => {
@@ -63,8 +79,8 @@ const ProductOption =
                             return (
                                 <li key={j} className="option_li">
                                     <h1>{`${c},${s}`} </h1>
-                                    <p>수량 입력: <input onChange={(e) => handleQty(e, i * slength + j)} /></p>
-                                    <p>가격 입력: <input onChange={(e) => handlePrice(e, i * slength + j)} /></p>
+                                    <p>수량 입력: <input onChange={(e) => handleQty(e, i * slength + j)}     onBlur={(e)=>handleQtyCheck(e,i * slength + j)} /></p>
+                                    <p>가격 입력: <input onChange={(e) => handlePrice(e, i * slength + j)}   onBlur={(e) => handlePriceCheck(e, i * slength + j)} /></p>
                                 </li>
                             )
                         }
