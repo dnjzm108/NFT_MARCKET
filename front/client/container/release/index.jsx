@@ -235,6 +235,10 @@ const Release = () => {
                 return true
             }
         }
+        if(colors.length*size.length!=qty.length){
+            alert(`수량을 전부 입력해주세요`)
+                return true
+        }
         return false;
     }
 
@@ -250,6 +254,10 @@ const Release = () => {
                 alert(`${i+1}번째 옵션: 가격에는 정수 또는 실수만 입력가능합니다.`)
                 return true
             }
+        }
+        if(colors.length*size.length!=price.length){
+            alert(`수량을 전부 입력해주세요`)
+                return true
         }
         return false;
     }
