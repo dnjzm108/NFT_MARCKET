@@ -298,7 +298,7 @@ export const StyledNowPopup = styled.div`
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-around;
-        z-index: 10;
+        z-index: 70;
     }
     .purchase_box>p{
         width: auto;
