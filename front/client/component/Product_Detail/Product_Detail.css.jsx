@@ -276,7 +276,7 @@ export const FixBox = styled.div`
 }
 & > div {
     position: absolute;
-    z-index:7;
+    z-index:70;
 }
 
 `
