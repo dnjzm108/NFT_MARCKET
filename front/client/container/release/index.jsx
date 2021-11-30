@@ -197,7 +197,12 @@ const Release = () => {
             return alert('이미지를 선택해주세요')
         } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
             return alert("상품 정보를 입력해주세요")
-        } else {
+        }else if(qtyCheck()){
+            return;
+        }else if(priceCheck()){
+            return;
+        }
+        else {
             infoCheck();
         }
     }
@@ -212,6 +217,41 @@ const Release = () => {
             handleData();
         }
     }
+
+    const qtyCheck = ()=>{
+        for(let i = 0; i<qty.length; i++){
+            const s = qty[i];
+            const pattern = /^[0-9]+$/
+            if(s==''){
+                alert(`${i+1}번째 옵션의 수량을 확인해주세요.`)
+                return true
+            }
+            if(!pattern.test(s)){  
+                alert(`${i+1}번째 옵션: 수량에 숫자만 입력해 주세요.`)
+                return true
+            }
+        }
+        return false;
+    }
+
+    const priceCheck = ()=>{
+        for(let i = 0; i<price.length; i++){
+            const s = price[i];
+            const pattern = /^[0-9]+(.[0-9]+)?$/;
+            if(s==''){
+                alert(`${i+1}번째 옵션의 가격을 확인해주세요.`)
+                return true
+            }
+            if(!pattern.test(s)){  
+                alert(`${i+1}번째 옵션: 가격에는 정수 또는 실수만 입력가능합니다.`)
+                return true
+            }
+        }
+        return false;
+    }
+
+
+
 
     if (isLoading == true) {
         return <Loadding />
