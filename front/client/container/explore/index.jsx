@@ -34,6 +34,7 @@ const Explore = () => {
 
 
   const fetchMoreNFT = async () => {
+    console.log('infinity scrool on!!!!')
     setFetch(true);
     const data = {
       params:{...router.query,skip},

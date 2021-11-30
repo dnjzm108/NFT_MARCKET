@@ -28,6 +28,8 @@ function* mint(action){
                 type: MINT_SUCCESS,
                 data: data.response,
             })
+        const history = yield getContext('history');
+        history.push('/');
     }
 }
 

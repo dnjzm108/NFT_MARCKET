@@ -75,12 +75,12 @@ function* getMyFavorite(action){
     const {data} = result; 
     if(data.success){
       yield put({
-                type:LIST__SUCCESS,
+                type:LIST_ADD_SUCCESS,
                 data:data.response,
             })
     }else{
         yield put({
-        type:LIST__ERROR,
+        type:LIST_ADD_ERROR,
         data:data.error,
     })
 

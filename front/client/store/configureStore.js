@@ -3,6 +3,7 @@ import { applyMiddleware, compose, createStore,combineReducers } from 'redux'
 import rootReducer from '../reducers'       
 import {composeWithDevTools} from 'redux-devtools-extension'
 import createSaga from 'redux-saga'
+import { createBrowserHistory } from 'history';
 import rootSaga from '../saga/index'
 import userSaga from '../saga/user'
 import { persistStore } from 'redux-persist';
@@ -11,7 +12,12 @@ import { persistStore } from 'redux-persist';
 
 const configureStore = ()=>{
     const isServer = typeof window == 'undefined'
-    const sagaMiddlewares = createSaga()   // 사가 선언 
+    const customHistory = createBrowserHistory();
+    const sagaMiddlewares = createSaga({
+        context: {
+          history: customHistory
+        }
+      })   // 사가 선언 
     const Middlewares = [sagaMiddlewares]  // 사가 쓴다 
     const enhencer= (
       process.env.NODE_ENV === 'production'       // 개발 모드일때는 데브툴도 쓴다. 
