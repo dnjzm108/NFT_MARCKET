@@ -67,11 +67,7 @@ const Release = () => {
 
 
 
-    const deadlineTest= (date)=>{
-        console.log(startDate)
-        console.log(date)
-        setStartDate(date)
-    }
+
 
 
 
@@ -297,7 +293,7 @@ const Release = () => {
                             extension={extension}
                             setExtension={setExtension}
                             startDate={startDate}
-                            setStartDate={deadlineTest}
+                            setStartDate={setStartDate}
                         />
                         <FileInformation
                             name={name.value}
