@@ -1,6 +1,5 @@
 import axios from "axios";
 import { all, call, takeLatest,fork,put,} from "redux-saga/effects";
-import { createBrowserHistory } from 'history';
 
 import {url} from './url'
 import {
@@ -23,15 +22,12 @@ async function mintAPI(data){
 
 function* mint(action){
     let result = yield call(mintAPI,action.data)
-    const history = createBrowserHistory();
     const {data} = result;
-    console.log(data);
     if(data.success){
       yield put({
                 type: MINT_SUCCESS,
                 data: data.response,
             })
-    // history.push(`/user/list/sell`);
     }
 }
 
@@ -72,7 +68,6 @@ function* sendAuctionInfo(action){
             data:data
         })
     }
-    
 }
 
 // 상품 옵션 정보 넣기

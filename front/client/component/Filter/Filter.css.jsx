@@ -3,8 +3,13 @@ import styled from "styled-components";
 export const StyledFilter = styled.div`
   border-right: 1px solid rgb(229,232,235);
   max-height: 80vh;
+  overflow-y: scroll;
   position: sticky;
   top: 94px;
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
 
   .filter_open{
     height: auto;
