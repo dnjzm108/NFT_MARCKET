@@ -28,7 +28,7 @@ startDate,setStartDate}) =>{
     const isPossibleDay = (date) => {
         const currentDate = new Date();
         const selectedDate = new Date(date);
-        return currentDate.getDate() <= selectedDate.getDate();
+        return currentDate.getTime() <= selectedDate.getTime();
     };
 
 
