@@ -144,8 +144,8 @@ const Filter = () => {
 
           <Panal value='가격'>
             <div className='klay'>
-            <img src='./klay.png' alt="" />
-            <span>Klay</span>
+            <img src='./perro.png' alt="" />
+            <span>Perro</span>
             </div>
             
             <div className='price_input'>

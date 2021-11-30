@@ -1,5 +1,6 @@
 import axios from "axios";
-import { all, call, takeLatest,fork,put,getContext} from "redux-saga/effects";
+import { all, call, takeLatest,fork,put,} from "redux-saga/effects";
+
 import {url} from './url'
 import {
     MINT_REQUEST,
@@ -21,16 +22,19 @@ async function mintAPI(data){
 
 function* mint(action){
     let result = yield call(mintAPI,action.data)
-    const {data} = result; 
+    const {data} = result;
     if(data.success){
       yield put({
                 type: MINT_SUCCESS,
-                data: data,
+                data: data.response,
             })
         const history = yield getContext('history');
         history.push('/');
     }
 }
+
+
+
 
 
 // 카테고리 정보 가져오는 API
@@ -66,7 +70,6 @@ function* sendAuctionInfo(action){
             data:data
         })
     }
-    
 }
 
 // 상품 옵션 정보 넣기

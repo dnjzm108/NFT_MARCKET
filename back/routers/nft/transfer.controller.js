@@ -36,21 +36,15 @@ const kip7 = await caver.kct.kip7.deploy(
   },
   deployer.address
 );
-console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
+// console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
 
-console.log(`Token name: ${await kip7.name()}`);
-console.log(`Token symbol: ${await kip7.symbol()}`);
-console.log(`Token decimals: ${await kip7.decimals()}`);
-console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
 
 const kip7Instance = new caver.kct.kip7('0x9700a87945766F28B461ddB4f4097Cb69270fa94')
-  kip7Instance.name().then(console.log)
   const opts = { from: keyring.address }
   //보낼 account 주소를 입력 시키기
   const recipientAddress = '0xbf39AC77B62577D4c8e9c16F278B1C05E87D17E5'
   const value = 100000000000000000000
   const receipt = await kip7Instance.transfer(recipientAddress, value, opts)
-  console.log(receipt)
 
 }
 

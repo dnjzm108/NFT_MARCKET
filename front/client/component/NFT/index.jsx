@@ -1,44 +1,19 @@
 import { StyledNFT } from "./NFT.css";
 import { useState } from "react";
 import { BsSuitHeartFill } from "react-icons/bs";
-import Link from "next/link";
-import Router from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import {UpdateLike} from "../../reducers/explore"
 import {GiBuyCard} from 'react-icons/gi'
 import {RiAuctionFill} from 'react-icons/ri'
 
-const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
-  const dispatch = useDispatch()
+import {useSelector} from "react-redux";
+
+const NFT = ({ type, product_no, price, name, creater, likes, img,isLike,handleClick }) => {
+
   const {user_info,IsLogin} = useSelector(state=>state.user)
   const [isHover, setIsHover] = useState(false);
-  const handleClick = (event) => {
-    if (
-      event.target.className == "like_btn" ||
-      event.target.parentNode.className == "like_btn" ||
-      event.target.parentNode.parentNode.className == "like_btn"
-    ) {
-      
-        const nickname = user_info.nickname;
-        
-        if(nickname==null || nickname==undefined)return;
-
-        const data = {
-          product_no,
-          nickname,
-          isLike,
-          auth:user_info.auth
-        }
-        dispatch(UpdateLike(data))
-
-    } else {
-      Router.push(`/nft/${product_no}`)
-    }
-  };
 
   return (
     <StyledNFT
-      onClick={(e) => handleClick(e)}
+      onClick={(e) => handleClick(e,product_no,isLike)}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => {
         setIsHover(false);
@@ -58,7 +33,7 @@ const NFT = ({ type, product_no, price, name, creater, likes, img,isLike }) => {
           <div className="content_top_right">
             <div>{type == 'buy' ? "Price" : "Bid"}</div>
             <div className="content_price">
-              <img src="/klay.png" alt="" />
+              <img src="/perro.png" alt="" />
               <span>{price}</span>
             </div>
           </div>

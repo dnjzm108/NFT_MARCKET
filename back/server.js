@@ -8,6 +8,7 @@ const http = require('http')
 const server = http.createServer(app)
 // const io = socket(server)
 const cors = require('cors');
+const auction = require('./auction')
 
 
 require('dotenv').config();
@@ -34,7 +35,7 @@ nunjucks.configure('views', {
 app.use('/',router)
 
 socket.wsInit();
-
+auction.check();/// 서버 재시작할때 이미 있는 경매 시간 setTimeout 설정
 server.listen(PORT,()=>{
     console.log(`server start port ${PORT}`)
 })

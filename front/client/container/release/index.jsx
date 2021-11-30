@@ -13,7 +13,7 @@ import { Mint_REQUEST } from '../../reducers/mint';
 import Router from "next/router";
 import Loadding from "../../component/Loadding"
 import { useEffect } from "react";
-
+import {useRouter} from  'next/router'
 const Release = () => {
     const seasons = [
         { name: '봄', code: 'P' },
@@ -22,8 +22,14 @@ const Release = () => {
         { name: '겨울', code: 'I' },
         { name: '기타', code: 'E' },
     ]
+    
 
-    const { isLoading, category } = useSelector(state => state.mint)
+
+
+
+
+
+    const { isLoading, category, mintSuccess } = useSelector(state => state.mint)
 
     const { user_info } = useSelector(state => state.user)
 
@@ -51,6 +57,18 @@ const Release = () => {
     const [bigcate, setBigcate] = useState(category[0].code)
     const [middlecate, setMiddlecate] = useState(category[0].list[0].code)
     const [season, setSeason] = useState(seasons[0].code)
+    const router = useRouter();
+
+    useEffect(()=>{
+        if(mintSuccess){
+            router.push('/user/list/sell')
+        }
+    },[mintSuccess])
+
+
+
+
+
 
 
     // 즉시구매를 선택한 경우
@@ -66,16 +84,17 @@ const Release = () => {
     const fileSelected = event => {
         // 미리보기 이미지 보이게
         const imageFile = event.target.files; //내가 올린 파일들을 target으로 가져오고
-        let arr = [] 
+        let arr = [];
+        let imageUrl = [];
         for (let i = 0; i < imageFile.length; i++) {
-            const imageUrl = URL.createObjectURL(imageFile[i]); // i번째 이미지를 하나하나 url로 만들어서 변수에 담아줌
+            imageUrl = URL.createObjectURL(imageFile[i]); // i번째 이미지를 하나하나 url로 만들어서 변수에 담아줌
             arr.push(imageUrl) // url 하나하나 배열에다가 담아줌
         }
         setImageBundle(arr) // url 배열을 상태로 담음
-        
+
         // 이미지 추가 탐색기 닫았다 열어도 그대로 추가 되게
         let { files } = event.target
-        if (files.length > 10 || images.length + files.length > 10) {    // 파일갯수 10개까지
+        if (files.length > 10 || images.length + files.length > 10) {// 파일갯수 10개까지
             alert('최대 선택할 수 있는 파일 개수는 10개입니다.')
         } else {
             for (let i = 0; i < files.length; i++) {
@@ -83,17 +102,22 @@ const Release = () => {
                     let newFile = []; // 기존 파일 + 추가된 파일 담을 배열
                     for (let i = 0; i < files.length; i++) {
                         newFile.push(files[i])
+                        
                     }
-                    setImages(newFile => [...newFile, files[i]])
+                    // setImages(newFile => [...newFile, files[i]])
+                    setImages(newFile)
                 }
             }
         }
+        
     }
     
     const imageClick = (e) => {
         for (let i = 0; i < imageBundle.length; i++) {
             if (imageBundle[i] == e.target.currentSrc) {
-                return changeArrayOrder(imageBundle,i,-i) , changeArrayOrder(images,i,-i)
+                return changeArrayOrder(imageBundle,i,-i)
+                ,changeArrayOrder(images,i,-i)
+                ,alert("선택되었습니다")
             }
         }
     }
@@ -103,7 +127,7 @@ const Release = () => {
         const temp = list;
         const target = temp.splice(targetidx,1)[0]
         temp.splice(newPosi,0,target)
-        return temp ,alert("선택되었습니다")
+        return temp
     }
 
 
@@ -155,7 +179,7 @@ const Release = () => {
         formData.append("season", season)
         formData.append("auth",user_info.auth)
         dispatch(Mint_REQUEST(formData))
-        Router.push('/')
+
     }
 
 
@@ -179,7 +203,12 @@ const Release = () => {
             return alert('이미지를 선택해주세요')
         } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
             return alert("상품 정보를 입력해주세요")
-        } else {
+        }else if(qtyCheck()){
+            return;
+        }else if(priceCheck()){
+            return;
+        }
+        else {
             infoCheck();
         }
     }
@@ -194,6 +223,49 @@ const Release = () => {
             handleData();
         }
     }
+
+    const qtyCheck = ()=>{
+        for(let i = 0; i<qty.length; i++){
+            const s = qty[i];
+            const pattern = /^[0-9]+$/
+            if(s==''){
+                alert(`${i+1}번째 옵션의 수량을 확인해주세요.`)
+                return true
+            }
+            if(!pattern.test(s)){  
+                alert(`${i+1}번째 옵션: 수량에 숫자만 입력해 주세요.`)
+                return true
+            }
+        }
+        if(colors.length*size.length!=qty.length){
+            alert(`수량을 전부 입력해주세요`)
+                return true
+        }
+        return false;
+    }
+
+    const priceCheck = ()=>{
+        for(let i = 0; i<price.length; i++){
+            const s = price[i];
+            const pattern = /^[0-9]+(.[0-9]+)?$/;
+            if(s==''){
+                alert(`${i+1}번째 옵션의 가격을 확인해주세요.`)
+                return true
+            }
+            if(!pattern.test(s)){  
+                alert(`${i+1}번째 옵션: 가격에는 정수 또는 실수만 입력가능합니다.`)
+                return true
+            }
+        }
+        if(colors.length*size.length!=price.length){
+            alert(`가격을 전부 입력해주세요`)
+                return true
+        }
+        return false;
+    }
+
+
+
 
     if (isLoading == true) {
         return <Loadding />

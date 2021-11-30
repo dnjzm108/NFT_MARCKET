@@ -120,7 +120,7 @@ const Delivery_Address_Component = (props) => {
                             </tr>
                             <tr>
                                 <td>결제금액</td>
-                                <td><img src="/klay.png" alt="" /> {total_price}</td>
+                                <td><img src="/perro.png" alt="" /> {total_price}</td>
                             </tr>
 
                             <tr>

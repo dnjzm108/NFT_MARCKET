@@ -10,6 +10,7 @@ export const Container = styled.div`
     box-shadow: 0 4px 8px rgb(0 0 0 / 8%);
     border-radius: 16px;
     position: absolute;
+    z-index:80;
     margin: 5vh auto;
     overflow-y: scroll;
     top: 45%;

@@ -1,6 +1,5 @@
 
 export const sendToken = async (price,logout) => {
-  console.log(window.klaytn.selectedAddress);
 
     if (window.klaytn.selectedAddress == undefined){
         logout()

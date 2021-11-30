@@ -1,11 +1,11 @@
 const { query, execute } = require("./pool");
-const {isBidSql,newBidSql,addOrderSql,stopAuctionSQL} = require('./sql/auction')
+const {isBidSql,newBidSql,addOrderSql,stopAuctionSQL,findAuctionQuery} = require('./sql/auction')
 const {update_cnt_sql} = require('./sql/product');
 let auctions = {};
 const socket = require('./socket');
 
 
-function updateDeadline(auction_id,product_no,newDeadline) {
+const updateDeadline=(auction_id,product_no,newDeadline)=>{
   clearTimeout(auctions[auction_id]);
   const deadline = new Date(newDeadline).getTime()
   const now = new Date().getTime();
@@ -17,7 +17,7 @@ function updateDeadline(auction_id,product_no,newDeadline) {
 }
 
 
-function startDeadline(auction_id,product_no, deadline) {
+const startDeadline=(auction_id,product_no, deadline)=>{
   const deadTime = new Date(deadline).getTime();
   const now = new Date().getTime();
   const remainTime = deadTime - now;
@@ -28,7 +28,7 @@ function startDeadline(auction_id,product_no, deadline) {
 }
 
 
-async function auctionSuccess(auction_id,product_no) {
+const auctionSuccess= async(auction_id,product_no)=>{
 
   ///일단 경매 입찰자가 있는지 확인.
   // 없다면 경매만 죽이고 종료. 
@@ -55,12 +55,35 @@ async function auctionSuccess(auction_id,product_no) {
     type:'stop',
   }
   socket.broadcast(socketMessage)
+}
 
+const check=async()=>{
+  const auctions  = await query(findAuctionQuery())
+  const now = new Date();
+  if(auctions==undefined)return;
+
+  auctions.forEach((v,i)=>{
+    if(v.deadline<=now && v.status!='stop'){
+      /// 이때는 경매 stop으로 바꾸고 마지막입찰을  낙찰로 바꿔줘야함.
+      auctionSuccess(v.auction_id,v.product_no);
+    }else{
+      //이떄는 경매 셋타임아웃 설정해줘야함.
+      startDeadline(v.auction_id,v.product_no,v.deadline);
+    }
+  })
+
+  console.log('auction setting completed!')
 
 }
+
+
+
+
+
 
 
 module.exports={
   startDeadline,
   updateDeadline,
+  check,
 }

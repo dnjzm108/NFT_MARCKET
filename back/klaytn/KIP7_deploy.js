@@ -24,15 +24,7 @@ const KIP7token = async () => {
       initialSupply: '80000000000000000000000000',
     },
     keyring.address
-  );
-  // console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`);
-
-  // console.log(`Token name: ${await kip7.name()}`);
-  // console.log(`Token symbol: ${await kip7.symbol()}`);
-  // console.log(`Token decimals: ${await kip7.decimals()}`);
-  // console.log(`Token totalSupply: ${await kip7.totalSupply()}`);
-
-
+  )
 }
 
 const send_Token = async (recipient, amount) => {
@@ -49,7 +41,6 @@ const send_Token = async (recipient, amount) => {
     console.log('receipt_error')
     return false
   })
-console.log("Token",receipt);
   return receipt
 }
 
@@ -81,16 +72,10 @@ const send_Klay = async (recipient, amount) => {
       console.log('traction_error')
       return false
     })
-console.log('klay',receipt);
   return receipt
 
 }
-// send_Klay('0x65Abe502eA9bcEC46ed174543df1537F5378eaAa', '0.1')
 
-// const x = '0xde0b6b3a7640000'
-// const base = '0xde0b6b3a7640000'
-// const y  ='1000000000000000000'
-// console.log(Number(x)/Number(y));
 
 const sendKlay = async (recipient, amount) => {
 

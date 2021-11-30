@@ -8,6 +8,7 @@ const {myBuyListQuery,
       completeDeliveryQuery,
       mySellListQuery,
       getOrderInfoQuery,
+      getMyFavoriteQuery,
     } = require('../../sql/mylist');
 const {sendKlay} = require('../../klaytn/KIP7_deploy')
 const {mintNFT} = require('../../klaytn/KIP17');     
@@ -246,6 +247,23 @@ const getMySell = async(req,res)=>{
 
 
 
+const getMyFavorite = async(req,res)=>{
+  const _nickname = req.get('nickname')
+  const {page,status,sort,search} = req.query;
+  const skip = (page-1)*16;
+  const nickname = decodeURIComponent(atob(_nickname)); 
+  const favoriteSql = getMyFavoriteQuery(nickname,sort,status,skip,search);
+  const result = await query(favoriteSql);
+  const data = {
+    list:result,
+    page:page,
+    pageblock:[1],
+    totalPage:1,
+  }
+  res.json(successData(data))
+}
+
+
 
 ///////////////////////////////////////
 /////아래 3개 주문자 확인하는 코드 추가하기 ////
@@ -362,7 +380,8 @@ module.exports={
   updateShipInfo,
   updateInvoiceInfo,
   completeDelivery,
-  getMySell
+  getMySell,
+  getMyFavorite
 
 }
 

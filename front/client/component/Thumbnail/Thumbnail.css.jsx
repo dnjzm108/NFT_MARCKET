@@ -55,18 +55,6 @@ export const Styled_Slide = styled(Slider)`
     left: -1.2vw;
 }
 
-div>button{
-    width: 50px;
-    float: right;
-    border-radius: 30px;
-    border: 1px solid #222;
-    background-color: ${p=> !p.isSelect ? "#222": "white"};
-    color: ${p=> !p.isSelect ?  "white": "#222"};
-    padding: 4px;
-    margin: 6%;
-    cursor: pointer;
-}
-
 div>span>input{
     margin-left: 10px;
 }
@@ -75,12 +63,12 @@ div>div{
     display:flex;
     align-items: center;
     width: 100%;
-    padding: 1.2%;
 }
 
 div>div>img{
     width: 100%;
     height: auto;
+    cursor: pointer;
 }
 
 
