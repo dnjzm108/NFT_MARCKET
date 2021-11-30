@@ -59,6 +59,10 @@ const Release = () => {
     const [season, setSeason] = useState(seasons[0].code)
     const router = useRouter();
 
+    const [optionEntered, setOptionEntered] = useState(false)
+
+
+
     useEffect(()=>{
         if(mintSuccess){
             router.push('/user/list/sell')
@@ -77,6 +81,7 @@ const Release = () => {
     // 경매를 선택한 경우
     const handleAuc = () => {
         setIsNow(false);
+        setOptionEntered(false)
     }
 
     const fileSelected = event => {
@@ -200,7 +205,14 @@ const Release = () => {
             return alert('이미지를 선택해주세요')
         } else if (explain.value == undefined || explain.value == undefined || symbol.value == undefined) {
             return alert("상품 정보를 입력해주세요")
-        } else {
+        } else if ((isNow == true && qty.length == 0) || (isNow == true&&price.length == 0)) {
+            alert("상품 수량과 가격을 입력하세요")
+        }else if(isNow==false && bid==""){
+            alert("경매가격을 입력하세요")
+        }else if ((isNow==false && colors.length==0) || (isNow==false &&size.length==0)){
+            alert("경매 상세 옵션을 입력해주세요")
+        }
+        else {
             infoCheck();
         }
     }
@@ -287,6 +299,9 @@ const Release = () => {
                     seasons={seasons}
                     season={season}
                     setSeason={setSeason}
+
+                    optionEntered={optionEntered}
+                    setOptionEntered={setOptionEntered}
                 />
 
                 <AgreeInfo

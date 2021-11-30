@@ -17,9 +17,9 @@ const ProductOption =
         size, setSize, sizeInput, setSizeInput,
         qty, setQty, price, setPrice,
         bigcate, setBigcate, middlecate, setMiddlecate,
-        seasons, season, setSeason }) => {
+        seasons, season, setSeason, optionEntered,setOptionEntered }) => {
 
-        const [optionEntered, setOptionEntered] = useState(false)
+        
         const { category } = useSelector(state => state.mint)
 
 
@@ -31,18 +31,14 @@ const ProductOption =
             if (colorInput !== "" && sizeInput !== "") {
                 setColors(colorArr)
                 setSize(sizeArr)
+                setOptionEntered(true);
             } else {
                 alert("상품 옵션을 입력해주세요")
             }
-            setOptionEntered(true);
         }
 
         const handleQty = (e, x) => {
             const quantity = e.target.value
-            if(quantity== String){
-                // quantity = '';
-                return alert("숫자만 입력 가능합니다")
-            }
             let newQty = [...qty];
             newQty[x] = e.target.value;
             setQty(newQty);
@@ -169,20 +165,11 @@ const ProductOption =
                 </Options>
                 <OptionCheck>
                     <div className="op_box">
-                        {/* {
-                optionEntered ?
-                <div className="enter_all">
-                    <p>수량 일괄 입력:<input /></p>
-                    <p>가격 일괄 입력:<input /></p>
-                    <button className="enter_all_btn">입력</button>
-                </div>
-                : ""
-            } */}
+                        
                         {
                             optionEntered ?
                                 (<>
                                     {renderOptions()}
-                                    {/* <Button value="옵션 입력 완료" func={handleOption} /> */}
                                 </>
                                 )
                                 : isNow ? <div className="enter_all">옵션선택 완료 버튼을 눌러주세요</div> : ''
