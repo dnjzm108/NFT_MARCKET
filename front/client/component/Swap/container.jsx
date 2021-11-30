@@ -20,7 +20,7 @@ export const Container_Perro = (props) => {
                     <BiDownArrowAlt className="icon" />
 
                     <div className="To" onClick={()=>{props.change_value(false)}}>
-                        <img className="Perr_icon" src="/쉽독.jpg" alt="" />
+                        <img className="Perr_icon" src="/perro.png" alt="" />
                         <p className="perro">Perro</p>
                         {/* <input type="number"  defaultValue={props.klay} min="1" className="perr" placeholder="0.0"/> */}
                         <span className="klayspan" >{props.k2p}</span>
@@ -38,10 +38,9 @@ export const Container_Perro = (props) => {
                         <BiDownArrowAlt className="icon" />
 
                         <div className="To">
-                            <img className="Perr_icon" src="/쉽독.jpg" alt="" />
+                            <img className="Perr_icon" src="/perro.png" alt="" />
                             <p className="perro">Perro</p>
                             <input type="number" defaultValue={props.perr} onChange={(e) => { props.handlePerr(e) }} min="1" className="perr" />
-                            
                             <div className="swap_btn2" onClick={props.SwapPerro}>Click</div>
                         </div>
                     </div>)
@@ -64,7 +63,7 @@ return(
                 {props.currency
                     ? (<div className="Wbox">
                         <div className="From" onClick={()=>{props.change_value(false)}}>
-                            <img className="Perr_icon" src="/쉽독.jpg" alt="" />
+                            <img className="Perr_icon" src="/perro.png" alt="" />
                             <p className="perro">Perro</p>
                             {/* <input type="number"  defaultValue={props.klay} min="1" className="perr" placeholder="0.0"/> */}
                             <span className="klayspan" >{props.p2k}</span>
@@ -82,7 +81,7 @@ return(
                     : (
                         <div className="Wbox2">
                              <div className="From">
-                                <img className="Perr_icon" src="/쉽독.jpg" alt="" />
+                                <img className="Perr_icon" src="/perro.png" alt="" />
                                 <p className="perro">Perro</p>
                                 <input type="number" defaultValue={props.perr} onChange={(e) => {props.handlePerr(e) }} min="1" className="perr" />
                             </div>

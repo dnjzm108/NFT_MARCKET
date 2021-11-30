@@ -95,7 +95,7 @@ const Notice_Delivery = () => {
                                 <tr>
                                     <td>상품가격</td>
                                     <td>| </td>
-                                    <td><img src="/klay.png" alt="" /> {notice_info.price.toFixed(1)}</td>
+                                    <td><img src="/perro.png" alt="" /> {notice_info.price.toFixed(1)}</td>
                                 </tr>
                                 <tr>
                                     <td>수량</td>
@@ -105,7 +105,7 @@ const Notice_Delivery = () => {
                                 <tr>
                                     <td>총 가격</td>
                                     <td>| </td>
-                                    <td><img src="/klay.png" alt="" /> {notice_info.price.toFixed(1) * notice_info.qty}</td>
+                                    <td><img src="/perro.png" alt="" /> {notice_info.price.toFixed(1) * notice_info.qty}</td>
                                 </tr>
                                 <tr>
                                     <td>결제방법</td>

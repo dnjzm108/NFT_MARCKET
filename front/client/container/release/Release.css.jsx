@@ -3,7 +3,7 @@ import Slider from "react-slick";
 
 export const StyledRelease = styled.div`
 
-  width: 80vw;
+  width: 90vw;
   /* height: auto; */
   /* overflow: hidden; */
 

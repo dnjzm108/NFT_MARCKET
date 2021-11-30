@@ -19,6 +19,8 @@ import Deleivery_address from '../Delivery_Address'
 import { useDispatch } from 'react-redux'
 import { Product_Page_Request } from '../../reducers/product';
 import Loadding from '../Loadding'
+import { TiHeartFullOutline } from "react-icons/ti";
+
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css";
@@ -182,13 +184,10 @@ const product_detail = () => {
                             <h3>{product_info[0].product_no}</h3>
                         </div>
                         <div>
-                            <div>
-                                <FavoriteBorderIcon />{product_info[0].likes}
-                            </div>
                             {likes ?
-                                <button style={{ background: "#6e0606" }} onClick={onclickLike}><FavoriteBorderIcon /></button>
+                                <button style={{ color: "red" }} onClick={onclickLike}> <TiHeartFullOutline size="25" />{product_info[0].likes}</button>
                                 :
-                                <button onClick={onclickLike}><FavoriteBorderIcon /></button>
+                                <button onClick={onclickLike}> <FavoriteBorderIcon />{product_info[0].likes}</button>
                             }
 
                         </div>
@@ -212,11 +211,15 @@ const product_detail = () => {
                                         <SelectBox {...category} />
                                     </div>
                                 </FixBox>
-                                <FixBox>
-                                    <div>
-                                        <SelectBox {...qty} />
-                                    </div>
-                                </FixBox>
+                                {qty_list.length !== 0 ?
+                                    <FixBox>
+                                        <div>
+                                            <SelectBox {...qty} />
+                                        </div>
+                                    </FixBox>
+                                    : ''
+                                }
+
                             </>
                             :
                             <div>
@@ -234,12 +237,18 @@ const product_detail = () => {
 
                     {product_info[0].type == "buy" ?
                         <Price_contain>
-                            <h2> <img src="/klay.png" alt="" /> {product_info[`${option}`].price.toFixed(1)}</h2>
-                            <Button value="즉시 구매" color="sky" func={handlePopupImmy} />
+                            <h2>
+                                <img src="/perro.png" alt="" /> {product_info[`${option}`].price.toFixed(1)}
+                            </h2>
+                            {qty_list.length !== 0 ?
+                                <Button value="즉시 구매" color="sky" func={handlePopupImmy} />
+                                :
+                                <h3>매진</h3>
+                            }
                         </Price_contain>
                         :
                         <Price_contain>
-                            <h2>경매 시작가 - <img src="/klay.png" alt="" /> {parseFloat(product_info[`${option}`].price)}</h2>
+                            <h2>경매 시작가 - <img src="/perro.png" alt="" /> {parseFloat(product_info[`${option}`].price)}</h2>
 
                         </Price_contain>}
 

@@ -88,16 +88,17 @@ const Release = () => {
     const fileSelected = event => {
         // 미리보기 이미지 보이게
         const imageFile = event.target.files; //내가 올린 파일들을 target으로 가져오고
-        let arr = [] 
+        let arr = [];
+        let imageUrl = [];
         for (let i = 0; i < imageFile.length; i++) {
-            const imageUrl = URL.createObjectURL(imageFile[i]); // i번째 이미지를 하나하나 url로 만들어서 변수에 담아줌
+            imageUrl = URL.createObjectURL(imageFile[i]); // i번째 이미지를 하나하나 url로 만들어서 변수에 담아줌
             arr.push(imageUrl) // url 하나하나 배열에다가 담아줌
         }
         setImageBundle(arr) // url 배열을 상태로 담음
-        
+
         // 이미지 추가 탐색기 닫았다 열어도 그대로 추가 되게
         let { files } = event.target
-        if (files.length > 10 || images.length + files.length > 10) {    // 파일갯수 10개까지
+        if (files.length > 10 || images.length + files.length > 10) {// 파일갯수 10개까지
             alert('최대 선택할 수 있는 파일 개수는 10개입니다.')
         } else {
             for (let i = 0; i < files.length; i++) {
@@ -105,11 +106,14 @@ const Release = () => {
                     let newFile = []; // 기존 파일 + 추가된 파일 담을 배열
                     for (let i = 0; i < files.length; i++) {
                         newFile.push(files[i])
+                        
                     }
-                    setImages(newFile => [...newFile, files[i]])
+                    // setImages(newFile => [...newFile, files[i]])
+                    setImages(newFile)
                 }
             }
         }
+        
     }
     
     const imageClick = (e) => {

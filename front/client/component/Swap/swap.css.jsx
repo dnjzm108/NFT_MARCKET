@@ -146,8 +146,10 @@ export const StyledSwap = styled.div`
     }
 
     .Perr_icon{
-        width: 40px;
-        border-radius: 140px;
+        width: 60px;
+        position: relative;
+        top: -20px;
+        left: -15px;
     }
 
     
@@ -168,7 +170,7 @@ export const StyledSwap = styled.div`
         position:sticky;
         height: 32px;
         border-radius: 30px;
-        margin-top: 45px;
+        margin-top: 13px;
         padding: 5px;
         font-weight: bold;
     } 
