@@ -88,7 +88,7 @@ const other_product_sql = (sql) =>{
         `SELECT A.product_no,B.img FROM product as A
         LEFT JOIN product_image as B
         ON B.product_no = A.product_no
-        WHERE A.product_no LIKE "${sql}%" AND A.product_no NOT IN (?)
+        WHERE A.product_no LIKE "${sql}%" AND A.product_no NOT IN (?) AND A.type != "stop"
         GROUP BY A.product_no
         ORDER BY A.likes DESC
         LIMIT 4`

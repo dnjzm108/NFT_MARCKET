@@ -33,7 +33,7 @@ const NFT = ({ type, product_no, price, name, creater, likes, img,isLike,handleC
           <div className="content_top_right">
             <div>{type == 'buy' ? "Price" : "Bid"}</div>
             <div className="content_price">
-              <img src="/klay.png" alt="" />
+              <img src="/perro.png" alt="" />
               <span>{price}</span>
             </div>
           </div>

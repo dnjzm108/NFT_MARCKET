@@ -215,7 +215,11 @@ export const Price_contain = styled.div`
     width: 50px;
     height: 50px;
     position: relative;
-    top:5px
+    top:10px
+}
+& > h3 {
+    font-size: 2rem;
+    padding: 20px;
 }
 `
 export const Auction_contain = styled.div`
