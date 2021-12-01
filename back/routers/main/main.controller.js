@@ -7,6 +7,7 @@ const {
   getBuyListSql,
   getAuctionListSql,
   checkLikeSql,
+  getEndListSql,
   insertLikeSql,
   deleteLikeSql,
 } = require('../../sql/main')
@@ -43,6 +44,9 @@ const getMainInit = async(req,res) => {
     case 'auction':
       listSql=getAuctionListSql(params);
       break;
+    case 'end':
+      listSql=getEndListSql(params);
+      break;
     case 'all': default:
       listSql=getAllListSql(params);
       break;
@@ -78,6 +82,9 @@ const getMain = async(req,res)=>{
     case 'auction':
       listSql=getAuctionListSql(params,nickname);
       break;
+      case 'end':
+        listSql=getEndListSql(params);
+        break;
     case 'all': default:
       listSql=getAllListSql(params,nickname);
       break;

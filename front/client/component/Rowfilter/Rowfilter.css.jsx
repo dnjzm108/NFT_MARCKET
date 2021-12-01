@@ -55,7 +55,7 @@ export const StyledRowFilter = styled.div`
   .sort_absolute{
     position:absolute;
     top:-6px;
-    z-index: 4;
+    z-index: 1;
   }
 
 

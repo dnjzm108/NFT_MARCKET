@@ -6,7 +6,8 @@ import {StyledSearchView, StyledSearchViewItem} from './SearchView.css'
 const type = {
   'all':'전체',
   'buy':'즉시구매',
-  'auction':'경매'
+  'auction':'경매',
+  'end':'판매종료'
 }
 
 

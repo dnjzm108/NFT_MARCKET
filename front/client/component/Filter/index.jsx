@@ -20,7 +20,8 @@ const Filter = () => {
   const [open, setOpen] = useState(true);
   const typeList = [
     {name:'즉시구매',code:'buy'},
-    {name:'경매',code:'auction'}
+    {name:'경매',code:'auction'},
+    {name:'판매종료',code:'end'},
   ]
 
   const Min = useInput('');
