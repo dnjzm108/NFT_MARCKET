@@ -6,6 +6,7 @@ const initialState = {
     code:null,
     message:null,
   },
+  receipt:null,
   pageblock: [1],
   endpage: 1,
   list: [],
@@ -50,6 +51,9 @@ export const DELETE_FAVORITE_REQUST = 'DELETE_FAVORITE_REQUST';
 export const DELETE_FAVORITE_SUCCESS = 'DELETE_FAVORITE_SUCCESS';
 export const DELETE_FAVORITE_ERROR = 'DELETE_FAVORITE_ERROR';
 
+export const GET_RECEIPT_REQUST='GET_RECEIPT_REQUST'
+export const GET_RECEIPT_SUCCESS='GET_RECEIPT_SUCCESS'
+export const GET_RECEIPT_ERROR='GET_RECEIPT_ERROR'
 
 export const DeleteFavorite = data =>{
   return{
@@ -58,6 +62,12 @@ export const DeleteFavorite = data =>{
   }
 }
 
+export const getReceiptRequest = data =>{
+  return{
+    type:GET_RECEIPT_REQUST,
+    data
+  }
+}
 
 
 export const ListUpdateRequest = data => {
@@ -158,12 +168,18 @@ const reducer = (state = initialState,action) => {
               },
           }
 
-      case LIST_ADD_SUCCESS:
-          return{
-              ...state,
-              list:[...state.list,action.data.list],
-              isLoading:false
-          }
+      case LIST_ADD_SUCCESS:{
+        let newList = [...state.list];
+        if(action.data.list.length>0){
+          newList = [...state.list,action.data.list];
+        }
+
+        return{
+          ...state,
+          list:newList,
+          isLoading:false
+        }
+      }
 
       case LIST_ADD_ERROR:
           return{
@@ -289,6 +305,33 @@ const reducer = (state = initialState,action) => {
           isLoading:false,
         }
       }
+
+      case GET_RECEIPT_REQUST :{
+        return{
+          ...state,
+          isLoading:true,
+        
+      }
+    }
+
+      case GET_RECEIPT_SUCCESS :
+        console.log(action.data)
+        return{
+          ...state,
+          isLoading:false,
+          receipt:{...action.data}
+        }
+      
+      
+      case GET_RECEIPT_ERROR:{
+        return{
+          ...state,
+          isLoading:false,
+        
+      }
+    }
+
+
       default:
           return state
   }

@@ -149,11 +149,32 @@ let order = async (req, res) => {
 
 ///옵션 값에 따라 데드라인 확인해서 셋타임아웃 조정.데드라인도 업데이트 
 // 
-let applyauction = async (req, res) => {
-    let { product_no, option, deadline, auction_id, bider, bid, auction_history_id } = req.body
-
-
+let applyauction = async (req,res) =>{
+    let {product_no,option,deadline,auction_id,bider,bid,auction_history_id, payment} = req.body
+    const {paider,price} = payment; 
     const nowTime = new Date();
+    const lastBidsql = `
+    LOCK TABLES auction_history WRITE;
+    SELECT 
+		                              *
+                          FROM 
+		                              auction_history
+                          WHERE
+		                              auction_id='${auction_id}'
+                          ORDER BY 
+                                  date DESC
+                          LIMIT 1`
+    
+    const [lastBid] = await query(lastBidsql);
+    if(bid<=lastBid.bid || deadline<=nowTime){
+        send_Token(paider,price)
+        await query(`UNLOCK TABLES;`)
+        res.json(errorData(0,"새로운 가격으로 다시 입찰해주세요."))
+        return;
+    }
+
+
+
     let newDeadline = deadline;
     if (option) {
         const deadlineUpdateSql = `UPDATE auction SET deadline=DATE_ADD(deadline, INTERVAL 5 MINUTE) where auction_id='${auction_id}';`
@@ -169,16 +190,18 @@ let applyauction = async (req, res) => {
     let update_detail = await execute(bid_auction_sql(), history_parms)
     const inserted_bid = update_detail.insertId
     //이전 기록이 있을경우 유찰로 바꿔주기
-    if (auction_history_id !== null) {
-        let chage_parms = [auction_history_id]
-        let chage_history = await execute(chage_history_sql(), chage_parms)
+    if(lastBid){
+        let chage_parms = [lastBid.auction_history_id]
+        let chage_history = await execute(chage_history_sql(),chage_parms)
 
-        let [history_info] = await execute(history_info_sql(), chage_parms)
-        let { bid, wallet } = history_info
-        send_Token(wallet, bid)
-    }
-    if (auction_id !== undefined && bider !== undefined && bid !== undefined && auction_history_id !== undefined) {
-        const socketMessage = {
+        let [history_info] = await execute(history_info_sql(),chage_parms)
+        let {bid,wallet} = history_info
+        send_Token(wallet,bid)
+    } 
+
+    await query(`UNLOCK TABLES;`)
+    if(auction_id !== undefined && bider !== undefined && bid !== undefined && auction_history_id !== undefined ){
+        const socketMessage={
             product_no,
             type: 'auction',
             bider,
@@ -193,6 +216,7 @@ let applyauction = async (req, res) => {
     } else {
         res.json(successData(false))
     }
+    
 }
 
 let notice_order = async (req, res) => {

@@ -1,8 +1,9 @@
 import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import Link from "next/dist/client/link";
-
+import { getReceiptRequest } from "../../../reducers/mylist";
+import {multipFloat} from '../../../util/float'
 
 
 
@@ -25,13 +26,33 @@ const AuctionSellItem = (
     auction_id,
     likes,
     handleInvoicePopUp,
-    handleInvoiceTarget
+    handleInvoiceTarget,
+    handleOrderTarget,
+    handleOrderPopUp,
+    handleReceiptPopUp,
 }) => {
-
+  const dispatch = useDispatch();
+  const {user_info} = useSelector(state=>state.user)
   const handleInvoice = (data) =>{
     handleInvoiceTarget(data)
       handleInvoicePopUp(true)
   }
+
+  const handleOrder = (data) =>{
+    handleOrderTarget(data)
+    handleOrderPopUp(true)
+  }
+
+    
+  const handleReceipt = (order_id)=>{
+    const data = {
+      order_id,
+      nickname:user_info.nickname,
+      auth:user_info.auth,}
+    dispatch(getReceiptRequest(data));
+    handleReceiptPopUp(true);
+  }
+
 
 
   const renderStatus = (type)=>{
@@ -59,7 +80,7 @@ const AuctionSellItem = (
         return(
           <>
            <div>구매완료</div>
-           <button className='list_btn completed'>영수증</button>
+           <button className='list_btn completed' onClick={()=>handleReceipt(order_id)}>영수증</button>
           </>
           )
       default:
@@ -120,7 +141,7 @@ const AuctionSellItem = (
         <div>
         {order_id}
         </div>
-        <button className='list_btn order'>
+        <button className='list_btn order' onClick={()=>handleOrder(order_id)}>
             주문서 보기
         </button>
         </>

@@ -26,4 +26,5 @@ router.get('/favorite',checkHeader,listController.getMyFavorite);
 router.post('/ship',checking,listController.updateShipInfo);
 router.put('/invoice',checking,listController.updateInvoiceInfo);
 router.put('/delivery',checking,listController.completeDelivery);
+router.get('/receipt',checkHeader,listController.getReceipt);
 module.exports = router
