@@ -59,6 +59,10 @@ const Release = () => {
     const [season, setSeason] = useState(seasons[0].code)
     const router = useRouter();
 
+    const [optionEntered, setOptionEntered] = useState(false)
+
+
+
     useEffect(()=>{
         if(mintSuccess){
             router.push('/user/list/sell')
@@ -79,12 +83,13 @@ const Release = () => {
     // 경매를 선택한 경우
     const handleAuc = () => {
         setIsNow(false);
+        setOptionEntered(false)
     }
 
     const fileSelected = event => {
         // 미리보기 이미지 보이게
         const imageFile = event.target.files; //내가 올린 파일들을 target으로 가져오고
-        let arr = [];
+        let arr = [...imageBundle]; 
         let imageUrl = [];
         for (let i = 0; i < imageFile.length; i++) {
             imageUrl = URL.createObjectURL(imageFile[i]); // i번째 이미지를 하나하나 url로 만들어서 변수에 담아줌
@@ -102,10 +107,9 @@ const Release = () => {
                     let newFile = []; // 기존 파일 + 추가된 파일 담을 배열
                     for (let i = 0; i < files.length; i++) {
                         newFile.push(files[i])
-                        
                     }
-                    // setImages(newFile => [...newFile, files[i]])
-                    setImages(newFile)
+                    setImages(newFile => [...newFile, files[i]])
+                    // setImages(newFile)
                 }
             }
         }
@@ -338,6 +342,9 @@ const Release = () => {
                     seasons={seasons}
                     season={season}
                     setSeason={setSeason}
+
+                    optionEntered={optionEntered}
+                    setOptionEntered={setOptionEntered}
                 />
 
                 <AgreeInfo

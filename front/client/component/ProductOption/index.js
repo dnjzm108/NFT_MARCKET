@@ -17,9 +17,9 @@ const ProductOption =
         size, setSize, sizeInput, setSizeInput,
         qty, setQty, price, setPrice,
         bigcate, setBigcate, middlecate, setMiddlecate,
-        seasons, season, setSeason }) => {
+        seasons, season, setSeason, optionEntered,setOptionEntered }) => {
 
-        const [optionEntered, setOptionEntered] = useState(false)
+        
         const { category } = useSelector(state => state.mint)
 
 
@@ -31,10 +31,10 @@ const ProductOption =
             if (colorInput !== "" && sizeInput !== "") {
                 setColors(colorArr)
                 setSize(sizeArr)
+                setOptionEntered(true);
             } else {
                 alert("상품 옵션을 입력해주세요")
             }
-            setOptionEntered(true);
         }
 
         const handleQty = (e, x) => {
@@ -77,11 +77,13 @@ const ProductOption =
                     <ul key={i} className="option_ul">
                         {size.map((s, j) => {
                             return (
+                                <>
                                 <li key={j} className="option_li">
                                     <h1>{`${c},${s}`} </h1>
-                                    <p>수량 입력: <input onChange={(e) => handleQty(e, i * slength + j)}     onBlur={(e)=>handleQtyCheck(e,i * slength + j)} /></p>
-                                    <p>가격 입력: <input onChange={(e) => handlePrice(e, i * slength + j)}   onBlur={(e) => handlePriceCheck(e, i * slength + j)} /></p>
+                                    <p><input onChange={(e) => handleQty(e, i * slength + j)}     onBlur={(e)=>handleQtyCheck(e,i * slength + j)} placeholder="수량을 입력해주세요"/></p>
+                                    <p><input onChange={(e) => handlePrice(e, i * slength + j)}   onBlur={(e) => handlePriceCheck(e, i * slength + j)} placeholder="가격을 입력해주세요"/></p>
                                 </li>
+                                </>
                             )
                         }
                         )}
@@ -131,24 +133,26 @@ const ProductOption =
                                     <OptionBox list={seasons} onClick={handleSeason} now={season} />
                                 </div>
                             </div>
-                            <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요.
-                                <p>예시 ) 색상 : black,white,beige,brown (O)
-                                    사이즈 : S / M / L (X)  S,M,L (O)</p>
-                            </h3>
-                            <h3> 색상 옵션 또는 사이즈 옵션 이외에 기타 옵션을 적으셔도 됩니다.
-                                <p>예시 ) 잠옷 세트 / 상의 / 하의를 따로 판매하고싶은 경우 , <br/>
-                                
-                                </p>
-                            </h3>
+                            <div className="option_explain">
+                                <h3> 주의 사항 : 옵션은 " , "를 기준으로 나눠 표기해주세요.
+                                    <p>예시 ) 색상 : black,white,beige,brown (O)
+                                        사이즈 : S / M / L (X)  S,M,L (O)</p>
+                                </h3>
+                                <h3> 색상 옵션 또는 사이즈 옵션 이외에 기타 옵션을 적으셔도 됩니다.
+                                    <p>예시 ) 잠옷 세트 / 상의 / 하의를 따로 판매하고싶은 경우 , <br />
+                                        색상 : 갈색 &  사이즈 : 잠옷 세트, 상의, 하의
+                                    </p>
+                                </h3>
+                            </div>
                             <div className="select_option">
-                                <span><p>색상 :</p>
+                                <span><p>색상 </p>
                                     <input type="text"
                                         defaultValue={colors}
                                         onChange={(e) => { setColorInput(e.target.value) }}
                                         placeholder="색상 옵션을 입력하세요 ex) 검정,아이보리,회색"
                                     />
                                 </span>
-                                <span><p>사이즈 :</p>
+                                <span><p>사이즈 </p>
                                     <input
                                         type="text"
                                         defaultValue={size}
@@ -183,22 +187,13 @@ const ProductOption =
 
                     </div>
                 </Options>
-                <OptionCheck>
+                <OptionCheck qty={qty} price={price}>
                     <div className="op_box">
-                        {/* {
-                optionEntered ?
-                <div className="enter_all">
-                    <p>수량 일괄 입력:<input /></p>
-                    <p>가격 일괄 입력:<input /></p>
-                    <button className="enter_all_btn">입력</button>
-                </div>
-                : ""
-            } */}
                         {
                             optionEntered ?
                                 (<>
+                                    <span><h3>OPTION</h3><p>QTY</p><p>PRICE</p></span>
                                     {renderOptions()}
-                                    {/* <Button value="옵션 입력 완료" func={handleOption} /> */}
                                 </>
                                 )
                                 : isNow ? <div className="enter_all">옵션선택 완료 버튼을 눌러주세요</div> : ''
