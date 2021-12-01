@@ -8,7 +8,6 @@ async function tokenSwapAPI(data){
 
 function* swapSaga(action){
     let result = yield call(tokenSwapAPI,action.data)
-    console.log('사가 결과',result.data);
     const {success} = result.data; 
     if(success){
         yield put({

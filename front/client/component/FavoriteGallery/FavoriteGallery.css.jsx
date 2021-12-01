@@ -1,24 +1,38 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const StyledRowFilter = styled.div`
+export const StyledFavoriteGalley = styled.div`
+ width: auto;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 28px;
+` 
+
+
+export const Header = styled.div`
+  position: relative;
   width: 100%;
-  padding: 20px 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size:2vw;
+  padding: 28px;
+  /* border-bottom: 3px solid black; */
+  &>h3{
+    margin-right: 24px;
+  }
 
-
-
-  .add-box{
+  .absolute{
+    position: absolute;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-
+    top:28px;
+    z-index: 100;
+    right:70px;
   }
 
   .search-box{
-    width: 60%;
+    width: 40%;
   height: 100%;
   padding: .625rem .75rem;
 
@@ -44,20 +58,4 @@ export const StyledRowFilter = styled.div`
     border: none;
     outline: none;
   }
-
-  .sort_relative{
-    position:relative;
-    width: 240px;
-    height: 50px;
-
-  }
-
-  .sort_absolute{
-    position:absolute;
-    top:-6px;
-    z-index: 4;
-  }
-
-
-
 `

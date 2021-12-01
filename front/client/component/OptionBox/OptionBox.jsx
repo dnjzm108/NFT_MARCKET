@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { RiArrowDownSLine} from "react-icons/ri"
+import Loadding from "../Loadding";
 
 import { StyledSelectBox,SelectHeader,SelectBody,SelectItem} from "./OptionBox.css";
 
@@ -33,6 +34,9 @@ const OptionBox = ({list,onClick,now,width}) => {
     })
   }
 
+  if(list==undefined){
+    return <Loadding/>
+  }
 
   return(
     <StyledSelectBox width={box_width()}>
