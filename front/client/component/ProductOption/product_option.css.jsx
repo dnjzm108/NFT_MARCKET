@@ -95,6 +95,7 @@ export const OptionCheck= styled.div`
     padding: 4%;
     text-align: center;
     border-bottom: 1px solid black;
+    margin-bottom: 5vh;
 }
 .op_box>span>h3{
     width: 6vw;
