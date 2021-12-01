@@ -27,7 +27,7 @@ export const Header = styled.div`
     display: flex;
     flex-direction: row;
     top:28px;
-    z-index: 100;
+    z-index: 2;
     right:70px;
   }
 
