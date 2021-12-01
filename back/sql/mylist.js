@@ -146,7 +146,7 @@ function myBuyListQuery(query,type){
   sql+=`\nORDER BY `
   switch(sort){
     case 'like':
-      sql+='likes DESC';
+      sql+='likes DESC,order_date ASC';
       break;
     case 'old':
       sql+='order_date ASC';
@@ -157,15 +157,15 @@ function myBuyListQuery(query,type){
       break;
 
     case 'low':
-      sql+='total ASC';
+      sql+='total ASC,order_date ASC';
       break;
 
     case 'high':
-      sql+='total DESC';
+      sql+='total DESC,order_date ASC';
       break;
 
     default:
-      sql+='order_date DESC';
+      sql+='order_date DESC,order_date ASC';
   }
 
   sql+= `\n LIMIT ${(page-1)*rows},${rows}`
@@ -284,22 +284,22 @@ function myAuctionListQuery(query,type){
   sql+=`\nORDER BY `
   switch(sort){
     case 'like':
-      sql+='P.likes DESC';
+      sql+='P.likes DESC,H.date ASC';
       break;
     case 'old':
       sql+='H.date ASC';
       break;
     case 'new':
-      sql+='H.date DESC';
+      sql+='H.date DESC,H.date ASC';
       break;
     case 'dead':
-      sql+='A.deadline ASC'
+      sql+='A.deadline ASC,H.date ASC'
       break;
     case 'low':
-      sql+='H.bid ASC';
+      sql+='H.bid ASC,H.date ASC';
       break;
     case 'high':
-      sql+='H.bid DESC';
+      sql+='H.bid DESC,H.date ASC';
       break;
     default:
       sql+='H.date DESC';
@@ -458,7 +458,7 @@ function myAuctionSellListQuery(query,type){
   sql+=`\nORDER BY `
   switch(sort){
     case 'like':
-      sql+='P.likes DESC';
+      sql+='P.likes DESC,P.date ASC';
       break;
     case 'old':
       sql+='P.date ASC';
@@ -467,13 +467,13 @@ function myAuctionSellListQuery(query,type){
       sql+='P.date DESC';
       break;
     case 'dead':
-      sql+='A.deadline DESC'
+      sql+='A.deadline DESC,P.date ASC'
       break;
     case 'low':
-      sql+='L.latest ASC';
+      sql+='L.latest ASC,P.date ASC';
       break;
     case 'high':
-      sql+='L.latest DESC';
+      sql+='L.latest DESC,P.date ASC';
       break;
     default:
       sql+='P.date DESC';
@@ -557,7 +557,7 @@ function myImmySellAllListQuery(query,type){
   sql+=`\nORDER BY `
   switch(sort){
     case 'like':
-      sql+='P.likes DESC';
+      sql+='P.likes DESC,P.date ASC';
       break;
     case 'old':
       sql+='P.date ASC';
@@ -670,13 +670,13 @@ function myImmySellListQuery(query,type){
   sql+=`\nORDER BY `
   switch(sort){
     case 'like':
-      sql+='P.likes DESC';
+      sql+='P.likes DESC ,O.date ASC';
       break;
     case 'low':
-      sql+='total ASC';
+      sql+='total ASC ,O.date ASC';
       break;
     case 'high':
-      sql+='total DESC';
+      sql+='total DESC ,O.date ASC';
       break;
     case 'old':
       sql+='O.date ASC';
@@ -860,11 +860,11 @@ ORDER BY ${sortCheck(sort)},bid_date DESC
   function sortCheck(sort){
     switch(sort){
       case 'like':
-        return 'likes DESC';
+        return 'likes DESC,date ASC';
       case 'high':
-          return 'lastprice DESC';
+          return 'lastprice DESC ,date ASC';
       case 'low':
-          return 'lastprice ASC';
+          return 'lastprice ASC ,date ASC';
       case 'old':
         return 'date ASC';
       case 'new': default:
@@ -881,13 +881,13 @@ function getMyFavoriteQuery(nickname,sort,status,skip,search){
 
   switch(sort){
     case 'like':
-      order += 'likes DESC'
+      order += 'likes DESC,date ASC'
       break;
     case 'high':
-      order+='price DESC'
+      order+='price DESC,date ASC'
       break; 
     case 'low':
-      order+='price ASC'
+      order+='price ASC,date ASC'
       break;
     case 'old':
       order+='date ASC'

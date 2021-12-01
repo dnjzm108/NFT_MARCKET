@@ -236,7 +236,6 @@ NATURAL JOIN(
         ON Q.product_id=A.product_id
 ) AS D
 WHERE 
-
     (leftover=0 OR type='stop') ${where} 
 ${order}
 LIMIT 
