@@ -70,9 +70,9 @@ async function immyAPI(data){
 
 function* apply_immy(action){
     let result = yield call(immyAPI, action.data)
+let {success,error} = result.data
 
-
-    if(result.data.error == null){
+    if(success){
         yield put({
             type: 'IMMY_SUCCEESS',
             data : result.data.response
@@ -81,7 +81,7 @@ function* apply_immy(action){
         yield put({
             type: 'IMMY_ERROR'
         })
-        alert(result.data.error.message)
+        alert(error.message)
     }
 } 
 

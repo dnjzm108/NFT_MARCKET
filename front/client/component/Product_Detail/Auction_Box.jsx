@@ -78,7 +78,7 @@ const {auction_info,auction_history} = product_state;
                         return(
                             <tr key={i}>
                             <td>{v.date}</td>
-                            <td><img src="/perro.png"/>{v.bid}</td>
+                            <td><img src="/perro.png"/>{Number(v.bid).toFixed(1)}</td>
                             <td>{v.bider}</td>
                         </tr>
                         )

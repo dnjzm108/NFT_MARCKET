@@ -49,13 +49,13 @@ const Delivery_Address_Component = (props) => {
     const receive = (e) => {
         setRecieveType(e.target.value)
     }
-    const total_price = product_info[option].price.toFixed(1) * select_qty
+    const total_price = Number(product_info[option].price).toFixed(1) * select_qty
     const handleOrder = async () => {
 
         if (Recipient.value !== undefined && recieveType !== undefined && Ponenumber.value !== undefined && address_detail.value !== undefined && address !== '') {
             const order_info = {
                 product_id: product_info[option].product_id,
-                price: product_info[option].price,
+                price: Number(product_info[option].price).toFixed(1),
                 buyer: data.user_info.nickname,
                 qty: select_qty,
                 product_no: product_info[option].product_no,
@@ -67,10 +67,10 @@ const Delivery_Address_Component = (props) => {
                 rest: product_info[option].rest,
                 leftover: product_info[option].leftover,
                 nickname: data.user_info.nickname,
-                auth: data.user_info.auth
+                auth: data.user_info.auth,
+                wallet:data.user_info.wallet
             }
             let payment = await sendToken(total_price, logout)
-            console.log(payment);
             if (payment !== undefined) {
                 dispatch(Apply_Immy(order_info))
             }
@@ -80,9 +80,14 @@ const Delivery_Address_Component = (props) => {
         }
     }
     useEffect(() => {
-        if (notice_page !== '') {
-
-            Router.push(`/notice/${notice_page}`)
+        if(notice_page == ''){
+            
+        }else{
+            if (notice_page !== 'error') {
+                Router.push(`/notice/${notice_page}`)
+            }else if(notice_page == 'error'){
+                props.handlePopup()
+            }
         }
 
     }, [notice_page])
@@ -120,7 +125,7 @@ const Delivery_Address_Component = (props) => {
                             </tr>
                             <tr>
                                 <td>결제금액</td>
-                                <td><img src="/perro.png" alt="" /> {total_price}</td>
+                                <td><img src="/perro.png" alt="" /> {Number(total_price).toFixed(1)}</td>
                             </tr>
 
                             <tr>
