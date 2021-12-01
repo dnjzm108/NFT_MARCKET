@@ -18,11 +18,15 @@ import {LIST_UPDATE_REQUEST,
     LIST_ADD_REQUEST,
     LIST_ADD_SUCCESS,
     LIST_ADD_ERROR,
+    GET_RECEIPT_REQUST,
+    GET_RECEIPT_SUCCESS,
+    GET_RECEIPT_ERROR,
 } from '../reducers/mylist'
 
 import {url} from './url'
 
 async function myListAPI(data){
+    console.log(data)
     let {params,nickname,auth} = data
     const _nickname = btoa(encodeURIComponent(nickname));
     const config = {
@@ -50,7 +54,20 @@ async function myListAPI(data){
 
   async function updateLikeAPI(data){
     return  await axios.put(`${url}/main/like`,data)
-}
+    }
+
+  async function getReceiptAPI(data){
+    let {order_id,nickname,auth} = data
+    const _nickname = btoa(encodeURIComponent(nickname));
+    const config = {
+        params:{order_id},
+        headers:{
+            'nickname':_nickname,
+            'auth':auth,
+          },
+    }
+      return await axios.get(`${url}/user/receipt`,config)
+    }
 
 
 function* getMyList(action){
@@ -109,7 +126,6 @@ function* updateInvoice(action){
     const result = yield call(updateInvoiceAPI,action.data)
     const {data} = result; 
     if(data.success){
-        
       yield put({
                 type:UPDATE_INVOICE_SUCCESS,
                 data:data.response,
@@ -161,6 +177,23 @@ function* deleteFavorite(action){
 }
 
 
+function* getReceipt(action){
+    const result = yield call(getReceiptAPI,action.data)
+    const {data} = result; 
+    if(data.success){
+        yield put({
+                type:GET_RECEIPT_SUCCESS,
+                data:data.response,
+            })
+    }else{
+            yield put({
+                type:GET_RECEIPT_ERROR,
+                data,
+            })
+        }
+}
+
+
 
 
 
@@ -189,6 +222,10 @@ function* watchDeleteFavorite(){
     yield takeLatest(DELETE_FAVORITE_REQUST,deleteFavorite)
 }
 
+function* watchGetReceipt(){
+    yield takeLatest(GET_RECEIPT_REQUST,getReceipt)
+}
+
 
 
 
@@ -200,5 +237,6 @@ export default function* MyListSaga(){
         fork(watchDelivery),
         fork(watchDeleteFavorite),
         fork(watchMyFavorite),
+        fork(watchGetReceipt)
     ])
 }

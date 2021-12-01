@@ -102,14 +102,14 @@ const stopAuctionSQL=(auction_id,isSoldout)=>{
 
 const findAuctionQuery = () =>{
   return`
-  SELECT A.auction_id,A.deadline,V.status,D.product_no
+  SELECT A.auction_id,A.deadline,P.type,D.product_no
 FROM auction AS A 
 LEFT JOIN orders AS O
 ON A.product_id=O.product_id
 LEFT JOIN product_detail AS D 
 ON D.product_id=A.product_id
-LEFT JOIN delivery AS V
-ON O.order_id=V.order_id
+LEFT JOIN product AS P
+ON D.product_no=P.product_no
 GROUP BY product_no
 ;
   `

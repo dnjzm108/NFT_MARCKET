@@ -364,6 +364,21 @@ const completeDelivery = async(req,res)=>{
 
 
 
+const getReceipt = async(req,res) =>{
+  const {order_id} = req.query;
+  const order_info =await execute(getOrderInfoQuery(),[order_id]);
+  let data = {...order_info[0]};
+  data.tokenId =[];
+  order_info.forEach(v=>{
+    data.tokenId.push(v.tokenId);
+  })
+  console.log(data)
+
+  res.json(successData(data))
+}
+
+
+
 
 
 
@@ -381,7 +396,8 @@ module.exports={
   updateInvoiceInfo,
   completeDelivery,
   getMySell,
-  getMyFavorite
+  getMyFavorite,
+  getReceipt
 
 }
 

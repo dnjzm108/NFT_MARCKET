@@ -2,7 +2,8 @@ import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/dist/client/link";
-import { UpdateDeliveryRequest,TransactionRequest } from "../../../reducers/mylist";
+import {useEffect} from 'react'
+import { UpdateDeliveryRequest,TransactionRequest,getReceiptRequest } from "../../../reducers/mylist";
 import {multipFloat} from '../../../util/float'
 import Loadding from '../../Loadding'
 const sell_type={
@@ -28,6 +29,9 @@ const BuyItem = (
     selltype,
     handleShipPopUp,
     handleShipTarget,
+    handleOrderTarget,
+    handleOrderPopUp,
+    handleReceiptPopUp,
 }) => {
   
   const {user_info} = useSelector(state=>state.user)
@@ -48,6 +52,12 @@ const BuyItem = (
     handleShipTarget(order_id)
     handleShipPopUp(true)
   }
+
+  const handleOrder = (data) =>{
+    handleOrderTarget(data)
+    handleOrderPopUp(true)
+  }
+
   
   const handleCompleted = (order_id) =>{
     dispatch(TransactionRequest())
@@ -60,6 +70,15 @@ const BuyItem = (
       auth:user_info.auth,
     }
     dispatch(UpdateDeliveryRequest(data))
+  }
+  
+  const handleReceipt = (order_id)=>{
+    const data = {
+      order_id,
+      nickname:user_info.nickname,
+      auth:user_info.auth,}
+    dispatch(getReceiptRequest(data));
+    handleReceiptPopUp(true);
   }
 
 
@@ -83,7 +102,7 @@ const BuyItem = (
         return(
           <>
            <div>구매완료</div>
-           <button className='list_btn completed'>영수증</button>
+           <button className='list_btn completed' onClick={()=>handleReceipt(order_id)}>영수증</button>
           </>
           )
           case 'wait': default:
@@ -125,8 +144,8 @@ const BuyItem = (
       <td> <div>
         {order_id}
         </div>
-        <button className='list_btn order'>
-            주문서 보기
+        <button className='list_btn order'  onClick={()=>handleOrder(order_id)}>
+            주문서
         </button></td>
       <td>{renderStatus(dlvy_status)}</td>
     </StyledMyNFT>
