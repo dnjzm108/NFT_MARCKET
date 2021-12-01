@@ -1,9 +1,10 @@
 import { StyledMyNFT } from "./NFTItem.css";
 import Button from '../../Button/index'
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
 import {dlvyList} from '../NFTList/list'
 import Link from "next/dist/client/link";
 import {multipFloat} from '../../../util/float'
+import {getReceiptRequest } from "../../../reducers/mylist";
 
 
 
@@ -21,20 +22,41 @@ const ImmySellItem = (
     date,
     product_no,
     qty,
-    price,
+    order_price,
     likes,
     dlvy_status,
     order_id,
     buyer,
     handleInvoiceTarget,
-    handleInvoicePopUp
+    handleInvoicePopUp,
+    handleOrderTarget,
+    handleOrderPopUp,
+    handleReceiptPopUp,
 
 }) => {
+  const dispatch = useDispatch();
+  const {user_info} = useSelector(state=>state.user)
 
   const handleInvoice = (data) =>{
     handleInvoiceTarget(data)
       handleInvoicePopUp(true)
   }
+
+  const handleOrder = (data) =>{
+    handleOrderTarget(data)
+    handleOrderPopUp(true)
+  }
+
+  const handleReceipt = (order_id)=>{
+    const data = {
+      order_id,
+      nickname:user_info.nickname,
+      auth:user_info.auth,}
+    dispatch(getReceiptRequest(data));
+    handleReceiptPopUp(true);
+  }
+
+
 
   const renderStatus = (type)=>{
     switch(type){
@@ -61,7 +83,7 @@ const ImmySellItem = (
         return(
           <>
            <div>구매완료</div>
-           <button className='list_btn completed'>영수증</button>
+           <button className='list_btn completed' onClick={()=>handleReceipt(order_id)}>영수증</button>
           </>
           )
     }
@@ -86,13 +108,13 @@ const ImmySellItem = (
       <td>{date}</td>
       <td>{buyer}</td>
       <td>{qty}</td>
-      <td>{price}</td>
-      <td>{multipFloat([price,qty])}</td>
+      <td>{order_price}</td>
+      <td>{multipFloat([order_price,qty])}</td>
       <td>
         <div>
         {order_id}
         </div>
-        <button className='list_btn order'>
+        <button className='list_btn order' onClick={()=>handleOrder(order_id)}>
             주문서 보기
         </button>
       </td>

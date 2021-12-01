@@ -6,7 +6,8 @@ import {StyledSearchView, StyledSearchViewItem} from './SearchView.css'
 const type = {
   'all':'전체',
   'buy':'즉시구매',
-  'auction':'경매'
+  'auction':'경매',
+  'end':'판매종료'
 }
 
 
@@ -63,9 +64,9 @@ const renderSearchButton = ()=>{
       case 'designer':
         return <StyledSearchViewItem key={v[0]+v[1]} onClick={()=>handleDeleteDesigner(v[1])}><span>{'디자이너: '+v[1]}</span><ImCross size={16}/></StyledSearchViewItem>
       case 'priceMin':
-        return <StyledSearchViewItem key={v[0]+v[1]} onClick={()=>handleDelete('priceMin')}><span>{'가격: '+v[1]+'klay 이상'}</span><ImCross size={16}/></StyledSearchViewItem>
+        return <StyledSearchViewItem key={v[0]+v[1]} onClick={()=>handleDelete('priceMin')}><span>{'가격: '+v[1]+'perro 이상'}</span><ImCross size={16}/></StyledSearchViewItem>
       case 'priceMax':
-        return <StyledSearchViewItem key={v[0]+v[1]} onClick={()=>handleDelete('priceMax')}><span>{'가격: '+v[1]+'klay 이하'}</span><ImCross size={16}/></StyledSearchViewItem>
+        return <StyledSearchViewItem key={v[0]+v[1]} onClick={()=>handleDelete('priceMax')}><span>{'가격: '+v[1]+'perro 이하'}</span><ImCross size={16}/></StyledSearchViewItem>
       case `search`:
         return <StyledSearchViewItem key={v[0]+v[1]} onClick={()=>handleDelete('search')}><span>{'검색: '+v[1]}</span><ImCross size={16}/></StyledSearchViewItem>
       }

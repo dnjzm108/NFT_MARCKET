@@ -1,4 +1,4 @@
-///=== 구매 목록 sql
+
 function updateShipQuery(){
   return `INSERT INTO 
                 delivery 
@@ -125,7 +125,7 @@ function myBuyListQuery(query,type){
   ON
     O.order_id=V.order_id
   WHERE 
-        (P.type='buy' OR P.type='auction') `
+        (P.type='buy' OR P.type='stop') `
   
   if(status!=undefined&&status!="all"){
     if(status=='null'){
@@ -240,13 +240,15 @@ function myAuctionListQuery(query,type){
   ON
     H.auction_id=A.auction_id
   LEFT JOIN 
-            ( SELECT
-							* 
-					FROM
-							product_detail 
-					NATURAL JOIN orders
-				)
-				as D
+            (SELECT 
+                D.*,
+                O.date
+              FROM 
+                product_detail as D 
+             LEFT JOIN orders as O
+             ON D.product_id=O.product_id
+              )
+            as D
   ON 
             A.product_id=D.product_id
   LEFT JOIN 
@@ -264,7 +266,8 @@ function myAuctionListQuery(query,type){
   ON
     P.product_no=I.product_no
   WHERE 
-        P.type='auction'`
+  (P.type='auction' OR P.type='stop')`
+        
   
   if(status!=undefined&&status!="all"){
     sql+=` AND H.status='${status}'`
@@ -316,6 +319,7 @@ function myAuctionSellListQuery(query,type){
             P.name,
             P.creater,
             P.likes,
+            P.type,
             date_format(P.date,'%y-%m-%d %h:%i:%s') as start_date,   
             P.leftover,
             I.img,
@@ -328,7 +332,8 @@ function myAuctionSellListQuery(query,type){
             L.latest,
             O.order_id,
             O.buyer,
-            O.price,
+            O.qty,
+            O.price AS order_price,
             V.dlvy_id,
             ifnull(V.status,'wait')as dlvy_status,
             V.reciever,
@@ -355,7 +360,7 @@ function myAuctionSellListQuery(query,type){
             			FROM
             					product 
             			WHERE 
-            					type='auction' AND creater='${nickname}'
+            					(type='auction' OR type='stop') AND creater='${nickname}'
             		)AS P
             INNER JOIN
                         (SELECT 
@@ -415,10 +420,10 @@ function myAuctionSellListQuery(query,type){
     wherCnt=true; 
     switch(status){
       case "true":
-      sql+=`WHERE date(A.deadline)>=date(now()) `
+      sql+=`WHERE P.type='auction' `
       break;
       case "false":
-      sql+=`WHERE date(A.deadline)<date(now()) `
+      sql+=`WHERE P.type='stop' `
       break;
       case "wait":
       sql+=`WHERE V.status='wait' `
@@ -577,7 +582,7 @@ function myImmySellListQuery(query,type){
   O.qty,
   date_format(O.date,'%y-%m-%d %h:%i') as date,   
   O.order_id,
-  O.price,
+  O.price as order_price,
   O.buyer,
   D.color,
   D.size,
@@ -984,11 +989,21 @@ function getOrderInfoQuery(){
 		O.order_id,
 		O.price,
 		O.qty,
+		O.transactionHash,
+    O.buyer,
+		D.size,
+		D.color,
+		D.product_no,
 		B.buyer_wallet,
 		P.contractAddr,
 		P.tokenURI,
+		P.name,
+		P.creater,
+		P.type,
+		V.*,
 		S.seller_wallet,
-		C.num AS tokenId
+		C.num AS tokenId,
+    I.img
 FROM (
 			SELECT 
 						*
@@ -1005,6 +1020,8 @@ LEFT JOIN(
 				user
 )AS B
 ON O.buyer=B.nickname
+LEFT JOIN delivery V
+ON V.order_id=O.order_id
 LEFT JOIN(
 			SELECT
 					*
@@ -1018,6 +1035,16 @@ ON P.product_no=D.product_no
 LEFT JOIN
 		product_count AS C
 ON C.order_id=O.order_id
+LEFT JOIN
+            (SELECT 
+                   *
+              FROM 
+                  product_image
+              GROUP BY 
+                  product_no
+            ) as I
+  ON
+    I.product_no=P.product_no
 LEFT JOIN(
 			SELECT
 					nickname,

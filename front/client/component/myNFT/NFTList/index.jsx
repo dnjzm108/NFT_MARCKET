@@ -12,7 +12,10 @@ import OptionBox from '../../OptionBox/OptionBox'
 import {statusList,sortList,typeList} from './list.js'
 import { useRouter } from "next/router";
 import Invoice from '../../Invoice'
+import Receipt from '../../Receipt'
+import Loadding from '../../Loadding'
 import ShipAddress from "../../Popup/ShipAddress";
+import OrderInfo from "../../OrderInfo";
 const NFTList = () => {
   const dispatch = useDispatch();
   const {list, searchData,transactionLoading} = useSelector(state => state.mylist);
@@ -22,8 +25,13 @@ const NFTList = () => {
   const {type} = router.query
   const [invoicePopUp,setInvoicePopUp] = useState(false)
   const [shipPopUp,setShipPopUp] = useState(false)
+  const [receiptPopUp,setReceiptPopUp] = useState(false)
+  const [receipt,setReceipt] = useState("")
+  const [orderPopUp,setOrderPopUp] = useState(false)
+  const [order,setOrder] = useState("")
   const [invoice,setInvoice] = useState("");
   const [ship,setShip] = useState("");
+
   const handleSort = (code)=>{
     const data = {
       nickname:user_info.nickname,
@@ -92,7 +100,6 @@ const renderSellItem = () =>{
 
 
 
-
   const renderBuyItem = () => {
     if (list.length == 0) {
       return <tr><td>검색결과가 없습니다.</td></tr>
@@ -114,8 +121,12 @@ const renderSellItem = () =>{
           dlvy_status={v.dlvy_status}
           selltype={v.selltype}
           likes={v.likes}
-          handleShipTarget ={setShip}
+          handleShipTarget={setShip}
           handleShipPopUp={setShipPopUp}
+          handleReceiptTarget={setReceipt}
+          handleReceiptPopUp={setReceiptPopUp}
+          handleOrderTarget={setOrder}
+          handleOrderPopUp={setOrderPopUp}
         />
       })
     }
@@ -157,6 +168,7 @@ const renderSellItem = () =>{
           color={v.color}
           img={v.img}
           name={v.name}
+          type={v.type}
           leftover={v.leftover}
           order_id={v.order_id}
           product_no={v.product_no}
@@ -172,6 +184,10 @@ const renderSellItem = () =>{
           likes={v.likes}
           handleInvoiceTarget = {setInvoice}
           handleInvoicePopUp={setInvoicePopUp}
+          handleReceiptTarget={setReceipt}
+          handleReceiptPopUp={setReceiptPopUp}
+          handleOrderTarget={setOrder}
+          handleOrderPopUp={setOrderPopUp}
         />
       })
     }
@@ -193,11 +209,15 @@ const renderSellItem = () =>{
           qty={v.qty}
           likes={v.likes}
           order_id={v.order_id}
-          price={v.price}
+          order_price={v.order_price}
           buyer={v.buyer}
           dlvy_status={v.dlvy_status}
           handleInvoiceTarget = {setInvoice}
           handleInvoicePopUp={setInvoicePopUp}
+          handleReceiptTarget={setReceipt}
+          handleReceiptPopUp={setReceiptPopUp}
+          handleOrderTarget={setOrder}
+          handleOrderPopUp={setOrderPopUp}
         />
       })
     }
@@ -205,12 +225,14 @@ const renderSellItem = () =>{
  
 
 
-  if(type==null) return <span>로딩중입니다.</span>
+  if(type==null) return <Loadding></Loadding>
   return (
     <NFTListContainer>
       {shipPopUp ? <ShipAddress order_id={ship}handleShipPopUp={setShipPopUp} /> : ""}
       {invoicePopUp ? <Invoice order_id={invoice} handleInvoicePopUp={setInvoicePopUp} /> : ""}
-      {transactionLoading ? <span>구매요청중</span> : ""}
+      {receiptPopUp ? <Receipt  handleReceiptPopUp={setReceiptPopUp} /> : ""}
+      {orderPopUp ? <OrderInfo order_id={order} handleOrderPopUp={setOrderPopUp} /> : ""}
+      {transactionLoading ? <Loadding></Loadding> : ""}
           <Header>
             <h3>{typeList[type]}</h3>
             <form className='search-box' onSubmit={(e) => handleSubmit(e)}>

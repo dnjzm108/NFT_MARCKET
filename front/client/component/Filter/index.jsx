@@ -20,7 +20,8 @@ const Filter = () => {
   const [open, setOpen] = useState(true);
   const typeList = [
     {name:'즉시구매',code:'buy'},
-    {name:'경매',code:'auction'}
+    {name:'경매',code:'auction'},
+    {name:'판매종료',code:'end'},
   ]
 
   const Min = useInput('');
@@ -31,6 +32,8 @@ const Filter = () => {
 
  ///가격이 바뀔때.
   const handlePrice = () => {
+
+
     if (Min.value == "" && Max.value == "") {
       alert('값을 입력해주세요')
       return;
@@ -42,9 +45,9 @@ const Filter = () => {
     }
     let data = {...router.query}
 
-    if(Min.value>0 && Max.value==''){
+    if(Min.value>=0 && Max.value==''){
       data["priceMin"] =Min.value; 
-    }else if(Min.value=='' && Max.value>0){
+    }else if(Min.value=='' && Max.value>=0){
       data["priceMax"] =Max.value; 
     }else{
       data["priceMin"] =Min.value; 

@@ -1,4 +1,4 @@
-const { query, execute } = require("./pool");
+const { query, execute } = require("./pool.js");
 const {isBidSql,newBidSql,addOrderSql,stopAuctionSQL,findAuctionQuery} = require('./sql/auction')
 const {update_cnt_sql} = require('./sql/product');
 let auctions = {};
@@ -17,7 +17,7 @@ const updateDeadline=(auction_id,product_no,newDeadline)=>{
 }
 
 
-const startDeadline=(auction_id,product_no, deadline)=>{
+const startDeadline=(auction_id,product_no,deadline)=>{
   const deadTime = new Date(deadline).getTime();
   const now = new Date().getTime();
   const remainTime = deadTime - now;
@@ -58,15 +58,16 @@ const auctionSuccess= async(auction_id,product_no)=>{
 }
 
 const check=async()=>{
-  const auctions  = await query(findAuctionQuery())
-  const now = new Date();
-  if(auctions==undefined)return;
+  auctions={};
+  const prev_auctions  = await query(findAuctionQuery())
+  const now = new Date().setHours(new Date().getHours()+9);
+  if(prev_auctions==undefined)return;
+  prev_auctions.forEach((v,i)=>{
 
-  auctions.forEach((v,i)=>{
-    if(v.deadline<=now && v.status!='stop'){
+    if(v.deadline<=now && v.type!='stop'){
       /// 이때는 경매 stop으로 바꾸고 마지막입찰을  낙찰로 바꿔줘야함.
       auctionSuccess(v.auction_id,v.product_no);
-    }else{
+    }else if(v.deadline>now){
       //이떄는 경매 셋타임아웃 설정해줘야함.
       startDeadline(v.auction_id,v.product_no,v.deadline);
     }

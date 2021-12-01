@@ -24,7 +24,7 @@ const AucPopup = (props) => {
 
     const applyAuction = async () => {
 
-        const histoty_data = {
+        let histoty_data = {
             product_no: product_info[0].product_no,
             auction_id: auction_info.auction_id,
             bider: user_info.nickname,
@@ -39,12 +39,13 @@ const AucPopup = (props) => {
             return alert("로그인을 진행해 주세요")
         } else {
             if (auction_history[0].bid == null) {
-                if (bid_price.value <= product_info[0].price || bid_price.value == undefined) {
+                if (bid_price.value < product_info[0].price || bid_price.value == undefined) {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
                     let payment = await sendToken(bid_price.value,logout)
                     console.log(payment);
                      if (payment !== undefined) {
+                        histoty_data.payment = payment; 
                          dispatch(Apply_Auction(histoty_data))
                          props.handlePopup()
                      }
@@ -55,6 +56,7 @@ const AucPopup = (props) => {
                 } else {
                     let payment = await sendToken(bid_price.value,logout)
                      if (payment !== undefined) {
+                        histoty_data.payment = payment; 
                          dispatch(Apply_Auction(histoty_data))
                          props.handlePopup()
                      }
