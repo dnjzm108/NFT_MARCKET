@@ -16,6 +16,7 @@ const AuctionSellItem = (
     order_id,
     product_no,
     size,
+    type,
     start_date,
     end_date,
     option,
@@ -127,7 +128,7 @@ const AuctionSellItem = (
           ? '-'
           : latest
           }</td>
-      <td>{new Date(end_date)>new Date() 
+      <td>{ type=='auction' 
           ? '경매중'
           : '경매종료'}</td>
       <td>
