@@ -225,7 +225,9 @@ const renderSellItem = () =>{
  
 
 
-  if(type==null) return <span>로딩중입니다.</span>
+  if(type==null) return <Loadding></Loadding>
+  if(list.length==0) return <Loadding></Loadding>
+
   return (
     <NFTListContainer>
       {shipPopUp ? <ShipAddress order_id={ship}handleShipPopUp={setShipPopUp} /> : ""}
