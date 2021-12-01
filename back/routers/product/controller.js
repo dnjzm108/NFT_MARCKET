@@ -154,7 +154,7 @@ let applyauction = async (req,res) =>{
     const {paider,price} = payment; 
     const nowTime = new Date();
     const lastBidsql = `
-    LOCK TABLES auction_history WRITE;
+   
     SELECT 
 		                              *
                           FROM 
@@ -167,8 +167,8 @@ let applyauction = async (req,res) =>{
     
     const [lastBid] = await query(lastBidsql);
     if(bid<=lastBid.bid || deadline<=nowTime){
+        // await query(`UNLOCK TABLES;`)
         send_Token(paider,price)
-        await query(`UNLOCK TABLES;`)
         res.json(errorData(0,"새로운 가격으로 다시 입찰해주세요."))
         return;
     }
@@ -199,7 +199,7 @@ let applyauction = async (req,res) =>{
         send_Token(wallet,bid)
     } 
 
-    await query(`UNLOCK TABLES;`)
+    // await query(`UNLOCK TABLES;`)
     if(auction_id !== undefined && bider !== undefined && bid !== undefined && auction_history_id !== undefined ){
         const socketMessage={
             product_no,

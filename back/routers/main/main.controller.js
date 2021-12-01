@@ -83,7 +83,7 @@ const getMain = async(req,res)=>{
       listSql=getAuctionListSql(params,nickname);
       break;
       case 'end':
-        listSql=getEndListSql(params);
+        listSql=getEndListSql(params,nickname);
         break;
     case 'all': default:
       listSql=getAllListSql(params,nickname);
