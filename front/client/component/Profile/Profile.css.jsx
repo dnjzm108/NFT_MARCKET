@@ -42,6 +42,7 @@ export const ProfileStyled = styled.div`
 .seller_title{
     display: flex;
     margin-left: 100px;
+    justify-content: center;
 }
 
 .verified{

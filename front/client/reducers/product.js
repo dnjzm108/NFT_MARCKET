@@ -202,7 +202,7 @@ const reducer = (state = initalState, action) => {
             return {
                 ...state,
                 loadding: false,
-                notice_page: ''
+                notice_page:'error'
 
             }
 
