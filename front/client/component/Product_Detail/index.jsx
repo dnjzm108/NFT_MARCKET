@@ -73,7 +73,7 @@ const product_detail = () => {
     const list = []
     product_info.map((v, i) => {
         return (
-            list.push(`${v.color}(${v.size})(${product_info[i].price - product_info[0].price})`)
+            list.push(`${v.color}(${v.size})(${Number(product_info[i].price).toFixed(1) - Number(product_info[0].price).toFixed(1)})`)
         )
     })
     const category = useChangeValue(list)
@@ -238,7 +238,7 @@ const product_detail = () => {
                     {product_info[0].type == "buy" ?
                         <Price_contain>
                             <h2>
-                                <img src="/perro.png" alt="" /> {product_info[`${option}`].price.toFixed(1)}
+                                <img src="/perro.png" alt="" /> {Number(product_info[`${option}`].price).toFixed(1)}
                             </h2>
                             {qty_list.length !== 0 ?
                                 <Button value="즉시 구매" color="sky" func={handlePopupImmy} />
@@ -248,9 +248,9 @@ const product_detail = () => {
                         </Price_contain>
                         :
                         <Price_contain>
-                            <h2>경매 시작가 - <img src="/perro.png" alt="" /> {parseFloat(product_info[`${option}`].price)}</h2>
-
-                        </Price_contain>}
+                            <h2>경매 시작가 - <img src="/perro.png" alt="" /> {Number(product_info[0].price).toFixed(1)}</h2>
+                        </Price_contain>
+                        }
 
                     {/* 팝업부분 */}
 

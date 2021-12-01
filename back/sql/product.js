@@ -100,7 +100,10 @@ const other_product_sql = (sql) =>{
 //필요한값 상품상세번호 ,가격,산사람,수량
 const create_order_sql = () => {
     return (
-        `INSERT INTO orders (product_id,price,buyer,qty) VALUES(?,?,?,?)`
+        `INSERT INTO orders (product_id,price,buyer,qty)
+         SELECT ?,?,?,? FROM DUAL WHERE EXISTS
+         (SELECT qty FROM product_detail WHERE product_id = ? AND qty >= ?)
+         `
     )
 }
 
@@ -215,6 +218,12 @@ const update_cnt_sql = (insertId,product_no) =>{
     )
 }
 
+// 상품의 수량 체크 
+
+const check_poroduct_pty = () =>{
+    return (`SELECT * FROM product_detail WHERE product_id = ? AND qty >= ? `)
+}
+
 module.exports = {
     show_product_detail,
     product_img,
@@ -235,5 +244,6 @@ module.exports = {
     auction_history_sql,
     killPrevBidSql,
     update_cnt_sql,
-    history_info_sql
+    history_info_sql,
+    check_poroduct_pty
 }

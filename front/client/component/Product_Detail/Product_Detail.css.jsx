@@ -37,10 +37,11 @@ import Slider from "react-slick";
 export const Styled_Slide = styled(Slider)`
 .slick-slide > div {
     width: 640px;
-    height: 640px;
+    height: 638px;
     overflow: hidden;
   
 }
+
 .slick-slide{
     border:0;
     outline: 0;
@@ -329,5 +330,3 @@ export const StyledNowPopup = styled.div`
         cursor: pointer;
     }
 `
-
-
