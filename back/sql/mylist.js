@@ -319,6 +319,7 @@ function myAuctionSellListQuery(query,type){
             P.name,
             P.creater,
             P.likes,
+            P.type,
             date_format(P.date,'%y-%m-%d %h:%i:%s') as start_date,   
             P.leftover,
             I.img,
@@ -419,10 +420,10 @@ function myAuctionSellListQuery(query,type){
     wherCnt=true; 
     switch(status){
       case "true":
-      sql+=`WHERE date(A.deadline)>=date(now()) `
+      sql+=`WHERE P.type='auction' `
       break;
       case "false":
-      sql+=`WHERE date(A.deadline)<date(now()) `
+      sql+=`WHERE P.type='stop' `
       break;
       case "wait":
       sql+=`WHERE V.status='wait' `

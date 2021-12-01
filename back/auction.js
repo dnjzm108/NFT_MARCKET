@@ -60,7 +60,7 @@ const auctionSuccess= async(auction_id,product_no)=>{
 const check=async()=>{
   auctions={};
   const prev_auctions  = await query(findAuctionQuery())
-  const now = new Date();
+  const now = new Date().setHours(new Date().getHours()+9);
   if(prev_auctions==undefined)return;
   prev_auctions.forEach((v,i)=>{
 

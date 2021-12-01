@@ -168,6 +168,7 @@ const renderSellItem = () =>{
           color={v.color}
           img={v.img}
           name={v.name}
+          type={v.type}
           leftover={v.leftover}
           order_id={v.order_id}
           product_no={v.product_no}
