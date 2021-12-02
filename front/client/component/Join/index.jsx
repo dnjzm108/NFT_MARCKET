@@ -63,9 +63,7 @@ const Join = (data) => {
         if(img !== undefined){
             setImages(img)
             const imageUrl = URL.createObjectURL(img)
-            console.log(imageUrl);
             setimgUrl(imageUrl)
-            console.log(imgUrl);
         }
     }
     return (

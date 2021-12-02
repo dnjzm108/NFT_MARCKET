@@ -43,7 +43,6 @@ const AucPopup = (props) => {
                     alert("최소 입찰가 이상으로 입력해 주세요")
                 } else {
                     let payment = await sendToken(bid_price.value,logout)
-                    console.log(payment);
                      if (payment !== undefined) {
                         histoty_data.payment = payment; 
                          dispatch(Apply_Auction(histoty_data))

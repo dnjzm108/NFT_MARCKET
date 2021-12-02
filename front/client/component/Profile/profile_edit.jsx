@@ -49,9 +49,9 @@ const Profile_edit = () => {
         if(img !== undefined){
             setImages(img)
             const imageUrl = URL.createObjectURL(img)
-            console.log(imageUrl);
+            // console.log(imageUrl);
             setimgUrl(imageUrl)
-            console.log(imgUrl);
+            // console.log(imgUrl);
         }
     }
 

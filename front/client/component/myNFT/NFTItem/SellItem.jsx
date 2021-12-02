@@ -117,7 +117,7 @@ const SellItem = ({ index }) => {
             <li className='NFT_creater'>판매유형: {nowProduct.type}</li>
           </ul>
         </td>
-        <td>{new Date(nowProduct.date).toLocaleString()}</td>
+        <td>{nowProduct.date}</td>
         <td>{nowProduct.total_qty}</td>
         <td>{nowProduct.leftover}</td>
         <td>{renderPrice()}</td>

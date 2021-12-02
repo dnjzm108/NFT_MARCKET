@@ -60,14 +60,15 @@ const auctionSuccess= async(auction_id,product_no)=>{
 const check=async()=>{
   auctions={};
   const prev_auctions  = await query(findAuctionQuery())
-  const now = new Date().setHours(new Date().getHours()+9);
+
+  const now = new Date();
   if(prev_auctions==undefined)return;
   prev_auctions.forEach((v,i)=>{
-
-    if(v.deadline<=now && v.type!='stop'){
+    if(new Date(v.deadline)<=new Date(now) && v.type!='stop'){
       /// 이때는 경매 stop으로 바꾸고 마지막입찰을  낙찰로 바꿔줘야함.
+        
       auctionSuccess(v.auction_id,v.product_no);
-    }else if(v.deadline>now){
+    }else if(new Date(v.deadline)>new Date(now)){
       //이떄는 경매 셋타임아웃 설정해줘야함.
       startDeadline(v.auction_id,v.product_no,v.deadline);
     }
@@ -76,7 +77,6 @@ const check=async()=>{
   console.log('auction setting completed!')
 
 }
-
 
 
 

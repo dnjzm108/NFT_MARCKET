@@ -159,14 +159,17 @@ let applyauction = async (req,res) =>{
 		                              *
                           FROM 
 		                              auction_history
+                          natural join
+                                     auction as A 
                           WHERE
 		                              auction_id='${auction_id}'
+                          
                           ORDER BY 
                                   date DESC
                           LIMIT 1`
     
     const [lastBid] = await query(lastBidsql);
-    if(bid<=lastBid.bid || deadline<=nowTime){
+    if(lastBid &&  bid<=lastBid.bid){
         // await query(`UNLOCK TABLES;`)
         send_Token(paider,price)
         res.json(errorData(0,"새로운 가격으로 다시 입찰해주세요."))

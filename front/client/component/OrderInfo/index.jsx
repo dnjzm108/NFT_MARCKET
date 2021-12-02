@@ -13,7 +13,6 @@ const OrderInfo = (props) => {
     const {list} = useSelector(state=>state.mylist);
     const target = list.filter(v=>v.order_id==props.order_id)[0]
 
-    console.log(target)
 
     return (
         <>

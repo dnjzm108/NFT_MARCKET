@@ -99,10 +99,11 @@ const stopAuctionSQL=(auction_id,isSoldout)=>{
                 );`
 }
 
+new Date().toLocaleString
 
 const findAuctionQuery = () =>{
   return`
-  SELECT A.auction_id,A.deadline,P.type,D.product_no
+  SELECT A.auction_id,A.deadline,P.type,D.product_no,P.name
 FROM auction AS A 
 LEFT JOIN orders AS O
 ON A.product_id=O.product_id

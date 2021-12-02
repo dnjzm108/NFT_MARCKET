@@ -26,7 +26,7 @@ import {LIST_UPDATE_REQUEST,
 import {url} from './url'
 
 async function myListAPI(data){
-    console.log(data)
+    // console.log(data)
     let {params,nickname,auth} = data
     const _nickname = btoa(encodeURIComponent(nickname));
     const config = {

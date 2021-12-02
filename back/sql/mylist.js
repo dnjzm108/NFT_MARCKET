@@ -710,7 +710,7 @@ function mySellListQuery(query,type){
 		P.creater,
 		P.likes,
 		P.type,
-		P.date,
+    date_format(P.date,'%y-%m-%d %h:%i') as date, 
 		P.leftover,
 		P.total_qty,
 		P.img,
