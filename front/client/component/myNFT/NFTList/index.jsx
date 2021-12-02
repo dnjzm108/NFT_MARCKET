@@ -18,7 +18,7 @@ import ShipAddress from "../../Popup/ShipAddress";
 import OrderInfo from "../../OrderInfo";
 const NFTList = () => {
   const dispatch = useDispatch();
-  const {list, searchData,transactionLoading} = useSelector(state => state.mylist);
+  const {list, searchData, transactionLoading, invoiceLoading, shipLoading,} = useSelector(state => state.mylist);
   const {user_info} = useSelector(state => state.user);
   const [input,setInput] = useState(''); 
   const router = useRouter()
@@ -223,16 +223,26 @@ const renderSellItem = () =>{
     }
   }
  
-
+  const loadingCheck= ()=>{
+    if(invoiceLoading||shipLoading||transactionLoading){
+      return true
+    }
+    return false;
+  }
 
   if(type==null) return <Loadding></Loadding>
+  if(loadingCheck()){
+    return (
+      <Loadding/>
+    )
+  }
   return (
     <NFTListContainer>
-      {shipPopUp ? <ShipAddress order_id={ship}handleShipPopUp={setShipPopUp} /> : ""}
+      {shipPopUp ? <ShipAddress order_id={ship} handleShipPopUp={setShipPopUp} /> : ""}
       {invoicePopUp ? <Invoice order_id={invoice} handleInvoicePopUp={setInvoicePopUp} /> : ""}
       {receiptPopUp ? <Receipt  handleReceiptPopUp={setReceiptPopUp} /> : ""}
       {orderPopUp ? <OrderInfo order_id={order} handleOrderPopUp={setOrderPopUp} /> : ""}
-      {transactionLoading ? <Loadding></Loadding> : ""}
+      {(transactionLoading) ? <Loadding></Loadding> : ""}
           <Header>
             <h3>{typeList[type]}</h3>
             <form className='search-box' onSubmit={(e) => handleSubmit(e)}>

@@ -372,7 +372,6 @@ const getReceipt = async(req,res) =>{
   order_info.forEach(v=>{
     data.tokenId.push(v.tokenId);
   })
-  console.log(data)
 
   res.json(successData(data))
 }

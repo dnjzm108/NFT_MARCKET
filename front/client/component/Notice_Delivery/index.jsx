@@ -39,7 +39,6 @@ const Notice_Delivery = () => {
             dispatch(Notice_Info(data))
         }
     }, [id])
-    console.log(notice_info);
 
     if (notice_info == undefined) {
         return (

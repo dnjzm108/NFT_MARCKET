@@ -315,7 +315,7 @@ const reducer = (state = initialState,action) => {
     }
 
       case GET_RECEIPT_SUCCESS :
-        console.log(action.data)
+        // console.log(action.data)
         return{
           ...state,
           isLoading:false,

@@ -13,11 +13,12 @@ import { useState } from 'react';
 import useInput from '../../hooks/useInput';
 import {UpdateShipRequest} from '../../reducers/mylist'
 import { multipFloat } from '../../util/float';
+import Loadding from '../Loadding'
 
-const ShipAddress = ({handleShipPopUp}) => {
+const ShipAddress = ({handleShipPopUp,order_id}) => {
   const dispatch = useDispatch()
   const {user_info} = useSelector(state => state.user)
-  const {order} = useSelector(state=>state.mylist)
+  const {list} = useSelector(state=>state.mylist)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [address, setaddress] = useState('')
   const [postNumber, setpostNumber] = useState('')
@@ -27,6 +28,9 @@ const ShipAddress = ({handleShipPopUp}) => {
   const Recipient = useInput()
   const requirement = useInput()
   const other = useInput()
+
+  const target = list.filter(v=>v.order_id=order_id)[0];
+
 
   const openPostCode = () => {
       setIsPopupOpen(true)
@@ -49,11 +53,15 @@ const ShipAddress = ({handleShipPopUp}) => {
           recieve_type: recieveType,
           phone_number: Phonenumber.value,
           address: address+' '+address_detail.value,
-          order_id: order.order_id,
+          order_id: order_id,
           }
           dispatch(UpdateShipRequest(ship_info))
           handleShipPopUp(false);
           }
+      }
+
+      if(target==undefined){
+          return <Loadding/>
       }
   return (
       <>
@@ -68,27 +76,27 @@ const ShipAddress = ({handleShipPopUp}) => {
                     <tbody>
                       <tr>
                           <td>상품명</td>
-                          <td>{order.name}</td>
+                          <td>{target.name}</td>
                       </tr>
                       <tr>
                           <td>컬러</td>
-                          <td>{order.color}</td>
+                          <td>{target.color}</td>
                       </tr>
                       <tr>
                           <td>사이즈</td>
-                          <td>{order.size}</td>
+                          <td>{target.size}</td>
                       </tr>
                       <tr>
                           <td>수량</td>
-                          <td>{order.qty}</td>
+                          <td>{target.qty}</td>
                       </tr>
                       <tr>
                           <td>가격</td>
-                          <td>{order.order_price}</td>
+                          <td>{target.order_price}</td>
                       </tr>
                       <tr>
                           <td>결제금액</td>
-                          <td style={{display:'flex', alignItems:'center', justifyContent:'center'}}><img src="/perro.png" alt="" /> {order.order_price * order.qty}</td>
+                          <td style={{display:'flex', alignItems:'center', justifyContent:'center'}}><img src="/perro.png" alt="" /> {target.order_price * target.qty}</td>
                       </tr>
 
                       <tr>

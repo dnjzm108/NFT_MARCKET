@@ -35,16 +35,9 @@ const BuyItem = (
 }) => {
   
   const {user_info} = useSelector(state=>state.user)
-  const {  invoiceLoading,
-    shipLoading,
-    transactionLoading,} = useSelector(state=>state.mylist)
 
-  const loadingCheck= ()=>{
-    if(invoiceLoading||shipLoading||transactionLoading){
-      return true
-    }
-    return false;
-  }
+
+
   
   const dispatch = useDispatch();  
 
@@ -61,9 +54,6 @@ const BuyItem = (
   
   const handleCompleted = (order_id) =>{
     dispatch(TransactionRequest())
-    ///////////////////////////////
-    ////// 거래하는 솔리디티 //////
-    //////////////////////////////
     const data={
       order_id,
       nickname:user_info.nickname,
@@ -115,11 +105,7 @@ const BuyItem = (
         
     }
   } 
-  if(loadingCheck()){
-    return (
-      <Loadding/>
-    )
-  }
+
     return (
       
       <StyledMyNFT>
