@@ -12,7 +12,7 @@ const {auction_info,auction_history,product_info} = product_state;
 
 
 useEffect(()=>{
-if(auction_info !== undefined){
+if(auction_info.auction_id !== null){
     setIsLoading(false)
 }
 },[auction_info])
@@ -28,7 +28,10 @@ if(isLoading){
                 <div>
                     <h3>마감 시간 : {auction_info.deadline} </h3>
                     <h3>최고가</h3>
-                    <h2><img src="/perro.png"/>{auction_history.length>0 ? auction_history[0].bid : product_info[0].price}</h2>
+                    <h2><img src="/perro.png"/>{auction_history[0].auction_history_id !== null ? 
+                    Number(auction_history[0].bid).toFixed(1) 
+                    : ''
+                    }</h2>
                     <h4>낙찰받을수있는 사람</h4>
                     <h5> {auction_history.length>0 ?auction_history[0].bider : '-'} </h5>
                 </div>

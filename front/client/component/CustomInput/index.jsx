@@ -94,7 +94,7 @@ return (
           </i>
         </label>
       }
-         <input type={handleType()} id={randomId} maxLength={length} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder} />
+         <input type={handleType()} id={randomId} maxLength={length} onBlur={(e) => { handleBlur(e) }} onChange={(e) => { handleChange(e) }} placeholder={placeholder}/>
       {require &&
         (<i>
           <BsFillExclamationCircleFill size={24} color={'#dc3545'} />
