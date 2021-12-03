@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import Router from "next/router"
 import {UserLogin_REQUEST} from '../../reducers/user'
 import { BsPersonCircle } from "react-icons/bs";
-
+import Loadding from "../Loadding";
 
 
 const Profile = () => {
@@ -45,14 +45,18 @@ const Profile = () => {
     const handlepopup = () => {
         setApply(!apply)
     }
+    if(nickname == null){
+        return <Loadding />
+    }
 
     return (
         <>
             <ProfileStyled>
                 <div>
                     <h1>나의 프로필</h1>
-                    {picture == undefined ?
-                   <BsPersonCircle size="100"/>:
+                    {picture == 'null' ?
+                    <BsPersonCircle size="100"/>
+                   :
                     <img src={picture} alt="" />
                     }
                     <StyleTd />
