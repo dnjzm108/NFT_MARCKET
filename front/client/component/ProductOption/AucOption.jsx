@@ -33,14 +33,14 @@ const AucOption = ({renderOptions,colors,setColors,colorInput,setColorInput,
                     </div>
                 </div>
                 <div className="select_option">
-                    <span><p>색상 :</p>
+                    <span><p>색상 </p>
                     <input type="text" 
                     defaultValue={colors}
                     onChange={(e)=>{setColorInput(e.target.value)}}
                     placeholder="색상 옵션을 입력하세요 ex) 검정,아이보리,회색"
                     />
                     </span>
-                    <span><p>사이즈 :</p>
+                    <span><p>사이즈 </p>
                     <input 
                     type="text"
                     defaultValue={size}
