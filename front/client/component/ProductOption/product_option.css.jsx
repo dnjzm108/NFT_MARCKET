@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const Options = styled.div`
 margin-top: 6%;
+h1{
+    margin-bottom: -4vh;
+}
 h3{
     margin-top: 4%;
     /* margin-bottom: 2%; */
@@ -13,23 +16,24 @@ h3>p{
     font-size: 16px;
 }
 .select_category{
-    width: 72vw;
+    width: 70vw;
     display: flex;
     justify-content: space-evenly;
     padding: 10%;
-    margin-left: -5vw;
+    margin-left: -18vw;
 }
 .select_contain{
     position: relative;
     display: flex;
-    justify-content: space-around
+    justify-content: flex-start;
 }
 .select_box{
     position: absolute;
     width: 50vw;
     display: flex;
     justify-content: space-between;
-    margin-top:-16vh;
+    margin-left: 2vw;
+    margin-top:-10vh;
 }
 
 .option_explain{
@@ -38,13 +42,10 @@ h3>p{
     background-color: #f0f9ff;
     margin-bottom: 4%;
     margin-left: 2vw;
+    margin-top: 16vh;
 }
 
-
-
-
 .select_option{
-    
     height: 100px;
     display: flex;
     flex-direction: column;
@@ -54,7 +55,7 @@ h3>p{
 
 .select_option>span{
     font-weight: bold;
-    width: 70vw;
+    width: 42vw;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -107,27 +108,6 @@ export const OptionCheck= styled.div`
     margin-left: 4vw;
     font-size: 1.1vw;
 }
-
-.enter_all{
-    display: flex;
-    width: 50%;
-    height: 10vh;
-    background-color: #f0f9ff;
-    margin-bottom: 4%;
-    align-items: center
-}
-.enter_all_btn{
-    background-color: white;
-    height: 40px;
-    width: 50px;
-    padding: 2px;
-    border: 1px solid black;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-left: 2%;
-}
-
-
 .op_box>div>p{
     display: inline-block;
     padding: 1%;
@@ -135,7 +115,6 @@ export const OptionCheck= styled.div`
 }
 
 .option_ul{
-    height:28vh;
     display: flex;
     flex-direction: column;
     
@@ -147,6 +126,16 @@ export const OptionCheck= styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 4%;
+}
+
+.enter_all{
+    display: flex;
+    width: 50%;
+    height: 10vh;
+    background-color: #f0f9ff;
+    margin-bottom: 4%;
+    align-items: center;
+    padding: 2%;
 }
 
 
