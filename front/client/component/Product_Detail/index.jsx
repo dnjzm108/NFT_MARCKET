@@ -72,11 +72,19 @@ const product_detail = () => {
 
     const list = []
     product_info.map((v, i) => {
+        let num = Number(product_info[i].price - product_info[option].price).toFixed(1)
+        let comparison
+        if(num == 0.0){
+            comparison = ''
+        }else if (num > 0.0){
+            comparison = `(+${num})`
+        }else if (num < 0.0){
+            comparison = `(${num})`
+        }
         return (
-            list.push(`${v.color}(${v.size})`)
+            list.push(`${v.color} (${v.size}) ${comparison} `)
         )
     })
-    //(${Number(product_info[i].price).toFixed(1) - Number(product_info[0].price).toFixed(1)})
     const category = useChangeValue(list)
     useEffect(() => {
         // console.log("list+++++",category.list[category.value])
