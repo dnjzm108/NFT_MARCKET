@@ -73,9 +73,10 @@ const product_detail = () => {
     const list = []
     product_info.map((v, i) => {
         return (
-            list.push(`${v.color}(${v.size})(${Number(product_info[i].price).toFixed(1) - Number(product_info[0].price).toFixed(1)})`)
+            list.push(`${v.color}(${v.size})`)
         )
     })
+    //(${Number(product_info[i].price).toFixed(1) - Number(product_info[0].price).toFixed(1)})
     const category = useChangeValue(list)
     useEffect(() => {
         // console.log("list+++++",category.list[category.value])
