@@ -6,3 +6,4 @@
 pool.js
 *jin.pem.pem
 *.env
+/back/.env
