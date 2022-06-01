@@ -3,7 +3,8 @@ import {END} from 'redux-saga'
 import wrapper from '../store/configureStore'
 import Explore from '../container/explore'
 import { MainPageInit, ExploreRequest} from '../reducers/explore'
-import {UserLogin_REQUEST} from '../reducers/user'
+// import {UserLogin_REQUEST} from '../reducers/user'
+
 const Home = () => {
 
 

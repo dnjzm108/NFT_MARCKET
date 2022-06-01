@@ -1,19 +1,21 @@
 import {StyledFavoriteGalley,Header} from './FavoriteGallery.css'
 import NFT from "../NFT";
 import {useSelector,useDispatch} from 'react-redux'
-import {UpdateLike} from "../../reducers/explore"
+// import {UpdateLike} from "../../reducers/explore"
 import { useRouter } from "next/router";
 import Router from "next/router";
 import { BiSearch } from 'react-icons/bi'
 import OptionBox from '../OptionBox/OptionBox'
-import {statusList,sortList,typeList} from '../MyNFT/NFTList/list'
+import {statusList,sortList,typeList} from '../myNFT/NFTList/list'
 import {ListUpdateRequest,ListAddRequest} from '../../reducers/mylist'
 import {useState,useEffect} from 'react'
 import {DeleteFavorite} from '../../reducers/mylist'
 const FavoriteGallery = () => {
   const dispatch = useDispatch()
   const {list,searchData} = useSelector((state)=>state.mylist);
-  const {user_info,IsLogin} = useSelector(state=>state.user)
+  const {user_info
+    // ,IsLogin
+  } = useSelector(state=>state.user)
   const [input,setInput] = useState(''); 
   const router = useRouter()
   const {type} = router.query

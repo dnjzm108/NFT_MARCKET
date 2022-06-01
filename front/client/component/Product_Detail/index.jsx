@@ -5,7 +5,9 @@ import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Navigation from '../Navigation';
 import Button from '../Button'
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState
+    // , useRef 
+} from 'react';
 import { useSelector } from 'react-redux';
 import { Auction, Auction_History } from './Auction_Box';
 // import NowPopup from "./NowPopup"

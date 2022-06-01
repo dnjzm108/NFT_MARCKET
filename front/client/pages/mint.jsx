@@ -1,8 +1,10 @@
 import Release from '../container/release'
-import axios from 'axios'
+// import axios from 'axios'
 import {END} from 'redux-saga'
 import wrapper from '../store/configureStore'
-import {Mint_MainCate_Request , Mint_MiddleCate_Request, Getcategory_REQUEST} from '../reducers/mint'
+import {
+  // Mint_MainCate_Request , Mint_MiddleCate_Request,
+   Getcategory_REQUEST} from '../reducers/mint'
 
 
 

@@ -1,16 +1,18 @@
 import Navigation from "../../../component/Navigation";
 import Info from "../../../container/Info";
 import SideMenu from "../../../component/SideMenu";
-import NFTList from "../../../component/MyNFT/NFTList";
+import NFTList from "../../../component/myNFT/NFTList";
 import FavoriteGallery from "../../../component/FavoriteGallery";
 import { useSelector,useDispatch } from "react-redux";
 import { useRouter } from 'next/router'
 import { Pageblock } from "../../../component/Pageblock";
-import { statusList,sortList } from "../../../component/MyNFT/NFTList/list";
+// import { statusList,sortList } from "../../../component/myNFT/NFTList/list";
 import { ListUpdateRequest } from "../../../reducers/mylist";
-import { ExploreRequest } from "../../../reducers/explore";
-import {useState,useEffect} from 'react'
-import Rowfilter from '../../../component/Rowfilter'
+// import { ExploreRequest } from "../../../reducers/explore";
+import {
+  // useState,
+  useEffect} from 'react'
+// import Rowfilter from '../../../component/Rowfilter'
 
 const List = () => {
   const {user_info} = useSelector(state => state.user)
