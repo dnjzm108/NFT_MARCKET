@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const NavigationWrap = styled.div`
   position: sticky;
-  z-index: 50;
+  z-index: 2;
   top:0;
   left:0;
   width: 100vw;
